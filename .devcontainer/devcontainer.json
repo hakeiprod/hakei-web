@@ -1,11 +1,10 @@
 {
   "name": "hakei-web",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "web",
-  "workspaceFolder": "/workspace",
-  "forwardPorts": [3000, 5432],
+  "image": "node:20-alpine",
   "features": {
-    "ghcr.io/devcontainers/features/git:1": {}
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-bash:0": {},
+    "ghcr.io/cirolosapio/devcontainers-features/alpine-openssh:0": {}
   },
   "customizations": {
     "vscode": {
