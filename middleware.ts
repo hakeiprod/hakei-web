@@ -1,1 +1,1 @@
-export { auth as middleware } from "./src/auth"
+export { auth as middleware } from "./src/auth";
