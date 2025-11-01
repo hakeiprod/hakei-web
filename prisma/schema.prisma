@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../app/generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -65,4 +65,46 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
+model Resource{
+  id       Int      @id @default(autoincrement())
+  name     String
+  
+  music  Music?  
+  album  Album?  
+  artist Artist? 
+}
 
+enum SearchableType {
+  MUSIC
+  ARTIST
+  ALBUM
+}
+
+
+model Music {
+  id        Int      @id @default(autoincrement())
+
+  resourceId Int      @unique
+  resource Resource @relation(fields: [resourceId], references: [id])
+}
+
+model Artist {
+  id        Int      @id @default(autoincrement())
+
+  resourceId Int      @unique
+  resource Resource @relation(fields: [resourceId], references: [id])
+}
+
+model Album {
+  id        Int      @id @default(autoincrement())
+
+  resourceId Int      @unique
+  resource Resource @relation(fields: [resourceId], references: [id])
+}
+
+enum ResourceUnionType {
+  Music
+  Artist
+  Album
+  Band
+}

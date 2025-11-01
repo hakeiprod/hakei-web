@@ -1,6 +1,6 @@
 "use client";
-import { PlayPauseButton } from "@/components/play-pause-button";
-import { VolumeSlider } from "@/components/volume-slider";
+import { PlayPauseButton } from "@/components/buttn-play-pause";
+import { VolumeSlider } from "@/components/slider-volume";
 import { Button, ButtonGroup } from "@heroui/react";
 import { FastForward, Rewind, Square } from "lucide-react";
 
