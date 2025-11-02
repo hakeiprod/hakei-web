@@ -9,6 +9,11 @@ generator client {
   output   = "../src/generated/prisma"
 }
 
+generator zod {
+  provider = "prisma-zod-generator"
+  output   = "../src/generated/zod"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -69,7 +74,7 @@ model Resource{
   id       Int      @id @default(autoincrement())
   name     String
   
-  music  Music?  
+  music  Music? 
   album  Album?  
   artist Artist? 
 }

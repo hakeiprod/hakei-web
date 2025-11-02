@@ -1,3 +1,4 @@
+"use client";
 import { useState } from "react";
 import { Button, Slider, SliderValue } from "@heroui/react";
 import { Volume1, Volume2, VolumeX } from "lucide-react";

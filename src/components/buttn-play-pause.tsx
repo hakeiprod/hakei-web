@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@heroui/button";
 import { Pause, Play } from "lucide-react";
 import { useState } from "react";

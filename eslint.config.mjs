@@ -14,10 +14,16 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "src/app/generated/prisma",
+    "src/generated/prisma",
+    "src/generated/zod",
   ]),
   eslintPluginUnicorn.configs.recommended,
   prettier,
+  {
+    rules: {
+      "unicorn/no-null": "off",
+    },
+  },
 ]);
 
 export default eslintConfig;
