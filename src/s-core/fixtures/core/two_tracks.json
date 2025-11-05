@@ -1,0 +1,10 @@
+{
+  "tracks": [
+    {
+      "notes": [{ "pitch": 60, "start": 0, "duration": 1 }]
+    },
+    {
+      "notes": [{ "pitch": 60, "start": 0, "duration": 1 }]
+    }
+  ]
+}

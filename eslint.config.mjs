@@ -3,6 +3,7 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import prettier from "eslint-config-prettier";
 import eslintPluginUnicorn from "eslint-plugin-unicorn";
+import importPlugin from "eslint-plugin-import";
 
 const eslintConfig = defineConfig([
   ...nextVitals,
@@ -18,10 +19,20 @@ const eslintConfig = defineConfig([
     "src/generated/zod",
   ]),
   eslintPluginUnicorn.configs.recommended,
+  importPlugin.flatConfig.recommended,
   prettier,
   {
     rules: {
       "unicorn/no-null": "off",
+      "unicorn/require-module-specifiers": "off",
+      "unicorn/no-array-callback-reference": "off",
+    },
+  },
+  {
+    rules: {
+      "no-useless-rename": ["error"],
+      "no-void": ["error"],
+      "no-self-compare": ["error"],
     },
   },
 ]);

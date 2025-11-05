@@ -1,0 +1,12 @@
+{
+  "tracks": [
+    {
+      "notes": [
+        { "pitch": 60, "start": 0, "duration": 4 },
+        { "pitch": 64, "start": 1, "duration": 3 },
+        { "pitch": 67, "start": 2, "duration": 2 },
+        { "pitch": 72, "start": 3, "duration": 1 }
+      ]
+    }
+  ]
+}

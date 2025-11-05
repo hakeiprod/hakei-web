@@ -1,0 +1,31 @@
+interface Metadata {
+  id: ['MThd', 'MTrk'],
+  mthd: {header: {type: {length: 4}}},
+  mtrk: {
+    header: {type: {length: 4}},
+    deltaTime: {readUntil: 128},
+    midiEvent: {type: [8, 9, 12]},
+    metaEvent: {type: 15, channel: 15},
+    sysExEvet: {type: 15, channel: [0, 7]},
+    midiEvents: {noteOff: {type: 8}, noteOn: {type: 9}},
+    metaEvents: {
+      sequenceNumber: {name: 'sequenceNumber', type: 0},
+      text: {name: 'text', type: 1},
+      copyright: {name: 'copyright', type: 2},
+      trackName: {name: 'trackName', type: 3},
+      instrumentName: {name: 'instrumentName', type: 4},
+      lyric: {name: 'marker', type: 5},
+      marker: {name: 'marker', type: 6},
+      programName: {name: 'programName', type: 8},
+      deviceName: {name: 'deviceName', type: 9},
+      endOfTrack: {name: 'endOfTrack', type: 47},
+      tempo: {name: 'tempo', type: 81},
+      timeSignature: {name: 'timeSignature', type: 88},
+      keySignature: {name: 'keySignature', type: 89}
+    }
+  }
+}
+
+declare const Metadata: Metadata;
+
+export = Metadata;

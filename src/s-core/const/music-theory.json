@@ -1,0 +1,22 @@
+{
+  "pitchClasses": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "accidentalPitchClasses": [1, 3, 6, 8, 10],
+  "orderOfSharps": [5, 0, 7, 2, 9, 4, 11],
+  "orderOfFlats": [11, 4, 9, 2, 7, 0, 5],
+  "accidentals": ["#", "b"],
+  "diatonicScale": ["C", "D", "E", "F", "G", "A", "B"],
+  "chromaticScale": [
+    "C",
+    null,
+    "D",
+    null,
+    "E",
+    "F",
+    null,
+    "G",
+    null,
+    "A",
+    null,
+    "B"
+  ]
+}

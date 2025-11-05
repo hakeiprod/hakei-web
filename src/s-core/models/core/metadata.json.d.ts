@@ -1,0 +1,19 @@
+export default {
+  defaultValue: {
+    track: {
+      preset: 0,
+    },
+    note: {
+      velocity: 102,
+    },
+    timesignatures: {
+      denominator: 4,
+      numerator: 4,
+    },
+    keysignatures: {
+      tonality: 0,
+      accidental: 0,
+    },
+    tempos: { value: 120 },
+  },
+} as const;
