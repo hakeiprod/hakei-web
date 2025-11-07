@@ -16,25 +16,24 @@ import {
 } from "remeda";
 
 export class Controller {
+  public score: Score;
   constructor(
-    public score: Score,
-    public layoutType: LayoutType,
-    public scale: number
+    score: Score,
+    public options: { scale: number; layoutType: LayoutType }
   ) {
-    this.layoutType = layoutType;
-    this.layout(layoutType);
+    this.score = score;
   }
-  layout(layoutType: LayoutType) {
-    match(layoutType)
+  layout() {
+    match(this.options.layoutType)
       .with(LayoutType.Page as 2, () => {})
       .with(LayoutType.Horizontal as 0, () => {
-        for (const masterbar of this.score.masterbars) masterbar.rowId = 0;
+        for (const masterbar of this.score?.masterbars) masterbar.rowId = 0;
         this.score.rows = [new Row({ id: 0 })];
       })
       .with(LayoutType.Vertical as 1, () => {
         this.score.rows = splitByWidth(
           this.score.masterbars,
-          window.innerWidth / this.scale,
+          window.innerWidth / this.options.scale,
           (mb) => mb.minWidth
         ).map((masterbars, id) => {
           for (const masterbar of masterbars) masterbar.rowId = id;
@@ -69,7 +68,7 @@ export class Controller {
         groupBy(prop("start", "value")),
         entries()
       );
-      match(this.layoutType)
+      match(this.options.layoutType)
         .with(LayoutType.Page as 2, () => {
           console.log(height);
         })
@@ -80,7 +79,7 @@ export class Controller {
         })
         .with(LayoutType.Vertical as 1, () => {
           const space =
-            (width / this.scale - row.minWidth) /
+            (width / this.options.scale - row.minWidth) /
             pipe(groupedByStartEvents, length());
           for (const [, events] of groupedByStartEvents)
             for (const event of events)

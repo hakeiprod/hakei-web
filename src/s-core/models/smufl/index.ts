@@ -10,6 +10,7 @@ export * from "./note";
 export * from "./score";
 export * from "./track";
 export * from "./glyph";
+export * from "./controller";
 
 export const getGlyphBBox = (glyphName: keyof Glyphnames) =>
   BravuraMetadata.glyphBBoxes[

@@ -1,10 +1,11 @@
-import { InputSearch } from "@/components/input-serch";
+import { Header } from "@/components/header";
 import { HydrateClient } from "@/trpc/server";
 
 export default function Home() {
   return (
     <HydrateClient>
-      <InputSearch />
+      <Header />
+      Home
     </HydrateClient>
   );
 }

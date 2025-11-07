@@ -5,7 +5,7 @@ import * as Sheet from "../../sheet";
 import { match, P } from "ts-pattern";
 import { first, last } from "remeda";
 
-declare module "../../smufl" {
+declare module "../" {
   interface Score {
     toSVG: (
       height: number,
@@ -25,9 +25,9 @@ SMUFL.Score.prototype.toSVG = function (
   svg ??= d3.create("svg");
   svg
     .attr("font-size", options.ratio)
-    .attr("viewBox", `0 0 ${width / options.scale} ${height / options.scale}`)
-    .attr("height", height)
-    .attr("width", width)
+    .attr("viewBox", `0 0 ${this.width} ${this.height}`)
+    .attr("height", this.height * options.scale)
+    .attr("width", this.width * options.scale)
     .selectAll("g[type=score]")
     .data([this])
     .join("g")

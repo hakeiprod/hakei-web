@@ -1,8 +1,9 @@
 "use client";
 import { trpc } from "@/trpc/client";
 import { Autocomplete, AutocompleteItem } from "@heroui/autocomplete";
-import { Disc, Music, Search } from "lucide-react";
-import { useState } from "react";
+import { Disc, Music, Search, User } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { match, P } from "ts-pattern";
 
 export function InputSearch() {
@@ -12,6 +13,10 @@ export function InputSearch() {
     where: { name: { contains: value } },
     take: 5,
   });
+  const router = useRouter();
+  function handleOnKeyDown(e: ReactKeyboardEvent<HTMLInputElement>) {
+    if (e.code === "Enter") router.push("/resource?query=" + value);
+  }
 
   return (
     <Autocomplete
@@ -22,6 +27,7 @@ export function InputSearch() {
       defaultItems={data ?? []}
       startContent={<Search />}
       onInputChange={setValue}
+      onKeyDown={handleOnKeyDown}
     >
       {(item) => (
         <AutocompleteItem
@@ -30,6 +36,7 @@ export function InputSearch() {
           startContent={match(item as unknown)
             .with({ album: P.nonNullable }, () => <Disc />)
             .with({ music: P.nonNullable }, () => <Music />)
+            .with({ artist: P.nonNullable }, () => <User />)
             .otherwise(() => null)}
         >
           {item.name}

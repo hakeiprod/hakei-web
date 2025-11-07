@@ -3,11 +3,11 @@ import * as Midi from "../files/standard-midi-file";
 import { Zip } from "../files/zip";
 import * as xml2js from "xml2js";
 import * as MusicXml from "../files/musicxml";
-import "core/extensions/to_sheet";
-import "core/extensions/to_audio";
-import "musicxml/extensions/to_sheet";
-import "sheet/extensions/to_smufl";
-import "smufl/extensions/to_svg";
+import "../core/extensions/to-sheet";
+import "../core/extensions/to-audio";
+import "../files/musicxml/extensions/to-sheet";
+import "../sheet/extensions/to-smufl";
+import "../smufl/extensions/to_svg";
 import "../audio/extensions/to-browser-audio";
 import { ScorePartwise } from "../../const/musicxml/4.0/musicxml";
 import { parseNumbers } from "xml2js/lib/processors";
@@ -17,6 +17,10 @@ export class Importer {
   async import(file: File) {
     const reader = new FileReader();
     const extname = file.name.slice(file.name.lastIndexOf("."));
+    if (file.type === "application/json") reader.readAsText(file);
+    if (file.type === "audio/mid" || extname === ".mxl")
+      reader.readAsArrayBuffer(file);
+    await new Promise<void>((resolve) => (reader.onload = () => resolve()));
     if (file.type === "application/json") reader.readAsText(file, "ascii");
     if (reader.result instanceof ArrayBuffer) {
       if (file.type === "audio/mid")
