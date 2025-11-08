@@ -13,7 +13,9 @@ Core.Score.prototype.toAudio = function (this: Core.Score) {
     ...this.params,
     tracks: this.tracks.map((track) => ({
       ...track.params,
-      notes: track.notes.map(({ params }) => params),
+      notes: track.notes
+        .filter((note) => note.pitch.value !== -1)
+        .map(({ params }) => params),
     })),
     keysignatures: this.keysignatures.map(({ params }) => params),
   });
