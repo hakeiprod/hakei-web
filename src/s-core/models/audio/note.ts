@@ -5,6 +5,15 @@ import { firstBy, prop } from "remeda";
 
 export class Note extends Core.Note {
   score!: Audio.Score;
+  onNoteOn;
+  onNoteOff;
+  override get params() {
+    return {
+      ...super.params,
+      onNoteOff: this.onNoteOff,
+      onNoteOn: this.onNoteOn,
+    };
+  }
   get tempo() {
     return this.score.tempos.find((tempo) => tempo.isOverlapped(this))!;
   }
@@ -26,5 +35,16 @@ export class Note extends Core.Note {
   }
   get isLast() {
     return firstBy(this.score.notes, [prop("end"), "desc"]) === this;
+  }
+  constructor(
+    note: {
+      onNoteOn?: () => void;
+      onNoteOff?: () => void;
+    } & ConstructorParameters<typeof Core.Note>[0]
+  ) {
+    const { onNoteOn, onNoteOff } = note;
+    super(note);
+    this.onNoteOn = onNoteOn;
+    this.onNoteOff = onNoteOff;
   }
 }

@@ -155,9 +155,10 @@ export class Score<
       ) as [Core.Tempo, ...Core.Tempo[]],
       notes: parameter.tracks.flatMap((track, trackId) =>
         track.notes.map(
-          ({ start, duration, end, ...note }) =>
+          ({ start, duration, end, ...note }, id) =>
             new Core.Note({
               ...note,
+              id,
               trackId,
               velocity: note.velocity ?? defaultValue.note.velocity,
               pitch: new Core.Units.MidiNoteNumber(note.pitch),
@@ -191,24 +192,21 @@ export class Score<
   }
 }
 
-type EventParameter = {
+interface EventParameter {
   start?: number;
   duration?: number;
   end?: number;
-};
-type Parameter = {
+}
+export interface Parameter<Track = {}, Note = {}> {
   tracks: Merge<
     Omit<ConstructorParameters<typeof Core.Track>[0], "score" | "id">,
     EventParameter & {
       preset?: number;
       notes: Merge<
-        Omit<
-          ConstructorParameters<typeof Core.Note>[0],
-          "id" | "trackId" | "chordId"
-        >,
-        EventParameter & { pitch: number; velocity?: number }
+        Omit<ConstructorParameters<typeof Core.Note>[0], "id" | "trackId">,
+        EventParameter & { pitch: number; velocity?: number } & Note
       >[];
-    }
+    } & Track
   >[];
   keysignatures?: Merge<
     ConstructorParameters<typeof Core.Keysignature>[0],
@@ -222,4 +220,4 @@ type Parameter = {
     ConstructorParameters<typeof Core.Tempo>[0],
     EventParameter & { value: number }
   >[];
-};
+}

@@ -11,6 +11,8 @@ export class Synth {
   audioContext;
   sample;
   pitch;
+  onNoteOn?: () => void;
+  onNoteOff?: () => void;
   // private filterEnvelope;
   private gainEnvelope;
   constructor({
@@ -139,6 +141,14 @@ export class Synth {
     bufferSource.addEventListener("ended", () =>
       bufferSource.disconnect(this.gain)
     );
+    const started = () => {
+      if (time <= this.audioContext.currentTime) {
+        return this.onNoteOn?.();
+      }
+      requestAnimationFrame(started);
+    };
+    started();
+
     bufferSource.start(time);
 
     this.gainEnvelope.noteOn(time);
@@ -154,6 +164,11 @@ export class Synth {
       // ) +
       time
     );
+    const stoped = () => {
+      if (time <= this.audioContext.currentTime) return this.onNoteOff?.();
+      requestAnimationFrame(stoped);
+    };
+    stoped();
     this.gainEnvelope.noteOff(time);
     // this.filterEnvelope.noteOff(time);
   }

@@ -7,21 +7,63 @@ import { first, last } from "remeda";
 
 declare module "../" {
   interface Score {
-    toSVG: (
-      height: number,
-      width: number,
-      options: { ratio: number; scale: number }
-    ) => SVGSVGElement | null;
+    toSVG: (options: { ratio: number; scale: number }) => SVGSVGElement | null;
   }
 }
 
 let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
-SMUFL.Score.prototype.toSVG = function (
-  this: SMUFL.Score,
-  width,
-  height,
-  options
-) {
+SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
+  const ligatureToSVG = (
+    element: d3.BaseType | SVGGElement,
+    ligature: Sheet.Ligature
+  ) => {
+    const group = d3
+      .select(element)
+      .selectAll("g[type=ligature]")
+      .data([ligature])
+      .join("g")
+      .attr("type", "ligature")
+      .attr(
+        "transform",
+        `translate(${ligature.boundingBox.x}, ${-ligature.line})`
+      )
+      .attr("test", JSON.stringify(ligature.attributes))
+      .attr("width", ligature.width)
+      .call((g) => {
+        g.selectAll("g[type=glyphOrLigature]")
+          .data(ligature.glyphLists.flat())
+          .join("g")
+          .attr("type", "glyphOrLigature")
+          .each(function (glyphOrLigature) {
+            const g = d3.select(this);
+            match(glyphOrLigature)
+              .with(P.instanceOf(SMUFL.Glyph), (glyph) =>
+                g
+                  .selectAll("text")
+                  .data([glyph])
+                  .join("text")
+                  .attr("type", "glyph")
+                  .attr("x", glyph.boundingBox.x)
+                  .attr("y", -glyph.line)
+                  .attr("width", glyph.width)
+                  .attr("fill", ligature.style.color ?? "")
+                  .text(String.fromCodePoint(glyph.codepoint))
+              )
+              .with(P.instanceOf(Sheet.Ligature), (childLigature) => {
+                // TODO: このまーじはここですべきではない
+                childLigature.style = {
+                  ...childLigature.style,
+                  ...ligature.style,
+                };
+                ligatureToSVG(g.node() as SVGGElement, childLigature);
+              });
+          });
+      });
+    ligature.onStyleChange = () => {
+      group.attr("fill", ligature.style.color ?? "");
+    };
+  };
+
   svg ??= d3.create("svg");
   svg
     .attr("font-size", options.ratio)
@@ -277,47 +319,6 @@ SMUFL.Score.prototype.toSVG = function (
             });
         });
     });
-
-  function ligatureToSVG(
-    element: d3.BaseType | SVGGElement,
-    ligature: Sheet.Ligature
-  ) {
-    d3.select(element)
-      .selectAll("g[type=ligature]")
-      .data([ligature])
-      .join("g")
-      .attr("type", "ligature")
-      .attr(
-        "transform",
-        `translate(${ligature.boundingBox.x}, ${-ligature.line})`
-      )
-      .attr("test", JSON.stringify(ligature.attributes))
-      .attr("width", ligature.width)
-      .call((g) => {
-        g.selectAll("text[type=glyphOrLigature]")
-          .data(ligature.glyphLists.flat())
-          .join("g")
-          .attr("type", "glyphOrLigature")
-          .each(function (glyphOrLigature) {
-            const g = d3.select(this);
-            match(glyphOrLigature)
-              .with(P.instanceOf(SMUFL.Glyph), (glyph) =>
-                g
-                  .selectAll("text")
-                  .data([glyph])
-                  .join("text")
-                  .attr("type", "glyph")
-                  .attr("x", glyph.boundingBox.x)
-                  .attr("y", -glyph.line)
-                  .attr("width", glyph.width)
-                  .text(String.fromCodePoint(glyph.codepoint))
-              )
-              .with(P.instanceOf(Sheet.Ligature), (childLigature) =>
-                ligatureToSVG(g.node() as SVGGElement, childLigature)
-              );
-          });
-      });
-  }
 
   return svg.node();
 };

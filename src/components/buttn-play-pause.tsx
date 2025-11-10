@@ -1,7 +1,6 @@
 "use client";
 import { Button, ButtonProps } from "@heroui/button";
 import { Pause, Play } from "lucide-react";
-import { useState } from "react";
 
 interface ButtonPlayProps extends Omit<ButtonProps, "value" | "onPress"> {
   isPlaying: boolean;

@@ -26,6 +26,8 @@ export class Controller {
           preset,
           audioContext,
         });
+        synth.onNoteOn = note.onNoteOn;
+        synth.onNoteOff = note.onNoteOff;
         synth.gain.connect(trackGain);
         this.notes.push({ note, synth });
       }

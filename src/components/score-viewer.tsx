@@ -31,34 +31,24 @@ export function ScoreViewer({ score }: { score?: SMUFL.Score }) {
     setScale(value);
     controller.options.scale = value;
     controller.layout();
-    controller.score.toSVG(window.innerWidth, window.innerHeight, {
-      ratio: 4,
-      scale: controller.options.scale,
-    });
+    controller.score.toSVG({ ratio: 4, scale: controller.options.scale });
   }
   const handleLayoutTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (!controller) return;
     setLayoutType(Number(e.target.value));
     controller.options.layoutType = Number(e.target.value);
     controller.layout();
-    controller.score.toSVG(window.innerWidth, window.innerHeight, {
-      ratio: 4,
-      scale: controller.options.scale,
-    });
+    controller.score.toSVG({ ratio: 4, scale: controller.options.scale });
   };
   useEffect(() => {
     if (score) {
       const controller = new SMUFL.Controller(score, { scale, layoutType });
       setController(controller);
       controller.layout();
-      const svg = controller.score.toSVG(
-        window.innerWidth,
-        window.innerHeight,
-        {
-          ratio: 4,
-          scale: controller.options.scale,
-        }
-      );
+      const svg = controller.score.toSVG({
+        ratio: 4,
+        scale: controller.options.scale,
+      });
       if (!ref.current?.hasChildNodes() && svg) ref.current?.appendChild(svg);
     }
   }, [score]);
