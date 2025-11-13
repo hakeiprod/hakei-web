@@ -5,7 +5,7 @@ import * as Sheet from "../../sheet";
 import { match, P } from "ts-pattern";
 import { first, last } from "remeda";
 
-declare module "../" {
+declare module ".." {
   interface Score {
     toSVG: (options: { ratio: number; scale: number }) => SVGSVGElement | null;
   }
@@ -27,16 +27,16 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
         "transform",
         `translate(${ligature.boundingBox.x}, ${-ligature.line})`
       )
-      .attr("test", JSON.stringify(ligature.attributes))
+      .attr("attr", JSON.stringify(ligature.attributes))
       .attr("width", ligature.width)
       .call((g) => {
-        g.selectAll("g[type=glyphOrLigature]")
-          .data(ligature.glyphLists.flat())
+        g.selectAll("g[type=children]")
+          .data(ligature.children.flat())
           .join("g")
-          .attr("type", "glyphOrLigature")
-          .each(function (glyphOrLigature) {
+          .attr("type", "children")
+          .each(function (children) {
             const g = d3.select(this);
-            match(glyphOrLigature)
+            match(children)
               .with(P.instanceOf(SMUFL.Glyph), (glyph) =>
                 g
                   .selectAll("text")
@@ -224,20 +224,19 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                           createTranslate(0, stave.y)
                         )
                         .each(function (stave) {
-                          if (stave.ligature)
-                            ligatureToSVG(this, stave.ligature);
+                          ligatureToSVG(this, stave.ligature);
                           const g = d3.select(this);
                           g.selectAll("g[type=beam]")
                             .data(stave.beams)
                             .join("g")
                             .attr("type", "beam")
-                            .attr(
+                            /* .attr(
                               "transform",
                               createTranslate(
                                 stave.metadataLigature?.width ?? 0,
                                 0
                               )
-                            )
+                            ) */
                             .each(function (beam) {
                               const g = d3.select(this);
                               g.selectAll("path")

@@ -25,7 +25,7 @@ export const appRouter = createTRPCRouter({
     infinity: baseProcedure
       .input(
         z.object({
-          where: ResourceWhereInputObjectSchema,
+          where: ResourceWhereInputObjectSchema.nullish(),
           include: ResourceIncludeObjectSchema,
           limit: z.number().min(1).max(100).nullish(),
           cursor: z.number().nullish(), // <-- "cursor" needs to exist, but can be any type
@@ -37,7 +37,7 @@ export const appRouter = createTRPCRouter({
         const limit = input.limit ?? 50;
         const { cursor } = input;
         const items = await prisma.resource.findMany({
-          where: input.where,
+          where: input.where ?? void 0,
           include: input.include,
           take: limit + 1, // get an extra item at the end which we'll use as next cursor
           // where: {

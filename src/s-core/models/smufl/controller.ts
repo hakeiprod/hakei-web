@@ -4,8 +4,15 @@ export class Controller extends Sheet.Controller {
   declare public score: SMUFL.Score;
   constructor(
     score: SMUFL.Score,
-    public options: Sheet.ControllerOptions
+    public options: ConstructorParameters<typeof Sheet.Controller>[1]
   ) {
     super(score, options);
+  }
+  render() {
+    this.layout();
+    this.space(window.innerWidth, window.innerHeight);
+    this.order();
+    this.align();
+    return this.score.toSVG({ ratio: 4, scale: this.options.scale });
   }
 }

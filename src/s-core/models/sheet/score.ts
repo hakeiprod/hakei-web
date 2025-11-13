@@ -169,7 +169,7 @@ export class Score<
                 else accumulator.push([array[index - 1]!, current]);
               return accumulator;
             },
-            [] as NoteParameter[][]
+            [] as Parameter["tracks"][number]["notes"][number][][]
           )
         )
       ),
@@ -290,7 +290,7 @@ export class Score<
           ({ start, duration, end, ...note }, id) =>
             new Sheet.Note({
               ...note,
-              id,
+              id: note.id ?? id,
               trackId,
               pitch: new Core.Units.MidiNoteNumber(note.pitch),
               ...pipe(
@@ -403,34 +403,21 @@ export class Score<
     return score;
   }
 }
-type EventParameter = {
-  start?: number;
-  duration?: number;
-  end?: number;
-};
-type NoteParameter = Merge<
-  Omit<ConstructorParameters<typeof Sheet.Note>[0], "id" | "trackId">,
-  EventParameter & { pitch: number; chord: boolean }
->;
-type Parameter = Merge<
-  Parameters<typeof Core.Score.create>[0],
-  {
-    tracks: Merge<
-      Parameters<typeof Core.Score.create>[0]["tracks"][number],
-      {
-        notes: NoteParameter[];
-        staffDetails: StaffDetails;
-      }
-    >[];
-    masterbars?: Merge<
-      ConstructorParameters<typeof Sheet.Masterbar>[0],
-      EventParameter
-    >[];
-    bars?: ConstructorParameters<typeof Sheet.Bar>[0][];
-    staves?: ConstructorParameters<typeof Sheet.Stave>[0][];
-    chords?: Merge<
-      ConstructorParameters<typeof Sheet.Chord>[0],
-      EventParameter
-    >[];
-  }
->;
+export interface Parameter
+  extends Core.Parameter<
+    ConstructorParameters<typeof Sheet.Track>[0],
+    ConstructorParameters<typeof Sheet.Note>[0],
+    { staffDetails: StaffDetails },
+    { chord?: boolean; chordId?: number; velocity: number }
+  > {
+  masterbars?: Merge<
+    ConstructorParameters<typeof Sheet.Masterbar>[0],
+    Core.EventParameter
+  >[];
+  bars?: ConstructorParameters<typeof Sheet.Bar>[0][];
+  staves?: ConstructorParameters<typeof Sheet.Stave>[0][];
+  chords?: Merge<
+    ConstructorParameters<typeof Sheet.Chord>[0],
+    Core.EventParameter
+  >[];
+}

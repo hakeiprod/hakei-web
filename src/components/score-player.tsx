@@ -13,7 +13,6 @@ import { useAtom } from "jotai";
 import { masterVolumeAtom } from "@/store/master-volume";
 
 export function ScorePlayer({ score }: { score?: Audio.Score }) {
-  const audioContextRef = useRef<AudioContext | null>(null);
   const [controller, setController] = useState<BrowserAudio.Controller>();
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -34,28 +33,27 @@ export function ScorePlayer({ score }: { score?: Audio.Score }) {
     setMasterVolume(!isMute ? 0 : previousVolume);
     setIsMute(!isMute);
   }
-  function handlePress(value: boolean) {
+  function handlePlay(value: boolean) {
     setIsPlaying(!value);
-    if (!value) controller?.play(audioContextRef.current?.currentTime ?? 0);
+    if (!value) controller?.play();
     else controller?.pause();
   }
+  function handleStop() {
+    setIsPlaying(false);
+    controller?.stop();
+  }
   useEffect(() => {
-    if (!audioContextRef.current) audioContextRef.current = new AudioContext();
     fetch("/A320U.sf2")
       .then((res) => res.arrayBuffer())
       .then((buf) => setSoundfont2(Soundfont2.create(buf)));
   }, []);
   useEffect(() => {
-    if (!controller && score && soundfont2 && audioContextRef.current) {
-      const controller = new BrowserAudio.Controller(
-        score,
-        audioContextRef.current,
-        soundfont2
-      );
+    if (!controller && score && soundfont2) {
+      const controller = new BrowserAudio.Controller(score, soundfont2);
       controller.masterGain.gain.value = masterVolume / 100;
       setController(controller);
     }
-  }, [score, soundfont2, audioContextRef]);
+  }, [score, soundfont2]);
 
   return (
     <Navbar>
@@ -66,10 +64,10 @@ export function ScorePlayer({ score }: { score?: Audio.Score }) {
         <Button>
           <FastForward color="white" />
         </Button>
-        <Button>
+        <Button onPress={handleStop}>
           <Square color="white" />
         </Button>
-        <ButtonPlayPause isPlaying={isPlaying} onPress={handlePress} />
+        <ButtonPlayPause isPlaying={isPlaying} onPress={handlePlay} />
       </ButtonGroup>
       <VolumeSlider
         value={masterVolume}

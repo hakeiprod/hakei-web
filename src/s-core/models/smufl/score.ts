@@ -23,8 +23,8 @@ export class Score<
   Keysignature,
   Tempo
 > {
-  static override create(...parameters: Parameters<typeof Sheet.Score.create>) {
-    const sheet = super.create(...parameters);
+  static override create(parameters: Sheet.Parameter) {
+    const sheet = super.create(parameters);
     const score = new SMUFL.Score({
       ...sheet,
       tracks: sheet.tracks.map((track) => new SMUFL.Track(track)),

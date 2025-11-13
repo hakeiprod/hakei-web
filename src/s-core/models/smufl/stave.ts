@@ -22,7 +22,7 @@ export class Stave extends Sheet.Stave {
     const handleLigature = (
       ligature: Sheet.Ligature<SMUFL.Glyph | Sheet.Glyph>
     ) => {
-      ligature.glyphLists = ligature.glyphLists.map((glyphs) =>
+      ligature.children = ligature.children.map((glyphs) =>
         pipe(
           glyphs,
           map((glyph) =>
@@ -91,6 +91,6 @@ export class Stave extends Sheet.Stave {
       return ligature;
     };
     super.draw();
-    this.ligature = this.ligature && handleLigature(this.ligature);
+    this.ligature = handleLigature(this.ligature);
   }
 }

@@ -1,19 +1,22 @@
 {
-  "spacing": {
-    "clef": {},
-    "timesignature": {},
-    "keysignature": {},
-    "note": {
-      "left": 0,
-      "right": 2
-    },
-    "stave": {
-      "spaceing": 6.5
-    }
-  },
   "defaultValue": {
     "scale": 8,
     "layoutType": 0,
-    "spaced": true
+    "spaced": true,
+    "spacing": {
+      "clef": {},
+      "timesignature": {},
+      "keysignature": {},
+      "note": {
+        "left": 2,
+        "right": 2
+      },
+      "barline": {
+        "right": 2
+      },
+      "stave": {
+        "spaceing": 6.5
+      }
+    }
   }
 }

@@ -1,8 +1,10 @@
 import { CSSProperties } from "react";
 import { BoundingBox } from "../boundingbox";
 import { Inset } from "../inset";
+import { Ligature } from "./ligature";
 
 export class Element {
+  parent: Ligature | null = null;
   boundingBox = new BoundingBox(0, 0, 0, 0);
   inset = new Inset(0, 0, 0, 0);
   style: CSSProperties = {};
@@ -21,7 +23,6 @@ export class Element {
   }
   constructor(public attributes: Record<string, string> = {}) {}
   setStyle(value: typeof this.style) {
-    console.log(value);
     this.style = value;
     this.onStyleChange?.(this.style);
   }

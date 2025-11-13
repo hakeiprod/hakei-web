@@ -5,7 +5,9 @@ export default function Resources() {
   return (
     <>
       <Header />
-      <TableResource />
+      <div className="container">
+        <TableResource />
+      </div>
     </>
   );
 }

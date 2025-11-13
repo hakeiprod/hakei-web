@@ -6,7 +6,7 @@ import {
   Stem,
 } from "../../const/musicxml/4.0/musicxml";
 import { P, match } from "ts-pattern";
-import { filter, isTruthy, times } from "remeda";
+import { times } from "remeda";
 
 export class Note extends Core.Note {
   readonly id;
@@ -17,7 +17,7 @@ export class Note extends Core.Note {
   voice;
   beam;
   flag: null = null;
-  ligature: Sheet.Ligature | null = null;
+  ligature = new Sheet.Ligature(undefined, { type: "note" });
   score!: Sheet.Score;
   override get params() {
     return {
@@ -135,39 +135,26 @@ export class Note extends Core.Note {
     this.beam = beam;
   }
   draw() {
-    this.ligature = new Sheet.Ligature(
-      filter(
-        [
-          this.accidental
-            ? [new Sheet.Glyph(Sheet.ElementType.Accidental, 0)]
-            : null,
-          [
-            ...(this.legerLine
-              ? times(
-                  this.legerLine,
-                  () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0)
-                )
-              : []),
-            this.rest
-              ? new Sheet.Glyph(Sheet.ElementType.Rest, 0)
-              : new Sheet.Ligature(
-                  filter(
-                    [
-                      [new Sheet.Glyph(Sheet.ElementType.Notehead, 0)],
-                      this.stem
-                        ? [new Sheet.Glyph(Sheet.ElementType.Stem, 0)]
-                        : null,
-                    ],
-                    isTruthy
-                  ),
-                  0
-                ),
-          ],
-          ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)]),
-        ],
-        isTruthy
-      ),
-      this.line
+    const noteLigature = new Sheet.Ligature();
+    noteLigature.append([new Sheet.Glyph(Sheet.ElementType.Notehead, 0)]);
+    if (this.stem)
+      noteLigature.append([new Sheet.Glyph(Sheet.ElementType.Stem, 0)]);
+
+    if (this.accidental)
+      this.ligature.append([new Sheet.Glyph(Sheet.ElementType.Accidental, 0)]);
+
+    this.ligature.line = this.line;
+    this.ligature.append(
+      [
+        ...(this.legerLine
+          ? times(
+              this.legerLine,
+              () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0)
+            )
+          : []),
+        this.rest ? new Sheet.Glyph(Sheet.ElementType.Rest, 0) : noteLigature,
+      ],
+      ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)])
     );
   }
 }

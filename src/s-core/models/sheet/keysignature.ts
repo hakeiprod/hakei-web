@@ -8,9 +8,10 @@ import { PitchClassName } from "../core/units";
 import { match } from "ts-pattern";
 
 export class Keysignature extends Core.Keysignature {
-  get ligature() {
-    return new Ligature(
-      this.accidentalPitchClasses.map((pitchClass) => [
+  ligature = new Ligature(undefined, { type: "keysignature" });
+  draw() {
+    this.ligature.append(
+      ...this.accidentalPitchClasses.map((pitchClass) => [
         new Glyph(
           ElementType.Accidental,
           pipe(pitchClass.toPitchClassName(this.tonality).toneIndex, (n) => {
@@ -30,8 +31,7 @@ export class Keysignature extends Core.Keysignature {
             );
           })
         ),
-      ]),
-      0
+      ])
     );
   }
 }

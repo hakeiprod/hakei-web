@@ -4,9 +4,7 @@ import { Clef } from "../../const/musicxml/4.0/musicxml";
 import { match, P } from "ts-pattern";
 import {
   entries,
-  filter,
   groupByProp,
-  isTruthy,
   map,
   pipe,
   piped,
@@ -21,9 +19,10 @@ export class Stave {
   barId;
   trackId;
   clefs;
+  ligature = new Sheet.Ligature(undefined, {
+    type: "stave",
+  });
   score!: Sheet.Score;
-  ligature: Sheet.Ligature | null = null;
-  metadataLigature: Sheet.Ligature | null = null;
   get params() {
     return {
       id: this.id,
@@ -99,81 +98,66 @@ export class Stave {
     this.clefs = clef;
   }
   draw() {
-    this.metadataLigature = new Sheet.Ligature(
-      filter(
-        [
-          this.bar.masterbar.isRowFirst
-            ? [
-                new Sheet.Glyph(
-                  Sheet.ElementType.Clef,
-                  this.resolveClefs()[0]?.$$.line?.[0]?._ ?? 0
-                ),
-              ]
-            : null,
-          this.bar.masterbar.isFirst
-            ? [
-                new Sheet.Ligature(
-                  this.bar.keysignature.ligature.glyphLists,
-                  match(this.resolveClefs()[0]?.$$.sign![0]._)
-                    .with("G", () => 0)
-                    .with("F", () => -1)
-                    .with(
-                      P.union("C", "TAB", "jianpu", "none", "percussion"),
-                      () => {
-                        throw new Error("wip");
-                      }
-                    )
-                    .exhaustive()
-                ),
-              ]
-            : null,
-          this.bar.masterbar.isFirst
-            ? filter([this.bar.timesignature.ligature], isTruthy)
-            : null,
-        ],
-        isTruthy
+    if (this.bar.masterbar.isRowFirst)
+      this.ligature.append([
+        new Sheet.Glyph(
+          Sheet.ElementType.Clef,
+          this.resolveClefs()[0]?.$$.line?.[0]?._ ?? 0
+        ),
+      ]);
+    if (this.bar.masterbar.isFirst) {
+      this.bar.keysignature.ligature.line = match(
+        this.resolveClefs()[0]?.$$.sign![0]._
       )
-    );
-    this.ligature = new Sheet.Ligature(
-      filter(
-        [
-          ...this.metadataLigature.glyphLists,
-          pipe(
-            this.notes,
-            groupByProp("voice"),
-            entries(),
-            map(
-              piped(
-                last(),
-                (notes) => {
-                  return reduce(
-                    notes,
-                    (accumulator, note) => {
-                      if (isDefined(note.chordId)) {
-                        const last = accumulator.at(-1);
-                        if (isArray(last)) last.push(note);
-                        else accumulator.push([note]);
-                      } else accumulator.push(note);
-                      return accumulator;
-                    },
-                    [] as (Sheet.Note | Sheet.Note[])[]
-                  );
+        .with("G", () => 0)
+        .with("F", () => -1)
+        .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
+          throw new Error("wip");
+        })
+        .exhaustive();
+      this.ligature.append(
+        [this.bar.keysignature.ligature],
+        [this.bar.timesignature.ligature]
+      );
+    }
+
+    this.ligature.append(
+      pipe(
+        this.notes,
+        groupByProp("voice"),
+        entries(),
+        map(
+          piped(
+            last(),
+            (notes) => {
+              return reduce(
+                notes,
+                (accumulator, note) => {
+                  if (isDefined(note.chordId)) {
+                    const last = accumulator.at(-1);
+                    if (isArray(last)) last.push(note);
+                    else accumulator.push([note]);
+                  } else accumulator.push(note);
+                  return accumulator;
                 },
-                map((noteOrChord) =>
-                  Array.isArray(noteOrChord)
-                    ? noteOrChord.map((note) => note.ligature!)
-                    : [noteOrChord.ligature!]
-                ),
-                (ligatures) =>
-                  new Sheet.Ligature(ligatures, undefined, { type: "voice" })
-              )
-            )
-          ),
-        ],
-        isTruthy
-      ),
-      0,
-      { type: "stave" }
+                [] as (Sheet.Note | Sheet.Note[])[]
+              );
+            },
+            map((noteOrChord) =>
+              Array.isArray(noteOrChord)
+                ? noteOrChord.map((note) => note.ligature!)
+                : [noteOrChord.ligature!]
+            ),
+            (ligatures) => {
+              const ligature = new Sheet.Ligature(undefined, {
+                type: "voice",
+              });
+              ligature.append(...ligatures);
+              return ligature;
+            }
+          )
+        )
+      )
     );
   }
   resolveClefs(): Clef[] {

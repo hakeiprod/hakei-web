@@ -1,13 +1,7 @@
 "use client";
 import * as SMUFL from "@/s-core/models/smufl";
 import { NumberInput, Select, SelectItem } from "@heroui/react";
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
 import { filter, keys, map, pipe } from "remeda";
 import localFont from "next/font/local";
 import "../s-core/models/smufl/extensions/to_svg";
@@ -19,8 +13,13 @@ import { scaleAtom } from "@/store/scale";
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
-export function ScoreViewer({ score }: { score?: SMUFL.Score }) {
-  const ref = useRef<HTMLDivElement>(null);
+export function ScoreViewer({
+  score,
+  ref,
+}: {
+  score?: SMUFL.Score;
+  ref: RefObject<HTMLDivElement | null>;
+}) {
   const [controller, setController] = useState<SMUFL.Controller>();
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
@@ -30,26 +29,22 @@ export function ScoreViewer({ score }: { score?: SMUFL.Score }) {
     if (!controller) return;
     setScale(value);
     controller.options.scale = value;
-    controller.layout();
-    controller.score.toSVG({ ratio: 4, scale: controller.options.scale });
+    controller.render();
   }
   const handleLayoutTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
     if (!controller) return;
     setLayoutType(Number(e.target.value));
     controller.options.layoutType = Number(e.target.value);
-    controller.layout();
-    controller.score.toSVG({ ratio: 4, scale: controller.options.scale });
+    controller.render();
   };
   useEffect(() => {
     if (score) {
       const controller = new SMUFL.Controller(score, { scale, layoutType });
+      controller.mount();
+      const svg = controller.render();
       setController(controller);
-      controller.layout();
-      const svg = controller.score.toSVG({
-        ratio: 4,
-        scale: controller.options.scale,
-      });
       if (!ref.current?.hasChildNodes() && svg) ref.current?.appendChild(svg);
+      // window.addEventListener("resize", () => controller.render());
     }
   }, [score]);
   return (

@@ -9,7 +9,7 @@ export class Note extends Sheet.Note {
   }
   draw() {
     const handleLigature = (ligature: Sheet.Ligature) => {
-      ligature.glyphLists = ligature.glyphLists.map((glyphs) =>
+      ligature.children = ligature.children.map((glyphs) =>
         glyphs.map((glyph) =>
           match(glyph)
             .with(
@@ -50,6 +50,6 @@ export class Note extends Sheet.Note {
       return ligature;
     };
     super.draw();
-    this.ligature = this.ligature ? handleLigature(this.ligature) : null;
+    this.ligature = handleLigature(this.ligature);
   }
 }

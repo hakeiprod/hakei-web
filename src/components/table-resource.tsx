@@ -21,7 +21,7 @@ export function TableResource() {
     trpc.resource.infinity.useInfiniteQuery(
       {
         include: { artist: true, album: true, music: true },
-        where: { name: { contains: query } },
+        ...(query ? { where: { name: { contains: query } } } : {}),
         limit: 20,
       },
       {

@@ -14,8 +14,8 @@ import { Glyph } from "./glyph";
 import { Element } from "./element";
 
 export class Ligature<T extends Glyph = Glyph> extends Element {
+  children: Element[][] = [];
   constructor(
-    public glyphLists: (T | Ligature<T>)[][],
     public line: number = 0,
     ...elementArguments: ConstructorParameters<typeof Element>
   ) {
@@ -23,7 +23,7 @@ export class Ligature<T extends Glyph = Glyph> extends Element {
   }
   override get minWidth(): number {
     return pipe(
-      this.glyphLists,
+      this.children,
       map(piped(map(prop("minWidth")), firstBy([identity(), "desc"]))),
       filter(isTruthy),
       reduce((accumulator, current) => accumulator + (current as number), 0)
@@ -31,7 +31,7 @@ export class Ligature<T extends Glyph = Glyph> extends Element {
   }
   order() {
     reduce(
-      this.glyphLists,
+      this.children,
       (accumulator, current) => {
         for (const glyphOrLigature of current)
           if (glyphOrLigature instanceof Ligature) glyphOrLigature.order();
@@ -46,12 +46,17 @@ export class Ligature<T extends Glyph = Glyph> extends Element {
           }
         return current;
       },
-      null as Ligature["glyphLists"][number] | null
+      null as Ligature["children"][number] | null
     );
-    const lastMaxWidthGlyph = firstBy(last(this.glyphLists) ?? [], [
+    const lastMaxWidthGlyph = firstBy(last(this.children) ?? [], [
       prop("width"),
       "desc",
     ]);
     if (lastMaxWidthGlyph) this.boundingBox.width = lastMaxWidthGlyph.right;
+  }
+  append(...elementLists: Element[][]) {
+    this.children.push(...elementLists);
+    for (const elements of elementLists)
+      for (const element of elements) element.parent = this;
   }
 }

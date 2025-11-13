@@ -12,7 +12,7 @@ Sheet.Score.prototype.toSMUFL = function (this: Sheet.Score) {
     ...this.params,
     tracks: this.tracks.map((track) => ({
       ...track.params,
-      notes: track.notes.map((note) => note.params),
+      notes: track.notes.map(({ params }) => params),
     })),
     chords: this.chords.map(({ params }) => params),
     bars: this.bars.map(({ params }) => params),

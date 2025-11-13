@@ -19,6 +19,6 @@ Core.Score.prototype.toAudio = function (this: Core.Score) {
     })),
     keysignatures: this.keysignatures.map(({ params }) => params),
   });
-  console.log({ audio });
+  if (process.env.NODE_ENV === "development") console.log({ audio });
   return audio;
 };

@@ -46,7 +46,7 @@ export class Bar {
     return (
       pipe(
         this.staves,
-        map(piped(prop("ligature", "width"), defaultTo(0))),
+        map(piped(prop("ligature", "width"))),
         firstBy([identity(), "desc"])
       ) ?? 0
     );
@@ -55,7 +55,7 @@ export class Bar {
     return (
       pipe(
         this.staves,
-        map(piped(prop("ligature", "minWidth"), defaultTo(0))),
+        map(piped(prop("ligature", "minWidth"))),
         firstBy([identity(), "desc"])
       ) ?? 0
     );

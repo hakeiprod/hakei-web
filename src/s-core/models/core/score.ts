@@ -158,7 +158,7 @@ export class Score<
           ({ start, duration, end, ...note }, id) =>
             new Core.Note({
               ...note,
-              id,
+              id: note.id ?? id,
               trackId,
               velocity: note.velocity ?? defaultValue.note.velocity,
               pitch: new Core.Units.MidiNoteNumber(note.pitch),
@@ -192,21 +192,36 @@ export class Score<
   }
 }
 
-interface EventParameter {
+export interface EventParameter {
   start?: number;
   duration?: number;
   end?: number;
 }
-export interface Parameter<Track = {}, Note = {}> {
+export interface Parameter<
+  TrackConstructorParameter extends ConstructorParameters<
+    typeof Core.Track
+  >[0] = ConstructorParameters<typeof Core.Track>[0],
+  NoteConstructorParameter extends ConstructorParameters<
+    typeof Core.Note
+  >[0] = ConstructorParameters<typeof Core.Note>[0],
+  Track = {},
+  Note = {},
+> {
   tracks: Merge<
-    Omit<ConstructorParameters<typeof Core.Track>[0], "score" | "id">,
-    EventParameter & {
-      preset?: number;
-      notes: Merge<
-        Omit<ConstructorParameters<typeof Core.Note>[0], "id" | "trackId">,
-        EventParameter & { pitch: number; velocity?: number } & Note
-      >[];
-    } & Track
+    Omit<TrackConstructorParameter, "score" | "id">,
+    EventParameter &
+      Track & {
+        preset?: number;
+        notes: Merge<
+          Omit<NoteConstructorParameter, "id" | "trackId">,
+          EventParameter &
+            Note & {
+              pitch: number;
+              velocity?: number;
+              id?: number;
+            }
+        >[];
+      }
   >[];
   keysignatures?: Merge<
     ConstructorParameters<typeof Core.Keysignature>[0],

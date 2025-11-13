@@ -14,6 +14,7 @@ import {
   piped,
   defaultTo,
 } from "remeda";
+import Metadata from "./metadata.json";
 
 export class Controller {
   public score: Score;
@@ -22,6 +23,10 @@ export class Controller {
     public options: { scale: number; layoutType: LayoutType }
   ) {
     this.score = score;
+  }
+  mount() {
+    this.layout();
+    this.draw();
   }
   layout() {
     match(this.options.layoutType)
@@ -42,17 +47,14 @@ export class Controller {
       })
       .exhaustive();
     for (const row of this.score.rows) row.score = this.score;
-    this.draw();
-    this.space(window.innerWidth, window.innerHeight);
-    this.order();
-    this.align();
   }
   draw() {
     for (const data of [
       ...this.score.notes,
       ...this.score.chords,
-      ...this.score.staves,
       ...this.score.timesignatures,
+      ...this.score.keysignatures,
+      ...this.score.staves,
     ])
       data.draw();
   }
@@ -70,12 +72,17 @@ export class Controller {
       );
       match(this.options.layoutType)
         .with(LayoutType.Page as 2, () => {
-          console.log(height);
+          throw new Error("wip");
         })
         .with(LayoutType.Horizontal as 0, () => {
           for (const [, events] of groupedByStartEvents)
             for (const event of events)
-              if (event.ligature) event.ligature.inset.right = 2; // FIXME: const
+              if (event.ligature) {
+                event.ligature.inset.right =
+                  Metadata.defaultValue.spacing.note.right;
+                event.ligature.inset.left =
+                  Metadata.defaultValue.spacing.note.left;
+              }
         })
         .with(LayoutType.Vertical as 1, () => {
           const space =
