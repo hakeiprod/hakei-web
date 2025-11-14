@@ -64,7 +64,7 @@ export class Score<
     this.tempos = tempos;
     this.tracks = tracks;
     this.notes = notes;
-    for (const track of this.tracks) track.score = this;
+    for (const data of [...this.tracks, ...this.notes]) data.score = this;
   }
   static create(
     parameter: Parameter,

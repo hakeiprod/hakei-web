@@ -14,14 +14,6 @@ export class Note extends Core.Note {
       onNoteOn: this.onNoteOn,
     };
   }
-  get tempo() {
-    return this.score.tempos.find((tempo) => tempo.isOverlapped(this))!;
-  }
-  get keysignature() {
-    return this.score.keysignatures.find((keysignature) =>
-      keysignature.isOverlapped(this)
-    )!;
-  }
   get soundingPitch() {
     return this.keysignature.accidentalPitchClasses.some(
       (accidentalPitchClass) =>
@@ -34,7 +26,7 @@ export class Note extends Core.Note {
       : this.pitch;
   }
   get isLast() {
-    return firstBy(this.score.notes, [prop("end"), "desc"]) === this;
+    return firstBy(this.score.notes, [prop("end", "value"), "desc"]) === this;
   }
   constructor(
     note: {

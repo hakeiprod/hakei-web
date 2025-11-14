@@ -111,9 +111,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                         .attr("transform", createTranslate(0, -11.5))
                         .each(function () {
                           const g = d3.select(this);
-                          g.selectAll("path")
+                          g.selectAll("path[position=start]")
                             .data([null])
                             .join("path")
+                            .attr("position", "start")
                             .attr(
                               "transform",
                               createTranslate(
@@ -136,9 +137,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                               ])
                             );
                           if (masterbar.isRowLast) {
-                            g.selectAll("path")
+                            g.selectAll("path[position=end]")
                               .data([null])
                               .join("path")
+                              .attr("position", "end")
                               .attr(
                                 "transform",
                                 createTranslate(
@@ -164,9 +166,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                               );
                           }
                           if (masterbar.isLast) {
-                            g.selectAll("path")
+                            g.selectAll("path[position=end]")
                               .data([null])
                               .join("path")
+                              .attr("position", "end")
                               .attr(
                                 "transform",
                                 createTranslate(
@@ -188,9 +191,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                   [masterbar.width, bar.height],
                                 ])
                               );
-                            g.selectAll("path")
+                            g.selectAll("path[position=end]")
                               .data([null])
                               .join("path")
+                              .attr("position", "end")
                               .attr(
                                 "transform",
                                 createTranslate(
@@ -230,13 +234,25 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                             .data(stave.beams)
                             .join("g")
                             .attr("type", "beam")
-                            /* .attr(
+                            .attr(
                               "transform",
                               createTranslate(
-                                stave.metadataLigature?.width ?? 0,
+                                (() => {
+                                  const ligatures = [];
+                                  if (stave.bar.masterbar.isRowFirst)
+                                    ligatures.push(stave.ligature.children[0]);
+                                  if (stave.bar.masterbar.isFirst)
+                                    ligatures.push(
+                                      stave.ligature.children[1],
+                                      stave.ligature.children[2]
+                                    );
+                                  return ligatures
+                                    .flat()
+                                    .reduce((acc, cur) => acc + cur.width, 0);
+                                })(),
                                 0
                               )
-                            ) */
+                            )
                             .each(function (beam) {
                               const g = d3.select(this);
                               g.selectAll("path")

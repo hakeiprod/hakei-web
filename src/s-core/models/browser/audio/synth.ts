@@ -121,7 +121,7 @@ export class Synth {
     // this.filter.connect(this.panner).connect(this.gain);
     // this.panner.connect(this.gain);
   }
-  noteOn(when?: number) {
+  noteOn(when?: number, onEnd?: () => void) {
     const bufferSource = this.audioContext.createBufferSource();
     bufferSource.buffer = this.buffer;
     if (this.sample.generators.sampleModes.value !== 0) {
@@ -133,6 +133,7 @@ export class Synth {
         (this.sample.endLoop - this.sample.end) /
         this.sample.header.sampleRate.value;
     }
+    bufferSource.addEventListener("ended", () => onEnd?.());
     bufferSource.playbackRate.value = this.sample.playBackRate(
       this.pitch.value
     );

@@ -5,6 +5,7 @@ export class Note extends Core.Event {
   trackId;
   pitch;
   velocity;
+  score!: Core.Score;
   override get params() {
     return {
       ...super.params,
@@ -13,6 +14,14 @@ export class Note extends Core.Event {
       pitch: this.pitch.value,
       velocity: this.velocity,
     };
+  }
+  get tempo() {
+    return this.score.tempos.find((tempo) => tempo.isOverlapped(this))!;
+  }
+  get keysignature() {
+    return this.score.keysignatures.find((keysignature) =>
+      keysignature.isOverlapped(this)
+    )!;
   }
   constructor(
     note: {

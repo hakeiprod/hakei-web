@@ -1,7 +1,6 @@
 import * as Audio from "../../audio";
 import * as BrowserAudio from ".";
 import Soundfont2 from "../../files/soundfont2";
-import { filter, find, map, pipe, prop } from "remeda";
 
 export class Controller {
   masterGain;
@@ -10,6 +9,7 @@ export class Controller {
   audioContext;
   pausedTime: number | null = null;
   notes: { note: Audio.Note; synth: BrowserAudio.Synth }[] = [];
+  onPlayEnd?: () => void;
   constructor(
     public score: Audio.Score,
     public soundfont2: Soundfont2
@@ -44,7 +44,14 @@ export class Controller {
       this.audioContext.resume();
     } else {
       for (const { note, synth } of this.notes) {
-        synth.noteOn(startTime + note.start.toSeconds(note.tempo.value));
+        synth.noteOn(
+          startTime + note.start.toSeconds(note.tempo.value),
+          note.isLast
+            ? () => {
+                this.onPlayEnd?.();
+              }
+            : undefined
+        );
         synth.noteOff(startTime + note.end.toSeconds(note.tempo.value));
       }
     }
@@ -53,7 +60,7 @@ export class Controller {
     this.isPaused = true;
     this.audioContext.suspend();
   }
-  async stop() {
+  stop() {
     for (const { synth } of this.notes) synth.bufferSource?.stop();
   }
 }

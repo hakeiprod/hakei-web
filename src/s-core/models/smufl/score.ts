@@ -1,4 +1,3 @@
-import * as Core from "../core";
 import * as Sheet from "../sheet";
 import * as SMUFL from ".";
 
@@ -10,22 +9,10 @@ export class Score<
   Masterbar extends SMUFL.Masterbar = SMUFL.Masterbar,
   Row extends SMUFL.Row = SMUFL.Row,
   Timesignature extends SMUFL.Timesignature = SMUFL.Timesignature,
-  Keysignature extends Sheet.Keysignature = Sheet.Keysignature,
-  Tempo extends Core.Tempo = Core.Tempo,
-> extends Sheet.Score<
-  Note,
-  Track,
-  Stave,
-  Bar,
-  Masterbar,
-  Row,
-  Timesignature,
-  Keysignature,
-  Tempo
-> {
-  static override create(parameters: Sheet.Parameter) {
-    const sheet = super.create(parameters);
-    const score = new SMUFL.Score({
+> extends Sheet.Score<Note, Track, Stave, Bar, Masterbar, Row, Timesignature> {
+  static override create(parameter: Sheet.Parameter) {
+    const sheet = super.create(parameter);
+    const score = new Score({
       ...sheet,
       tracks: sheet.tracks.map((track) => new SMUFL.Track(track)),
       masterbars: sheet.masterbars.map(

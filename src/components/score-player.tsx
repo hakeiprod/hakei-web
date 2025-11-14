@@ -6,7 +6,7 @@ import { ButtonPlayPause } from "./buttn-play-pause";
 import { Button, ButtonGroup } from "@heroui/button";
 import { FastForward, Rewind, Square } from "lucide-react";
 import { VolumeSlider } from "./slider-volume";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
 import { SliderValue } from "@heroui/slider";
 import { useAtom } from "jotai";
@@ -51,6 +51,7 @@ export function ScorePlayer({ score }: { score?: Audio.Score }) {
     if (!controller && score && soundfont2) {
       const controller = new BrowserAudio.Controller(score, soundfont2);
       controller.masterGain.gain.value = masterVolume / 100;
+      controller.onPlayEnd = () => setIsPlaying(false);
       setController(controller);
     }
   }, [score, soundfont2]);
