@@ -1,14 +1,15 @@
 "use client";
 import * as SMUFL from "@/s-core/models/smufl";
 import { NumberInput, Select, SelectItem } from "@heroui/react";
-import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
-import { filter, keys, map, pipe } from "remeda";
+import { ChangeEvent, RefObject, useEffect, useMemo, useState } from "react";
+import { filter, funnel, keys, map, pipe } from "remeda";
 import localFont from "next/font/local";
 import "../s-core/models/smufl/extensions/to_svg";
 import { LayoutType } from "@/s-core/models/sheet";
 import { useAtom } from "jotai";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
+import { useDebouncedCallback } from "use-debounce";
 
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
@@ -23,6 +24,10 @@ export function ScoreViewer({
   const [controller, setController] = useState<SMUFL.Controller>();
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
+  const handleResize = useDebouncedCallback(() => {
+    if (controller?.options.layoutType === LayoutType.Vertical)
+      controller?.render();
+  }, 100);
   function handleScaleChange(eOrValue: ChangeEvent<HTMLInputElement> | number) {
     const value =
       typeof eOrValue === "number" ? eOrValue : Number(eOrValue.target.value);
@@ -31,21 +36,22 @@ export function ScoreViewer({
     controller.options.scale = value;
     controller.render();
   }
-  const handleLayoutTypeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  function handleLayoutTypeChange(e: ChangeEvent<HTMLSelectElement>) {
     if (!controller) return;
     setLayoutType(Number(e.target.value));
     controller.options.layoutType = Number(e.target.value);
     controller.render();
-  };
+  }
   useEffect(() => {
     if (score) {
       const controller = new SMUFL.Controller(score, { scale, layoutType });
       controller.mount();
       const svg = controller.render();
       setController(controller);
+      window.addEventListener("resize", handleResize);
       if (!ref.current?.hasChildNodes() && svg) ref.current?.appendChild(svg);
-      // window.addEventListener("resize", () => controller.render());
     }
+    () => window.removeEventListener("resize", handleResize);
   }, [score]);
   return (
     <>
@@ -59,6 +65,7 @@ export function ScoreViewer({
         placeholder="Scale"
         value={scale}
         onChange={handleScaleChange}
+        aria-label="scale-input"
       />
       <Select
         isRequired
@@ -66,6 +73,7 @@ export function ScoreViewer({
         label="Layout Type"
         selectedKeys={layoutType.toString()}
         onChange={handleLayoutTypeChange}
+        aria-label="layouttype-input"
       >
         {pipe(
           LayoutType,

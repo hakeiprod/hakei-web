@@ -7,10 +7,13 @@ import { Input } from "@heroui/input";
 import { ChangeEvent, useRef, useState } from "react";
 import { ScorePlayer } from "@/components/score-player";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
+import { VirtualKeyboard } from "@/components/virtual-keyboard";
+import { Keyboard } from "@/s-core/models/keyboard";
 
 export default function Score() {
   const [smufl, setSMUFL] = useState<SMUFL.Score>();
   const [audio, setAudio] = useState<Audio.Score>();
+  const [keyboard, setKeyboard] = useState<Keyboard>();
   const ref = useRef<HTMLDivElement>(null);
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
     const input = event.target;
@@ -19,6 +22,8 @@ export default function Score() {
       if (!file) return;
       const smufl = (await new Browser.Importer().import(file))?.toSMUFL();
       const audio = smufl?.toAudio();
+      const keyboard = new Keyboard(smufl!.pitchRange);
+      setKeyboard(keyboard);
       setSMUFL(smufl);
       setAudio(audio);
       if (smufl && audio && ref.current) {
@@ -26,9 +31,11 @@ export default function Score() {
         for (const note of audio.notes) {
           note.onNoteOn = () => {
             noteHighlighter.noteOn(note);
+            keyboard?.noteOn(note);
           };
           note.onNoteOff = () => {
             noteHighlighter.noteOff(note);
+            keyboard?.noteOff(note);
           };
         }
       }
@@ -39,6 +46,7 @@ export default function Score() {
       <Input type="file" onChange={handleChange} />
       <ScoreViewer score={smufl} ref={ref} />
       <ScorePlayer score={audio} />
+      <VirtualKeyboard keyboard={keyboard} />
     </>
   );
 }

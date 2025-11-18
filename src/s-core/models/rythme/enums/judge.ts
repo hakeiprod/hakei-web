@@ -1,4 +1,4 @@
-export enum Judge {
+export enum JudgeType {
   Perfect,
   Good,
   Miss,

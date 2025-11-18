@@ -16,6 +16,7 @@ import {
   mapToObj,
 } from "remeda";
 import * as Core from "../core";
+import { MidiNoteNumber } from "./units";
 export class Score<
   Note extends Core.Note = Core.Note,
   Track extends Core.Track = Core.Track,
@@ -29,6 +30,16 @@ export class Score<
   override get end() {
     return firstBy(this.tracks, [prop("end"), "asc"])!.end;
   }
+  get pitchRange() {
+    return (["asc", "desc"] as const).map(
+      (sort) =>
+        firstBy(
+          this.notes.filter((note) => 0 <= note.pitch.value),
+          [prop("pitch", "value"), sort]
+        )!.pitch
+    ) as [MidiNoteNumber, MidiNoteNumber];
+  }
+
   name;
   timesignatures;
   keysignatures;

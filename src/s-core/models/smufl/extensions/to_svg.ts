@@ -46,21 +46,15 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                   .attr("x", glyph.boundingBox.x)
                   .attr("y", -glyph.line)
                   .attr("width", glyph.width)
-                  .attr("fill", ligature.style.color ?? "")
                   .text(String.fromCodePoint(glyph.codepoint))
               )
               .with(P.instanceOf(Sheet.Ligature), (childLigature) => {
-                // TODO: このまーじはここですべきではない
-                childLigature.style = {
-                  ...childLigature.style,
-                  ...ligature.style,
-                };
                 ligatureToSVG(g.node() as SVGGElement, childLigature);
               });
           });
       });
-    ligature.onStyleChange = () => {
-      group.attr("fill", ligature.style.color ?? "");
+    ligature.onClassListChange = () => {
+      group.attr("class", ligature.classList);
     };
   };
 

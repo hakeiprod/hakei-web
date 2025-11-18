@@ -29,3 +29,32 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 } */
+
+.note-highlight {
+  fill: red;
+}
+.keyboard-whitekey-note-on {
+  fill: gray;
+}
+.keyboard-whitekey-note-off {
+  fill: white;
+}
+.keyboard-blackkey-note-on {
+  fill: gray;
+}
+.keyboard-blackkey-note-off {
+  fill: black;
+}
+
+.whitekeys .note-on {
+  fill: red;
+}
+.whitekeys .note-off {
+  fill: white;
+}
+.blackkeys .note-on {
+  fill: red;
+}
+.blackkeys .note-off {
+  fill: black;
+}

@@ -1,4 +1,3 @@
-import { CSSProperties } from "react";
 import { BoundingBox } from "../boundingbox";
 import { Inset } from "../inset";
 import { Ligature } from "./ligature";
@@ -7,8 +6,8 @@ export class Element {
   parent: Ligature | null = null;
   boundingBox = new BoundingBox(0, 0, 0, 0);
   inset = new Inset(0, 0, 0, 0);
-  style: CSSProperties = {};
-  onStyleChange?: (value: typeof this.style) => void;
+  classList: string[] = [];
+  onClassListChange?: (value: typeof this.classList) => void;
   get width() {
     return this.boundingBox.width + this.inset.left + this.inset.right;
   }
@@ -22,8 +21,12 @@ export class Element {
     return this.width + this.boundingBox.x;
   }
   constructor(public attributes: Record<string, string> = {}) {}
-  setStyle(value: typeof this.style) {
-    this.style = value;
-    this.onStyleChange?.(this.style);
+  setClassName(
+    value:
+      | typeof this.classList
+      | ((previouseValue: typeof this.classList) => typeof this.classList)
+  ) {
+    this.classList = value instanceof Function ? value(this.classList) : value;
+    this.onClassListChange?.(this.classList);
   }
 }
