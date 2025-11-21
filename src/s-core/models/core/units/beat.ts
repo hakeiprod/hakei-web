@@ -11,6 +11,9 @@ export class Beat extends ValueObject<number> {
   toSeconds(tempo: Tempo) {
     return (60 * this.value) / tempo.value;
   }
+  toMilliseconds(tempo: Tempo) {
+    return this.toSeconds(tempo) * 1000;
+  }
   validate(value: typeof this.value) {
     return value;
   }

@@ -1,5 +1,5 @@
 import * as Audio from "../audio";
-import { Keyboard } from "../keyboard";
+import { Keyboard } from "../browser/keyboard";
 export class KeyboardHighlighter {
   constructor(public keyboard: Keyboard) {}
   noteOn(note: Audio.Note) {

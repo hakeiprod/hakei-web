@@ -3,6 +3,7 @@ import * as BrowserAudio from ".";
 import Soundfont2 from "../../files/soundfont2";
 
 export class Controller {
+  startTime = 0;
   masterGain;
   isPlaying = false;
   isPaused = false;
@@ -38,21 +39,21 @@ export class Controller {
     }
   }
   play() {
-    const startTime = this.audioContext.currentTime;
+    this.startTime = this.audioContext.currentTime;
     if (this.isPaused) {
       this.isPaused = false;
       this.audioContext.resume();
     } else {
       for (const { note, synth } of this.notes) {
         synth.noteOn(
-          startTime + note.start.toSeconds(note.tempo.value),
+          this.startTime + note.start.toSeconds(note.tempo.value),
           note.isLast
             ? () => {
                 this.onPlayEnd?.();
               }
             : undefined
         );
-        synth.noteOff(startTime + note.end.toSeconds(note.tempo.value));
+        synth.noteOff(this.startTime + note.end.toSeconds(note.tempo.value));
       }
     }
   }

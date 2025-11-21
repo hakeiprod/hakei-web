@@ -8,7 +8,7 @@ import { ChangeEvent, useRef, useState } from "react";
 import { ScorePlayer } from "@/components/score-player";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import { VirtualKeyboard } from "@/components/virtual-keyboard";
-import { Keyboard } from "@/s-core/models/keyboard";
+import { Keyboard } from "@/s-core/models/browser/keyboard";
 
 export default function Score() {
   const [smufl, setSMUFL] = useState<SMUFL.Score>();

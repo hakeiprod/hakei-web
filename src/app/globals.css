@@ -29,32 +29,35 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 } */
-
 .note-highlight {
   fill: red;
 }
-.keyboard-whitekey-note-on {
-  fill: gray;
-}
-.keyboard-whitekey-note-off {
+
+.key-white {
   fill: white;
+  stroke: black;
+  stroke-width: 1;
 }
-.keyboard-blackkey-note-on {
-  fill: gray;
+.key-black {
+  stroke: black;
 }
-.keyboard-blackkey-note-off {
-  fill: black;
+.key-white.active {
+  fill: red;
+}
+.key-black.active {
+  fill: red;
 }
 
-.whitekeys .note-on {
-  fill: red;
-}
-.whitekeys .note-off {
+.whitekey-lane {
   fill: white;
 }
-.blackkeys .note-on {
-  fill: red;
+.blackkey-lane {
+  fill: white;
 }
-.blackkeys .note-off {
-  fill: black;
+.whitekey-note {
+  fill: red;
+  /* stroke: black; */
+}
+.blackkey-note {
+  fill: red;
 }

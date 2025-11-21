@@ -9,14 +9,16 @@ import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import { useAtom } from "jotai";
 import { masterVolumeAtom } from "@/store/master-volume";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
-import { RythmeRecorder } from "@/s-core/models/browser/rythme-recorder";
+import { RythmeGame } from "@/s-core/models/browser/rythme-game";
+import { Button } from "@heroui/button";
 
 export default function Score() {
   const [controller, setController] = useState<BrowserAudio.Controller>();
-  const [recorder, setRecorder] = useState<RythmeRecorder>();
+  const [recorder, setRecorder] = useState<RythmeGame>();
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
   const [smufl, setSMUFL] = useState<SMUFL.Score>();
   const [audio, setAudio] = useState<Audio.Score>();
+  const [started, setStarted] = useState(false);
   const [masterVolume, setMasterVolume] = useAtom(masterVolumeAtom);
   const ref = useRef<HTMLDivElement>(null);
   const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -54,14 +56,35 @@ export default function Score() {
     }
   }, [audio, soundfont2]);
   useEffect(() => {
-    if (smufl && controller) setRecorder(new RythmeRecorder(smufl, controller));
-  }, [controller]);
+    if (smufl && controller) {
+      const rythmeRecorder = new RythmeGame(smufl, controller);
+      setRecorder(rythmeRecorder);
+      const svg = rythmeRecorder.keyboard.render();
+      const test = rythmeRecorder.render();
+      (async () => {
+        if (test) ref.current?.appendChild(await test);
+      })();
+      // if (!ref.current?.hasChildNodes() && svg) ref.current?.appendChild(svg);
+      // if (svg) ref.current?.appendChild(svg);
+    }
+  }, [controller, started]);
   return (
     <>
-      <div>
-        <button onClick={() => recorder?.start()}>safsadfasdf</button>
-      </div>
-      <Input type="file" onChange={handleChange} />
+      {!started && (
+        <>
+          <Button
+            disabled={!smufl}
+            onPress={() => {
+              recorder?.start();
+              setStarted(true);
+            }}
+          >
+            start
+          </Button>
+          <Input type="file" onChange={handleChange} />
+        </>
+      )}
+      {started && <div ref={ref} />}
     </>
   );
 }
