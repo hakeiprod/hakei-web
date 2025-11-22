@@ -1,4 +1,3 @@
-import * as d3 from "d3";
 import * as Core from "@/s-core/models/core";
 import * as Sheet from "@/s-core/models/sheet";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
@@ -12,18 +11,16 @@ import { Application, Container, Graphics } from "pixi.js";
 export class RythmeGame {
   rythme;
   keyboard;
-  height = 500;
-  svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
-  static SCROLL_SPEED = 1000;
+  static SCROLL_SPEED = 100;
+  static NOTE_RECT_ROUNDED = 5;
+  private pixiRootContainer = new Container();
   constructor(
     public sheet: Sheet.Score,
     public controller: BrowserAudio.Controller
   ) {
     this.rythme = this.sheet.toRythme();
     this.keyboard = new Keyboard(sheet.pitchRange);
-    this.keyboard.onNoteOn = (note) => {
-      this.noteOn(note);
-    };
+    this.keyboard.onNoteOn = (note) => this.noteOn(note);
     controller.onPlayEnd = () =>
       console.log(
         {
@@ -102,46 +99,67 @@ export class RythmeGame {
   }
   noteOn(coreNote: Core.Note) {
     const time =
-      this.controller.startTime - this.controller.audioContext.currentTime;
+      this.controller.audioContext.currentTime - this.controller.startTime;
     const rythmeNote = pipe(
       this.rythme.notes,
       filter((note) => !note.isHitted && note.pitch.equal(coreNote.pitch)),
-      find((note) => note.isHit(time))
+      find((note) => note.canHit(time))
     );
     if (rythmeNote) {
-      rythmeNote.hitTime = time;
-      console.log("judge", rythmeNote.judge);
+      rythmeNote.hitSeconds = time;
+
+      const searchParams = new URLSearchParams();
+      searchParams.append("type", "note");
+      searchParams.append("id", rythmeNote.id.toString());
+      searchParams.append("trackId", rythmeNote.trackId.toString());
+      const graphics = this.pixiRootContainer.getChildByLabel(
+        searchParams.toString()
+      ) as Graphics | null;
+      if (graphics) {
+        const { x, y, width, height } = graphics.getLocalBounds();
+        graphics
+          .clear()
+          .roundRect(x, y, width, height, RythmeGame.NOTE_RECT_ROUNDED)
+          .setFillStyle(
+            match(rythmeNote.judge)
+              .with(JudgeType.Perfect as 0, () => "blue")
+              .with(JudgeType.Good as 1, () => "yellow")
+              .with(JudgeType.Miss as 2, () => "red")
+              .exhaustive()
+          )
+          .fill();
+      }
     }
   }
   async render() {
-    this.svg ??= d3.create("svg");
-
     const application = new Application();
-    const rootContainer = new Container();
-    await application.init({ background: "#1099bb", resizeTo: window });
+    await application.init({ background: "black", resizeTo: window });
     const FallingNoteHeight =
       application.renderer.height - this.keyboard.container.height;
 
     for (const note of this.rythme.notes) {
-      const graphics = new Graphics()
-        .rect(
-          (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
-            -1) * Keyboard.WHITE_KEY_WIDTH,
-          0,
-          Keyboard.WHITE_KEY_WIDTH,
-          note.duration.toSeconds(note.tempo.value) * RythmeGame.SCROLL_SPEED
-        )
-        .setFillStyle("green")
-        .fill();
       const searchParams = new URLSearchParams();
       searchParams.append("type", "note");
       searchParams.append("id", note.id.toString());
       searchParams.append("trackId", note.trackId.toString());
-      graphics.label = searchParams.toString();
-      rootContainer.addChild(graphics);
+      const graphicsRectHeight =
+        note.duration.toSeconds(note.tempo.value) * RythmeGame.SCROLL_SPEED;
+      const graphics = new Graphics({ label: searchParams.toString() })
+        .roundRect(
+          (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
+            -1) * Keyboard.WHITE_KEY_WIDTH,
+          -graphicsRectHeight,
+          Keyboard.WHITE_KEY_WIDTH,
+          graphicsRectHeight,
+          RythmeGame.NOTE_RECT_ROUNDED
+        )
+        .setFillStyle({ color: "skyblue" })
+        .setStrokeStyle({ width: 5, color: "black", alignment: 0 })
+        .fill();
+      this.pixiRootContainer.addChild(graphics);
     }
     application.ticker.add(() => {
-      for (const child of rootContainer.children) {
+      for (const child of this.pixiRootContainer.children) {
         const searchParams = new URLSearchParams(child.label);
         if (searchParams.get("type") === "note") {
           const graphics = child as Graphics;
@@ -159,13 +177,11 @@ export class RythmeGame {
         }
       }
     });
-
-    // layout
-
-    rootContainer.addChild(this.keyboard.container);
     this.keyboard.container.y = FallingNoteHeight;
-    rootContainer.x = application.renderer.width / 2 - rootContainer.width / 2;
-    application.stage.addChild(rootContainer);
+    this.pixiRootContainer.x =
+      application.renderer.width / 2 - this.pixiRootContainer.width / 2;
+    this.pixiRootContainer.addChild(this.keyboard.container);
+    application.stage.addChild(this.pixiRootContainer);
     return application.canvas;
   }
   start() {

@@ -62,7 +62,10 @@ export class Keyboard {
         velocity: 100,
         pitch: new MidiNoteNumber(whitekey),
       });
-      const graphics = new Graphics()
+      const graphics = new Graphics({
+        label: whitekey.toString(),
+        eventMode: "static",
+      })
         .rect(
           Number(i) * Keyboard.WHITE_KEY_WIDTH,
           0,
@@ -78,8 +81,6 @@ export class Keyboard {
         .on("pointerup", () => {
           this.noteOff(note);
         });
-      graphics.eventMode = "static";
-      graphics.label = whitekey.toString();
       this.container.addChild(graphics);
     }
     for (const [i, blackkey] of Object.entries(
@@ -91,7 +92,10 @@ export class Keyboard {
         velocity: 100,
         pitch: new MidiNoteNumber(blackkey),
       });
-      const graphics = new Graphics()
+      const graphics = new Graphics({
+        label: blackkey.toString(),
+        eventMode: "static",
+      })
         .rect(
           (this.rangeKeys.indexOf(blackkey) -
             this.rangeKeys.indexOf(this.rangeKeys[Number(i) - 1])) *
@@ -109,8 +113,6 @@ export class Keyboard {
         .on("pointerup", () => {
           this.noteOff(note);
         });
-      graphics.eventMode = "static";
-      graphics.label = blackkey.toString();
       this.container.addChild(graphics);
     }
     return this.container;

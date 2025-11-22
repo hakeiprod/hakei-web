@@ -3,18 +3,20 @@ import * as Sheet from "../sheet";
 import { JudgeType } from "./enums/judge";
 //TODO: const
 export class Note extends Sheet.Note {
-  hitTime: number | null = null;
+  hitSeconds: number | null = null;
   get isHitted() {
-    return this.hitTime !== null;
+    return this.hitSeconds !== null;
   }
   get judge() {
-    if (isNullish(this.hitTime)) return JudgeType.Miss;
-    const diffTime = Math.abs(this.hitTime - this.start.value);
-    if (diffTime <= 20) return JudgeType.Perfect;
-    if (diffTime <= 40) return JudgeType.Good;
+    if (isNullish(this.hitSeconds)) return JudgeType.Miss;
+    const diffSeconds = Math.abs(
+      this.hitSeconds - this.start.toSeconds(this.tempo.value)
+    );
+    if (diffSeconds <= 0.3) return JudgeType.Perfect;
+    if (diffSeconds <= 0.5) return JudgeType.Good;
     return JudgeType.Miss;
   }
-  isHit(time: number) {
-    return Math.abs(time - this.start.value) <= 60;
+  canHit(time: number) {
+    return Math.abs(time - this.start.toSeconds(this.tempo.value)) <= 1;
   }
 }
