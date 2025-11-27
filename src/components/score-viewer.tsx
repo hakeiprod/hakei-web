@@ -1,8 +1,8 @@
 "use client";
 import * as SMUFL from "@/s-core/models/smufl";
 import { NumberInput, Select, SelectItem } from "@heroui/react";
-import { ChangeEvent, RefObject, useEffect, useMemo, useState } from "react";
-import { filter, funnel, keys, map, pipe } from "remeda";
+import { ChangeEvent, RefObject, useEffect, useState } from "react";
+import { filter, keys, map, pipe } from "remeda";
 import localFont from "next/font/local";
 import "../s-core/models/smufl/extensions/to_svg";
 import { LayoutType } from "@/s-core/models/sheet";
@@ -19,7 +19,7 @@ export function ScoreViewer({
   ref,
 }: {
   score?: SMUFL.Score;
-  ref: RefObject<HTMLDivElement | null>;
+  ref?: RefObject<HTMLDivElement | null>;
 }) {
   const [controller, setController] = useState<SMUFL.Controller>();
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
@@ -49,7 +49,7 @@ export function ScoreViewer({
       const svg = controller.render();
       setController(controller);
       window.addEventListener("resize", handleResize);
-      if (!ref.current?.hasChildNodes() && svg) ref.current?.appendChild(svg);
+      if (!ref?.current?.hasChildNodes() && svg) ref?.current?.appendChild(svg);
     }
     () => window.removeEventListener("resize", handleResize);
   }, [score]);

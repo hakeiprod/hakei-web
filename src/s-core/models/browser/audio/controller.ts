@@ -11,6 +11,9 @@ export class Controller {
   pausedTime: number | null = null;
   notes: { note: Audio.Note; synth: BrowserAudio.Synth }[] = [];
   onPlayEnd?: () => void;
+  get elapsedTime() {
+    return this.audioContext.currentTime - this.startTime;
+  }
   constructor(
     public score: Audio.Score,
     public soundfont2: Soundfont2

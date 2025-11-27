@@ -1,3 +1,4 @@
+"use client";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
 import { Application } from "pixi.js";
 import { useEffect, useRef } from "react";

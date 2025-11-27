@@ -1,5 +1,4 @@
 import * as Core from "../core";
-import * as d3 from "d3";
 import musicTheory from "../../const/music-theory.json";
 import { groupBy, pipe, times } from "remeda";
 import { MidiNoteNumber } from "../core/units";
@@ -12,7 +11,6 @@ export class Keyboard {
   static BLACK_KEY_HEIGHT = 100;
   onNoteOn?: (note: Core.Note) => void;
   onNoteOff?: (note: Core.Note) => void;
-  svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
   container = new Container();
   get rangeKeys() {
     const rangeDiff = (this.range[1].value ?? 0) - (this.range[0].value ?? 0);
@@ -27,7 +25,12 @@ export class Keyboard {
       groupBy((pitch) => (Keyboard.isBlackKey(pitch) ? "black" : "white"))
     );
   }
-  constructor(public range: [MidiNoteNumber, MidiNoteNumber]) {}
+  constructor(
+    public range: [MidiNoteNumber, MidiNoteNumber] = [
+      new MidiNoteNumber(-1),
+      new MidiNoteNumber(-1),
+    ]
+  ) {}
   noteOn(...args: Parameters<NonNullable<typeof this.onNoteOn>>) {
     this.onNoteOn?.(...args);
     const graphics = this.container.getChildByLabel(
@@ -62,26 +65,23 @@ export class Keyboard {
         velocity: 100,
         pitch: new MidiNoteNumber(whitekey),
       });
-      const graphics = new Graphics({
-        label: whitekey.toString(),
-        eventMode: "static",
-      })
-        .rect(
-          Number(i) * Keyboard.WHITE_KEY_WIDTH,
-          0,
-          Keyboard.WHITE_KEY_WIDTH,
-          Keyboard.WHITE_KEY_HEIGHT
-        )
-        .setFillStyle({ color: "white" })
-        .setStrokeStyle({ width: 1, color: "black" })
-        .fill()
-        .on("pointerdown", () => {
-          this.noteOn(note);
+      this.container.addChild(
+        new Graphics({
+          label: whitekey.toString(),
+          eventMode: "static",
         })
-        .on("pointerup", () => {
-          this.noteOff(note);
-        });
-      this.container.addChild(graphics);
+          .rect(
+            Number(i) * Keyboard.WHITE_KEY_WIDTH,
+            0,
+            Keyboard.WHITE_KEY_WIDTH,
+            Keyboard.WHITE_KEY_HEIGHT
+          )
+          .setFillStyle("white")
+          .setStrokeStyle({ width: 1, color: "black" })
+          .fill()
+          .on("pointerdown", () => this.noteOn(note))
+          .on("pointerup", () => this.noteOff(note))
+      );
     }
     for (const [i, blackkey] of Object.entries(
       this.groupedRnageKeys.black ?? []
@@ -92,28 +92,25 @@ export class Keyboard {
         velocity: 100,
         pitch: new MidiNoteNumber(blackkey),
       });
-      const graphics = new Graphics({
-        label: blackkey.toString(),
-        eventMode: "static",
-      })
-        .rect(
-          (this.rangeKeys.indexOf(blackkey) -
-            this.rangeKeys.indexOf(this.rangeKeys[Number(i) - 1])) *
-            Keyboard.WHITE_KEY_WIDTH -
-            (Keyboard.WHITE_KEY_WIDTH + Keyboard.BLACK_KEY_WIDTH / 2),
-          0,
-          Keyboard.BLACK_KEY_WIDTH,
-          Keyboard.BLACK_KEY_HEIGHT
-        )
-        .setFillStyle({ color: "black" })
-        .fill()
-        .on("pointerdown", () => {
-          this.noteOn(note);
+      this.container.addChild(
+        new Graphics({
+          label: blackkey.toString(),
+          eventMode: "static",
         })
-        .on("pointerup", () => {
-          this.noteOff(note);
-        });
-      this.container.addChild(graphics);
+          .rect(
+            (this.rangeKeys.indexOf(blackkey) -
+              this.rangeKeys.indexOf(this.rangeKeys[Number(i) - 1])) *
+              Keyboard.WHITE_KEY_WIDTH -
+              (Keyboard.WHITE_KEY_WIDTH + Keyboard.BLACK_KEY_WIDTH / 2),
+            0,
+            Keyboard.BLACK_KEY_WIDTH,
+            Keyboard.BLACK_KEY_HEIGHT
+          )
+          .setFillStyle("black")
+          .fill()
+          .on("pointerdown", () => this.noteOn(note))
+          .on("pointerup", () => this.noteOff(note))
+      );
     }
     return this.container;
   }

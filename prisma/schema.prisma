@@ -7,6 +7,10 @@
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
+  
+  // ref: https://www.answeroverflow.com/m/1441427645513601165
+  generatedFileExtension = "ts"
+  importFileExtension    = "ts"
 }
 
 generator zod {
@@ -112,4 +116,9 @@ enum ResourceUnionType {
   Artist
   Album
   Band
+}
+
+model Score {
+  id        Int      @id @default(autoincrement())
+  data      Json
 }

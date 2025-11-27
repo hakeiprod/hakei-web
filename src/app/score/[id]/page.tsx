@@ -1,50 +1,42 @@
-"use client";
-import * as SMUFL from "@/s-core/models/smufl";
-import * as Browser from "@/s-core/models/browser";
-import * as Audio from "@/s-core/models/audio";
+import * as Sheet from "@/s-core/models/sheet";
 import { ScoreViewer } from "@/components/score-viewer";
-import { Input } from "@heroui/input";
-import { ChangeEvent, useRef, useState } from "react";
 import { ScorePlayer } from "@/components/score-player";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import { VirtualKeyboard } from "@/components/virtual-keyboard";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
+import { KeyeventConnecter } from "@/s-core/models/keyboard_input/keyevent-connecter";
+import { MidiinputConnecter } from "@/s-core/models/keyboard_input/midiinput-connecter";
+import { prisma } from "@/prisma";
+import "@/s-core/models/sheet/extensions/to-smufl";
+import "@/s-core/models/core/extensions/to-audio";
 
-export default function Score() {
-  const [smufl, setSMUFL] = useState<SMUFL.Score>();
-  const [audio, setAudio] = useState<Audio.Score>();
-  const [keyboard, setKeyboard] = useState<Keyboard>();
-  const ref = useRef<HTMLDivElement>(null);
-  const handleChange = async (event: ChangeEvent<HTMLInputElement>) => {
-    const input = event.target;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      if (!file) return;
-      const smufl = (await new Browser.Importer().import(file))?.toSMUFL();
-      const audio = smufl?.toAudio();
-      const keyboard = new Keyboard(smufl!.pitchRange);
-      setKeyboard(keyboard);
-      setSMUFL(smufl);
-      setAudio(audio);
-      if (smufl && audio && ref.current) {
-        const noteHighlighter = new NoteHighlighter(smufl);
-        for (const note of audio.notes) {
-          note.onNoteOn = () => {
-            noteHighlighter.noteOn(note);
-            keyboard?.noteOn(note);
-          };
-          note.onNoteOff = () => {
-            noteHighlighter.noteOff(note);
-            keyboard?.noteOff(note);
-          };
-        }
-      }
+export default async function Score(props: PageProps<"/score/[id]">) {
+  const score = await prisma.score.findUnique({
+    where: { id: Number((await props.params).id) },
+  });
+  if (!score) return <>no score</>;
+  const sheet = Sheet.Score.create(score.data as Sheet.Parameter);
+  const smufl = sheet.toSMUFL();
+  const audio = smufl?.toAudio();
+  const keyboard = new Keyboard(smufl!.pitchRange);
+  // new KeyeventConnecter(keyboard);
+  // new MidiinputConnecter(keyboard);
+  if (smufl && audio) {
+    const noteHighlighter = new NoteHighlighter(smufl);
+    for (const note of audio.notes) {
+      note.onNoteOn = () => {
+        noteHighlighter.noteOn(note);
+        keyboard?.noteOn(note);
+      };
+      note.onNoteOff = () => {
+        noteHighlighter.noteOff(note);
+        keyboard?.noteOff(note);
+      };
     }
-  };
+  }
   return (
     <>
-      <Input type="file" onChange={handleChange} />
-      <ScoreViewer score={smufl} ref={ref} />
+      <ScoreViewer score={smufl} />
       <ScorePlayer score={audio} />
       <VirtualKeyboard keyboard={keyboard} />
     </>

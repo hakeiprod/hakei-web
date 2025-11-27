@@ -2,7 +2,7 @@
 import * as BrowserAudio from "@/s-core/models/browser/audio";
 import * as Audio from "@/s-core/models/audio";
 import { Navbar } from "@heroui/navbar";
-import { ButtonPlayPause } from "./buttn-play-pause";
+import { ButtonPlayPause } from "./button-play-pause";
 import { Button, ButtonGroup } from "@heroui/button";
 import { FastForward, Rewind, Square } from "lucide-react";
 import { VolumeSlider } from "./slider-volume";
