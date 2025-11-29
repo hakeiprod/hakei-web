@@ -9,7 +9,6 @@ import "../files/musicxml/extensions/to-sheet";
 import "../sheet/extensions/to-smufl";
 import "../smufl/extensions/to_svg";
 import "../audio/extensions/to-rythme";
-import "../core/extensions/to-json";
 import { ScorePartwise } from "../../const/musicxml/4.0/musicxml";
 import { parseNumbers } from "xml2js/lib/processors";
 

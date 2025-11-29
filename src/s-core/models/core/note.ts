@@ -38,4 +38,25 @@ export class Note extends Core.Event {
     this.pitch = pitch;
     this.velocity = velocity;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      id: this.id,
+      trackId: this.trackId,
+      pitch: this.pitch.value,
+      velocity: this.velocity,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Note["export"]>) {
+    return new Note({
+      ...data,
+      pitch: new Core.Units.MidiNoteNumber(data.pitch),
+      start: new Core.Units.Beat(data.start),
+      duration: new Core.Units.Beat(data.duration),
+      end: new Core.Units.Beat(data.end),
+    });
+  }
 }

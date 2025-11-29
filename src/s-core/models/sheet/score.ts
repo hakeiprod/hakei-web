@@ -40,11 +40,12 @@ export class Score<
   Tempo extends Core.Tempo = Core.Tempo,
   Chord extends Sheet.Chord = Sheet.Chord,
 > extends Core.Score<Note, Track, Timesignature, Keysignature, Tempo> {
-  masterbars;
   rows;
-  bars;
-  staves;
-  chords;
+  masterbars: Masterbar[];
+  bars: Bar[];
+  staves: Stave[];
+  chords: Chord[];
+  virtualNotes: Note[] = [];
   get events() {
     return [
       ...pipe(this.notes, filter(piped(prop("chordId"), isNullish))),
@@ -67,10 +68,10 @@ export class Score<
     return firstBy(this.masterbars, [prop("end"), "desc"])!.end;
   }
   constructor({
-    staves,
-    bars,
-    masterbars,
     rows,
+    masterbars,
+    bars,
+    staves,
     chords,
     ...score
   }: {
@@ -97,6 +98,32 @@ export class Score<
       ...this.chords,
     ])
       data.score = this;
+  }
+  export() {
+    return {
+      ...super.export(),
+      notes: this.notes.map((note) => note.export()),
+      tracks: map(this.tracks, (data) => data.export()),
+      bars: map(this.bars, (data) => data.export()),
+      staves: map(this.staves, (data) => data.export()),
+      masterbars: map(this.masterbars, (data) => data.export()),
+      chords: map(this.chords, (data) => data.export()),
+      rows: [],
+    };
+  }
+  static import(data: ReturnType<Score["export"]>) {
+    return new Score({
+      ...data,
+      ...super.import(data),
+      notes: data.notes.map(Sheet.Note.import),
+      tracks: data.tracks.map(Sheet.Track.import),
+      timesignatures: data.timesignatures.map(Sheet.Timesignature.import),
+      keysignatures: data.keysignatures.map(Sheet.Keysignature.import),
+      bars: data.bars.map(Sheet.Bar.import),
+      staves: data.staves.map(Sheet.Stave.import),
+      masterbars: data.masterbars.map(Sheet.Masterbar.import),
+      chords: data.chords.map(Sheet.Chord.import),
+    });
   }
 
   static override create(

@@ -28,4 +28,18 @@ export class Score<
     if (process.env.NODE_ENV === "development") console.log({ smufl: score });
     return score;
   }
+  static import(data: ReturnType<Score["export"]>) {
+    return new Score({
+      ...data,
+      ...super.import(data),
+      notes: data.notes.map(SMUFL.Note.import),
+      tracks: data.tracks.map(SMUFL.Track.import),
+      timesignatures: data.timesignatures.map(Sheet.Timesignature.import),
+      keysignatures: data.keysignatures.map(Sheet.Keysignature.import),
+      bars: data.bars.map(SMUFL.Bar.import),
+      staves: data.staves.map(SMUFL.Stave.import),
+      masterbars: data.masterbars.map(SMUFL.Masterbar.import),
+      chords: data.chords.map(Sheet.Chord.import),
+    });
+  }
 }

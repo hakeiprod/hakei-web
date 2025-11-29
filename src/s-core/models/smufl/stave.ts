@@ -93,4 +93,7 @@ export class Stave extends Sheet.Stave {
     super.draw();
     this.ligature = handleLigature(this.ligature);
   }
+  static import(data: ReturnType<Stave["export"]>) {
+    return new Stave(super.import(data));
+  }
 }

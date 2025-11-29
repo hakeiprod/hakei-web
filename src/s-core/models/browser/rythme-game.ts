@@ -1,5 +1,6 @@
 import * as Core from "@/s-core/models/core";
 import * as Audio from "@/s-core/models/audio";
+import * as Rythme from "@/s-core/models/rythme";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
 import { pipe, filter, find } from "remeda";
 import { match } from "ts-pattern";
@@ -22,12 +23,9 @@ export class RythmeGame {
     public audio: Audio.Score,
     public soundfont2: Soundfont2
   ) {
-    this.rythme = this.audio.toRythme();
+    this.rythme = Rythme.Score.import(this.audio.export());
     this.keyboard = new Keyboard();
-    this.audioController = new BrowserAudio.Controller(
-      audio.toAudio(),
-      soundfont2
-    );
+    this.audioController = new BrowserAudio.Controller(audio, soundfont2);
     this.keyboard.onNoteOn = (note) => this.noteOn(note);
     this.audioController.onPlayEnd = () =>
       console.log(

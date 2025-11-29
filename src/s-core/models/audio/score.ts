@@ -11,6 +11,15 @@ export class Score<
     super(parameters);
     for (const note of this.notes) note.score = this;
   }
+
+  static import(data: ReturnType<Score["export"]>) {
+    const core = super.import(data);
+    return new Score({
+      ...core,
+      notes: core.notes.map((note) => new Audio.Note(note)),
+      tracks: core.tracks.map((track) => new Audio.Track(track)),
+    });
+  }
   static create(...parameters: Parameters<typeof Core.Score.create>) {
     const core = super.create(...parameters);
     return new Score({

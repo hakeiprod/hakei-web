@@ -14,6 +14,7 @@ import {
   piped,
   last,
   mapToObj,
+  map,
 } from "remeda";
 import * as Core from "../core";
 import { MidiNoteNumber } from "./units";
@@ -39,7 +40,6 @@ export class Score<
         )!.pitch
     ) as [MidiNoteNumber, MidiNoteNumber];
   }
-
   name;
   timesignatures;
   keysignatures;
@@ -63,9 +63,9 @@ export class Score<
   }: {
     tracks: Track[];
     notes: Note[];
-    timesignatures: [Timesignature, ...Timesignature[]];
-    keysignatures: [Keysignature, ...Keysignature[]];
-    tempos: [Tempo, ...Tempo[]];
+    timesignatures: Timesignature[];
+    keysignatures: Keysignature[];
+    tempos: Tempo[];
     name?: string;
   }) {
     super(event);
@@ -76,6 +76,32 @@ export class Score<
     this.tracks = tracks;
     this.notes = notes;
     for (const data of [...this.tracks, ...this.notes]) data.score = this;
+  }
+  serialize() {
+    return {
+      ...super.serialize(),
+      name: this.name,
+    };
+  }
+  export() {
+    return {
+      ...this.serialize(),
+      notes: this.notes.map((data) => data.export()),
+      tracks: this.tracks.map((data) => data.export()),
+      timesignatures: this.timesignatures.map((data) => data.export()),
+      keysignatures: this.keysignatures.map((data) => data.export()),
+      tempos: this.tempos.map((data) => data.export()),
+    };
+  }
+  static import(data: ReturnType<Score["export"]>) {
+    return new Score({
+      ...data,
+      tracks: data.tracks.map(Core.Track.import),
+      notes: data.notes.map(Core.Note.import),
+      timesignatures: data.timesignatures.map(Core.Timesignature.import),
+      keysignatures: data.keysignatures.map(Core.Keysignature.import),
+      tempos: data.tempos.map(Core.Tempo.import),
+    });
   }
   static create(
     parameter: Parameter,

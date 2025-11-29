@@ -9,6 +9,9 @@ import { match } from "ts-pattern";
 
 export class Keysignature extends Core.Keysignature {
   ligature = new Ligature(undefined, { type: "keysignature" });
+  static import(data: ReturnType<Keysignature["export"]>) {
+    return new Keysignature(super.import(data));
+  }
   draw() {
     this.ligature.append(
       ...this.accidentalPitchClasses.map((pitchClass) => [

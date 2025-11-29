@@ -97,6 +97,20 @@ export class Stave {
     this.trackId = trackId;
     this.clefs = clef;
   }
+  serialize() {
+    return {
+      id: this.id,
+      trackId: this.trackId,
+      barId: this.barId,
+      clefs: this.clefs,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Stave["export"]>) {
+    return new Stave(data);
+  }
   draw() {
     if (this.bar.masterbar.isRowFirst)
       this.ligature.append([

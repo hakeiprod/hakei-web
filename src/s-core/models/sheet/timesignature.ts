@@ -5,6 +5,9 @@ import { ElementType } from ".";
 
 export class Timesignature extends Core.Timesignature {
   ligature = new Ligature();
+  static import(data: ReturnType<Timesignature["export"]>) {
+    return new Timesignature(super.import(data));
+  }
   draw() {
     this.ligature.append([
       new Glyph(ElementType.Numerator, 4),

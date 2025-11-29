@@ -78,4 +78,22 @@ export class Masterbar extends Core.Event {
     this.rowId = rowId;
     this.barline = barline;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      id: this.id,
+      barline: this.barline,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Masterbar["export"]>) {
+    return new Masterbar({
+      ...data,
+      start: new Core.Units.Beat(data.start),
+      duration: new Core.Units.Beat(data.duration),
+      end: new Core.Units.Beat(data.end),
+    });
+  }
 }

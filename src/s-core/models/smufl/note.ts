@@ -1,6 +1,7 @@
 import * as Sheet from "../sheet";
 import * as SMUFL from ".";
 import { P, match } from "ts-pattern";
+import { merge } from "remeda";
 
 export class Note extends Sheet.Note {
   declare score: SMUFL.Score;
@@ -51,5 +52,8 @@ export class Note extends Sheet.Note {
     };
     super.draw();
     this.ligature = handleLigature(this.ligature);
+  }
+  static import(data: ReturnType<Note["export"]>) {
+    return new Note(super.import(data));
   }
 }

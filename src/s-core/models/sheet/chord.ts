@@ -7,7 +7,7 @@ export class Chord extends Core.Event {
   trackId;
   voice;
   score!: Sheet.Score;
-  ligature: Sheet.Ligature | null = null;
+  ligature = new Sheet.Ligature();
   get params() {
     return {
       ...super.params,
@@ -44,10 +44,24 @@ export class Chord extends Core.Event {
     this.trackId = trackId;
     this.voice = voice;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      id: this.id,
+      staveId: this.staveId,
+      trackId: this.trackId,
+      voice: this.voice,
+    };
+  }
+  export() {
+    return { ...super.export(), ...this.serialize() };
+  }
+  static import(data: ReturnType<Chord["export"]>) {
+    return new Chord(data);
+  }
   draw() {
-    this.ligature = new Sheet.Ligature(
-      [pipe(this.notes, map(prop("ligature")), filter(isTruthy))],
-      0
+    this.ligature.append(
+      pipe(this.notes, map(prop("ligature")), filter(isTruthy))
     );
   }
 }

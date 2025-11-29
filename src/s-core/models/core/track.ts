@@ -38,4 +38,21 @@ export class Track extends Core.Event {
     this.name = name;
     this.preset = preset;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      id: this.id,
+      name: this.name,
+      preset: this.preset.value,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Track["export"]>) {
+    return new Track({
+      ...data,
+      preset: new Core.Units.Preset(data.preset),
+    });
+  }
 }

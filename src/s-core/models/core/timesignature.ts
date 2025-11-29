@@ -23,4 +23,22 @@ export class Timesignature extends Core.Event {
     this.denominator = denominator;
     this.numerator = numerator;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      denominator: this.denominator,
+      numerator: this.numerator,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Timesignature["export"]>) {
+    return new Timesignature({
+      ...data,
+      start: new Core.Units.Beat(data.start),
+      duration: new Core.Units.Beat(data.duration),
+      end: new Core.Units.Beat(data.end),
+    });
+  }
 }

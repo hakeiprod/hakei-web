@@ -28,4 +28,22 @@ export class Keysignature extends Core.Event {
     this.tonality = tonality;
     this.accidental = accidental;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      tonality: this.tonality,
+      accidental: this.accidental,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Keysignature["export"]>) {
+    return new Keysignature({
+      ...data,
+      start: new Core.Units.Beat(data.start),
+      duration: new Core.Units.Beat(data.duration),
+      end: new Core.Units.Beat(data.end),
+    });
+  }
 }

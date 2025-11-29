@@ -38,4 +38,19 @@ export class Track extends Core.Track {
       (bar) => bar.trackId === this.id && bar.id === masterbarId
     );
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      staffDetails: this.staffDetails,
+    };
+  }
+  export() {
+    return {
+      ...this.serialize(),
+      notes: this.notes.map((note) => note.export()),
+    };
+  }
+  static import(data: ReturnType<Track["export"]>) {
+    return new Track({ ...data, ...super.import(data) });
+  }
 }

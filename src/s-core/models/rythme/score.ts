@@ -1,15 +1,10 @@
 import * as Rythme from ".";
-import * as Sheet from "../sheet";
+import * as Core from "../core";
 
 export class Score<
   Note extends Rythme.Note = Rythme.Note,
-  Track extends Sheet.Track = Sheet.Track,
-  Stave extends Sheet.Stave = Sheet.Stave,
-  Bar extends Sheet.Bar = Sheet.Bar,
-  Masterbar extends Sheet.Masterbar = Sheet.Masterbar,
-  Row extends Sheet.Row = Sheet.Row,
-> extends Sheet.Score<Note, Track, Stave, Bar, Masterbar, Row> {
-  static override create(parameter: Sheet.Parameter) {
+> extends Core.Score<Note> {
+  static override create(parameter: Core.Parameter) {
     const sheet = super.create(parameter);
     const rythme = new Score({
       ...sheet,
@@ -17,5 +12,12 @@ export class Score<
     });
     if (process.env.NODE_ENV === "development") console.log({ rythme });
     return rythme;
+  }
+  static import(data: ReturnType<Score["export"]>) {
+    return new Score({
+      ...data,
+      ...super.import(data),
+      notes: data.notes.map(Rythme.Note.import),
+    });
   }
 }

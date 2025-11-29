@@ -1,24 +1,30 @@
 "use client";
+import * as Core from "@/s-core/models/core";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
 import { Application } from "pixi.js";
 import { useEffect, useRef } from "react";
 
-export function VirtualKeyboard(props: { keyboard?: Keyboard }) {
+export function VirtualKeyboard({
+  score,
+}: {
+  score: ReturnType<Core.Score["export"]>;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    const keyboard = new Keyboard(Core.Score.import(score).pitchRange);
     (async () => {
-      if (!props.keyboard) return;
+      if (!keyboard) return;
       const application = new Application();
       await application.init({
         width:
-          (props.keyboard.groupedRnageKeys.white?.length ?? 0) *
+          (keyboard.groupedRnageKeys.white?.length ?? 0) *
           Keyboard.WHITE_KEY_WIDTH,
         height: Keyboard.WHITE_KEY_HEIGHT,
       });
-      application.stage.addChild(props.keyboard.render());
+      application.stage.addChild(keyboard.render());
       ref.current?.appendChild(application.canvas);
     })();
-  }, [props.keyboard]);
+  }, [score]);
   return (
     <>
       <div ref={ref} />

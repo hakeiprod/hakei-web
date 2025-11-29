@@ -16,4 +16,22 @@ export class Tempo extends Core.Event {
     super(tempo);
     this.value = tempo.value;
   }
+  serialize() {
+    return {
+      ...super.serialize(),
+      value: this.value.value,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Tempo["export"]>) {
+    return new Tempo({
+      ...data,
+      value: new Core.Units.Tempo(data.value),
+      start: new Core.Units.Beat(data.start),
+      duration: new Core.Units.Beat(data.duration),
+      end: new Core.Units.Beat(data.end),
+    });
+  }
 }

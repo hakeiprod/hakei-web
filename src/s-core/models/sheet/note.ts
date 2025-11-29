@@ -6,7 +6,7 @@ import {
   Stem,
 } from "../../const/musicxml/4.0/musicxml";
 import { P, match } from "ts-pattern";
-import { times } from "remeda";
+import { merge, times } from "remeda";
 
 export class Note extends Core.Note {
   readonly id;
@@ -40,7 +40,7 @@ export class Note extends Core.Note {
   }
   get keysignature() {
     return this.score.keysignatures.find((keysignature) =>
-      keysignature.isOverlapped(this)
+      this.isOverlapped(keysignature)
     )!;
   }
   get accidental() {
@@ -156,5 +156,33 @@ export class Note extends Core.Note {
       ],
       ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)])
     );
+  }
+
+  serialize() {
+    return {
+      ...super.serialize(),
+      staveId: this.staveId,
+      chordId: this.chordId,
+      stem: this.stem,
+      rest: this.rest,
+      voice: this.voice,
+      beam: this.beam,
+      flag: this.flag,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Note["export"]>) {
+    const core = super.import(data);
+    return new Note({
+      ...data,
+      ...core,
+      ...{
+        start: core.start,
+        duration: core.duration,
+        end: core.end,
+      },
+    });
   }
 }

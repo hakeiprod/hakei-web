@@ -76,4 +76,13 @@ export class Bar {
     this.id = id;
     this.trackId = trackId;
   }
+  serialize() {
+    return { id: this.id, trackId: this.trackId };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Bar["export"]>) {
+    return new Bar(data);
+  }
 }

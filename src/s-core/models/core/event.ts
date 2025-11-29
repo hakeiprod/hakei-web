@@ -1,17 +1,18 @@
+import { entries, mapToObj, pipe } from "remeda";
 import { Beat } from "./units/beat";
 
 export class Event {
-  #start;
-  #duration;
-  #end;
+  _start;
+  _duration;
+  _end;
   get start(): Beat {
-    return this.#start ?? this.end.subtract(this.duration);
+    return this._start ?? this.end.subtract(this.duration);
   }
   get duration(): Beat {
-    return this.#duration ?? this.end.subtract(this.start);
+    return this._duration ?? this.end.subtract(this.start);
   }
   get end(): Beat {
-    return this.#end ?? this.start.add(this.duration);
+    return this._end ?? this.start.add(this.duration);
   }
   get params() {
     return {
@@ -29,13 +30,32 @@ export class Event {
     duration?: Beat;
     end?: Beat;
   }) {
-    this.#start = start;
-    this.#duration = duration;
-    this.#end = end;
+    this._start = start;
+    this._duration = duration;
+    this._end = end;
+  }
+  serialize() {
+    return {
+      start: this.start.value,
+      duration: this.duration.value,
+      end: this.end.value,
+    };
+  }
+  export() {
+    return this.serialize();
+  }
+  static import(data: ReturnType<Event["export"]>) {
+    return new Event(
+      pipe(
+        data,
+        entries(),
+        mapToObj(([key, value]) => [key, new Beat(value)])
+      )
+    );
   }
   setEnd(end: Beat) {
-    this.#end = end;
-    if (this.#start) this.#duration = this.#end.subtract(this.#start);
+    this._end = end;
+    if (this._start) this._duration = this._end.subtract(this._start);
   }
   isOverflow(event: Event) {
     return (

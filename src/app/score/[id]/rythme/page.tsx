@@ -1,6 +1,7 @@
 "use client";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
 import * as SMUFL from "@/s-core/models/smufl";
+import * as Audio from "@/s-core/models/audio";
 import * as Browser from "@/s-core/models/browser";
 import { Input } from "@heroui/input";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
@@ -43,7 +44,10 @@ export default function Score() {
   }, []);
   useEffect(() => {
     if (smufl && soundfont2) {
-      const rythmeGame = new RythmeGame(smufl.toAudio(), soundfont2);
+      const rythmeGame = new RythmeGame(
+        Audio.Score.import(smufl.export()),
+        soundfont2
+      );
       setRythmeGame(rythmeGame);
       rythmeGame.audioController.masterGain.gain.value = masterVolume / 100;
     }

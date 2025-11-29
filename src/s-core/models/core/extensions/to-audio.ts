@@ -9,15 +9,10 @@ declare module "../../core" {
 }
 
 Core.Score.prototype.toAudio = function (this: Core.Score) {
-  const audio = Audio.Score.create({
-    ...this.params,
-    tracks: this.tracks.map((track) => ({
-      ...track.params,
-      notes: track.notes
-        .filter((note) => note.pitch.value !== -1)
-        .map(({ params }) => params),
-    })),
-    keysignatures: this.keysignatures.map(({ params }) => params),
+  const exported = this.export();
+  const audio = Audio.Score.import({
+    ...exported,
+    notes: exported.notes.filter((note) => note.pitch !== -1),
   });
   if (process.env.NODE_ENV === "development") console.log({ audio });
   return audio;

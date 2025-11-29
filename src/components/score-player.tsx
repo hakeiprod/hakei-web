@@ -1,6 +1,7 @@
 "use client";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
 import * as Audio from "@/s-core/models/audio";
+import * as Core from "@/s-core/models/core";
 import { Navbar } from "@heroui/navbar";
 import { ButtonPlayPause } from "./button-play-pause";
 import { Button, ButtonGroup } from "@heroui/button";
@@ -12,7 +13,11 @@ import { SliderValue } from "@heroui/slider";
 import { useAtom } from "jotai";
 import { masterVolumeAtom } from "@/store/master-volume";
 
-export function ScorePlayer({ score }: { score?: Audio.Score }) {
+export function ScorePlayer({
+  score,
+}: {
+  score: ReturnType<Core.Score["export"]>;
+}) {
   const [controller, setController] = useState<BrowserAudio.Controller>();
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
   const [isPlaying, setIsPlaying] = useState(false);
@@ -49,7 +54,13 @@ export function ScorePlayer({ score }: { score?: Audio.Score }) {
   }, []);
   useEffect(() => {
     if (!controller && score && soundfont2) {
-      const controller = new BrowserAudio.Controller(score, soundfont2);
+      const controller = new BrowserAudio.Controller(
+        Audio.Score.import({
+          ...score,
+          notes: score.notes.filter((note) => note.pitch !== -1),
+        }),
+        soundfont2
+      );
       controller.masterGain.gain.value = masterVolume / 100;
       controller.onPlayEnd = () => setIsPlaying(false);
       setController(controller);

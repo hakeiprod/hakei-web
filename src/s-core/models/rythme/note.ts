@@ -1,9 +1,16 @@
+import * as Core from "../core";
 import { isNullish } from "remeda";
-import * as Sheet from "../sheet";
 import { JudgeType } from "./enums/judge";
 //TODO: const
-export class Note extends Sheet.Note {
+export class Note extends Core.Note {
   hitSeconds: number | null = null;
+  get searchParamsLabel() {
+    const searchParams = new URLSearchParams();
+    searchParams.append("type", "note");
+    searchParams.append("id", this.id.toString());
+    searchParams.append("trackId", this.trackId.toString());
+    return searchParams;
+  }
   get isHitted() {
     return this.hitSeconds !== null;
   }
@@ -18,5 +25,8 @@ export class Note extends Sheet.Note {
   }
   canHit(time: number) {
     return Math.abs(time - this.start.toSeconds(this.tempo.value)) <= 1;
+  }
+  static import(data: ReturnType<Note["export"]>) {
+    return new Note(super.import(data));
   }
 }

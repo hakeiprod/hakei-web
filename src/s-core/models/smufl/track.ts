@@ -9,4 +9,7 @@ export class Track extends Sheet.Track {
   override getMasterbarBars(masterbarId: number) {
     return super.getMasterbarBars(masterbarId) as SMUFL.Bar[];
   }
+  static import(data: ReturnType<Track["export"]>) {
+    return new Track(super.import(data));
+  }
 }

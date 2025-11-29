@@ -6,4 +6,7 @@ export class Bar extends Sheet.Bar {
   override get staves() {
     return super.staves as SMUFL.Stave[];
   }
+  static import(data: ReturnType<Bar["export"]>) {
+    return new Bar(super.import(data));
+  }
 }
