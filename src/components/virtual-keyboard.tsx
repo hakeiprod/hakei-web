@@ -3,17 +3,15 @@ import * as Core from "@/s-core/models/core";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
 import { Application } from "pixi.js";
 import { useEffect, useRef } from "react";
+import { KeyeventConnecter } from "@/s-core/models/keyboard_input/keyevent-connecter";
+import { MidiinputConnecter } from "@/s-core/models/keyboard_input/midiinput-connecter";
 
-export function VirtualKeyboard({
-  score,
-}: {
-  score: ReturnType<Core.Score["export"]>;
-}) {
+export function VirtualKeyboard({ keyboard }: { keyboard: Keyboard }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    const keyboard = new Keyboard(Core.Score.import(score).pitchRange);
+    new KeyeventConnecter(keyboard);
+    new MidiinputConnecter(keyboard);
     (async () => {
-      if (!keyboard) return;
       const application = new Application();
       await application.init({
         width:
@@ -24,10 +22,6 @@ export function VirtualKeyboard({
       application.stage.addChild(keyboard.render());
       ref.current?.appendChild(application.canvas);
     })();
-  }, [score]);
-  return (
-    <>
-      <div ref={ref} />
-    </>
-  );
+  }, [keyboard]);
+  return <div ref={ref} />;
 }

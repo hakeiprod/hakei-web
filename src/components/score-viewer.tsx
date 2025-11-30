@@ -1,7 +1,7 @@
 "use client";
 import * as SMUFL from "@/s-core/models/smufl";
 import { NumberInput, Select, SelectItem } from "@heroui/react";
-import { ChangeEvent, RefObject, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { filter, keys, map, pipe } from "remeda";
 import localFont from "next/font/local";
 import "../s-core/models/smufl/extensions/to_svg";
@@ -14,11 +14,7 @@ import { useDebouncedCallback } from "use-debounce";
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
-export function ScoreViewer({
-  score,
-}: {
-  score: ReturnType<SMUFL.Score["export"]>;
-}) {
+export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [controller, setController] = useState<SMUFL.Controller>();
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
@@ -43,7 +39,7 @@ export function ScoreViewer({
   }
   useEffect(() => {
     if (score) {
-      const controller = new SMUFL.Controller(SMUFL.Score.import(score), {
+      const controller = new SMUFL.Controller(score, {
         scale,
         layoutType,
       });
