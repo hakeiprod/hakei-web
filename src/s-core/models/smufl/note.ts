@@ -1,7 +1,6 @@
 import * as Sheet from "../sheet";
 import * as SMUFL from ".";
 import { P, match } from "ts-pattern";
-import { merge } from "remeda";
 
 export class Note extends Sheet.Note {
   declare score: SMUFL.Score;

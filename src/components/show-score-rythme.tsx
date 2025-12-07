@@ -9,7 +9,11 @@ import { useAtom } from "jotai";
 import { masterVolumeAtom } from "@/store/master-volume";
 import { Checkbox, CheckboxGroup } from "@heroui/react";
 import { prisma } from "@/prisma";
+import localFont from "next/font/local";
 
+const bravura = localFont({
+  src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
+});
 export function ShowScoreRythme(props: {
   score: NonNullable<Awaited<ReturnType<typeof prisma.score.findUnique>>>;
 }) {
@@ -34,7 +38,8 @@ export function ShowScoreRythme(props: {
         ...scoreData,
         notes: scoreData.notes.filter((note) => note.pitch !== -1),
       }),
-      soundfont2
+      soundfont2,
+      bravura.style.fontFamily
     );
     rythmeGame.audioController.masterGain.gain.value = masterVolume / 100;
     setRythmeGame(rythmeGame);
@@ -48,7 +53,6 @@ export function ShowScoreRythme(props: {
               setStarted(true);
               (async () => {
                 if (!rythmeGame) return;
-                rythmeGame.start();
                 // TODO:　リファクタ
                 rythmeGame.rythme.tracks = rythmeGame.rythme.tracks.filter(
                   (track) => trackIds.includes(track.id)
@@ -56,7 +60,8 @@ export function ShowScoreRythme(props: {
                 rythmeGame.rythme.notes = rythmeGame.rythme.notes.filter(
                   (note) => trackIds.includes(note.trackId)
                 );
-                ref.current?.appendChild(await rythmeGame!.render());
+                rythmeGame.start();
+                ref.current?.appendChild(await rythmeGame.render());
               })();
             }}
           >
@@ -76,7 +81,7 @@ export function ShowScoreRythme(props: {
           </CheckboxGroup>
         </>
       )}
-      <div ref={ref} />
+      <div ref={ref} className={bravura.className} />
     </>
   );
 }

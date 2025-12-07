@@ -1,8 +1,9 @@
-import * as Core from "../core";
+import * as Sheet from "../sheet";
+import * as SMUFL from "../smufl";
 import { isNullish } from "remeda";
 import { JudgeType } from "./enums/judge";
 //TODO: const
-export class Note extends Core.Note {
+export class Note extends Sheet.Note {
   hitSeconds: number | null = null;
   get searchParamsLabel() {
     const searchParams = new URLSearchParams();
@@ -25,6 +26,12 @@ export class Note extends Core.Note {
   }
   canHit(time: number) {
     return Math.abs(time - this.start.toSeconds(this.tempo.value)) <= 1;
+  }
+  get noteheadGlyph() {
+    return new SMUFL.Glyph(
+      SMUFL.Glyph.findNotehead(this.type),
+      Sheet.ElementType.Notehead
+    );
   }
   static import(data: ReturnType<Note["export"]>) {
     return new Note(super.import(data));
