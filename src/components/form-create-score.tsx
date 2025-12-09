@@ -2,9 +2,9 @@
 import { Button, Form, Input } from "@heroui/react";
 import { FormProps } from "@heroui/react";
 
-export function FormCreateScore(props: FormProps) {
+export function FormCreateScore(properties: FormProps) {
   return (
-    <Form {...props}>
+    <Form {...properties}>
       <Input name="data" type="file" />
       <Button type="submit">submit</Button>
     </Form>

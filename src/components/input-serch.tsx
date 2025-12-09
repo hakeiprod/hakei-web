@@ -14,8 +14,8 @@ export function InputSearch() {
   const [query] = useQueryState("query");
   const [value, setValue] = useState(query ?? "");
   const router = useRouter();
-  function handleOnKeyDown(e: ReactKeyboardEvent<HTMLInputElement>) {
-    if (e.code === "Enter") router.push("/resource?query=" + value);
+  function handleOnKeyDown(event: ReactKeyboardEvent<HTMLInputElement>) {
+    if (event.code === "Enter") router.push("/resource?query=" + value);
   }
   async function handleInputChange(value: string) {
     setValue(value);

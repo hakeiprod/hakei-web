@@ -42,6 +42,7 @@ export default class Envelope {
     this.release = release;
   }
   noteOn(time: number) {
+    this.audioParam.cancelScheduledValues(time);
     this.audioParam.setValueAtTime(this.init.value, time + this.init.time);
     this.audioParam.setValueAtTime(this.delay.value, time + this.delay.time);
     this.audioParam.linearRampToValueAtTime(

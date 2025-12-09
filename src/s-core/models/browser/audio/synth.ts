@@ -1,177 +1,203 @@
 import { MidiNoteNumber } from "../../core/units";
 import Envelope from "./envelope";
+import * as Audio from "../../audio";
 import Preset from "../../files/soundfont2/preset";
 import "../../../extensions/int16array/to-float32array.extensions";
+import { map, pipe, times } from "remeda";
 export class Synth {
-  // filter;
+  filter;
   gain;
   // panner;
-  buffer;
-  bufferSource: AudioBufferSourceNode | null = null;
   audioContext;
-  sample;
-  pitch;
+  track;
+  resources;
+  bufferSources: {
+    bufferSource: AudioBufferSourceNode;
+    pitch: MidiNoteNumber;
+  }[] = [];
   onNoteOn?: () => void;
   onNoteOff?: () => void;
-  // private filterEnvelope;
-  private gainEnvelope;
   constructor({
     audioContext,
     preset,
-    pitch,
+    track,
   }: {
     preset: Preset;
     audioContext: AudioContext;
-    pitch: MidiNoteNumber;
+    track: Audio.Track;
   }) {
     this.audioContext = audioContext;
+    this.track = track;
     this.gain = audioContext.createGain();
+    this.filter = audioContext.createBiquadFilter();
     // this.panner = audioContext.createStereoPanner();
-    // this.filter = audioContext.createBiquadFilter();
-    this.pitch = pitch;
-    const sample = preset.instruments
-      .flatMap((instrument) => instrument.samples)
-      .find(
-        (sample) =>
-          sample.generators.keyRange.lo <= pitch.value &&
-          sample.generators.keyRange.hi >= pitch.value
-      )!;
-    // this.filter.type = "lowpass";
-    // this.filter.Q.setValueAtTime(
-    //   sample.generators.initialFilterQ.toDecibel().value,
-    //   0
-    // );
-    // this.panner.pan.setValueAtTime(sample.generators.pan.toNumber(), 0);
-    this.gainEnvelope = new Synth.Envelope(this.gain.gain, {
-      init: { value: 0, time: 0 },
-      delay: {
-        value: 0,
-        time: sample.generators.delayVolEnv.toSeconds().value,
-      },
-      attack: {
-        value: 1,
-        time:
-          sample.generators.delayVolEnv.toSeconds().value +
-          sample.generators.attackVolEnv.toSeconds().value,
-      },
-      hold: {
-        value: 1,
-        time:
-          sample.generators.delayVolEnv.toSeconds().value +
-          sample.generators.attackVolEnv.toSeconds().value +
-          sample.generators.holdVolEnv.toSeconds().value,
-      },
-      decay:
-        sample.generators.delayVolEnv.toSeconds().value +
-        sample.generators.attackVolEnv.toSeconds().value +
-        sample.generators.holdVolEnv.toSeconds().value +
-        sample.generators.decayVolEnv.toSeconds().value,
-      sustain: sample.generators.sustainVolEnv.value,
-      release: {
-        value: 0,
-        time: sample.generators.releaseVolEnv.toSeconds().value,
-      },
-    });
-    // this.filterEnvelope = new Synth.Envelope(this.filter.frequency, {
-    //   init: {
-    //     value: sample.generators.initialFilterFc.toHertz().value,
-    //     time: 0,
-    //   },
-    //   delay: {
-    //     value: sample.generators.initialFilterFc.toHertz().value,
-    //     time: sample.generators.delayModEnv.toSeconds().value,
-    //   },
-    //   attack: {
-    //     value:
-    //       sample.generators.initialFilterFc.toHertz().value +
-    //       sample.generators.modEnvToFilterFc.value,
-    //     time:
-    //       sample.generators.delayModEnv.toSeconds().value +
-    //       sample.generators.attackModEnv.toSeconds().value,
-    //   },
-    //   hold: {
-    //     value:
-    //       sample.generators.initialFilterFc.toHertz().value +
-    //       sample.generators.modEnvToFilterFc.value,
-    //     time:
-    //       sample.generators.delayModEnv.toSeconds().value +
-    //       sample.generators.attackModEnv.toSeconds().value +
-    //       sample.generators.holdModEnv.toSeconds().value,
-    //   },
-    //   decay:
-    //     sample.generators.delayModEnv.toSeconds().value +
-    //     sample.generators.attackModEnv.toSeconds().value +
-    //     sample.generators.holdModEnv.toSeconds().value +
-    //     sample.generators.decayModEnv.toSeconds().value,
-    //   sustain: -sample.generators.sustainModEnv.toNumber(),
-    //   release: {
-    //     value: sample.generators.initialFilterFc.toHertz().value,
-    //     time: sample.generators.releaseModEnv.toSeconds().value,
-    //   },
-    // });
-    const float32 = sample.data.toFloat32Array();
-    const buffer = audioContext.createBuffer(
-      1,
-      float32.length,
-      sample.header.sampleRate.value
+    this.resources = pipe(
+      times(
+        track.keyRange[1].value - track.keyRange[0].value + 1,
+        (i) => new MidiNoteNumber(i + track.keyRange[0].value)
+      ),
+      map((pitch) => {
+        const sample = preset.instruments
+          .flatMap((instrument) => instrument.samples)
+          .find(
+            (sample) =>
+              sample.generators.keyRange.lo <= pitch.value &&
+              sample.generators.keyRange.hi >= pitch.value
+          )!;
+        const float32 = sample.data.toFloat32Array();
+        const buffer = audioContext.createBuffer(
+          1,
+          float32.length,
+          sample.header.sampleRate.value
+        );
+        buffer.getChannelData(0).set(float32);
+        return {
+          pitch,
+          sample,
+          buffer,
+          gainEnvelope: new Synth.Envelope(this.gain.gain, {
+            init: { value: 0, time: 0 },
+            delay: {
+              value: 0,
+              time: sample.generators.delayVolEnv.toSeconds().value,
+            },
+            attack: {
+              value: 1,
+              time:
+                sample.generators.delayVolEnv.toSeconds().value +
+                sample.generators.attackVolEnv.toSeconds().value,
+            },
+            hold: {
+              value: 1,
+              time:
+                sample.generators.delayVolEnv.toSeconds().value +
+                sample.generators.attackVolEnv.toSeconds().value +
+                sample.generators.holdVolEnv.toSeconds().value,
+            },
+            decay:
+              sample.generators.delayVolEnv.toSeconds().value +
+              sample.generators.attackVolEnv.toSeconds().value +
+              sample.generators.holdVolEnv.toSeconds().value +
+              sample.generators.decayVolEnv.toSeconds().value,
+            sustain: sample.generators.sustainVolEnv.value,
+            release: {
+              value: 0,
+              time: sample.generators.releaseVolEnv.toSeconds().value,
+            },
+          }),
+          filterEnvelope: new Synth.Envelope(this.filter.frequency, {
+            init: {
+              value: sample.generators.initialFilterFc.toHertz().value,
+              time: 0,
+            },
+            delay: {
+              value: sample.generators.initialFilterFc.toHertz().value,
+              time: sample.generators.delayModEnv.toSeconds().value,
+            },
+            attack: {
+              value:
+                sample.generators.initialFilterFc.toHertz().value +
+                sample.generators.modEnvToFilterFc.value,
+              time:
+                sample.generators.delayModEnv.toSeconds().value +
+                sample.generators.attackModEnv.toSeconds().value,
+            },
+            hold: {
+              value:
+                sample.generators.initialFilterFc.toHertz().value +
+                sample.generators.modEnvToFilterFc.value,
+              time:
+                sample.generators.delayModEnv.toSeconds().value +
+                sample.generators.attackModEnv.toSeconds().value +
+                sample.generators.holdModEnv.toSeconds().value,
+            },
+            decay:
+              sample.generators.delayModEnv.toSeconds().value +
+              sample.generators.attackModEnv.toSeconds().value +
+              sample.generators.holdModEnv.toSeconds().value +
+              sample.generators.decayModEnv.toSeconds().value,
+            sustain:
+              sample.generators.initialFilterFc.value +
+              sample.generators.modEnvToFilterFc.value *
+                (1 - sample.generators.sustainModEnv.value),
+            release: {
+              value: sample.generators.initialFilterFc.toHertz().value,
+              time: sample.generators.releaseModEnv.toSeconds().value,
+            },
+          }),
+        };
+      })
     );
-    buffer.getChannelData(0).set(float32);
-    this.sample = sample;
-    this.buffer = buffer;
+    this.filter.type = "lowpass";
+    this.filter.connect(this.gain);
+    // this.panner.pan.setValueAtTime(sample.generators.pan.toNumber(), 0);
     // this.filter.connect(this.panner).connect(this.gain);
     // this.panner.connect(this.gain);
   }
-  noteOn(when?: number, onEnd?: () => void) {
+  noteOn(pitch: MidiNoteNumber, when?: number, onEnd?: () => void) {
     const bufferSource = this.audioContext.createBufferSource();
-    bufferSource.buffer = this.buffer;
-    if (this.sample.generators.sampleModes.value !== 0) {
+    const time = Math.max(
+      when ?? this.audioContext.currentTime,
+      this.audioContext.currentTime + 0.001
+    );
+    const { buffer, sample, gainEnvelope, filterEnvelope } =
+      this.resources.find((resource) => resource.pitch.equal(pitch))!;
+    this.bufferSources.push({ bufferSource, pitch });
+    this.filter.Q.setValueAtTime(
+      sample.generators.initialFilterQ.toDecibel().value,
+      0
+    );
+    bufferSource.buffer = buffer;
+    if (sample.generators.sampleModes.value !== 0) {
       bufferSource.loop = true;
       bufferSource.loopStart =
-        (this.sample.startLoop - this.sample.start) /
-        this.sample.header.sampleRate.value;
+        (sample.startLoop - sample.start) / sample.header.sampleRate.value;
       bufferSource.loopEnd =
-        (this.sample.endLoop - this.sample.end) /
-        this.sample.header.sampleRate.value;
+        (sample.endLoop - sample.end) / sample.header.sampleRate.value;
     }
-    bufferSource.addEventListener("ended", () => onEnd?.());
-    bufferSource.playbackRate.value = this.sample.playBackRate(
-      this.pitch.value
-    );
-    const time = when ?? this.audioContext.currentTime;
-    bufferSource.connect(this.gain);
-    bufferSource.addEventListener("ended", () =>
-      bufferSource.disconnect(this.gain)
-    );
-    const started = () => {
-      if (time <= this.audioContext.currentTime) {
-        return this.onNoteOn?.();
-      }
-      requestAnimationFrame(started);
-    };
-    started();
-
+    bufferSource.playbackRate.value = sample.playBackRate(pitch.value);
+    bufferSource.connect(this.filter);
+    bufferSource.addEventListener("ended", () => {
+      onEnd?.();
+      bufferSource.disconnect(this.filter);
+      this.bufferSources.splice(
+        this.bufferSources.indexOf({ bufferSource, pitch }),
+        1
+      );
+    });
+    // const started = () => {
+    //   if (time <= this.audioContext.currentTime) {
+    //     return this.onNoteOn?.();
+    //   }
+    //   requestAnimationFrame(started);
+    // };
+    // started();
     bufferSource.start(time);
-
-    this.gainEnvelope.noteOn(time);
-    // this.filterEnvelope.noteOn(time);
-    this.bufferSource = bufferSource;
+    gainEnvelope.noteOn(time);
+    filterEnvelope.noteOn(time);
   }
-  noteOff(when?: number) {
+  noteOff(pitch: MidiNoteNumber, when?: number) {
     const time = when ?? this.audioContext.currentTime;
-    this.bufferSource?.stop(
+    const bufferSource = this.bufferSources.findLast((bufferSource) =>
+      bufferSource.pitch.equal(pitch)
+    )!.bufferSource;
+    const { filterEnvelope, gainEnvelope } = this.resources.findLast(
+      (resource) => resource.pitch.equal(pitch)
+    )!;
+    bufferSource.stop(
       // Math.max(
       //   this.filterEnvelope.release.time,
       //   this.gainEnvelope.release.time
       // ) +
       time
     );
-    const stoped = () => {
-      if (time <= this.audioContext.currentTime) return this.onNoteOff?.();
-      requestAnimationFrame(stoped);
-    };
-    stoped();
-    this.gainEnvelope.noteOff(time);
-    // this.filterEnvelope.noteOff(time);
+    gainEnvelope.noteOff(time);
+    filterEnvelope.noteOff(time);
+    // const stoped = () => {
+    //   if (time <= this.audioContext.currentTime) return this.onNoteOff?.();
+    //   requestAnimationFrame(stoped);
+    // };
+    // stoped();
   }
 
   static Envelope = Envelope;

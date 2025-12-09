@@ -77,8 +77,11 @@ export class RythmeGame {
   }
   async render() {
     const application = new Application();
-    await application.init({ background: "white", resizeTo: window });
-    this.keyboard.range = this.rythme.pitchRange;
+    await application.init({
+      background: "white",
+      resizeTo: globalThis.window,
+    });
+    this.keyboard.range = this.rythme.keyRange;
     new KeyeventConnecter(this.keyboard);
     new MidiinputConnecter(this.keyboard);
     this.keyboard.render();
@@ -121,13 +124,13 @@ export class RythmeGame {
     }
     application.ticker.add(() => {
       for (const child of this.pixiRootContainer.children) {
-        const searchParams = new URLSearchParams(child.label);
-        if (searchParams.get("type") === "note") {
+        const searchParameters = new URLSearchParams(child.label);
+        if (searchParameters.get("type") === "note") {
           const graphics = child as Text;
           const note = this.rythme.notes.find(
             (note) =>
-              note.trackId.toString() === searchParams.get("trackId") &&
-              note.id.toString() === searchParams.get("id")
+              note.trackId.toString() === searchParameters.get("trackId") &&
+              note.id.toString() === searchParameters.get("id")
           );
           graphics.y =
             FallingNoteHeight -
@@ -142,30 +145,26 @@ export class RythmeGame {
       application.renderer.width / 2 - this.pixiRootContainer.width / 2;
     // borders
     this.pixiRootContainer.addChild(
-      ...times((this.keyboard.groupedRnageKeys.white ?? []).length + 1, (i) =>
-        new Graphics()
-          .rect(i * Keyboard.WHITE_KEY_WIDTH, 0, 1, application.renderer.height)
-          .setFillStyle("black")
-          .fill()
+      ...times(
+        (this.keyboard.groupedRnageKeys.white ?? []).length + 1,
+        (index) =>
+          new Graphics()
+            .rect(
+              index * Keyboard.WHITE_KEY_WIDTH,
+              0,
+              1,
+              application.renderer.height
+            )
+            .setFillStyle("black")
+            .fill()
       )
     );
     this.pixiRootContainer.addChild(this.keyboard.container);
     application.stage.addChild(this.pixiRootContainer);
-
-    application.stage.addChild(
-      new Text({
-        text: "\uE050",
-        style: {
-          fontFamily: this.fontFamily,
-          fontSize: 48,
-          fill: "black",
-        },
-      })
-    );
     return application.canvas;
   }
   start() {
-    this.audioController.play();
+    this.audioController.setState(BrowserAudio.ControllerState.Playing);
   }
   pause() {}
   end() {}

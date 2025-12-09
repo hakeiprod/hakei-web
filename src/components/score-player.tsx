@@ -30,13 +30,13 @@ export function ScorePlayer({ score }: { score: Audio.Score }) {
     else setIsMute(true);
   }
   function handleMutePress() {
-    setMasterVolume(!isMute ? 0 : previousVolume);
+    setMasterVolume(isMute ? previousVolume : 0);
     setIsMute(!isMute);
   }
   function handlePlay(value: boolean) {
     setIsPlaying(!value);
-    if (!value) controller?.play();
-    else controller?.pause();
+    if (value) controller?.pause();
+    else controller?.play();
   }
   function handleStop() {
     setIsPlaying(false);
@@ -44,7 +44,7 @@ export function ScorePlayer({ score }: { score: Audio.Score }) {
   }
   useEffect(() => {
     fetch("/A320U.sf2")
-      .then((res) => res.arrayBuffer())
+      .then((response) => response.arrayBuffer())
       .then((buf) => setSoundfont2(Soundfont2.create(buf)));
   }, []);
   useEffect(() => {

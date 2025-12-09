@@ -31,14 +31,14 @@ export class Score<
   override get end() {
     return firstBy(this.tracks, [prop("end"), "asc"])!.end;
   }
-  get pitchRange() {
+  get keyRange() {
     return (["asc", "desc"] as const).map(
       (sort) =>
         firstBy(
           this.notes.filter((note) => 0 <= note.pitch.value),
           [prop("pitch", "value"), sort]
         )!.pitch
-    ) as [MidiNoteNumber, MidiNoteNumber];
+    ) as [min: MidiNoteNumber, max: MidiNoteNumber];
   }
   name;
   timesignatures;

@@ -6,7 +6,7 @@ import {
   Stem,
 } from "../../const/musicxml/4.0/musicxml";
 import { P, match } from "ts-pattern";
-import { merge, times } from "remeda";
+import { times } from "remeda";
 
 export class Note extends Core.Note {
   readonly id;

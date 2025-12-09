@@ -18,23 +18,27 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [controller, setController] = useState<SMUFL.Controller>();
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
-  const ref = useRef<HTMLDivElement | null>(null);
+  const reference = useRef<HTMLDivElement | null>(null);
   const handleResize = useDebouncedCallback(() => {
     if (controller?.options.layoutType === LayoutType.Vertical)
       controller?.render();
   }, 100);
-  function handleScaleChange(eOrValue: ChangeEvent<HTMLInputElement> | number) {
+  function handleScaleChange(
+    eventOrValue: ChangeEvent<HTMLInputElement> | number
+  ) {
     const value =
-      typeof eOrValue === "number" ? eOrValue : Number(eOrValue.target.value);
+      typeof eventOrValue === "number"
+        ? eventOrValue
+        : Number(eventOrValue.target.value);
     if (!controller) return;
     setScale(value);
     controller.options.scale = value;
     controller.render();
   }
-  function handleLayoutTypeChange(e: ChangeEvent<HTMLSelectElement>) {
+  function handleLayoutTypeChange(event: ChangeEvent<HTMLSelectElement>) {
     if (!controller) return;
-    setLayoutType(Number(e.target.value));
-    controller.options.layoutType = Number(e.target.value);
+    setLayoutType(Number(event.target.value));
+    controller.options.layoutType = Number(event.target.value);
     controller.render();
   }
   useEffect(() => {
@@ -47,14 +51,15 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       const svg = controller.render();
       setController(controller);
       window.addEventListener("resize", handleResize);
-      if (!ref?.current?.hasChildNodes() && svg) ref?.current?.appendChild(svg);
+      if (!reference.current?.hasChildNodes() && svg)
+        reference.current?.append(svg);
     }
-    () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [score]);
   return (
     <>
       <div
-        ref={ref}
+        ref={reference}
         className={bravura.className}
         style={{ overflowX: "auto" }}
       />
@@ -76,7 +81,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
         {pipe(
           LayoutType,
           keys(),
-          filter((k) => !isNaN(Number(k))),
+          filter((k) => !Number.isNaN(Number(k))),
           map((key) => <SelectItem key={key}>{LayoutType[key]}</SelectItem>)
         )}
       </Select>

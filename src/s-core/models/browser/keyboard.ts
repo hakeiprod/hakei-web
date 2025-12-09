@@ -13,11 +13,10 @@ export class Keyboard {
   onNoteOff?: (note: Core.Note) => void;
   container = new Container();
   get rangeKeys() {
-    const rangeDiff = (this.range[1].value ?? 0) - (this.range[0].value ?? 0);
-    return times(rangeDiff, (i) => i + this.range[0].value);
+    return times(this.rangeSize, (index) => index + this.range[0].value);
   }
   get rangeSize() {
-    return (this.range[1].value ?? 0) - (this.range[0].value ?? 0);
+    return this.range[1].value - this.range[0].value;
   }
   get groupedRnageKeys() {
     return pipe(
@@ -31,19 +30,19 @@ export class Keyboard {
       new MidiNoteNumber(-1),
     ]
   ) {}
-  noteOn(...args: Parameters<NonNullable<typeof this.onNoteOn>>) {
-    this.onNoteOn?.(...args);
+  noteOn(...arguments_: Parameters<NonNullable<typeof this.onNoteOn>>) {
+    this.onNoteOn?.(...arguments_);
     const graphics = this.container.getChildByLabel(
-      args[0].pitch.value.toString()
+      arguments_[0].pitch.value.toString()
     ) as Graphics | null;
     if (!graphics) return;
     const { x, y, width, height } = graphics.getLocalBounds();
     graphics.clear().rect(x, y, width, height).setFillStyle("red").fill();
   }
-  noteOff(...args: Parameters<NonNullable<typeof this.onNoteOff>>) {
-    this.onNoteOff?.(...args);
+  noteOff(...arguments_: Parameters<NonNullable<typeof this.onNoteOff>>) {
+    this.onNoteOff?.(...arguments_);
     const graphics = this.container.getChildByLabel(
-      args[0].pitch.value.toString()
+      arguments_[0].pitch.value.toString()
     ) as Graphics | null;
     if (!graphics) return;
     const { x, y, width, height } = graphics.getLocalBounds();
@@ -51,12 +50,12 @@ export class Keyboard {
       .clear()
       .rect(x, y, width, height)
       .setFillStyle(
-        Keyboard.isBlackKey(args[0].pitch.value) ? "black" : "white"
+        Keyboard.isBlackKey(arguments_[0].pitch.value) ? "black" : "white"
       )
       .fill();
   }
   render() {
-    for (const [i, whitekey] of Object.entries(
+    for (const [index, whitekey] of Object.entries(
       this.groupedRnageKeys.white ?? []
     )) {
       const note = new Core.Note({
@@ -71,7 +70,7 @@ export class Keyboard {
           eventMode: "static",
         })
           .rect(
-            Number(i) * Keyboard.WHITE_KEY_WIDTH,
+            Number(index) * Keyboard.WHITE_KEY_WIDTH,
             0,
             Keyboard.WHITE_KEY_WIDTH,
             Keyboard.WHITE_KEY_HEIGHT
@@ -83,7 +82,7 @@ export class Keyboard {
           .on("pointerup", () => this.noteOff(note))
       );
     }
-    for (const [i, blackkey] of Object.entries(
+    for (const [index, blackkey] of Object.entries(
       this.groupedRnageKeys.black ?? []
     )) {
       const note = new Core.Note({
@@ -99,7 +98,7 @@ export class Keyboard {
         })
           .rect(
             (this.rangeKeys.indexOf(blackkey) -
-              this.rangeKeys.indexOf(this.rangeKeys[Number(i) - 1])) *
+              this.rangeKeys.indexOf(this.rangeKeys[Number(index) - 1])) *
               Keyboard.WHITE_KEY_WIDTH -
               (Keyboard.WHITE_KEY_WIDTH + Keyboard.BLACK_KEY_WIDTH / 2),
             0,

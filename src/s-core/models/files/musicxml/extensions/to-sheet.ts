@@ -22,7 +22,7 @@ import {
 import { MidiNoteNumber } from "../../../core/units";
 import { StaffDetails } from "../../../../const/musicxml/4.0/musicxml";
 
-declare module "../../musicxml" {
+declare module ".." {
   interface MXL {
     toSheet(): Sheet.Score;
   }
@@ -254,7 +254,7 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
       this.mxl["score-partwise"].$$.work?.[0]?.$$?.["work-title"]?.[0]?._ ?? "",
     keysignatures,
     timesignatures,
-    bpms: tempos,
+    tempos,
     rows: [],
     staves,
     tracks,

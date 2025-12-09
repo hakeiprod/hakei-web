@@ -2,17 +2,17 @@
 import { Button, ButtonProps } from "@heroui/button";
 import { Pause, Play } from "lucide-react";
 
-interface ButtonPlayProps extends Omit<ButtonProps, "value" | "onPress"> {
+interface ButtonPlayProperties extends Omit<ButtonProps, "value" | "onPress"> {
   isPlaying: boolean;
   onPress: (value: boolean) => void;
 }
-export function ButtonPlayPause(props: ButtonPlayProps) {
+export function ButtonPlayPause(properties: ButtonPlayProperties) {
   function handlePress() {
-    props.onPress(props.isPlaying);
+    properties.onPress(properties.isPlaying);
   }
   return (
     <Button onPress={handlePress}>
-      {props.isPlaying ? <Pause color="white" /> : <Play color="white" />}
+      {properties.isPlaying ? <Pause color="white" /> : <Play color="white" />}
     </Button>
   );
 }

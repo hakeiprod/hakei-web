@@ -1,5 +1,4 @@
 "use client";
-import * as Core from "@/s-core/models/core";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
 import { Application } from "pixi.js";
 import { useEffect, useRef } from "react";
@@ -7,7 +6,7 @@ import { KeyeventConnecter } from "@/s-core/models/keyboard_input/keyevent-conne
 import { MidiinputConnecter } from "@/s-core/models/keyboard_input/midiinput-connecter";
 
 export function VirtualKeyboard({ keyboard }: { keyboard: Keyboard }) {
-  const ref = useRef<HTMLDivElement>(null);
+  const reference = useRef<HTMLDivElement>(null);
   useEffect(() => {
     new KeyeventConnecter(keyboard);
     new MidiinputConnecter(keyboard);
@@ -20,8 +19,8 @@ export function VirtualKeyboard({ keyboard }: { keyboard: Keyboard }) {
         height: Keyboard.WHITE_KEY_HEIGHT,
       });
       application.stage.addChild(keyboard.render());
-      ref.current?.appendChild(application.canvas);
+      reference.current?.append(application.canvas);
     })();
   }, [keyboard]);
-  return <div ref={ref} />;
+  return <div ref={reference} />;
 }

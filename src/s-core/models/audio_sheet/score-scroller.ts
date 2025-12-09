@@ -6,8 +6,10 @@ export class ScoreScroller {
     public html: HTMLElement
   ) {}
   noteOn(note: Audio.Note) {
-    const e = this.html.querySelector(`.note[id="${note.id}"]`) as SVGGElement;
-    e.scrollIntoView({
+    const element = this.html.querySelector(
+      `.note[id="${note.id}"]`
+    ) as SVGGElement;
+    element.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
       inline: "center",

@@ -1,15 +1,25 @@
 import * as Audio from "../../audio";
 import * as BrowserAudio from ".";
 import Soundfont2 from "../../files/soundfont2";
+import { match } from "ts-pattern";
+import { map, pipe, prop, unique } from "remeda";
+
+export enum ControllerState {
+  Playing,
+  Paused,
+  Stopped,
+}
 
 export class Controller {
+  state: ControllerState = ControllerState.Stopped;
   startTime = 0;
   masterGain;
-  isPlaying = false;
-  isPaused = false;
   audioContext;
+  presets;
+  synths;
   pausedTime: number | null = null;
   notes: { note: Audio.Note; synth: BrowserAudio.Synth }[] = [];
+  timeouts: NodeJS.Timeout[] = [];
   onPlayEnd?: () => void;
   get elapsedTime() {
     return this.audioContext.currentTime - this.startTime;
@@ -23,48 +33,62 @@ export class Controller {
     score.onChangeGain = (value: number) =>
       (this.masterGain.gain.value = value);
     this.masterGain.connect(this.audioContext.destination);
-    for (const track of this.score.tracks) {
-      const trackGain = this.audioContext.createGain();
-      trackGain.connect(this.masterGain);
-      track.onChangeGain = (value: number) => (trackGain.gain.value = value);
-      const preset = this.soundfont2.getPreset(track.preset.value);
-      for (const note of track.notes) {
-        const synth = new BrowserAudio.Synth({
-          pitch: note.soundingPitch,
-          preset,
+    this.presets = pipe(
+      score.tracks,
+      map(prop("preset", "value")),
+      unique(),
+      map((value) => this.soundfont2.getPreset(value))
+    );
+    this.synths = this.score.tracks.map(
+      (track) =>
+        new BrowserAudio.Synth({
           audioContext: this.audioContext,
-        });
-        synth.onNoteOn = note.onNoteOn;
-        synth.onNoteOff = note.onNoteOff;
-        synth.gain.connect(trackGain);
-        this.notes.push({ note, synth });
-      }
-    }
+          preset: this.soundfont2.getPreset(track.preset.value),
+          track,
+        })
+    );
   }
   play() {
     this.startTime = this.audioContext.currentTime;
-    if (this.isPaused) {
-      this.isPaused = false;
-      this.audioContext.resume();
-    } else {
-      for (const { note, synth } of this.notes) {
+    // if (this.state === ControllerState.Stopped)
+    //   return this.audioContext.resume();
+    for (const track of this.score.tracks) {
+      const trackGain = this.audioContext.createGain();
+      const synth = this.synths.find((synth) => synth.track.id === track.id)!;
+      track.onChangeGain = (value: number) => (trackGain.gain.value = value);
+      trackGain.connect(this.masterGain);
+      synth.gain.connect(trackGain);
+      for (const note of track.notes) {
         synth.noteOn(
+          note.soundingPitch,
           this.startTime + note.start.toSeconds(note.tempo.value),
-          note.isLast
-            ? () => {
-                this.onPlayEnd?.();
-              }
-            : undefined
+          () => {
+            if (note.isLast) this.onPlayEnd?.();
+          }
         );
-        synth.noteOff(this.startTime + note.end.toSeconds(note.tempo.value));
+        synth.noteOff(
+          note.soundingPitch,
+          this.startTime + note.end.toSeconds(note.tempo.value)
+        );
       }
     }
   }
   pause() {
-    this.isPaused = true;
     this.audioContext.suspend();
   }
   stop() {
-    for (const { synth } of this.notes) synth.bufferSource?.stop();
+    for (const { synth } of this.notes)
+      synth.bufferSources.map(({ bufferSource }) => bufferSource.stop());
+    this.synths = [];
+  }
+  seek(beat: number) {}
+  onTick(callback: (beat: number) => void) {}
+  setState(state: ControllerState) {
+    match(state)
+      .with(ControllerState.Playing as 0, () => this.play())
+      .with(ControllerState.Paused as 1, () => this.pause())
+      .with(ControllerState.Stopped as 2, () => this.stop())
+      .exhaustive();
+    this.state = state;
   }
 }
