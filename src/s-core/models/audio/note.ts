@@ -1,6 +1,5 @@
 import * as Core from "../core";
 import * as Audio from ".";
-import { MidiNoteNumber } from "../core/units";
 import { firstBy, prop } from "remeda";
 
 export class Note extends Core.Note {
@@ -19,17 +18,6 @@ export class Note extends Core.Note {
     return this.score.masterbars.find(
       (masterbar) => masterbar.id === this.masterbarId
     )!;
-  }
-  get soundingPitch() {
-    return this.keysignature.accidentalPitchClasses.some(
-      (accidentalPitchClass) =>
-        accidentalPitchClass.equal(this.pitch.toPitchClass())
-    )
-      ? new MidiNoteNumber(
-          this.pitch.value +
-            (Math.sign(this.keysignature.accidental) === 1 ? 1 : -1)
-        )
-      : this.pitch;
   }
   get isLast() {
     return firstBy(this.score.notes, [prop("end", "value"), "desc"]) === this;

@@ -24,6 +24,7 @@ const eslintConfig = defineConfig([
       "unicorn/no-null": "off",
       "unicorn/require-module-specifiers": "off",
       "unicorn/no-array-callback-reference": "off",
+      "unicorn/no-array-reduce": "off",
       "no-useless-rename": ["error"],
       "no-void": ["error"],
       "no-self-compare": ["error"],

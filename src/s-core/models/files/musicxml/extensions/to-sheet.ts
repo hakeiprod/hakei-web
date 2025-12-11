@@ -1,7 +1,6 @@
 import * as Core from "../../../core";
 import * as Sheet from "../../../sheet";
 import * as MusicXML from "../../musicxml";
-import { match } from "ts-pattern";
 import {
   flatMap,
   add,
@@ -120,6 +119,9 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                         stem: current__.$$.stem?.[0],
                         beam: current__.$$.beam,
                         chord: isDefined(prop(current__.$$, "chord")),
+                        alter:
+                          prop(current__.$$, "pitch", "0", "$$", "alter")?.[0]
+                            ._ ?? 0,
                         pitch: rest
                           ? new MidiNoteNumber(-1).value
                           : new Core.Units.ScientificPitchNotation(
@@ -133,20 +135,7 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                                   "0",
                                   "_"
                                 ) ?? "C"
-                              }${match(
-                                prop(
-                                  current__.$$,
-                                  "pitch",
-                                  "0",
-                                  "$$",
-                                  "alter",
-                                  "at",
-                                  "_"
-                                ) ?? 0
-                              )
-                                .with(1, () => "#")
-                                .with(-1, () => "b")
-                                .otherwise(() => "")}${
+                              }${
                                 prop(
                                   current__.$$,
                                   "pitch",

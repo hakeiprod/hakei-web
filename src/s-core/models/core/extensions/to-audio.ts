@@ -8,7 +8,7 @@ declare module ".." {
   }
 }
 
-Core.Score.prototype.toAudio = function (this: Core.Score) {
+Core.Score.prototype.toAudio = function (this) {
   const masterbars = pipe(
     this.timesignatures,
     reduce(

@@ -60,14 +60,14 @@ export class Controller {
       synth.gain.connect(trackGain);
       for (const note of track.notes) {
         synth.noteOn(
-          note.soundingPitch,
+          note.pitch,
           this.startTime + note.start.toSeconds(note.tempo.value),
           () => {
             if (note.isLast) this.onPlayEnd?.();
           }
         );
         synth.noteOff(
-          note.soundingPitch,
+          note.pitch,
           this.startTime + note.end.toSeconds(note.tempo.value)
         );
       }
@@ -81,8 +81,6 @@ export class Controller {
       synth.bufferSources.map(({ bufferSource }) => bufferSource.stop());
     this.synths = [];
   }
-  seek(beat: number) {}
-  onTick(callback: (beat: number) => void) {}
   setState(state: ControllerState) {
     match(state)
       .with(ControllerState.Playing as 0, () => this.play())

@@ -17,6 +17,7 @@ export class Note extends Core.Note {
   voice;
   beam;
   flag: null = null;
+  alter;
   ligature = new Sheet.Ligature(undefined, { type: "note" });
   score!: Sheet.Score;
   override get params() {
@@ -121,12 +122,23 @@ export class Note extends Core.Note {
       stem?: Stem;
       rest?: boolean;
       beam?: MxlNote["$$"]["beam"];
+      alter?: number;
       voice: number;
     } & ConstructorParameters<typeof Core.Note>[0]
   ) {
-    const { id, staveId, rest = false, chordId, stem, voice, beam } = note;
+    const {
+      id,
+      staveId,
+      rest = false,
+      chordId,
+      stem,
+      voice,
+      beam,
+      alter,
+    } = note;
     super(note);
     this.id = id;
+    this.alter = alter;
     this.staveId = staveId;
     this.chordId = chordId;
     this.stem = stem;
@@ -168,6 +180,8 @@ export class Note extends Core.Note {
       voice: this.voice,
       beam: this.beam,
       flag: this.flag,
+      accidental: this.accidental,
+      alter: this.alter,
     };
   }
   export() {
@@ -178,11 +192,9 @@ export class Note extends Core.Note {
     return new Note({
       ...data,
       ...core,
-      ...{
-        start: core.start,
-        duration: core.duration,
-        end: core.end,
-      },
+      start: core.start,
+      duration: core.duration,
+      end: core.end,
     });
   }
 }

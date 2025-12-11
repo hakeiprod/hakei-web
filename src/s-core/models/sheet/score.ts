@@ -435,7 +435,12 @@ export interface Parameter
     ConstructorParameters<typeof Sheet.Track>[0],
     ConstructorParameters<typeof Sheet.Note>[0],
     { staffDetails: StaffDetails },
-    { chord?: boolean; chordId?: number; velocity: number }
+    {
+      chord?: boolean;
+      chordId?: number;
+      velocity: number;
+      alter?: Sheet.AccidentalType;
+    }
   > {
   masterbars?: Merge<
     ConstructorParameters<typeof Sheet.Masterbar>[0],
