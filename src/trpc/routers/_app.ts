@@ -37,7 +37,7 @@ export const appRouter = createTRPCRouter({
         const limit = input.limit ?? 50;
         const { cursor } = input;
         const items = await prisma.resource.findMany({
-          where: input.where ?? void 0,
+          where: input.where ?? undefined,
           include: input.include,
           take: limit + 1, // get an extra item at the end which we'll use as next cursor
           // where: {
@@ -50,7 +50,7 @@ export const appRouter = createTRPCRouter({
             id: "asc",
           },
         });
-        let nextCursor: typeof cursor | undefined = undefined;
+        let nextCursor: typeof cursor | undefined;
         if (items.length > limit) {
           const nextItem = items.pop();
           nextCursor = nextItem!.id;

@@ -5,7 +5,7 @@ import * as xml2js from "xml2js";
 import * as MusicXml from "../files/musicxml";
 import "../core/extensions/to-sheet";
 import "../files/musicxml/extensions/to-sheet";
-import "../smufl/extensions/to_svg";
+import "../smufl/extensions/to-svg";
 import { ScorePartwise } from "../../const/musicxml/4.0/musicxml";
 import { parseNumbers } from "xml2js/lib/processors";
 

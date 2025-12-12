@@ -16,6 +16,7 @@ const eslintConfig = defineConfig([
     "next-env.d.ts",
     "src/generated/prisma",
     "src/generated/zod",
+    "src/s-core/const",
   ]),
   eslintPluginUnicorn.configs.recommended,
   prettier,

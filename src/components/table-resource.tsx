@@ -28,7 +28,7 @@ export function TableResource() {
         getNextPageParam: (lastPage) => lastPage.nextCursor,
       }
     );
-  const [loaderRef, scrollerRef] = useInfiniteScroll({
+  const [loaderReference, scrollerReference] = useInfiniteScroll({
     hasMore: hasNextPage,
     onLoadMore: () => {
       fetchNextPage();
@@ -44,11 +44,11 @@ export function TableResource() {
       <Table
         isHeaderSticky
         aria-label="Example table with dynamic content"
-        baseRef={scrollerRef}
+        baseRef={scrollerReference}
         bottomContent={
           hasNextPage ? (
             <div className="flex w-full justify-center">
-              <Spinner ref={loaderRef} />
+              <Spinner ref={loaderReference} />
             </div>
           ) : null
         }

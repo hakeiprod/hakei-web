@@ -1,4 +1,4 @@
-import { map, pipe, times } from "remeda";
+import { times } from "remeda";
 import { PrismaClient } from "../src/generated/prisma/client";
 import { faker } from "@faker-js/faker";
 
@@ -21,4 +21,4 @@ export async function main() {
   });
 }
 
-main();
+await main();

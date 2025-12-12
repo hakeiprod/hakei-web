@@ -26,7 +26,8 @@ export class Element {
       | typeof this.classList
       | ((previouseValue: typeof this.classList) => typeof this.classList)
   ) {
-    this.classList = value instanceof Function ? value(this.classList) : value;
+    this.classList =
+      typeof value === "function" ? value(this.classList) : value;
     this.onClassListChange?.(this.classList);
   }
 }

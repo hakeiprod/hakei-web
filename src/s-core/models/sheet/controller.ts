@@ -11,13 +11,13 @@ import {
   reduce,
   forEach,
   firstBy,
-  piped,
-  defaultTo,
 } from "remeda";
 import Metadata from "./metadata.json";
 
 export class Controller {
   public score: Score;
+  onChangeScale?: (scale: typeof this.options.scale) => void;
+  onChangeLayoutType?: (scale: typeof this.options.layoutType) => void;
   constructor(
     score: Score,
     public options: { scale: number; layoutType: LayoutType }
@@ -61,7 +61,7 @@ export class Controller {
   order() {
     this.score.staves.flatMap((stave) => stave.ligature?.order());
   }
-  space(width: number, height: number) {
+  space(width: number) {
     for (const row of this.score.rows) {
       const groupedByStartEvents = pipe(
         row,
@@ -102,7 +102,7 @@ export class Controller {
       entries(),
       forEach(([, notes]) => {
         const maxXNote = firstBy(notes, [
-          piped(prop("ligature", "boundingBox", "x"), defaultTo(0)),
+          prop("ligature", "boundingBox", "x"),
           "desc",
         ]);
         for (const note of notes) {
@@ -112,6 +112,14 @@ export class Controller {
         }
       })
     );
+  }
+  setScale(scale: typeof this.options.scale) {
+    this.options.scale = scale;
+    this.onChangeScale?.(scale);
+  }
+  setLayoutType(layoutType: typeof this.options.layoutType) {
+    this.options.layoutType = layoutType;
+    this.onChangeLayoutType?.(layoutType);
   }
 }
 

@@ -163,7 +163,13 @@ export class RythmeGame {
     application.stage.addChild(this.pixiRootContainer);
     return application.canvas;
   }
-  start() {
+  start(trackIds: number[]) {
+    this.rythme.tracks = this.rythme.tracks.filter((track) =>
+      trackIds.includes(track.id)
+    );
+    this.rythme.notes = this.rythme.notes.filter((note) =>
+      trackIds.includes(note.trackId)
+    );
     this.audioController.setState(BrowserAudio.ControllerState.Playing);
   }
   pause() {}

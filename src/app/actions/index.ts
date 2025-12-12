@@ -2,7 +2,7 @@
 import { prisma } from "@/prisma";
 
 export async function findResources(
-  ...params: Parameters<typeof prisma.resource.findMany>
+  ...parameters: Parameters<typeof prisma.resource.findMany>
 ) {
-  return await prisma.resource.findMany(...params);
+  return await prisma.resource.findMany(...parameters);
 }

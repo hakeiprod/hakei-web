@@ -4,7 +4,7 @@ import { MidiNoteNumber } from "../core/units";
 export class MidiinputConnecter {
   constructor(keyboard: Keyboard) {
     navigator.requestMIDIAccess().then((midiAccess) => {
-      for (let input of midiAccess.inputs.values()) {
+      for (const input of midiAccess.inputs.values()) {
         input.onmidimessage = (midiMessageEvent) => {
           if (!midiMessageEvent.data) return;
           const status = midiMessageEvent.data[0];

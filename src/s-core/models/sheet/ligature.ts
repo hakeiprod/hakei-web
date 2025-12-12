@@ -10,10 +10,9 @@ import {
   prop,
   reduce,
 } from "remeda";
-import { Glyph } from "./glyph";
 import { Element } from "./element";
 
-export class Ligature<T extends Glyph = Glyph> extends Element {
+export class Ligature extends Element {
   children: Element[][] = [];
   constructor(
     public line: number = 0,

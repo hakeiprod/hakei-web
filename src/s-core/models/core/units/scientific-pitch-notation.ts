@@ -26,7 +26,8 @@ export class ScientificPitchNotation extends ValueObject<string> {
   static readonly MIDDLE_C = "C4";
   protected validate(value: typeof this.value) {
     const pitchClassName = value.slice(0, -1);
-    if (!PitchClassName.isPitchClassName(pitchClassName)) throw new Error();
+    if (!PitchClassName.isPitchClassName(pitchClassName))
+      throw new Error("Invalid");
     return `${pitchClassName}${Number(value.slice(-1))}` as const;
   }
 }

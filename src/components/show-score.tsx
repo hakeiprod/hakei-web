@@ -33,6 +33,8 @@ export function ShowScore(properties: {
   useEffect(() => {
     const noteHighlighter = new NoteHighlighter(smufl);
     for (const note of audio.notes) {
+      // TODO: mitt導入してもいいかも
+      // eslint-disable-next-line react-hooks/immutability
       note.onNoteOn = () => {
         noteHighlighter.noteOn(note);
         keyboard?.noteOn(note);

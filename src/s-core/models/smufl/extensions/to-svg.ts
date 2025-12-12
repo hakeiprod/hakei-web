@@ -242,7 +242,11 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                     );
                                   return ligatures
                                     .flat()
-                                    .reduce((acc, cur) => acc + cur.width, 0);
+                                    .reduce(
+                                      (accumulator, current) =>
+                                        accumulator + current.width,
+                                      0
+                                    );
                                 })(),
                                 0
                               )

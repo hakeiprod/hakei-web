@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-await-expression-member */
 import fs from "node:fs";
 import { expect, test } from "vitest";
 import { importCore } from "../..";

@@ -1,7 +1,7 @@
 "use client";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
 import * as Sheet from "@/s-core/models/sheet";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { RythmeGame } from "@/s-core/models/browser/rythme-game";
 import { Button } from "@heroui/button";
 import { useAtom } from "jotai";
@@ -18,7 +18,6 @@ const bravura = localFont({
 export function ShowScoreRythme(properties: {
   score: NonNullable<Awaited<ReturnType<typeof prisma.score.findUnique>>>;
 }) {
-  const [rythmeGame, setRythmeGame] = useState<RythmeGame>();
   const [started, setStarted] = useState(false);
   const [masterVolume] = useAtom(masterVolumeAtom);
   const [trackIds, setTrackIds] = useState<number[]>([]);
@@ -27,21 +26,22 @@ export function ShowScoreRythme(properties: {
   const scoreData = properties.score.data as unknown as ReturnType<
     Sheet.Score["export"]
   >;
+  const rythmeGame = useMemo(() => {
+    if (!soundfont2) return;
+    return new RythmeGame(
+      Sheet.Score.import(scoreData).toAudio(),
+      soundfont2,
+      bravura.style.fontFamily
+    );
+  }, [scoreData, soundfont2]);
   useEffect(() => {
     fetch("/A320U.sf2")
       .then((response) => response.arrayBuffer())
       .then((buffer) => setSoundfont2(Soundfont2.create(buffer)));
   }, []);
   useEffect(() => {
-    if (!soundfont2) return;
-    const rythmeGame = new RythmeGame(
-      Sheet.Score.import(scoreData).toAudio(),
-      soundfont2,
-      bravura.style.fontFamily
-    );
-    rythmeGame.audioController.masterGain.gain.value = masterVolume / 100;
-    setRythmeGame(rythmeGame);
-  }, [masterVolume, scoreData, soundfont2]);
+    rythmeGame?.audioController.setMasterGain(masterVolume / 100);
+  }, [masterVolume, rythmeGame?.audioController, scoreData, soundfont2]);
   return (
     <>
       {!started && (
@@ -51,14 +51,7 @@ export function ShowScoreRythme(properties: {
               setStarted(true);
               (async () => {
                 if (isNullish(rythmeGame)) return;
-                // TODO:　リファクタ
-                rythmeGame.rythme.tracks = rythmeGame.rythme.tracks.filter(
-                  (track) => trackIds.includes(track.id)
-                );
-                rythmeGame.rythme.notes = rythmeGame.rythme.notes.filter(
-                  (note) => trackIds.includes(note.trackId)
-                );
-                rythmeGame.start();
+                rythmeGame.start(trackIds);
                 reference.current?.append(await rythmeGame.render());
               })();
             }}

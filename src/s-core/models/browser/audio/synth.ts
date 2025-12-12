@@ -34,7 +34,7 @@ export class Synth {
     this.resources = pipe(
       times(
         track.keyRange[1].value - track.keyRange[0].value + 1,
-        (i) => new MidiNoteNumber(i + track.keyRange[0].value)
+        (index) => new MidiNoteNumber(index + track.keyRange[0].value)
       ),
       map((pitch) => {
         const sample = preset.instruments

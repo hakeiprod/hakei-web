@@ -14,7 +14,6 @@ import {
   piped,
   last,
   mapToObj,
-  map,
 } from "remeda";
 import * as Core from "../core";
 import { MidiNoteNumber } from "./units";
@@ -241,8 +240,8 @@ export interface Parameter<
   NoteConstructorParameter extends ConstructorParameters<
     typeof Core.Note
   >[0] = ConstructorParameters<typeof Core.Note>[0],
-  Track = {},
-  Note = {},
+  Track = object,
+  Note = object,
 > {
   tracks: Merge<
     Omit<TrackConstructorParameter, "score" | "id">,

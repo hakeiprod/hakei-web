@@ -5,23 +5,23 @@ import { MidiNoteNumber } from "../core/units/midi-note-number";
 
 export class KeyeventConnecter {
   constructor(public keyboard: Keyboard) {
-    window.addEventListener("keydown", (e) => {
+    globalThis.window.addEventListener("keydown", (event) => {
       this.keyboard.noteOn(
         new Core.Note({
           id: 0,
           trackId: 0,
           velocity: 100,
-          pitch: new MidiNoteNumber(this.mapTo(e.key)),
+          pitch: new MidiNoteNumber(this.mapTo(event.key)),
         })
       );
     });
-    window.addEventListener("keyup", (e) => {
+    globalThis.window.addEventListener("keyup", (event) => {
       this.keyboard.noteOff(
         new Core.Note({
           id: 0,
           trackId: 0,
           velocity: 100,
-          pitch: new MidiNoteNumber(this.mapTo(e.key)),
+          pitch: new MidiNoteNumber(this.mapTo(event.key)),
         })
       );
     });

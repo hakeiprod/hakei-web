@@ -21,6 +21,7 @@ export class Controller {
   notes: { note: Audio.Note; synth: BrowserAudio.Synth }[] = [];
   timeouts: NodeJS.Timeout[] = [];
   onPlayEnd?: () => void;
+  onChangeMasterGain?: (value: typeof this.masterGain.gain.value) => void;
   get elapsedTime() {
     return this.audioContext.currentTime - this.startTime;
   }
@@ -30,8 +31,6 @@ export class Controller {
   ) {
     this.audioContext = new AudioContext();
     this.masterGain = this.audioContext.createGain();
-    score.onChangeGain = (value: number) =>
-      (this.masterGain.gain.value = value);
     this.masterGain.connect(this.audioContext.destination);
     this.presets = pipe(
       score.tracks,
@@ -81,12 +80,16 @@ export class Controller {
       synth.bufferSources.map(({ bufferSource }) => bufferSource.stop());
     this.synths = [];
   }
-  setState(state: ControllerState) {
+  setState(state: typeof this.state) {
     match(state)
       .with(ControllerState.Playing as 0, () => this.play())
       .with(ControllerState.Paused as 1, () => this.pause())
       .with(ControllerState.Stopped as 2, () => this.stop())
       .exhaustive();
     this.state = state;
+  }
+  setMasterGain(value: typeof this.masterGain.gain.value) {
+    this.masterGain.gain.value = value;
+    this.onChangeMasterGain?.(value);
   }
 }

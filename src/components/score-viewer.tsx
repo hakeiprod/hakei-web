@@ -1,10 +1,10 @@
 "use client";
 import * as SMUFL from "@/s-core/models/smufl";
 import { NumberInput, Select, SelectItem } from "@heroui/react";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useMemo, useRef } from "react";
 import { filter, keys, map, pipe } from "remeda";
 import localFont from "next/font/local";
-import "../s-core/models/smufl/extensions/to_svg";
+import "../s-core/models/smufl/extensions/to-svg";
 import { LayoutType } from "@/s-core/models/sheet";
 import { useAtom } from "jotai";
 import { layoutTypeAtom } from "@/store/layout-type";
@@ -15,12 +15,17 @@ const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
 export function ScoreViewer({ score }: { score: SMUFL.Score }) {
-  const [controller, setController] = useState<SMUFL.Controller>();
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const reference = useRef<HTMLDivElement | null>(null);
+  const controller = useMemo(() => {
+    const controller = new SMUFL.Controller(score, { scale, layoutType });
+    controller.onChangeScale = (value) => setScale(value);
+    controller.onChangeLayoutType = (value) => setLayoutType(value);
+    return controller;
+  }, [layoutType, scale, score, setLayoutType, setScale]);
   const handleResize = useDebouncedCallback(() => {
-    if (controller?.options.layoutType === LayoutType.Vertical)
+    if (controller.options.layoutType === LayoutType.Vertical)
       controller?.render();
   }, 100);
   function handleScaleChange(
@@ -30,32 +35,21 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       typeof eventOrValue === "number"
         ? eventOrValue
         : Number(eventOrValue.target.value);
-    if (!controller) return;
-    setScale(value);
-    controller.options.scale = value;
+    controller.setScale(value);
     controller.render();
   }
   function handleLayoutTypeChange(event: ChangeEvent<HTMLSelectElement>) {
-    if (!controller) return;
-    setLayoutType(Number(event.target.value));
-    controller.options.layoutType = Number(event.target.value);
+    controller.setLayoutType(Number(event.target.value));
     controller.render();
   }
   useEffect(() => {
-    if (score) {
-      const controller = new SMUFL.Controller(score, {
-        scale,
-        layoutType,
-      });
-      controller.mount();
-      const svg = controller.render();
-      setController(controller);
-      window.addEventListener("resize", handleResize);
-      if (!reference.current?.hasChildNodes() && svg)
-        reference.current?.append(svg);
-    }
+    controller.mount();
+    const svg = controller.render();
+    window.addEventListener("resize", handleResize);
+    if (!reference.current?.hasChildNodes() && svg)
+      reference.current?.append(svg);
     return () => window.removeEventListener("resize", handleResize);
-  }, [score]);
+  }, [controller, handleResize]);
   return (
     <>
       <div

@@ -1,4 +1,4 @@
-import { defaultTo, firstBy, identity, map, pipe, piped, prop } from "remeda";
+import { firstBy, identity, map, pipe, piped, prop } from "remeda";
 import * as Sheet from ".";
 
 export class Bar {

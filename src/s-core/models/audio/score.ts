@@ -6,7 +6,6 @@ export class Score<
   Masterbar extends Audio.Masterbar = Audio.Masterbar,
 > extends Core.Score<Note, Track> {
   masterbars: Masterbar[];
-  onChangeGain?: (value: number) => void;
   constructor({
     masterbars,
     ...score
@@ -32,8 +31,5 @@ export class Score<
       notes: this.notes.map((data) => data.export()),
       masterbars: this.masterbars.map((data) => data.export()),
     };
-  }
-  setGain() {
-    this.onChangeGain?.(0);
   }
 }
