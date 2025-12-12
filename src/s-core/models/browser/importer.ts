@@ -14,16 +14,16 @@ export class Importer {
     const extname = file.name.slice(file.name.lastIndexOf("."));
     if (file.type === "audio/mid")
       return Midi.toCore(Midi.parse(await file.arrayBuffer())).toSheet();
-    if (extname === ".mxl") {
+    else if (extname === ".mxl") {
       const zip = await new Zip(await file.arrayBuffer()).unzip();
       const meta = await zip.files["META-INF/container.xml"]?.async("text");
-      if (!meta) return;
+      if (!meta) throw new Error("Invalid Musicxml");
       const parsed = await xml2js.parseStringPromise(meta);
       const { rootfile } = parsed.container.rootfiles[0];
       const pathName = rootfile[0].$["full-path"];
-      if (!pathName) return;
+      if (!pathName) throw new Error("Invalid Musicxml");
       const data = await zip.files[pathName]?.async("text");
-      if (!data) return;
+      if (!data) throw new Error("Invalid Musicxml");
       return new MusicXml.MXL(
         (await new xml2js.Parser({
           explicitArray: true,
@@ -35,8 +35,10 @@ export class Importer {
           ["score-partwise"]: ScorePartwise[0];
         }
       ).toSheet();
-    }
-    if (extname === ".json")
+    } else if (extname === ".json")
       return Core.Score.create(JSON.parse(await file.text())).toSheet();
+    else {
+      throw new Error("Invalid file type");
+    }
   }
 }

@@ -14,8 +14,7 @@ export function FormCreateScore(properties: FormProps) {
           if (input.files && input.files.length > 0) {
             const file = input.files[0];
             if (!file) return;
-            const importer = new Browser.Importer();
-            await importer.import(file);
+            await new Browser.Importer().import(file);
           }
         }}
       />

@@ -8,7 +8,6 @@ async function handleAction(formData: FormData) {
   const sheet = await new Browser.Importer().import(
     formData.get("data") as File
   );
-  if (!sheet) return;
   const score = await prisma.score.create({
     data: { data: sheet.export() as object },
   });
