@@ -1,8 +1,8 @@
-import * as Core from "../core";
-import musicTheory from "../../const/music-theory.json";
-import { groupBy, pipe, times } from "remeda";
-import { MidiNoteNumber } from "../core/units";
 import { Container, Graphics } from "pixi.js";
+import { groupBy, pipe, times } from "remeda";
+import musicTheory from "../../const/music-theory.json";
+import * as Core from "../core";
+import { MidiNoteNumber } from "../core/units";
 
 export class Keyboard {
   static WHITE_KEY_WIDTH = 23.5;

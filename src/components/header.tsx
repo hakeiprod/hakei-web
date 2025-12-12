@@ -1,7 +1,7 @@
 "use client";
 import { Navbar, NavbarBrand, NavbarContent } from "@heroui/react";
-import { InputSearch } from "./input-serch";
 import Link from "next/link";
+import { InputSearch } from "./input-serch";
 export function Header() {
   return (
     <>

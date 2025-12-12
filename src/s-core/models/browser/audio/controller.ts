@@ -1,8 +1,8 @@
-import * as Audio from "../../audio";
-import * as BrowserAudio from ".";
-import Soundfont2 from "../../files/soundfont2";
-import { match } from "ts-pattern";
 import { map, pipe, prop, unique } from "remeda";
+import { match } from "ts-pattern";
+import * as BrowserAudio from ".";
+import * as Audio from "../../audio";
+import Soundfont2 from "../../files/soundfont2";
 
 export enum ControllerState {
   Playing,

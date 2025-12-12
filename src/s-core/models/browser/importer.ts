@@ -1,13 +1,13 @@
+import * as xml2js from "xml2js";
+import { parseNumbers } from "xml2js/lib/processors";
+import { ScorePartwise } from "../../const/musicxml/4.0/musicxml";
 import * as Core from "../core";
+import "../core/extensions/to-sheet";
+import * as MusicXml from "../files/musicxml";
+import "../files/musicxml/extensions/to-sheet";
 import * as Midi from "../files/standard-midi-file";
 import { Zip } from "../files/zip";
-import * as xml2js from "xml2js";
-import * as MusicXml from "../files/musicxml";
-import "../core/extensions/to-sheet";
-import "../files/musicxml/extensions/to-sheet";
 import "../smufl/extensions/to-svg";
-import { ScorePartwise } from "../../const/musicxml/4.0/musicxml";
-import { parseNumbers } from "xml2js/lib/processors";
 
 export class Importer {
   async import(file: File) {

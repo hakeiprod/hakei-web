@@ -1,16 +1,16 @@
 "use client";
-import * as BrowserAudio from "@/s-core/models/browser/audio";
 import * as Audio from "@/s-core/models/audio";
-import { Navbar } from "@heroui/navbar";
-import { ButtonPlayPause } from "./button-play-pause";
-import { Button, ButtonGroup } from "@heroui/button";
-import { FastForward, Rewind, Square } from "lucide-react";
-import { VolumeSlider } from "./slider-volume";
-import { useEffect, useMemo, useState } from "react";
+import * as BrowserAudio from "@/s-core/models/browser/audio";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
+import { masterVolumeAtom } from "@/store/master-volume";
+import { Button, ButtonGroup } from "@heroui/button";
+import { Navbar } from "@heroui/navbar";
 import { SliderValue } from "@heroui/slider";
 import { useAtom } from "jotai";
-import { masterVolumeAtom } from "@/store/master-volume";
+import { FastForward, Rewind, Square } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { ButtonPlayPause } from "./button-play-pause";
+import { VolumeSlider } from "./slider-volume";
 
 export function ScorePlayer({ score }: { score: Audio.Score }) {
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
@@ -54,7 +54,7 @@ export function ScorePlayer({ score }: { score: Audio.Score }) {
   }, []);
   useEffect(() => {
     controller?.setMasterGain(masterVolume / 100);
-  }, [controller, masterVolume, score, soundfont2]);
+  }, [controller, masterVolume]);
 
   return (
     <Navbar>

@@ -1,6 +1,6 @@
-import * as Core from "../core";
-import * as Audio from ".";
 import { firstBy, prop } from "remeda";
+import * as Audio from ".";
+import * as Core from "../core";
 import { MidiNoteNumber } from "../core/units";
 
 export class Track extends Core.Track {

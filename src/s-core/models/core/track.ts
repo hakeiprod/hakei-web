@@ -1,5 +1,5 @@
-import * as Core from "../core";
 import { firstBy, prop } from "remeda";
+import * as Core from "../core";
 
 export class Track extends Core.Event {
   readonly id;

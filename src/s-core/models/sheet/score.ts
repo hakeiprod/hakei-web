@@ -1,32 +1,32 @@
-import * as Core from "../core";
-import * as Sheet from ".";
 import {
-  length,
+  add,
+  entries,
   filter,
+  first,
+  firstBy,
+  flat,
+  flatMap,
+  identity,
+  isDefined,
   isEmpty,
   isNullish,
+  isTruthy,
+  last,
+  length,
+  map,
+  mapToObj,
   pipe,
+  piped,
   prop,
   reduce,
-  times,
-  piped,
-  add,
   subtract,
-  flatMap,
-  isDefined,
-  entries,
-  mapToObj,
-  last,
-  firstBy,
-  first,
-  isTruthy,
-  map,
-  identity,
-  flat,
+  times,
 } from "remeda";
-import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import { match } from "ts-pattern";
+import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
+import * as Sheet from ".";
 import { StaffDetails } from "../../const/musicxml/4.0/musicxml";
+import * as Core from "../core";
 
 export class Score<
   Note extends Sheet.Note = Sheet.Note,

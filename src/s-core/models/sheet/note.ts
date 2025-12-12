@@ -1,12 +1,12 @@
-import * as Core from "../core";
+import { times } from "remeda";
+import { P, match } from "ts-pattern";
 import * as Sheet from ".";
 import {
   Note as MxlNote,
   NoteType,
   Stem,
 } from "../../const/musicxml/4.0/musicxml";
-import { P, match } from "ts-pattern";
-import { times } from "remeda";
+import * as Core from "../core";
 
 export class Note extends Core.Note {
   readonly id;
@@ -180,7 +180,6 @@ export class Note extends Core.Note {
       voice: this.voice,
       beam: this.beam,
       flag: this.flag,
-      accidental: this.accidental,
       alter: this.alter,
     };
   }

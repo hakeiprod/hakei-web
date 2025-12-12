@@ -1,9 +1,9 @@
 "use client";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
-import { Application } from "pixi.js";
-import { useEffect, useRef } from "react";
 import { KeyeventConnecter } from "@/s-core/models/keyboard_input/keyevent-connecter";
 import { MidiinputConnecter } from "@/s-core/models/keyboard_input/midiinput-connecter";
+import { Application } from "pixi.js";
+import { useEffect, useRef } from "react";
 
 export function VirtualKeyboard({ keyboard }: { keyboard: Keyboard }) {
   const reference = useRef<HTMLDivElement>(null);

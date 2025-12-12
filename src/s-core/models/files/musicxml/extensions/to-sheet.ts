@@ -1,25 +1,25 @@
-import * as Core from "../../../core";
-import * as Sheet from "../../../sheet";
-import * as MusicXML from "../../musicxml";
 import {
-  flatMap,
   add,
+  defaultTo,
+  entries,
+  flatMap,
+  groupBy,
+  isDefined,
+  isNullish,
+  last,
+  map,
   pipe,
+  piped,
   prop,
   reduce,
   take,
-  map,
-  isNullish,
-  isDefined,
-  last,
-  piped,
-  groupBy,
-  defaultTo,
-  entries,
   times,
 } from "remeda";
-import { MidiNoteNumber } from "../../../core/units";
 import { StaffDetails } from "../../../../const/musicxml/4.0/musicxml";
+import * as Core from "../../../core";
+import { MidiNoteNumber } from "../../../core/units";
+import * as Sheet from "../../../sheet";
+import * as MusicXML from "../../musicxml";
 
 declare module ".." {
   interface MXL {

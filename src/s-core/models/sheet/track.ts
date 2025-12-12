@@ -1,7 +1,7 @@
-import * as Core from "../core";
 import { firstBy, prop } from "remeda";
 import * as Sheet from ".";
 import { StaffDetails } from "../../const/musicxml/4.0/musicxml";
+import * as Core from "../core";
 
 export class Track extends Core.Track {
   staffDetails;

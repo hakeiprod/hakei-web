@@ -1,6 +1,6 @@
 import { filter, firstBy, isTruthy, map, pipe, prop } from "remeda";
-import * as Core from "../core";
 import * as Sheet from ".";
+import * as Core from "../core";
 export class Chord extends Core.Event {
   readonly id;
   staveId;

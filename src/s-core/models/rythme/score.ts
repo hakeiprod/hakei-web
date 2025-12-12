@@ -18,6 +18,7 @@ export class Score<
           voice: -1,
           beam: undefined,
           flag: null,
+          alter: undefined,
         })
       ),
     });

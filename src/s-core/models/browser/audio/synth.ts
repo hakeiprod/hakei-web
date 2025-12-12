@@ -1,9 +1,9 @@
-import { MidiNoteNumber } from "../../core/units";
-import Envelope from "./envelope";
-import * as Audio from "../../audio";
-import Preset from "../../files/soundfont2/preset";
-import "../../../extensions/int16array/to-float32array.extensions";
 import { map, pipe, times } from "remeda";
+import "../../../extensions/int16array/to-float32array.extensions";
+import * as Audio from "../../audio";
+import { MidiNoteNumber } from "../../core/units";
+import Preset from "../../files/soundfont2/preset";
+import Envelope from "./envelope";
 export class Synth {
   filter;
   gain;

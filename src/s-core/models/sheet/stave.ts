@@ -1,18 +1,18 @@
-import * as Core from "../core";
-import * as Sheet from ".";
-import { Clef } from "../../const/musicxml/4.0/musicxml";
-import { match, P } from "ts-pattern";
 import {
   entries,
   groupByProp,
+  isArray,
+  isDefined,
+  last,
   map,
   pipe,
   piped,
-  last,
-  isDefined,
-  isArray,
   reduce,
 } from "remeda";
+import { match, P } from "ts-pattern";
+import * as Sheet from ".";
+import { Clef } from "../../const/musicxml/4.0/musicxml";
+import * as Core from "../core";
 
 export class Stave {
   readonly id;

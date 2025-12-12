@@ -18,7 +18,8 @@
         "editor.formatOnSave": true,
         "eslint.useFlatConfig": true,
         "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": "explicit"
+          "source.fixAll.eslint": "explicit",
+          "source.sortImports": "explicit"
         }
       }
     }

@@ -1,6 +1,6 @@
+import { P, match } from "ts-pattern";
 import * as Sheet from "../sheet";
 import { Glyph } from "./glyph";
-import { P, match } from "ts-pattern";
 export class Timesignature extends Sheet.Timesignature {
   draw() {
     const handleLigature = (ligature: Sheet.Ligature) => {

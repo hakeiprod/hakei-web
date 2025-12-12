@@ -1,8 +1,8 @@
-import { Barline, Clef, NoteType } from "../../const/musicxml/4.0/musicxml";
 import { P, match } from "ts-pattern";
-import * as Sheet from "../sheet";
 import * as SMUFL from ".";
+import { Barline, Clef, NoteType } from "../../const/musicxml/4.0/musicxml";
 import { BoundingBox } from "../boundingbox";
+import * as Sheet from "../sheet";
 
 export class Glyph<
   T extends keyof SMUFL.Glyphnames = keyof SMUFL.Glyphnames,

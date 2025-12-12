@@ -1,15 +1,15 @@
 "use client";
-import * as SMUFL from "@/s-core/models/smufl";
-import { NumberInput, Select, SelectItem } from "@heroui/react";
-import { ChangeEvent, useEffect, useMemo, useRef } from "react";
-import { filter, keys, map, pipe } from "remeda";
-import localFont from "next/font/local";
-import "../s-core/models/smufl/extensions/to-svg";
 import { LayoutType } from "@/s-core/models/sheet";
-import { useAtom } from "jotai";
+import * as SMUFL from "@/s-core/models/smufl";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
+import { NumberInput, Select, SelectItem } from "@heroui/react";
+import { useAtom } from "jotai";
+import localFont from "next/font/local";
+import { ChangeEvent, useEffect, useMemo, useRef } from "react";
+import { filter, keys, map, pipe } from "remeda";
 import { useDebouncedCallback } from "use-debounce";
+import "../s-core/models/smufl/extensions/to-svg";
 
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
@@ -43,11 +43,12 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     controller.render();
   }
   useEffect(() => {
+    console.log("aaa");
     controller.mount();
     const svg = controller.render();
     window.addEventListener("resize", handleResize);
-    if (!reference.current?.hasChildNodes() && svg)
-      reference.current?.append(svg);
+    if (reference.current && !reference.current.hasChildNodes() && svg)
+      reference.current.append(svg);
     return () => window.removeEventListener("resize", handleResize);
   }, [controller, handleResize]);
   return (

@@ -1,11 +1,11 @@
-import * as Core from "../core";
-import { Ligature } from "./ligature";
-import { Glyph } from "./glyph";
-import { ElementType } from ".";
 import { pipe } from "remeda";
-import musicTheory from "../../const/music-theory.json";
-import { PitchClassName } from "../core/units";
 import { match } from "ts-pattern";
+import { ElementType } from ".";
+import musicTheory from "../../const/music-theory.json";
+import * as Core from "../core";
+import { PitchClassName } from "../core/units";
+import { Glyph } from "./glyph";
+import { Ligature } from "./ligature";
 
 export class Keysignature extends Core.Keysignature {
   ligature = new Ligature(undefined, { type: "keysignature" });

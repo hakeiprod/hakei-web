@@ -1,5 +1,5 @@
-import Riff from ".";
 import { Parser as BinaryParser } from "binary-parser";
+import Riff from ".";
 
 const riffParser = new BinaryParser()
   .string("id", { length: 4 })

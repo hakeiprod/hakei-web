@@ -1,20 +1,20 @@
-import { match } from "ts-pattern";
-import { LiteralToPrimitiveDeep, PartialDeep, Merge } from "type-fest";
 import {
-  isDefined,
-  prop,
-  pipe,
-  flatMap,
-  firstBy,
-  isEmpty,
-  mergeDeep,
-  isNullish,
-  filter,
   entries,
-  piped,
+  filter,
+  firstBy,
+  flatMap,
+  isDefined,
+  isEmpty,
+  isNullish,
   last,
   mapToObj,
+  mergeDeep,
+  pipe,
+  piped,
+  prop,
 } from "remeda";
+import { match } from "ts-pattern";
+import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import * as Core from "../core";
 import { MidiNoteNumber } from "./units";
 export class Score<

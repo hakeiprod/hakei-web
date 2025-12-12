@@ -1,5 +1,5 @@
-import * as Core from "../core";
 import { Score } from ".";
+import * as Core from "../core";
 
 export class Masterbar extends Core.Event {
   readonly id;

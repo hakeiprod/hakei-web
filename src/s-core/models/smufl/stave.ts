@@ -1,8 +1,8 @@
-import * as Core from "../core";
 import { filter, isTruthy, map, pipe } from "remeda";
+import { P, match } from "ts-pattern";
+import * as Core from "../core";
 import * as Sheet from "../sheet";
 import * as SMUFL from "../smufl";
-import { P, match } from "ts-pattern";
 
 export class Stave extends Sheet.Stave {
   declare score: SMUFL.Score;

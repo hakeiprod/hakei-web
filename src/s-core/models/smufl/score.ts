@@ -1,5 +1,5 @@
-import * as Sheet from "../sheet";
 import * as SMUFL from ".";
+import * as Sheet from "../sheet";
 
 export class Score<
   Note extends SMUFL.Note = SMUFL.Note,

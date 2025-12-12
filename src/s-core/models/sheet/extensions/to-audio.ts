@@ -1,5 +1,5 @@
-import * as Audio from "../../audio";
 import * as Sheet from "..";
+import * as Audio from "../../audio";
 
 declare module ".." {
   interface Score {

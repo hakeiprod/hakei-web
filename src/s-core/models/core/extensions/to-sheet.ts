@@ -1,7 +1,7 @@
-import * as Sheet from "../../sheet";
-import * as Core from "../../core";
-import { match } from "ts-pattern";
 import { entries, groupByProp, last, map, only, pipe, piped } from "remeda";
+import { match } from "ts-pattern";
+import * as Core from "../../core";
+import * as Sheet from "../../sheet";
 
 declare module "../../core" {
   interface Score {

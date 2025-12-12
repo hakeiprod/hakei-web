@@ -1,18 +1,18 @@
-import { match } from "ts-pattern";
-import { LayoutType, Score } from "./";
-import { Row } from "./row";
 import {
   entries,
+  firstBy,
   flatMap,
+  forEach,
   groupBy,
-  pipe,
   length,
+  pipe,
   prop,
   reduce,
-  forEach,
-  firstBy,
 } from "remeda";
+import { match } from "ts-pattern";
+import { LayoutType, Score } from "./";
 import Metadata from "./metadata.json";
+import { Row } from "./row";
 
 export class Controller {
   public score: Score;

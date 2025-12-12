@@ -1,6 +1,6 @@
-import * as Sheet from "../sheet";
-import * as SMUFL from ".";
 import { P, match } from "ts-pattern";
+import * as SMUFL from ".";
+import * as Sheet from "../sheet";
 
 export class Note extends Sheet.Note {
   declare score: SMUFL.Score;

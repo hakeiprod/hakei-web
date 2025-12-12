@@ -1,5 +1,5 @@
-import { ValueObject } from "../../valueobject";
 import musicTheory from "../../../const/music-theory.json";
+import { ValueObject } from "../../valueobject";
 import { MidiNoteNumber } from "./midi-note-number";
 import { PitchClassName } from "./pitch-class-name";
 

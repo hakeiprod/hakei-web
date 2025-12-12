@@ -1,16 +1,9 @@
+import { isNullish } from "remeda";
 import * as Sheet from "../sheet";
 import * as SMUFL from "../smufl";
-import { isNullish } from "remeda";
 import { JudgeType } from "./enums/judge";
 export class Note extends Sheet.Note {
   hitSeconds: number | null = null;
-  get searchParamsLabel() {
-    const searchParameters = new URLSearchParams();
-    searchParameters.append("type", "note");
-    searchParameters.append("id", this.id.toString());
-    searchParameters.append("trackId", this.trackId.toString());
-    return searchParameters;
-  }
   get isHitted() {
     return this.hitSeconds !== null;
   }

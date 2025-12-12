@@ -1,22 +1,22 @@
-import * as Core from "@/s-core/models/core";
 import * as Audio from "@/s-core/models/audio";
-import * as Rythme from "@/s-core/models/rythme";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
-import { pipe, filter, find, times } from "remeda";
-import { match } from "ts-pattern";
-import { Keyboard } from "./keyboard";
-import { JudgeType } from "../rythme/enums/judge";
+import * as Core from "@/s-core/models/core";
+import * as Rythme from "@/s-core/models/rythme";
 import { Application, Container, Graphics, Text } from "pixi.js";
 import "pixi.js/advanced-blend-modes";
+import { filter, find, pipe, times } from "remeda";
+import { match } from "ts-pattern";
 import Soundfont2 from "../files/soundfont2";
 import { KeyeventConnecter } from "../keyboard_input/keyevent-connecter";
 import { MidiinputConnecter } from "../keyboard_input/midiinput-connecter";
+import { JudgeType } from "../rythme/enums/judge";
+import { Keyboard } from "./keyboard";
 
 export class RythmeGame {
   rythme;
   keyboard;
   audioController;
-  static SCROLL_SPEED = 100;
+  static SCROLL_SPEED = 300;
   static NOTE_RECT_ROUNDED = 5;
   private pixiRootContainer = new Container();
   constructor(
@@ -53,27 +53,15 @@ export class RythmeGame {
     );
     if (!rythmeNote) return;
     rythmeNote.hitSeconds = time;
-    const text = this.pixiRootContainer.getChildByLabel(
-      rythmeNote.searchParamsLabel.toString()
-    ) as Text | null;
+    const text = this.pixiRootContainer.children.find(
+      (child) => (child as TextWithNote).note.id === rythmeNote.id
+    ) as TextWithNote;
     if (!text) return;
     text.style.fill = match(rythmeNote.judge)
       .with(JudgeType.Perfect as 0, () => "blue" as const)
       .with(JudgeType.Good as 1, () => "yellow" as const)
       .with(JudgeType.Miss as 2, () => "red" as const)
       .exhaustive();
-    // const { x, y, width, height } = text.getLocalBounds();
-    // graphics
-    // .clear()
-    // .roundRect(x, y, width, height, RythmeGame.NOTE_RECT_ROUNDED)
-    // .setFillStyle(
-    //   match(rythmeNote.judge)
-    //     .with(JudgeType.Perfect as 0, () => "blue")
-    //     .with(JudgeType.Good as 1, () => "yellow")
-    //     .with(JudgeType.Miss as 2, () => "red")
-    //     .exhaustive()
-    // )
-    // .fill();
   }
   async render() {
     const application = new Application();
@@ -89,55 +77,33 @@ export class RythmeGame {
     const FallingNoteHeight =
       application.renderer.height - this.keyboard.container.height;
 
-    for (const note of this.rythme.notes) {
-      const graphicsRectHeight =
-        note.duration.toSeconds(note.tempo.value) * RythmeGame.SCROLL_SPEED;
-      this.pixiRootContainer.addChild(
-        new Text({
-          label: note.searchParamsLabel.toString(),
-          text: String.fromCodePoint(note.noteheadGlyph.codepoint),
-          style: {
-            fontFamily: this.fontFamily,
-            fontSize: 80,
-            fill: "black",
-          },
-          x:
-            (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
-              -1) * Keyboard.WHITE_KEY_WIDTH,
-          y: -graphicsRectHeight,
-          anchor: { x: 0, y: 0.5 },
-        })
-        // new Graphics({
-        //   label: note.searchParamsLabel.toString(),
-        // })
-        //   .roundRect(
-        //     (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
-        //       -1) * Keyboard.WHITE_KEY_WIDTH,
-        //     -graphicsRectHeight,
-        //     Keyboard.WHITE_KEY_WIDTH,
-        //     graphicsRectHeight,
-        //     RythmeGame.NOTE_RECT_ROUNDED
-        //   )
-        //   .setFillStyle({ color: "black" })
-        //   .fill()
-      );
-    }
+    const notes = this.rythme.notes.map((note) => {
+      const textWithNote = new TextWithNote({
+        text: String.fromCodePoint(note.noteheadGlyph.codepoint),
+        style: {
+          fontFamily: this.fontFamily,
+          fontSize: 80,
+          fill: "black",
+        },
+        x:
+          (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
+            -1) * Keyboard.WHITE_KEY_WIDTH,
+        y: -(
+          note.duration.toSeconds(note.tempo.value) * RythmeGame.SCROLL_SPEED
+        ),
+        anchor: { x: 0, y: 0.5 },
+      });
+      textWithNote.note = note;
+      this.pixiRootContainer.addChild(textWithNote);
+      return textWithNote;
+    });
     application.ticker.add(() => {
-      for (const child of this.pixiRootContainer.children) {
-        const searchParameters = new URLSearchParams(child.label);
-        if (searchParameters.get("type") === "note") {
-          const graphics = child as Text;
-          const note = this.rythme.notes.find(
-            (note) =>
-              note.trackId.toString() === searchParameters.get("trackId") &&
-              note.id.toString() === searchParameters.get("id")
-          );
-          graphics.y =
-            FallingNoteHeight -
-            ((note?.start.toSeconds(note.tempo.value) ?? 0) -
-              this.audioController.elapsedTime) *
-              RythmeGame.SCROLL_SPEED;
-        }
+      for (const note of notes) {
+        note.y =
+          FallingNoteHeight -
+          ((note.note?.start.toSeconds(note.note.tempo.value) ?? 0) -
+            this.audioController.elapsedTime) *
+            RythmeGame.SCROLL_SPEED;
       }
     });
     this.keyboard.container.y = FallingNoteHeight;
@@ -174,4 +140,8 @@ export class RythmeGame {
   }
   pause() {}
   end() {}
+}
+
+class TextWithNote extends Text {
+  note!: Rythme.Note;
 }

@@ -1,2 +1,2 @@
-export * from "./synth";
 export * from "./controller";
+export * from "./synth";

@@ -1,6 +1,6 @@
+import { map, pipe, prop, reduce, times } from "remeda";
 import * as Audio from "../../audio";
 import * as Core from "../../core";
-import { map, pipe, prop, reduce, times } from "remeda";
 
 declare module ".." {
   interface Score {

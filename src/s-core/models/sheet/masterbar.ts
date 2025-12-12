@@ -1,7 +1,7 @@
-import * as Core from "../core";
-import * as Sheet from ".";
 import { firstBy, identity, map, pipe, prop } from "remeda";
+import * as Sheet from ".";
 import { Barline } from "../../const/musicxml/4.0/musicxml";
+import * as Core from "../core";
 
 export class Masterbar extends Core.Event {
   readonly id;

@@ -1,9 +1,9 @@
+import { P, match } from "ts-pattern";
+import { IntRange } from "type-fest";
+import musicTheory from "../../../const/music-theory.json";
+import { ValueObject } from "../../valueobject";
 import { Tonality } from "../enums/tonality";
 import { PitchClassName } from "./pitch-class-name";
-import { P, match } from "ts-pattern";
-import musicTheory from "../../../const/music-theory.json";
-import { IntRange } from "type-fest";
-import { ValueObject } from "../../valueobject";
 
 export class PitchClass extends ValueObject<number> {
   declare value: IntRange<0, 12>;

@@ -1,7 +1,7 @@
-import * as Core from "../core";
-import { Ligature } from "./ligature";
-import { Glyph } from "./glyph";
 import { ElementType } from ".";
+import * as Core from "../core";
+import { Glyph } from "./glyph";
+import { Ligature } from "./ligature";
 
 export class Timesignature extends Core.Timesignature {
   ligature = new Ligature();

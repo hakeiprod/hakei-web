@@ -1,7 +1,6 @@
 "use client";
 import * as Browser from "@/s-core/models/browser";
-import { Button, Form, Input } from "@heroui/react";
-import { FormProps } from "@heroui/react";
+import { Button, Form, FormProps, Input } from "@heroui/react";
 
 export function FormCreateScore(properties: FormProps) {
   return (

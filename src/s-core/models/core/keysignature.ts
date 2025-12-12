@@ -1,4 +1,4 @@
-import * as Core from "../core";
+import * as Core from ".";
 import musicTheory from "../../const/music-theory.json";
 export class Keysignature extends Core.Event {
   tonality;

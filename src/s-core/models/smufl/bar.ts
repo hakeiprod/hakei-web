@@ -1,5 +1,5 @@
-import * as Sheet from "../sheet";
 import * as SMUFL from ".";
+import * as Sheet from "../sheet";
 
 export class Bar extends Sheet.Bar {
   declare score: SMUFL.Score;

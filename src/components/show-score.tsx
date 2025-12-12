@@ -1,15 +1,15 @@
 "use client";
-import * as SMUFL from "@/s-core/models/smufl";
-import * as Sheet from "@/s-core/models/sheet";
-import * as Core from "@/s-core/models/core";
 import { prisma } from "@/prisma";
-import { ScoreViewer } from "./score-viewer";
-import { ScorePlayer } from "./score-player";
-import { VirtualKeyboard } from "./virtual-keyboard";
-import { useEffect, useMemo } from "react";
-import { Keyboard } from "@/s-core/models/browser/keyboard";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
+import { Keyboard } from "@/s-core/models/browser/keyboard";
+import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-audio";
+import * as Sheet from "@/s-core/models/sheet";
+import * as SMUFL from "@/s-core/models/smufl";
+import { useEffect, useMemo } from "react";
+import { ScorePlayer } from "./score-player";
+import { ScoreViewer } from "./score-viewer";
+import { VirtualKeyboard } from "./virtual-keyboard";
 
 export function ShowScore(properties: {
   score: NonNullable<Awaited<ReturnType<typeof prisma.score.findUnique>>>;

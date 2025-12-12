@@ -1,8 +1,8 @@
 import * as R from "remeda";
-import { PitchClass } from "./pitch-class";
 import { match } from "ts-pattern";
 import musicTheory from "../../../const/music-theory.json";
 import { ValueObject } from "../../valueobject";
+import { PitchClass } from "./pitch-class";
 
 type DiatonicScale = (typeof musicTheory.diatonicScale)[number];
 type Accidental = (typeof musicTheory.accidentals)[number] | "";

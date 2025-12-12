@@ -10,7 +10,7 @@ export class Controller extends Sheet.Controller {
   }
   render() {
     this.layout();
-    this.space(window.innerWidth, window.innerHeight);
+    this.space(window.innerWidth);
     this.order();
     this.align();
     return this.score.toSVG({ ratio: 4, scale: this.options.scale });
