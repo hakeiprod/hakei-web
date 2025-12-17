@@ -14,13 +14,6 @@ export class Event {
   get end(): Beat {
     return this._end ?? this.start.add(this.duration);
   }
-  get params() {
-    return {
-      start: this.start.value,
-      duration: this.duration.value,
-      end: this.end.value,
-    };
-  }
   constructor({
     start,
     duration,

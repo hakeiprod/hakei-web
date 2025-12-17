@@ -3,13 +3,6 @@ import musicTheory from "../../const/music-theory.json";
 export class Keysignature extends Core.Event {
   tonality;
   accidental;
-  override get params() {
-    return {
-      ...super.params,
-      tonality: this.tonality,
-      accidental: this.accidental,
-    };
-  }
   get accidentalPitchClasses() {
     return musicTheory[
       `orderOf${Math.sign(this.accidental) === 1 ? ("Sharps" as const) : ("Flats" as const)}`

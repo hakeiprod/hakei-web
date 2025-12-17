@@ -2,12 +2,6 @@ import * as Core from ".";
 
 export class Tempo extends Core.Event {
   value;
-  override get params() {
-    return {
-      ...super.params,
-      value: this.value.value,
-    };
-  }
   constructor(
     tempo: { value: Core.Units.Tempo } & ConstructorParameters<
       typeof Core.Event

@@ -21,9 +21,6 @@ export class Track extends Core.Track {
   get prev() {
     return this.score.tracks[this.id - 1];
   }
-  get params() {
-    return { ...super.params, staffDetails: this.staffDetails };
-  }
   constructor({
     staffDetails,
     ...track
@@ -45,10 +42,7 @@ export class Track extends Core.Track {
     };
   }
   export() {
-    return {
-      ...this.serialize(),
-      notes: this.notes.map((note) => note.export()),
-    };
+    return this.serialize();
   }
   static import(data: ReturnType<Track["export"]>) {
     return new Track({ ...data, ...super.import(data) });

@@ -45,12 +45,6 @@ export class Score<
   tempos;
   tracks;
   notes;
-  get params() {
-    return {
-      ...super.params,
-      name: this.name,
-    };
-  }
   constructor({
     name = "",
     tracks,

@@ -7,13 +7,6 @@ export class Note extends Core.Note {
   score!: Audio.Score;
   onNoteOn;
   onNoteOff;
-  override get params() {
-    return {
-      ...super.params,
-      onNoteOff: this.onNoteOff,
-      onNoteOn: this.onNoteOn,
-    };
-  }
   get masterbar() {
     return this.score.masterbars.find(
       (masterbar) => masterbar.id === this.masterbarId

@@ -15,14 +15,6 @@ export class Track extends Core.Event {
   override get end() {
     return firstBy(this.notes, [prop("end"), "desc"])!.end;
   }
-  override get params() {
-    return {
-      ...super.params,
-      id: this.id,
-      name: this.name,
-      preset: this.preset.value,
-    };
-  }
   constructor({
     id,
     name = "",

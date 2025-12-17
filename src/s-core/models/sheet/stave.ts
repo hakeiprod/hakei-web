@@ -23,14 +23,6 @@ export class Stave {
     type: "stave",
   });
   score!: Sheet.Score;
-  get params() {
-    return {
-      id: this.id,
-      barId: this.barId,
-      trackId: this.trackId,
-      clefs: this.clefs,
-    };
-  }
   get bar() {
     return this.score.bars.find(
       (bar) => bar.trackId === this.trackId && bar.id === this.barId

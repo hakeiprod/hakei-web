@@ -5,13 +5,6 @@ export class Timesignature extends Core.Event {
   get barCount() {
     return this.duration.value / this.numerator;
   }
-  override get params() {
-    return {
-      ...super.params,
-      denominator: this.denominator,
-      numerator: this.numerator,
-    };
-  }
   constructor(
     timesignature: {
       denominator: number;

@@ -5,9 +5,6 @@ export class Bar {
   readonly id;
   trackId;
   score!: Sheet.Score;
-  get params() {
-    return { id: this.id, trackId: this.trackId };
-  }
   get timesignature() {
     return this.score.timesignatures.find((timesignature) =>
       timesignature.isOverlapped(this.masterbar)
