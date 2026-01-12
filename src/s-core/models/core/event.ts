@@ -1,4 +1,3 @@
-import { entries, mapToObj, pipe } from "remeda";
 import { Beat } from "./units/beat";
 
 export class Event {
@@ -36,15 +35,6 @@ export class Event {
   }
   export() {
     return this.serialize();
-  }
-  static import(data: ReturnType<Event["export"]>) {
-    return new Event(
-      pipe(
-        data,
-        entries(),
-        mapToObj(([key, value]) => [key, new Beat(value)])
-      )
-    );
   }
   setEnd(end: Beat) {
     this._end = end;

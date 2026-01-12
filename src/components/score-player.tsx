@@ -21,7 +21,7 @@ export function ScorePlayer({ score }: { score: Audio.Score }) {
   const controller = useMemo(() => {
     if (!soundfont2) return;
     const controller = new BrowserAudio.Controller(score, soundfont2);
-    controller.onChangeMasterGain = (value) => setMasterVolume(value);
+    controller.onChangeMasterGain = (value) => setMasterVolume(value * 100);
     controller.onPlayEnd = () => setIsPlaying(false);
     return controller;
   }, [score, setMasterVolume, soundfont2]);
@@ -71,7 +71,6 @@ export function ScorePlayer({ score }: { score: Audio.Score }) {
         <ButtonPlayPause isPlaying={isPlaying} onPress={handlePlay} />
       </ButtonGroup>
       <VolumeSlider
-        value={masterVolume}
         isMute={isMute}
         sliderProps={{
           value: masterVolume,

@@ -2,9 +2,8 @@
 import { prisma } from "@/prisma";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
-import * as Core from "@/s-core/models/core";
-import "@/s-core/models/core/extensions/to-audio";
 import * as Sheet from "@/s-core/models/sheet";
+import "@/s-core/models/sheet/extensions/to-audio";
 import * as SMUFL from "@/s-core/models/smufl";
 import { useEffect, useMemo } from "react";
 import { ScorePlayer } from "./score-player";
@@ -18,11 +17,7 @@ export function ShowScore(properties: {
     Sheet.Score["export"]
   >;
   const audio = useMemo(
-    () =>
-      Core.Score.import({
-        ...scoreData,
-        notes: scoreData.notes.filter((note) => note.pitch !== -1),
-      }).toAudio(),
+    () => Sheet.Score.import(scoreData).toAudio(),
     [scoreData]
   );
   const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);

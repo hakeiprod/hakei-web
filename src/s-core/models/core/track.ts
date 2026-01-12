@@ -42,9 +42,6 @@ export class Track extends Core.Event {
     return this.serialize();
   }
   static import(data: ReturnType<Track["export"]>) {
-    return new Track({
-      ...data,
-      preset: new Core.Units.Preset(data.preset),
-    });
+    return new Track({ ...data, preset: new Core.Units.Preset(data.preset) });
   }
 }

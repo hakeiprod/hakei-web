@@ -43,14 +43,13 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     controller.render();
   }
   useEffect(() => {
-    console.log("aaa");
     controller.mount();
     const svg = controller.render();
     window.addEventListener("resize", handleResize);
     if (reference.current && !reference.current.hasChildNodes() && svg)
       reference.current.append(svg);
     return () => window.removeEventListener("resize", handleResize);
-  }, [controller, handleResize]);
+  }, [handleResize]);
   return (
     <>
       <div
