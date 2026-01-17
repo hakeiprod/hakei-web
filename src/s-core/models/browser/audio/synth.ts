@@ -15,8 +15,6 @@ export class Synth {
     bufferSource: AudioBufferSourceNode;
     pitch: MidiNoteNumber;
   }[] = [];
-  onNoteOn?: () => void;
-  onNoteOff?: () => void;
   constructor({
     audioContext,
     preset,
@@ -134,7 +132,12 @@ export class Synth {
     // this.filter.connect(this.panner).connect(this.gain);
     // this.panner.connect(this.gain);
   }
-  noteOn(pitch: MidiNoteNumber, when?: number, onEnd?: () => void) {
+  noteOn(
+    pitch: MidiNoteNumber,
+    when?: number,
+    onStart?: () => void,
+    onEnd?: () => void
+  ) {
     const bufferSource = this.audioContext.createBufferSource();
     const time = Math.max(
       when ?? this.audioContext.currentTime,
@@ -165,16 +168,10 @@ export class Synth {
         1
       );
     });
-    // const started = () => {
-    //   if (time <= this.audioContext.currentTime) {
-    //     return this.onNoteOn?.();
-    //   }
-    //   requestAnimationFrame(started);
-    // };
-    // started();
     bufferSource.start(time);
     gainEnvelope.noteOn(time);
     filterEnvelope.noteOn(time);
+    setTimeout(() => onStart?.(), (time ?? 0) * 1000);
   }
   noteOff(pitch: MidiNoteNumber, when?: number) {
     const time = when ?? this.audioContext.currentTime;
@@ -193,11 +190,6 @@ export class Synth {
     );
     gainEnvelope.noteOff(time);
     filterEnvelope.noteOff(time);
-    // const stoped = () => {
-    //   if (time <= this.audioContext.currentTime) return this.onNoteOff?.();
-    //   requestAnimationFrame(stoped);
-    // };
-    // stoped();
   }
 
   static Envelope = Envelope;

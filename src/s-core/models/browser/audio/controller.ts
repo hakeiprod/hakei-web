@@ -61,7 +61,9 @@ export class Controller {
         synth.noteOn(
           note.pitch,
           this.startTime + note.start.toSeconds(note.tempo.value),
+          note.onNoteOn,
           () => {
+            note.onNoteOff?.();
             if (note.isLast) this.onPlayEnd?.();
           }
         );

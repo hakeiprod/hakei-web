@@ -138,8 +138,6 @@ export class Note extends Core.Note {
   draw() {
     const noteLigature = new Sheet.Ligature();
     noteLigature.append([new Sheet.Glyph(Sheet.ElementType.Notehead, 0)]);
-    if (this.stem)
-      noteLigature.append([new Sheet.Glyph(Sheet.ElementType.Stem, 0)]);
 
     if (this.accidental)
       this.ligature.append([new Sheet.Glyph(Sheet.ElementType.Accidental, 0)]);
@@ -147,12 +145,10 @@ export class Note extends Core.Note {
     this.ligature.line = this.line;
     this.ligature.append(
       [
-        ...(this.legerLine
-          ? times(
-              this.legerLine,
-              () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0)
-            )
-          : []),
+        ...times(
+          this.legerLine,
+          () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0)
+        ),
         this.rest ? new Sheet.Glyph(Sheet.ElementType.Rest, 0) : noteLigature,
       ],
       ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)])

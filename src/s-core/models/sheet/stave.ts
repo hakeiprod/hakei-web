@@ -112,17 +112,20 @@ export class Stave {
         ),
       ]);
     if (this.bar.masterbar.isFirst) {
-      this.bar.keysignature.ligature.line = match(
-        this.resolveClefs()[0]?.$$.sign![0]._
-      )
-        .with("G", () => 0)
-        .with("F", () => -1)
-        .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
-          throw new Error("wip");
-        })
-        .exhaustive();
+      const keysignatureLigature = new Sheet.Ligature(
+        (this.bar.keysignature.ligature.line = match(
+          this.resolveClefs()[0]?.$$.sign![0]._
+        )
+          .with("G", () => 0.5)
+          .with("F", () => -0.5)
+          .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
+            throw new Error("wip");
+          })
+          .exhaustive())
+      );
+      keysignatureLigature.append([this.bar.keysignature.ligature]);
       this.ligature.append(
-        [this.bar.keysignature.ligature],
+        [keysignatureLigature],
         [this.bar.timesignature.ligature]
       );
     }
