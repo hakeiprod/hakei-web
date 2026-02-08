@@ -1,4 +1,5 @@
 export * from "./bar";
+export * from "./beamgroup";
 export * from "./chord";
 export * from "./controller";
 export * from "./glyph";

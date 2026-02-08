@@ -1,6 +1,5 @@
 import * as d3 from "d3";
 import * as R from "remeda";
-import { first, last } from "remeda";
 import { match, P } from "ts-pattern";
 import * as Sheet from "../../sheet";
 import * as SMUFL from "../../smufl";
@@ -15,7 +14,7 @@ let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
   const ligatureToSVG = (
     element: d3.BaseType | SVGGElement,
-    ligature: Sheet.Ligature
+    ligature: Sheet.Ligature,
   ) => {
     const group = d3
       .select(element)
@@ -25,7 +24,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
       .attr("type", "ligature")
       .attr(
         "transform",
-        `translate(${ligature.boundingBox.x}, ${-ligature.line})`
+        `translate(${ligature.boundingBox.x}, ${-ligature.line})`,
       )
       .attr("attr", JSON.stringify(ligature.attributes))
       .attr("width", ligature.width)
@@ -46,7 +45,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                   .attr("x", glyph.boundingBox.x)
                   .attr("y", -glyph.line)
                   .attr("width", glyph.width)
-                  .text(String.fromCodePoint(glyph.codepoint))
+                  .text(String.fromCodePoint(glyph.codepoint)),
               )
               .with(P.instanceOf(Sheet.Ligature), (childLigature) => {
                 ligatureToSVG(g.node() as SVGGElement, childLigature);
@@ -114,21 +113,21 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                               createTranslate(
                                 SMUFL.BravuraMetadata.engravingDefaults
                                   .thinBarlineThickness / 2,
-                                0
-                              )
+                                0,
+                              ),
                             )
                             .attr("stroke", "black")
                             .attr(
                               "stroke-width",
                               SMUFL.BravuraMetadata.engravingDefaults
-                                .thinBarlineThickness
+                                .thinBarlineThickness,
                             )
                             .attr(
                               "d",
                               d3.line()([
                                 [0, 0],
                                 [0, bar.height],
-                              ])
+                              ]),
                             );
                           if (masterbar.isRowLast) {
                             g.selectAll("path[position=end]")
@@ -142,21 +141,21 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                     SMUFL.BravuraMetadata.engravingDefaults
                                       .thinBarlineThickness / 2
                                   ),
-                                  0
-                                )
+                                  0,
+                                ),
                               )
                               .attr("stroke", "black")
                               .attr(
                                 "stroke-width",
                                 SMUFL.BravuraMetadata.engravingDefaults
-                                  .thinBarlineThickness
+                                  .thinBarlineThickness,
                               )
                               .attr(
                                 "d",
                                 d3.line()([
                                   [masterbar.width, 0],
                                   [masterbar.width, bar.height],
-                                ])
+                                ]),
                               );
                           }
                           if (masterbar.isLast) {
@@ -169,21 +168,21 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                 createTranslate(
                                   -SMUFL.BravuraMetadata.engravingDefaults
                                     .thickBarlineThickness * 2,
-                                  0
-                                )
+                                  0,
+                                ),
                               )
                               .attr("stroke", "black")
                               .attr(
                                 "stroke-width",
                                 SMUFL.BravuraMetadata.engravingDefaults
-                                  .thinBarlineThickness
+                                  .thinBarlineThickness,
                               )
                               .attr(
                                 "d",
                                 d3.line()([
                                   [masterbar.width, 0],
                                   [masterbar.width, bar.height],
-                                ])
+                                ]),
                               );
                             g.selectAll("path[position=end]")
                               .data([null])
@@ -196,21 +195,21 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                     SMUFL.BravuraMetadata.engravingDefaults
                                       .thickBarlineThickness / 2
                                   ),
-                                  0
-                                )
+                                  0,
+                                ),
                               )
                               .attr("stroke", "black")
                               .attr(
                                 "stroke-width",
                                 SMUFL.BravuraMetadata.engravingDefaults
-                                  .thickBarlineThickness
+                                  .thickBarlineThickness,
                               )
                               .attr(
                                 "d",
                                 d3.line()([
                                   [masterbar.width, 0],
                                   [masterbar.width, bar.height],
-                                ])
+                                ]),
                               );
                           }
                         });
@@ -219,7 +218,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                         .join("g")
                         .attr("type", "stave")
                         .attr("transform", (stave) =>
-                          createTranslate(0, stave.y)
+                          createTranslate(0, stave.y),
                         )
                         .each(function (stave) {
                           ligatureToSVG(this, stave.ligature);
@@ -235,25 +234,25 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                   if (stave.bar.masterbar.isFirst)
                                     ligatures.push(
                                       stave.ligature.children[1],
-                                      stave.ligature.children[2]
+                                      stave.ligature.children[2],
                                     );
                                   return ligatures
                                     .flat()
                                     .reduce(
                                       (accumulator, current) =>
                                         accumulator + current.width,
-                                      0
+                                      0,
                                     );
                                 })(),
-                                0
-                              )
+                                0,
+                              ),
                             )
                             .call((g) => {
                               const stemGlyph = new SMUFL.Glyph(
                                 SMUFL.Glyph.find("stems", (v) =>
-                                  v.includes("stem")
+                                  v.includes("stem"),
                                 ),
-                                Sheet.ElementType.Stem
+                                Sheet.ElementType.Stem,
                               );
                               g.selectAll("g[type=stem]")
                                 .data(stave.notes)
@@ -266,12 +265,13 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                       "up",
                                       () =>
                                         note.ligature.boundingBox.toInset()
-                                          .right
+                                          .right,
                                     )
                                     .with(
                                       "down",
                                       () =>
-                                        note.ligature.boundingBox.toInset().left
+                                        note.ligature.boundingBox.toInset()
+                                          .left,
                                     )
                                     .with("double", () => {
                                       throw new Error("wip");
@@ -285,7 +285,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                     .attr(
                                       "stroke-width",
                                       SMUFL.BravuraMetadata.engravingDefaults
-                                        .stemThickness
+                                        .stemThickness,
                                     )
                                     .attr(
                                       "d",
@@ -297,12 +297,11 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             match(note.stem?._ ?? "none")
                                               .with(
                                                 "up",
-                                                () =>
-                                                  -stemGlyph.glyphBBox.height
+                                                () => -note.stemLength,
                                               )
                                               .with(
                                                 "down",
-                                                () => stemGlyph.glyphBBox.height
+                                                () => note.stemLength,
                                               )
                                               .with("double", () => {
                                                 throw new Error("wip");
@@ -310,45 +309,89 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                               .with("none", () => 0)
                                               .exhaustive(),
                                         ],
-                                      ])
+                                      ]),
                                     );
                                 });
                               g.selectAll("g[type=beam]")
-                                .data(stave.beams)
+                                .data(stave.beamGroups)
                                 .join("g")
                                 .attr("type", "beam")
-                                .each(function (beam) {
+                                .each(function (beamGroup) {
                                   const g = d3.select(this);
+
+                                  const { x1, x2 } = match(
+                                    beamGroup.firstNote.stem?._ ?? "none",
+                                  )
+                                    .with("up", () => ({
+                                      x1:
+                                        beamGroup.firstNote.ligature?.boundingBox.toInset()
+                                          .right ?? 0,
+                                      x2:
+                                        beamGroup.lastNote.ligature?.boundingBox.toInset()
+                                          .right ?? 0,
+                                    }))
+                                    .with("down", () => ({
+                                      x1:
+                                        beamGroup.firstNote.ligature?.boundingBox.toInset()
+                                          .left ?? 0,
+                                      x2:
+                                        beamGroup.lastNote.ligature?.boundingBox.toInset()
+                                          .left ?? 0,
+                                    }))
+                                    .with("double", () => {
+                                      throw new Error("wip");
+                                    })
+                                    .with("none", () => ({ x1: 0, x2: 0 }))
+                                    .exhaustive();
+
                                   g.selectAll("path")
-                                    .data([beam])
+                                    .data([beamGroup])
                                     .join("path")
                                     .attr(
                                       "transform",
-                                      // TODO: noteのstemがupならまいなす、downならプラスする
                                       createTranslate(
                                         0,
-                                        -3 - // stem length
-                                          SMUFL.BravuraMetadata
-                                            .engravingDefaults.beamThickness /
-                                            2
-                                      )
+                                        match(
+                                          beamGroup.firstNote.stem?._ ?? "none",
+                                        )
+                                          .with(
+                                            "up",
+                                            () =>
+                                              -stemGlyph.glyphBBox.height +
+                                              SMUFL.BravuraMetadata
+                                                .engravingDefaults
+                                                .beamThickness /
+                                                2,
+                                          )
+                                          .with(
+                                            "down",
+                                            () =>
+                                              stemGlyph.glyphBBox.height -
+                                              SMUFL.BravuraMetadata
+                                                .engravingDefaults
+                                                .beamThickness /
+                                                2,
+                                          )
+                                          .with("double", () => {
+                                            throw new Error("wip");
+                                          })
+                                          .with("none", () => 0)
+                                          .exhaustive(),
+                                      ),
                                     )
                                     .attr("stroke", "black")
                                     .attr(
                                       "stroke-width",
                                       SMUFL.BravuraMetadata.engravingDefaults
-                                        .beamThickness
+                                        .beamThickness,
                                     )
                                     .attr(
                                       "d",
                                       d3.line()([
                                         [
-                                          first(
-                                            beam.notes
-                                          )!.ligature?.boundingBox.toInset()
-                                            .right ?? 0,
-                                          -first(beam.notes)!.line +
-                                            beam.level *
+                                          x1,
+                                          -beamGroup.firstNote.line +
+                                            beamGroup.level *
                                               (SMUFL.BravuraMetadata
                                                 .engravingDefaults
                                                 .beamThickness +
@@ -357,12 +400,9 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                                   .beamSpacing),
                                         ],
                                         [
-                                          last(
-                                            beam.notes
-                                          )!.ligature?.boundingBox.toInset()
-                                            .right ?? 0,
-                                          -last(beam.notes)!.line +
-                                            beam.level *
+                                          x2,
+                                          -beamGroup.lastNote.line +
+                                            beamGroup.level *
                                               (SMUFL.BravuraMetadata
                                                 .engravingDefaults
                                                 .beamThickness +
@@ -370,12 +410,12 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                                   .engravingDefaults
                                                   .beamSpacing),
                                         ],
-                                      ])
+                                      ]),
                                     );
                                 });
                             });
                           g.selectAll("g[type=staff]")
-                            .data(R.times(5, () => null))
+                            .data(R.times(5, R.doNothing))
                             .join("g")
                             .attr("type", "staff")
                             .attr("transform", createTranslate(0, 0))
@@ -388,14 +428,14 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                 .attr(
                                   "stroke-width",
                                   SMUFL.BravuraMetadata.engravingDefaults
-                                    .staffLineThickness
+                                    .staffLineThickness,
                                 )
                                 .attr(
                                   "d",
                                   d3.line()([
                                     [0, -(index + 1)],
                                     [masterbar.width, -(index + 1)],
-                                  ])
+                                  ]),
                                 );
                             });
                         });

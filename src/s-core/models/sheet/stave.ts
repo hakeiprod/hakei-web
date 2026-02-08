@@ -25,41 +25,22 @@ export class Stave {
   score!: Sheet.Score;
   get bar() {
     return this.score.bars.find(
-      (bar) => bar.trackId === this.trackId && bar.id === this.barId
+      (bar) => bar.trackId === this.trackId && bar.id === this.barId,
     )!;
   }
   get notes() {
     return this.bar.notes.filter((note) => note.staveId === this.id);
   }
+  get beamGroups() {
+    return this.score.beamGroups.filter(
+      (beam) =>
+        beam.staveId === this.id &&
+        beam.stave.trackId === this.trackId &&
+        beam.stave.barId === this.barId,
+    );
+  }
   get chords() {
     return this.bar.chords.filter((chord) => chord.staveId === this.id);
-  }
-  get beams() {
-    return pipe(
-      this.notes,
-      reduce(
-        (accumulator, current) => {
-          for (const beam of current.beam ?? []) {
-            const level = Number(beam.$?.number) - 1;
-            match(beam._)
-              .with("begin", () =>
-                accumulator.push({ level, notes: [current] })
-              )
-              .with(P.union("continue", "end"), () => {
-                accumulator
-                  .findLast((beam) => beam.level === level)
-                  ?.notes.push(current);
-              })
-              .with(P.union("backward hook", "forward hook"), () => {
-                throw new Error("wip");
-              })
-              .exhaustive();
-          }
-          return accumulator;
-        },
-        [] as { level: number; notes: Sheet.Note[] }[]
-      )
-    );
   }
   get events() {
     return this.bar.events.filter((event) => event.staveId === this.id);
@@ -108,25 +89,25 @@ export class Stave {
       this.ligature.append([
         new Sheet.Glyph(
           Sheet.ElementType.Clef,
-          this.resolveClefs()[0]?.$$.line?.[0]?._ ?? 0
+          this.resolveClefs()[0]?.$$.line?.[0]?._ ?? 0,
         ),
       ]);
     if (this.bar.masterbar.isFirst) {
       const keysignatureLigature = new Sheet.Ligature(
         (this.bar.keysignature.ligature.line = match(
-          this.resolveClefs()[0]?.$$.sign![0]._
+          this.resolveClefs()[0]?.$$.sign![0]._,
         )
           .with("G", () => 0.5)
           .with("F", () => -0.5)
           .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
             throw new Error("wip");
           })
-          .exhaustive())
+          .exhaustive()),
       );
       keysignatureLigature.append([this.bar.keysignature.ligature]);
       this.ligature.append(
         [keysignatureLigature],
-        [this.bar.timesignature.ligature]
+        [this.bar.timesignature.ligature],
       );
     }
 
@@ -149,13 +130,13 @@ export class Stave {
                   } else accumulator.push(note);
                   return accumulator;
                 },
-                [] as (Sheet.Note | Sheet.Note[])[]
+                [] as (Sheet.Note | Sheet.Note[])[],
               );
             },
             map((noteOrChord) =>
               Array.isArray(noteOrChord)
                 ? noteOrChord.map((note) => note.ligature!)
-                : [noteOrChord.ligature!]
+                : [noteOrChord.ligature!],
             ),
             (ligatures) => {
               const ligature = new Sheet.Ligature(undefined, {
@@ -163,10 +144,10 @@ export class Stave {
               });
               ligature.append(...ligatures);
               return ligature;
-            }
-          )
-        )
-      )
+            },
+          ),
+        ),
+      ),
     );
   }
   resolveClefs(): Clef[] {
@@ -180,7 +161,7 @@ export class Stave {
         .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
           throw new Error("wip");
         })
-        .exhaustive()
+        .exhaustive(),
     );
   }
 }

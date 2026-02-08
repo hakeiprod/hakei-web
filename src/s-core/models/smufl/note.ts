@@ -7,6 +7,15 @@ export class Note extends Sheet.Note {
   get stave() {
     return super.stave as SMUFL.Stave;
   }
+  get stemLength(): number {
+    return (
+      new SMUFL.Glyph(
+        SMUFL.Glyph.find("stems", (v) => v.includes("stem")),
+        Sheet.ElementType.Stem,
+      ).glyphBBox.height +
+      (this.beam ? this.beamGroup.calculateStemLength(this) : 0)
+    );
+  }
   draw() {
     const handleLigature = (ligature: Sheet.Ligature) => {
       ligature.children = ligature.children.map((glyphs) =>
@@ -18,34 +27,34 @@ export class Note extends Sheet.Note {
                 new SMUFL.Glyph(
                   match(glyph.type)
                     .with(Sheet.ElementType.Accidental, () =>
-                      SMUFL.Glyph.findAccidental(this.accidental!)
+                      SMUFL.Glyph.findAccidental(this.accidental!),
                     )
                     .with(Sheet.ElementType.LegerLine, () =>
-                      SMUFL.Glyph.find("staves", (v) => v === "legerLine")
+                      SMUFL.Glyph.find("staves", (v) => v === "legerLine"),
                     )
                     .with(Sheet.ElementType.Rest, () =>
-                      SMUFL.Glyph.findRest(this.type)
+                      SMUFL.Glyph.findRest(this.type),
                     )
                     .with(Sheet.ElementType.Notehead, () =>
-                      SMUFL.Glyph.findNotehead(this.type)
+                      SMUFL.Glyph.findNotehead(this.type),
                     )
                     .with(Sheet.ElementType.Stem, () =>
-                      SMUFL.Glyph.find("stems", (v) => v.includes("stem"))
+                      SMUFL.Glyph.find("stems", (v) => v.includes("stem")),
                     )
                     .with(Sheet.ElementType.Dot, () =>
                       SMUFL.Glyph.find("individualNotes", (v) =>
-                        v.includes("Dot")
-                      )
+                        v.includes("Dot"),
+                      ),
                     )
                     // .with(Sheet.GlyphType.Flag, (type) => new SMUFL.Glyph(type))
                     .run(),
                   glyph.type,
-                  glyph.line
-                )
+                  glyph.line,
+                ),
             )
             .with(P.instanceOf(Sheet.Ligature), handleLigature)
-            .exhaustive()
-        )
+            .exhaustive(),
+        ),
       );
       return ligature;
     };

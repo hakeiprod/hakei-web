@@ -1,4 +1,4 @@
-import { times } from "remeda";
+import { isIncludedIn, map, pipe, prop, times } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
 import {
@@ -25,12 +25,17 @@ export class Note extends Core.Note {
   }
   get stave() {
     return this.score.staves.find(
-      (stave) => stave.trackId === this.trackId && stave.id === this.staveId
+      (stave) => stave.trackId === this.trackId && stave.id === this.staveId,
     )!;
   }
   get keysignature() {
     return this.score.keysignatures.find((keysignature) =>
-      this.isOverlapped(keysignature)
+      this.isOverlapped(keysignature),
+    )!;
+  }
+  get beamGroup() {
+    return this.score.beamGroups.find((beamGroup) =>
+      isIncludedIn(this.id, pipe(beamGroup.notes, map(prop("id")))),
     )!;
   }
   get accidental() {
@@ -38,7 +43,7 @@ export class Note extends Core.Note {
     if (this.rest) return null;
     return match(
       this.pitch.toPitchClass().toPitchClassName(this.keysignature.tonality)
-        .accidental
+        .accidental,
     )
       .with("#", () => Sheet.AccidentalType.Sharp)
       .with("b", () => Sheet.AccidentalType.Flat)
@@ -57,7 +62,7 @@ export class Note extends Core.Note {
       this.stave
         .getClefScientificPitchNotation()
         .getDegree(
-          this.pitch.toScientificPitchNotation(this.keysignature.tonality)
+          this.pitch.toScientificPitchNotation(this.keysignature.tonality),
         ) /
         2
     );
@@ -103,6 +108,9 @@ export class Note extends Core.Note {
     }
     return dot;
   }
+  get stemLength() {
+    return -1;
+  }
   constructor(
     note: {
       id: number;
@@ -113,7 +121,7 @@ export class Note extends Core.Note {
       beam?: MxlNote["$$"]["beam"];
       alter?: number;
       voice: number;
-    } & ConstructorParameters<typeof Core.Note>[0]
+    } & ConstructorParameters<typeof Core.Note>[0],
   ) {
     const {
       id,
@@ -147,11 +155,11 @@ export class Note extends Core.Note {
       [
         ...times(
           this.legerLine,
-          () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0)
+          () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0),
         ),
         this.rest ? new Sheet.Glyph(Sheet.ElementType.Rest, 0) : noteLigature,
       ],
-      ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)])
+      ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)]),
     );
   }
 

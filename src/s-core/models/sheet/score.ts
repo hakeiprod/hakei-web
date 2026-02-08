@@ -22,7 +22,7 @@ import {
   subtract,
   times,
 } from "remeda";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
 import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import * as Sheet from ".";
 import { StaffDetails } from "../../const/musicxml/4.0/musicxml";
@@ -46,6 +46,7 @@ export class Score<
   staves: Stave[];
   chords: Chord[];
   virtualNotes: Note[] = [];
+  beamGroups: Sheet.BeamGroup[];
   get events() {
     return [
       ...pipe(this.notes, filter(piped(prop("chordId"), isNullish))),
@@ -55,7 +56,7 @@ export class Score<
   get height() {
     return this.rows.reduce(
       (accumulator, current) => accumulator + current.height,
-      0
+      0,
     );
   }
   get width() {
@@ -98,6 +99,44 @@ export class Score<
       ...this.chords,
     ])
       data.score = this;
+    this.beamGroups = this.staves.flatMap((stave) =>
+      pipe(
+        stave.notes,
+        reduce(
+          (accumulator, current) => {
+            for (const beam of current.beam ?? []) {
+              const level = Number(beam.$?.number) - 1;
+              match(beam._)
+                .with("begin", () =>
+                  accumulator.push({
+                    level,
+                    notes: [current],
+                    staveId: stave.id,
+                    barId: stave.barId,
+                    trackId: stave.trackId,
+                  }),
+                )
+                .with(P.union("continue", "end"), () => {
+                  accumulator
+                    .findLast((beam) => beam.level === level)
+                    ?.notes.push(current);
+                })
+                .with(P.union("backward hook", "forward hook"), () => {
+                  throw new Error("wip");
+                })
+                .exhaustive();
+            }
+            return accumulator;
+          },
+          [] as ConstructorParameters<typeof Sheet.BeamGroup>[0][],
+        ),
+        map((beam) => {
+          const beamGroup = new Sheet.BeamGroup(beam);
+          beamGroup.score = this;
+          return beamGroup;
+        }),
+      ),
+    );
   }
   export() {
     return {
@@ -132,7 +171,7 @@ export class Score<
       defaultValue?: PartialDeep<
         LiteralToPrimitiveDeep<typeof Core.Metadata.defaultValue>
       >;
-    }
+    },
   ) {
     const core = super.create(
       {
@@ -142,7 +181,7 @@ export class Score<
           notes: track.notes.flat(),
         })),
       },
-      options
+      options,
     );
     const barEvents = pipe(
       core.timesignatures,
@@ -158,17 +197,17 @@ export class Score<
                 };
                 accumulator.start += current.numerator;
                 return event;
-              }
-            )
+              },
+            ),
           );
           return accumulator;
         },
         {
           start: 0,
           events: [] as { start: number; duration: number }[],
-        }
+        },
       ),
-      prop("events")
+      prop("events"),
     );
     parameter.masterbars ??= barEvents.map((event, id) => ({
       id,
@@ -196,9 +235,9 @@ export class Score<
                 else accumulator.push([array[index - 1]!, current]);
               return accumulator;
             },
-            [] as Parameter["tracks"][number]["notes"][number][][]
-          )
-        )
+            [] as Parameter["tracks"][number]["notes"][number][][],
+          ),
+        ),
       ),
       map((chords, trackId) =>
         pipe(
@@ -214,25 +253,25 @@ export class Score<
                 notes,
                 map(prop("start")),
                 filter(isTruthy),
-                firstBy(identity())
+                firstBy(identity()),
               ),
               duration: pipe(
                 notes,
                 map(prop("duration")),
                 filter(isTruthy),
-                firstBy([identity(), "desc"])
+                firstBy([identity(), "desc"]),
               ),
               end: pipe(
                 notes,
                 map(prop("duration")),
                 filter(isTruthy),
-                firstBy([identity(), "desc"])
+                firstBy([identity(), "desc"]),
               ),
             };
-          })
-        )
+          }),
+        ),
       ),
-      flat()
+      flat(),
     );
 
     // 必要以上にbarを生成する場合がありそう
@@ -240,7 +279,7 @@ export class Score<
       parameter.masterbars!.map((masterbar) => ({
         ...masterbar,
         trackId: track.id,
-      }))
+      })),
     );
     if (isNullish(parameter.bars) || isEmpty(parameter.bars))
       parameter.bars ??= parameter.tracks.map((_, trackId) => ({
@@ -299,18 +338,18 @@ export class Score<
                   ],
                 },
               ];
-            })
-        )
+            }),
+        ),
       )
       .map((stave) => new Sheet.Stave(stave));
 
     const score = new Sheet.Score({
       ...core,
       timesignatures: core.timesignatures.map(
-        (timesignature) => new Sheet.Timesignature(timesignature)
+        (timesignature) => new Sheet.Timesignature(timesignature),
       ) as [Sheet.Timesignature, ...Sheet.Timesignature[]],
       keysignatures: core.keysignatures.map(
-        (keysignature) => new Sheet.Keysignature(keysignature)
+        (keysignature) => new Sheet.Keysignature(keysignature),
       ) as [Sheet.Keysignature, ...Sheet.Keysignature[]],
       notes: parameter.tracks.flatMap((track, trackId) =>
         track.notes.map(
@@ -324,17 +363,17 @@ export class Score<
                 { start, duration, end },
                 entries(),
                 filter(piped(last, isDefined)),
-                mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+                mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
               ),
-            })
-        )
+            }),
+        ),
       ),
       tracks: core.tracks.map(
         (track, id) =>
           new Sheet.Track({
             ...track,
             staffDetails: parameter.tracks[id]!.staffDetails,
-          })
+          }),
       ),
       staves: parameter.staves.map((stave) => new Sheet.Stave(stave)),
       bars: parameter.bars.map((bar) => new Sheet.Bar(bar)),
@@ -346,9 +385,9 @@ export class Score<
               { start, duration, end },
               entries(),
               filter(piped(last, isDefined)),
-              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
             ),
-          })
+          }),
       ),
       chords:
         parameter.chords?.map(
@@ -359,9 +398,9 @@ export class Score<
                 { start, duration, end },
                 entries(),
                 filter(piped(last, isDefined)),
-                mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+                mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
               ),
-            })
+            }),
         ) ?? [],
       rows: [],
     });
@@ -413,18 +452,18 @@ export class Score<
                     filter(piped(prop("rest"), isDefined)),
                     length(),
                     add(index),
-                    subtract(1)
+                    subtract(1),
                   ),
                   0,
-                  note
+                  note,
                 );
               }
               return current;
             },
-            null as Core.Event | null
-          )
+            null as Core.Event | null,
+          ),
         );
-      })
+      }),
     );
     if (process.env.NODE_ENV === "development") console.log({ sheet: score });
     return score;
