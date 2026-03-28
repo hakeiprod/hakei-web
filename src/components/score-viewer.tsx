@@ -29,7 +29,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       controller?.render();
   }, 100);
   function handleScaleChange(
-    eventOrValue: ChangeEvent<HTMLInputElement> | number
+    eventOrValue: ChangeEvent<HTMLInputElement> | number,
   ) {
     const value =
       typeof eventOrValue === "number"
@@ -47,7 +47,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     const svg = controller.render();
     window.addEventListener("resize", handleResize);
     if (reference.current && !reference.current.hasChildNodes() && svg)
-      reference.current.append(svg);
+      reference.current.replaceChildren(svg);
     return () => window.removeEventListener("resize", handleResize);
   }, [handleResize]);
   return (
@@ -58,6 +58,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
         style={{ overflowX: "auto" }}
       />
       <NumberInput
+        id=""
         className="max-w-xs"
         placeholder="Scale"
         value={scale}
@@ -76,7 +77,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
           LayoutType,
           keys(),
           filter((k) => !Number.isNaN(Number(k))),
-          map((key) => <SelectItem key={key}>{LayoutType[key]}</SelectItem>)
+          map((key) => <SelectItem key={key}>{LayoutType[key]}</SelectItem>),
         )}
       </Select>
     </>

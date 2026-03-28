@@ -20,7 +20,7 @@ export class Controller {
   onChangeLayoutType?: (scale: typeof this.options.layoutType) => void;
   constructor(
     score: Score,
-    public options: { scale: number; layoutType: LayoutType }
+    public options: { scale: number; layoutType: LayoutType },
   ) {
     this.score = score;
   }
@@ -39,7 +39,7 @@ export class Controller {
         this.score.rows = splitByWidth(
           this.score.masterbars,
           window.innerWidth / this.options.scale,
-          (mb) => mb.minWidth
+          (mb) => mb.minWidth,
         ).map((masterbars, id) => {
           for (const masterbar of masterbars) masterbar.rowId = id;
           return new Row({ id });
@@ -68,7 +68,7 @@ export class Controller {
         prop("masterbars"),
         flatMap(prop("events")),
         groupBy(prop("start", "value")),
-        entries()
+        entries(),
       );
       match(this.options.layoutType)
         .with(LayoutType.Page as 2, () => {
@@ -110,7 +110,7 @@ export class Controller {
           if (note.ligature)
             note.ligature.boundingBox.x = maxXNote.ligature?.boundingBox.x ?? 0;
         }
-      })
+      }),
     );
   }
   setScale(scale: typeof this.options.scale) {
@@ -126,7 +126,7 @@ export class Controller {
 function splitByWidth<T>(
   items: T[],
   width: number,
-  selector: (item: T) => number
+  selector: (item: T) => number,
 ): T[][] {
   return pipe(
     items,
@@ -143,7 +143,7 @@ function splitByWidth<T>(
         }
         return accumulator;
       },
-      [[]] as T[][]
-    )
+      [[]] as T[][],
+    ),
   );
 }

@@ -107,7 +107,7 @@ export class Score<
             for (const beam of current.beam ?? []) {
               const level = Number(beam.$?.number) - 1;
               match(beam._)
-                .with("begin", () =>
+                .with(P.union("begin", "backward hook", "forward hook"), () =>
                   accumulator.push({
                     level,
                     notes: [current],
@@ -116,14 +116,11 @@ export class Score<
                     trackId: stave.trackId,
                   }),
                 )
-                .with(P.union("continue", "end"), () => {
+                .with(P.union("continue", "end"), () =>
                   accumulator
                     .findLast((beam) => beam.level === level)
-                    ?.notes.push(current);
-                })
-                .with(P.union("backward hook", "forward hook"), () => {
-                  throw new Error("wip");
-                })
+                    ?.notes.push(current),
+                )
                 .exhaustive();
             }
             return accumulator;

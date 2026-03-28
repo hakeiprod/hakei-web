@@ -24,12 +24,13 @@ export function InputSearch() {
         include: { artist: true, album: true, music: true },
         where: { name: { contains: value } },
         take: 5,
-      })
+      }),
     );
   }
 
   return (
     <Autocomplete
+      id=""
       aria-label="Search"
       radius="full"
       isClearable

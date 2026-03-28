@@ -223,7 +223,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                         .each(function (stave) {
                           ligatureToSVG(this, stave.ligature);
                           const g = d3.select(this);
-                          g.append("g")
+                          g.selectAll("g[type=decoration]")
+                            .data([stave])
+                            .join("g")
+                            .attr("type", "decoration")
                             .attr(
                               "transform",
                               createTranslate(
@@ -318,7 +321,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                 .attr("type", "beam")
                                 .each(function (beamGroup) {
                                   const g = d3.select(this);
-
                                   const { x1, x2 } = match(
                                     beamGroup.firstNote.stem?._ ?? "none",
                                   )

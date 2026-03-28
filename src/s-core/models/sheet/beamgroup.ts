@@ -47,9 +47,8 @@ export class BeamGroup {
     const y2 = this.lastNote.line;
     const dx = x2 - x1;
     const dy = y2 - y1;
-    const a = dy / dx;
-    const b = y1 - a * x1;
-    const beamY = a * note.ligature.boundingBox.x + b;
-    return note.line - beamY;
+    const m = dy / dx;
+    const beamY = m * (note.ligature.boundingBox.x - x1) + y1;
+    return (note.stem?._ === "up" ? beamY - note.line : note.line - beamY) + 3;
   }
 }

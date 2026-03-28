@@ -8,13 +8,12 @@ export class Note extends Sheet.Note {
     return super.stave as SMUFL.Stave;
   }
   get stemLength(): number {
-    return (
-      new SMUFL.Glyph(
-        SMUFL.Glyph.find("stems", (v) => v.includes("stem")),
-        Sheet.ElementType.Stem,
-      ).glyphBBox.height +
-      (this.beam ? this.beamGroup.calculateStemLength(this) : 0)
-    );
+    return this.beam
+      ? this.beamGroup.calculateStemLength(this)
+      : new SMUFL.Glyph(
+          SMUFL.Glyph.find("stems", (v) => v.includes("stem")),
+          Sheet.ElementType.Stem,
+        ).glyphBBox.height;
   }
   draw() {
     const handleLigature = (ligature: Sheet.Ligature) => {
