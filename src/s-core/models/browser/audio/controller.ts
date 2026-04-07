@@ -1,3 +1,4 @@
+import mitt from "mitt";
 import { map, pipe, prop, unique } from "remeda";
 import { match } from "ts-pattern";
 import * as BrowserAudio from ".";
@@ -9,8 +10,15 @@ export enum ControllerState {
   Paused,
   Stopped,
 }
+type Events = {
+  pause?: undefined;
+  stop?: undefined;
+  playend?: undefined;
+  changeMasterGain: Controller["masterGain"]["gain"]["value"];
+};
 
 export class Controller {
+  emitter = mitt<Events>();
   state: ControllerState = ControllerState.Stopped;
   startTime = 0;
   masterGain;
@@ -21,13 +29,12 @@ export class Controller {
   notes: { note: Audio.Note; synth: BrowserAudio.Synth }[] = [];
   timeouts: NodeJS.Timeout[] = [];
   onPlayEnd?: () => void;
-  onChangeMasterGain?: (value: typeof this.masterGain.gain.value) => void;
   get elapsedTime() {
     return this.audioContext.currentTime - this.startTime;
   }
   constructor(
     public score: Audio.Score,
-    public soundfont2: Soundfont2
+    public soundfont2: Soundfont2,
   ) {
     this.audioContext = new AudioContext();
     this.masterGain = this.audioContext.createGain();
@@ -36,7 +43,7 @@ export class Controller {
       score.tracks,
       map(prop("preset", "value")),
       unique(),
-      map((value) => this.soundfont2.getPreset(value))
+      map((value) => this.soundfont2.getPreset(value)),
     );
     this.synths = this.score.tracks.map(
       (track) =>
@@ -44,7 +51,7 @@ export class Controller {
           audioContext: this.audioContext,
           preset: this.soundfont2.getPreset(track.preset.value),
           track,
-        })
+        }),
     );
   }
   play() {
@@ -61,23 +68,26 @@ export class Controller {
         synth.noteOn(
           note.pitch,
           this.startTime + note.start.toSeconds(note.tempo.value),
-          note.onNoteOn,
+          () => note.emitter.emit("noteOn"),
           () => {
-            note.onNoteOff?.();
+            note.emitter.emit("noteOff");
             if (note.isLast) this.onPlayEnd?.();
-          }
+          },
         );
         synth.noteOff(
           note.pitch,
-          this.startTime + note.end.toSeconds(note.tempo.value)
+          this.startTime + note.end.toSeconds(note.tempo.value),
         );
       }
     }
+    this.onPlayEnd?.();
   }
   pause() {
+    this.emitter.emit("pause");
     this.audioContext.suspend();
   }
   stop() {
+    this.emitter.emit("stop");
     for (const { synth } of this.notes)
       synth.bufferSources.map(({ bufferSource }) => bufferSource.stop());
     this.synths = [];
@@ -91,7 +101,7 @@ export class Controller {
     this.state = state;
   }
   setMasterGain(value: typeof this.masterGain.gain.value) {
+    this.emitter.emit("changeMasterGain", value);
     this.masterGain.gain.value = value;
-    this.onChangeMasterGain?.(value);
   }
 }

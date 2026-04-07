@@ -1,15 +1,19 @@
+import mitt from "mitt";
 import { firstBy, prop } from "remeda";
 import * as Audio from ".";
 import * as Core from "../core";
 
+type Events = {
+  noteOn?: null;
+  noteOff?: null;
+};
 export class Note extends Core.Note {
+  emitter = mitt<Events>();
   masterbarId;
   score!: Audio.Score;
-  onNoteOn;
-  onNoteOff;
   get masterbar() {
     return this.score.masterbars.find(
-      (masterbar) => masterbar.id === this.masterbarId
+      (masterbar) => masterbar.id === this.masterbarId,
     )!;
   }
   get isLast() {
@@ -23,15 +27,11 @@ export class Note extends Core.Note {
   constructor(
     note: {
       masterbarId: number;
-      onNoteOn?: () => void;
-      onNoteOff?: () => void;
-    } & ConstructorParameters<typeof Core.Note>[0]
+    } & ConstructorParameters<typeof Core.Note>[0],
   ) {
-    const { masterbarId, onNoteOn, onNoteOff } = note;
+    const { masterbarId } = note;
     super(note);
     this.masterbarId = masterbarId;
-    this.onNoteOn = onNoteOn;
-    this.onNoteOff = onNoteOff;
   }
   serialize() {
     return {

@@ -12,4 +12,9 @@ export class NoteHighlighter {
       .find(({ id, trackId }) => note.id === id && note.trackId === trackId)
       ?.ligature?.setClassName([]);
   }
+  reset() {
+    for (const note of this.sheet.notes) {
+      note.ligature?.setClassName([]);
+    }
+  }
 }

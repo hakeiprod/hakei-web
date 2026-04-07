@@ -10,7 +10,7 @@ import {
   reduce,
 } from "remeda";
 import { match } from "ts-pattern";
-import { LayoutType, Score } from "./";
+import { LayoutType, Ligature, Score } from "./";
 import Metadata from "./metadata.json";
 import { Row } from "./row";
 
@@ -27,6 +27,16 @@ export class Controller {
   mount() {
     this.layout();
     this.draw();
+  }
+  unmount() {
+    for (const data of [
+      ...this.score.notes,
+      ...this.score.chords,
+      ...this.score.timesignatures,
+      ...this.score.keysignatures,
+      ...this.score.staves,
+    ])
+      data.ligature = new Ligature();
   }
   layout() {
     match(this.options.layoutType)

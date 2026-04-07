@@ -46,10 +46,12 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     controller.mount();
     const svg = controller.render();
     window.addEventListener("resize", handleResize);
-    if (reference.current && !reference.current.hasChildNodes() && svg)
-      reference.current.replaceChildren(svg);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+    if (reference.current && svg) reference.current.replaceChildren(svg);
+    return () => {
+      controller.unmount();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [controller, handleResize]);
   return (
     <>
       <div

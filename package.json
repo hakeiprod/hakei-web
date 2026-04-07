@@ -36,6 +36,7 @@
     "jotai": "^2.15.1",
     "jszip": "^3.10.1",
     "lucide-react": "^0.548.0",
+    "mitt": "^3.0.1",
     "next": "16.0.1",
     "next-auth": "^5.0.0-beta.30",
     "nuqs": "^2.7.2",
@@ -46,7 +47,8 @@
     "server-only": "^0.0.1",
     "ts-pattern": "^5.9.0",
     "use-debounce": "^10.0.6",
-    "xml2js": "^0.6.2"
+    "xml2js": "^0.6.2",
+    "xstate": "^5.30.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.1.0",
