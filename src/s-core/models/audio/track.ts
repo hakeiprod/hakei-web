@@ -1,10 +1,14 @@
+import mitt from "mitt";
 import { firstBy, prop } from "remeda";
 import * as Audio from ".";
 import * as Core from "../core";
 import { MidiNoteNumber } from "../core/units";
 
+type Events = {
+  onChangeGain: number;
+};
 export class Track extends Core.Track {
-  onChangeGain?: (value: number) => void;
+  emitter = mitt<Events>();
   override get notes() {
     return super.notes as Audio.Note[];
   }
@@ -13,11 +17,8 @@ export class Track extends Core.Track {
       (sort) =>
         firstBy(
           this.notes.filter((note) => 0 <= note.pitch.value),
-          [prop("pitch", "value"), sort]
-        )!.pitch
+          [prop("pitch", "value"), sort],
+        )!.pitch,
     ) as [min: MidiNoteNumber, max: MidiNoteNumber];
-  }
-  setGain() {
-    this.onChangeGain?.(0);
   }
 }

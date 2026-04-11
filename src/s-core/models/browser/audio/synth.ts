@@ -32,7 +32,7 @@ export class Synth {
     this.resources = pipe(
       times(
         track.keyRange[1].value - track.keyRange[0].value + 1,
-        (index) => new MidiNoteNumber(index + track.keyRange[0].value)
+        (index) => new MidiNoteNumber(index + track.keyRange[0].value),
       ),
       map((pitch) => {
         const sample = preset.instruments
@@ -40,13 +40,13 @@ export class Synth {
           .find(
             (sample) =>
               sample.generators.keyRange.lo <= pitch.value &&
-              sample.generators.keyRange.hi >= pitch.value
+              sample.generators.keyRange.hi >= pitch.value,
           )!;
         const float32 = sample.data.toFloat32Array();
         const buffer = audioContext.createBuffer(
           1,
           float32.length,
-          sample.header.sampleRate.value
+          sample.header.sampleRate.value,
         );
         buffer.getChannelData(0).set(float32);
         return {
@@ -124,7 +124,7 @@ export class Synth {
             },
           }),
         };
-      })
+      }),
     );
     this.filter.type = "lowpass";
     this.filter.connect(this.gain);
@@ -136,19 +136,19 @@ export class Synth {
     pitch: MidiNoteNumber,
     when?: number,
     onStart?: () => void,
-    onEnd?: () => void
+    onEnd?: () => void,
   ) {
     const bufferSource = this.audioContext.createBufferSource();
     const time = Math.max(
       when ?? this.audioContext.currentTime,
-      this.audioContext.currentTime + 0.001
+      this.audioContext.currentTime + 0.001,
     );
     const { buffer, sample, gainEnvelope, filterEnvelope } =
       this.resources.find((resource) => resource.pitch.equal(pitch))!;
     this.bufferSources.push({ bufferSource, pitch });
     this.filter.Q.setValueAtTime(
       sample.generators.initialFilterQ.toDecibel().value,
-      0
+      0,
     );
     bufferSource.buffer = buffer;
     if (sample.generators.sampleModes.value !== 0) {
@@ -165,7 +165,7 @@ export class Synth {
       bufferSource.disconnect(this.filter);
       this.bufferSources.splice(
         this.bufferSources.indexOf({ bufferSource, pitch }),
-        1
+        1,
       );
     });
     bufferSource.start(time);
@@ -176,17 +176,17 @@ export class Synth {
   noteOff(pitch: MidiNoteNumber, when?: number) {
     const time = when ?? this.audioContext.currentTime;
     const bufferSource = this.bufferSources.findLast((bufferSource) =>
-      bufferSource.pitch.equal(pitch)
+      bufferSource.pitch.equal(pitch),
     )!.bufferSource;
     const { filterEnvelope, gainEnvelope } = this.resources.findLast(
-      (resource) => resource.pitch.equal(pitch)
+      (resource) => resource.pitch.equal(pitch),
     )!;
     bufferSource.stop(
       // Math.max(
       //   this.filterEnvelope.release.time,
       //   this.gainEnvelope.release.time
       // ) +
-      time
+      time,
     );
     gainEnvelope.noteOff(time);
     filterEnvelope.noteOff(time);

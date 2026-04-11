@@ -23,34 +23,37 @@ export function ShowScore(properties: {
     () => Sheet.Score.import(scoreData).toAudio(),
     [scoreData],
   );
-  const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
   const keyboard = useMemo(
     () => new Keyboard(audio.keyRange),
     [audio.keyRange],
   );
-  const noteHighlighter = useMemo(() => new NoteHighlighter(smufl), [smufl]);
+  const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
   const controller = useMemo(() => {
     if (!soundfont2) return;
     const controller = new BrowserAudio.Controller(audio, soundfont2);
-    controller.emitter.on("stop", () => noteHighlighter.reset());
+    // controller.emitter.on("stop", () => noteHighlighter.reset());
     return controller;
-  }, [audio, noteHighlighter, soundfont2]);
+  }, [audio, soundfont2]);
+  const noteHighlighter = useMemo(() => {
+    if (controller) return new NoteHighlighter(smufl, controller);
+  }, [controller, smufl]);
   useEffect(() => {
-    for (const note of audio.notes) {
-      note.emitter.on("noteOn", () => {
-        noteHighlighter.noteOn(note);
-        keyboard?.noteOn(note);
-      });
-      note.emitter.on("noteOff", () => {
-        noteHighlighter.noteOff(note);
-        keyboard?.noteOff(note);
-      });
-    }
+    noteHighlighter?.highlight();
+    // for (const note of audio.notes) {
+    //   note.emitter.on("noteOn", () => {
+    //     noteHighlighter.noteOn(note);
+    //     keyboard?.noteOn(note);
+    //   });
+    //   note.emitter.on("noteOff", () => {
+    //     noteHighlighter.noteOff(note);
+    //     keyboard?.noteOff(note);
+    //   });
+    // }
   }, [audio.notes, keyboard, noteHighlighter, smufl]);
   useEffect(() => {
     fetch("/A320U.sf2")
       .then((response) => response.arrayBuffer())
-      .then((buf) => setSoundfont2(Soundfont2.create(buf)));
+      .then((buffer) => setSoundfont2(Soundfont2.create(buffer)));
   }, []);
   return (
     <>

@@ -5,12 +5,50 @@ import { masterVolumeAtom } from "@/store/master-volume";
 import { Button, ButtonGroup } from "@heroui/button";
 import { Navbar } from "@heroui/navbar";
 import { SliderValue } from "@heroui/slider";
+import { useMachine } from "@xstate/react";
 import { useAtom } from "jotai";
 import { FastForward, Rewind, Square } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createMachine } from "xstate";
 import { ButtonPlayPause } from "./button-play-pause";
 import { VolumeSlider } from "./slider-volume";
 
+const machine = createMachine({
+  initial: "idle",
+  types: {} as {
+    events:
+      | { type: "PLAY" }
+      | { type: "PAUSE" }
+      | { type: "STOP" }
+      | { type: "TICK" };
+  },
+  states: {
+    idle: {
+      on: {
+        PLAY: { target: "playing", actions: "play" },
+      },
+    },
+    playing: {
+      on: {
+        PAUSE: "paused",
+        STOP: "stopped",
+      },
+    },
+    paused: {
+      entry: "pause",
+      on: {
+        PLAY: { target: "playing", actions: "resume" },
+        STOP: "stopped",
+      },
+    },
+    stopped: {
+      entry: "stop",
+      on: {
+        PLAY: "playing",
+      },
+    },
+  },
+});
 export function ScorePlayer({
   score,
   controller,
@@ -20,7 +58,16 @@ export function ScorePlayer({
   onStop?: () => void;
   onPause?: () => void;
 }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [state, send] = useMachine(
+    machine.provide({
+      actions: {
+        play: () => controller.play(),
+        pause: () => controller.pause(),
+        stop: () => controller.stop(),
+        resume: () => controller.resume(),
+      },
+    }),
+  );
   const [isMute, setIsMute] = useState(false);
   const [masterVolume, setMasterVolume] = useAtom(masterVolumeAtom);
   const [previousVolume, setPreviousVolume] = useState(masterVolume);
@@ -38,14 +85,13 @@ export function ScorePlayer({
     setIsMute(!isMute);
   }
   function handlePlay(value: boolean) {
-    setIsPlaying(!value);
-    if (value) controller?.pause();
-    else controller?.play();
+    if (value) send({ type: "PAUSE" });
+    else send({ type: "PLAY" });
   }
   function handleStop() {
-    setIsPlaying(false);
-    controller?.stop();
+    send({ type: "STOP" });
   }
+
   useEffect(() => {
     controller?.setMasterGain(masterVolume / 100);
   }, [controller, masterVolume]);
@@ -62,7 +108,10 @@ export function ScorePlayer({
         <Button onPress={handleStop}>
           <Square color="white" />
         </Button>
-        <ButtonPlayPause isPlaying={isPlaying} onPress={handlePlay} />
+        <ButtonPlayPause
+          isPlaying={state.value === "playing"}
+          onPress={handlePlay}
+        />
       </ButtonGroup>
       <VolumeSlider
         isMute={isMute}

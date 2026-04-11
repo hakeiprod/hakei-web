@@ -22,39 +22,40 @@ export class RythmeGame {
   constructor(
     public audio: Audio.Score,
     public soundfont2: Soundfont2,
-    public fontFamily: string
+    public fontFamily: string,
   ) {
     this.rythme = Rythme.Score.import(this.audio.export());
     this.keyboard = new Keyboard();
     this.audioController = new BrowserAudio.Controller(audio, soundfont2);
     this.keyboard.onNoteOn = (note) => this.noteOn(note);
-    this.audioController.onPlayEnd = () =>
+    this.audioController.emitter.on("end", () =>
       console.log(
         {
           perfect: this.rythme.notes.filter(
-            (note) => note.judge === JudgeType.Perfect
+            (note) => note.judge === JudgeType.Perfect,
           ).length,
           good: this.rythme.notes.filter(
-            (note) => note.judge === JudgeType.Good
+            (note) => note.judge === JudgeType.Good,
           ).length,
           miss: this.rythme.notes.filter(
-            (note) => note.judge === JudgeType.Miss
+            (note) => note.judge === JudgeType.Miss,
           ).length,
         },
-        this.rythme
-      );
+        this.rythme,
+      ),
+    );
   }
   noteOn(note: Core.Note) {
-    const time = this.audioController.elapsedTime;
+    const time = this.audioController.timer.elapsedSeconds;
     const rythmeNote = pipe(
       this.rythme.notes,
       filter(({ isHitted, pitch }) => !isHitted && pitch.equal(note.pitch)),
-      find((note) => note.canHit(time))
+      find((note) => note.canHit(time)),
     );
     if (!rythmeNote) return;
     rythmeNote.hitSeconds = time;
     const text = this.pixiRootContainer.children.find(
-      (child) => (child as TextWithNote).note.id === rythmeNote.id
+      (child) => (child as TextWithNote).note.id === rythmeNote.id,
     ) as TextWithNote;
     if (!text) return;
     text.style.fill = match(rythmeNote.judge)
@@ -89,7 +90,8 @@ export class RythmeGame {
           (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
             -1) * Keyboard.WHITE_KEY_WIDTH,
         y: -(
-          note.duration.toSeconds(note.tempo.value) * RythmeGame.SCROLL_SPEED
+          note.duration.toSeconds(note.tempo.value).value *
+          RythmeGame.SCROLL_SPEED
         ),
         anchor: { x: 0, y: 0.5 },
       });
@@ -101,8 +103,8 @@ export class RythmeGame {
       for (const note of notes) {
         note.y =
           FallingNoteHeight -
-          ((note.note?.start.toSeconds(note.note.tempo.value) ?? 0) -
-            this.audioController.elapsedTime) *
+          ((note.note?.start.toSeconds(note.note.tempo.value).value ?? 0) -
+            this.audioController.timer.elapsedSeconds.value) *
             RythmeGame.SCROLL_SPEED;
       }
     });
@@ -119,11 +121,11 @@ export class RythmeGame {
               index * Keyboard.WHITE_KEY_WIDTH,
               0,
               1,
-              application.renderer.height
+              application.renderer.height,
             )
             .setFillStyle("black")
-            .fill()
-      )
+            .fill(),
+      ),
     );
     this.pixiRootContainer.addChild(this.keyboard.container);
     application.stage.addChild(this.pixiRootContainer);
@@ -131,12 +133,11 @@ export class RythmeGame {
   }
   start(trackIds: number[]) {
     this.rythme.tracks = this.rythme.tracks.filter((track) =>
-      trackIds.includes(track.id)
+      trackIds.includes(track.id),
     );
     this.rythme.notes = this.rythme.notes.filter((note) =>
-      trackIds.includes(note.trackId)
+      trackIds.includes(note.trackId),
     );
-    this.audioController.setState(BrowserAudio.ControllerState.Playing);
   }
   pause() {}
   end() {}

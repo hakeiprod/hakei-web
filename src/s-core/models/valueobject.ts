@@ -11,3 +11,16 @@ export abstract class ValueObject<T> {
     return isStrictEqual(this.value, other.value);
   }
 }
+
+export abstract class NumericValueObject<
+  T extends NumericValueObject<T>,
+> extends ValueObject<number> {
+  protected abstract validate(value: typeof this.value): typeof this.value;
+  protected abstract create(value: typeof this.value): T;
+  add(b: typeof this) {
+    return this.create(this.value + b.value);
+  }
+  subtract(b: typeof this) {
+    return this.create(this.value - b.value);
+  }
+}
