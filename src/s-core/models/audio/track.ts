@@ -5,7 +5,7 @@ import * as Core from "../core";
 import { MidiNoteNumber } from "../core/units";
 
 type Events = {
-  onChangeGain: number;
+  changeGain: number;
 };
 export class Track extends Core.Track {
   emitter = mitt<Events>();

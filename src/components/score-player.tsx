@@ -70,22 +70,21 @@ export function ScorePlayer({
   );
   const [isMute, setIsMute] = useState(false);
   const [masterVolume, setMasterVolume] = useAtom(masterVolumeAtom);
-  const [previousVolume, setPreviousVolume] = useState(masterVolume);
   function handleChange(value: SliderValue) {
     controller?.setMasterGain(
       (Array.isArray(value) ? (value[0] ?? 0) : value) / 100,
     );
   }
   function handleChangeEnd(value: SliderValue) {
-    if (value) setPreviousVolume(value as number);
+    if (value) setIsMute(false);
     else setIsMute(true);
   }
-  function handleMutePress() {
-    setMasterVolume(isMute ? previousVolume : 0);
-    setIsMute(!isMute);
+  function handleMute() {
+    if (controller.isMute) controller.unmute();
+    else controller.mute();
   }
-  function handlePlay(value: boolean) {
-    if (value) send({ type: "PAUSE" });
+  function handlePlay() {
+    if (state.matches("playing")) send({ type: "PAUSE" });
     else send({ type: "PLAY" });
   }
   function handleStop() {
@@ -93,8 +92,16 @@ export function ScorePlayer({
   }
 
   useEffect(() => {
-    controller?.setMasterGain(masterVolume / 100);
-  }, [controller, masterVolume]);
+    controller.setMasterGain(masterVolume / 100);
+    controller.emitter.on("changeMasterGain", (value) =>
+      setMasterVolume(value * 100),
+    );
+    controller.emitter.on("changeMute", (value) => setIsMute(value));
+    return () => {
+      controller.emitter.off("changeMasterGain");
+      controller.emitter.off("changeMute");
+    };
+  }, [controller]);
 
   return (
     <Navbar>
@@ -121,7 +128,7 @@ export function ScorePlayer({
           onChangeEnd: handleChangeEnd,
         }}
         muteButtonProps={{
-          onPress: handleMutePress,
+          onPress: handleMute,
         }}
       />
     </Navbar>

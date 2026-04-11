@@ -16,6 +16,7 @@ type Events = {
   stop?: undefined;
   end?: undefined;
   changeMasterGain: Controller["masterGain"]["gain"]["value"];
+  changeMute: Controller["isMute"];
 };
 export class Controller {
   timer;
@@ -24,6 +25,8 @@ export class Controller {
   audioContext;
   presets;
   synths;
+  isMute = false;
+  previouseGain?: number;
   constructor(
     public score: Audio.Score,
     public soundfont2: Soundfont2,
@@ -53,7 +56,7 @@ export class Controller {
       const trackGain = this.audioContext.createGain();
       const synth = this.synths.find((synth) => synth.track.id === track.id)!;
       track.emitter.on(
-        "onChangeGain",
+        "changeGain",
         (value: number) => (trackGain.gain.value = value),
       );
       trackGain.connect(this.masterGain);
@@ -92,6 +95,17 @@ export class Controller {
     this.emitter.emit("stop");
     this.audioContext.close();
     this.synths = [];
+  }
+  mute() {
+    this.isMute = true;
+    this.emitter.emit("changeMute", this.isMute);
+    this.previouseGain = this.masterGain.gain.value;
+    this.setMasterGain(0);
+  }
+  unmute() {
+    this.isMute = false;
+    this.emitter.emit("changeMute", this.isMute);
+    if (this.previouseGain) this.setMasterGain(this.previouseGain);
   }
   setMasterGain(value: typeof this.masterGain.gain.value) {
     this.emitter.emit("changeMasterGain", value);

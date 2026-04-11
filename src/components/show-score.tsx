@@ -29,27 +29,14 @@ export function ShowScore(properties: {
   );
   const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
   const controller = useMemo(() => {
-    if (!soundfont2) return;
-    const controller = new BrowserAudio.Controller(audio, soundfont2);
-    // controller.emitter.on("stop", () => noteHighlighter.reset());
-    return controller;
+    if (soundfont2) return new BrowserAudio.Controller(audio, soundfont2);
   }, [audio, soundfont2]);
   const noteHighlighter = useMemo(() => {
     if (controller) return new NoteHighlighter(smufl, controller);
   }, [controller, smufl]);
   useEffect(() => {
     noteHighlighter?.highlight();
-    // for (const note of audio.notes) {
-    //   note.emitter.on("noteOn", () => {
-    //     noteHighlighter.noteOn(note);
-    //     keyboard?.noteOn(note);
-    //   });
-    //   note.emitter.on("noteOff", () => {
-    //     noteHighlighter.noteOff(note);
-    //     keyboard?.noteOff(note);
-    //   });
-    // }
-  }, [audio.notes, keyboard, noteHighlighter, smufl]);
+  }, [noteHighlighter]);
   useEffect(() => {
     fetch("/A320U.sf2")
       .then((response) => response.arrayBuffer())
