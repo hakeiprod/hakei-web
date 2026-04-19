@@ -1,4 +1,3 @@
-import { filter, isTruthy, map, pipe } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Core from "../core";
 import * as Sheet from "../sheet";
@@ -18,31 +17,58 @@ export class Stave extends Sheet.Stave {
   override get height() {
     return (this.track.staffDetails.$$["staff-lines"]?.[0]._ ?? 0) - 1;
   }
-  override draw() {
-    const handleLigature = (
-      ligature: Sheet.Ligature<SMUFL.Glyph | Sheet.Glyph>
-    ) => {
-      ligature.children = ligature.children.map((glyphs) =>
-        pipe(
-          glyphs,
-          map((glyph) =>
-            match(glyph)
-              .with(
-                P.when((x): x is SMUFL.Glyph => x.constructor === SMUFL.Glyph),
-                (glyph) => glyph
-              )
-              .with(
-                P.when((x): x is Sheet.Glyph => x.constructor === Sheet.Glyph),
-                (glyph) =>
+  override get slots() {
+    return super.slots as SMUFL.Slot[];
+  }
+  draw() {
+    super.draw();
+    this.word.glyphOrLigatureLists = this.word.glyphOrLigatureLists.map(
+      (glyphOrLigatureList) =>
+        glyphOrLigatureList.map((glyphOrLigature) =>
+          match(glyphOrLigature)
+            .with(P.instanceOf(Sheet.Glyph), (glyph) =>
+              match(glyph.type)
+                .with(
+                  Sheet.ElementType.Clef,
+                  () =>
+                    new SMUFL.Glyph(
+                      SMUFL.Glyph.findClef(this.resolveClefs()[0]!)!,
+                      glyph.type,
+                      glyph.line,
+                    ),
+                )
+                .with(
+                  Sheet.ElementType.Accidental,
+                  () =>
+                    new SMUFL.Glyph(
+                      SMUFL.Glyph.find("standardAccidentals12Edo", (v) =>
+                        v.toLowerCase().includes(
+                          match(this.bar.keysignature.tonality)
+                            .with(Core.Enums.Tonality.Major as 0, () => "sharp")
+                            .with(Core.Enums.Tonality.Minor as 1, () => "flat")
+                            .exhaustive(),
+                        ),
+                      ),
+                      glyph.type,
+                      glyph.line,
+                    ),
+                )
+                /* .with(Sheet.ElementType.Barline, () => {
+                  const glyphName = SMUFL.Glyph.findBarline(
+                    this.bar.masterbar.isLast
+                      ? { $$: { ["bar-style"]: [{ _: "light-heavy" }] } }
+                      : this.bar.masterbar.barline,
+                  );
+                  return glyphName
+                    ? new SMUFL.Glyph(glyphName, glyph.type, glyph.line)
+                    : null;
+                }) */
+                .otherwise(() => glyph),
+            )
+            .with(P.instanceOf(Sheet.Ligature), (ligature) => {
+              ligature.glyphLists = ligature.glyphLists.map((glyphList) =>
+                glyphList.map((glyph) =>
                   match(glyph.type)
-                    .with(Sheet.ElementType.Clef, () => {
-                      const glyphName = SMUFL.Glyph.findClef(
-                        this.resolveClefs()[0]!
-                      );
-                      return glyphName
-                        ? new SMUFL.Glyph(glyphName, glyph.type, glyph.line)
-                        : null;
-                    })
                     .with(
                       Sheet.ElementType.Accidental,
                       () =>
@@ -52,46 +78,27 @@ export class Stave extends Sheet.Stave {
                               match(this.bar.keysignature.tonality)
                                 .with(
                                   Core.Enums.Tonality.Major as 0,
-                                  () => "sharp"
+                                  () => "sharp",
                                 )
                                 .with(
                                   Core.Enums.Tonality.Minor as 1,
-                                  () => "flat"
+                                  () => "flat",
                                 )
-                                .exhaustive()
-                            )
+                                .exhaustive(),
+                            ),
                           ),
                           glyph.type,
-                          glyph.line
-                        )
+                          glyph.line,
+                        ),
                     )
-                    .with(Sheet.ElementType.Barline, () => {
-                      const glyphName = SMUFL.Glyph.findBarline(
-                        this.bar.masterbar.isLast
-                          ? { $$: { ["bar-style"]: [{ _: "light-heavy" }] } }
-                          : this.bar.masterbar.barline
-                      );
-                      return glyphName
-                        ? new SMUFL.Glyph(glyphName, glyph.type, glyph.line)
-                        : null;
-                    })
-                    .otherwise(() => glyph)
-              )
-              .with(
-                P.when(
-                  (x): x is Sheet.Ligature => x.constructor === Sheet.Ligature
+                    .otherwise(() => glyph),
                 ),
-                handleLigature
-              )
-              .exhaustive()
-          ),
-          filter(isTruthy)
-        )
-      );
-      return ligature;
-    };
-    super.draw();
-    this.ligature = handleLigature(this.ligature);
+              );
+              return ligature;
+            })
+            .exhaustive(),
+        ),
+    );
   }
   static import(data: ReturnType<Stave["export"]>) {
     return new Stave(super.import(data));

@@ -47,7 +47,12 @@ export class Event {
   }
   isOverlapped(event: Event) {
     return (
-      this.start.value < event.end.value && this.end.value > event.start.value
+      (this.start.value < event.end.value &&
+        this.end.value > event.start.value) ||
+      ((this.start.value === this.end.value ||
+        event.start.value === event.end.value) &&
+        this.start.value <= event.end.value &&
+        this.end.value > event.start.value)
     );
   }
 }

@@ -9,14 +9,24 @@ export class Score<
   Masterbar extends SMUFL.Masterbar = SMUFL.Masterbar,
   Row extends SMUFL.Row = SMUFL.Row,
   Timesignature extends SMUFL.Timesignature = SMUFL.Timesignature,
-> extends Sheet.Score<Note, Track, Stave, Bar, Masterbar, Row, Timesignature> {
+  Slot extends SMUFL.Slot = SMUFL.Slot,
+> extends Sheet.Score<
+  Note,
+  Track,
+  Stave,
+  Bar,
+  Masterbar,
+  Row,
+  Timesignature,
+  Slot
+> {
   static import(data: ReturnType<Score["export"]>) {
     return new Score({
       ...data,
       ...super.import(data),
       notes: data.notes.map(SMUFL.Note.import),
       tracks: data.tracks.map(SMUFL.Track.import),
-      timesignatures: data.timesignatures.map(Sheet.Timesignature.import),
+      timesignatures: data.timesignatures.map(SMUFL.Timesignature.import),
       keysignatures: data.keysignatures.map(Sheet.Keysignature.import),
       bars: data.bars.map(SMUFL.Bar.import),
       staves: data.staves.map(SMUFL.Stave.import),

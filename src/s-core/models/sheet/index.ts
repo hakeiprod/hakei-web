@@ -2,6 +2,7 @@ export * from "./bar";
 export * from "./beamgroup";
 export * from "./chord";
 export * from "./controller";
+export * from "./element";
 export * from "./glyph";
 export * from "./keysignature";
 export * from "./ligature";
@@ -9,9 +10,11 @@ export * from "./masterbar";
 export * from "./note";
 export * from "./row";
 export * from "./score";
+export * from "./slot";
 export * from "./stave";
 export * from "./timesignature";
 export * from "./track";
+export * from "./word";
 
 export enum LayoutType {
   Horizontal,

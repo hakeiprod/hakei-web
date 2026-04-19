@@ -19,10 +19,10 @@ type Events = {
   changeMute: Controller["isMute"];
 };
 export class Controller {
-  timer;
+  audioContext = new AudioContext();
   emitter = mitt<Events>();
+  timer = new Timer(this.audioContext);
   masterGain;
-  audioContext;
   presets;
   synths;
   isMute = false;
@@ -31,8 +31,6 @@ export class Controller {
     public score: Audio.Score,
     public soundfont2: Soundfont2,
   ) {
-    this.audioContext = new AudioContext();
-    this.timer = new Timer(this.audioContext);
     this.masterGain = this.audioContext.createGain();
     this.masterGain.connect(this.audioContext.destination);
     this.presets = pipe(
@@ -111,5 +109,4 @@ export class Controller {
     this.emitter.emit("changeMasterGain", value);
     this.masterGain.gain.value = value;
   }
-  // 音が鳴り始める時と終わるときのタイムを羅列とユニークして、そのタイム毎回にactiveNotesを取得してハイライトを反映させる
 }

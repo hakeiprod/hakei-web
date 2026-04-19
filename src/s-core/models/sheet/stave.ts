@@ -1,14 +1,3 @@
-import {
-  entries,
-  groupByProp,
-  isArray,
-  isDefined,
-  last,
-  map,
-  pipe,
-  piped,
-  reduce,
-} from "remeda";
 import { match, P } from "ts-pattern";
 import * as Sheet from ".";
 import { Clef } from "../../const/musicxml/4.0/musicxml";
@@ -19,9 +8,7 @@ export class Stave {
   barId;
   trackId;
   clefs;
-  ligature = new Sheet.Ligature(undefined, {
-    type: "stave",
-  });
+  word = new Sheet.Word();
   score!: Sheet.Score;
   get bar() {
     return this.score.bars.find(
@@ -30,6 +17,11 @@ export class Stave {
   }
   get notes() {
     return this.bar.notes.filter((note) => note.staveId === this.id);
+  }
+  get slots() {
+    return this.score.slots.filter((slot) =>
+      this.bar.masterbar.isOverlapped(slot),
+    );
   }
   get beamGroups() {
     return this.score.beamGroups.filter(
@@ -47,6 +39,14 @@ export class Stave {
   }
   get height() {
     return -1;
+  }
+  get width() {
+    return (
+      this.slots.reduce(
+        (accumulator, current) => accumulator + current.width,
+        0,
+      ) + this.word.width
+    );
   }
   get y() {
     return this.id * this.height + (this.id - 1) * 6.5;
@@ -86,7 +86,7 @@ export class Stave {
   }
   draw() {
     if (this.bar.masterbar.isRowFirst)
-      this.ligature.append([
+      this.word.append([
         new Sheet.Glyph(
           Sheet.ElementType.Clef,
           this.resolveClefs()[0]?.$$.line?.[0]?._ ?? 0,
@@ -104,51 +104,13 @@ export class Stave {
           })
           .exhaustive()),
       );
-      keysignatureLigature.append([this.bar.keysignature.ligature]);
-      this.ligature.append(
+      keysignatureLigature.glyphLists =
+        this.bar.keysignature.ligature.glyphLists;
+      this.word.append(
         [keysignatureLigature],
         [this.bar.timesignature.ligature],
       );
     }
-
-    this.ligature.append(
-      pipe(
-        this.notes,
-        groupByProp("voice"),
-        entries(),
-        map(
-          piped(
-            last(),
-            (notes) => {
-              return reduce(
-                notes,
-                (accumulator, note) => {
-                  if (isDefined(note.chordId)) {
-                    const last = accumulator.at(-1);
-                    if (isArray(last)) last.push(note);
-                    else accumulator.push([note]);
-                  } else accumulator.push(note);
-                  return accumulator;
-                },
-                [] as (Sheet.Note | Sheet.Note[])[],
-              );
-            },
-            map((noteOrChord) =>
-              Array.isArray(noteOrChord)
-                ? noteOrChord.map((note) => note.ligature!)
-                : [noteOrChord.ligature!],
-            ),
-            (ligatures) => {
-              const ligature = new Sheet.Ligature(undefined, {
-                type: "voice",
-              });
-              ligature.append(...ligatures);
-              return ligature;
-            },
-          ),
-        ),
-      ),
-    );
   }
   resolveClefs(): Clef[] {
     return this.clefs ?? this.prev!.resolveClefs();

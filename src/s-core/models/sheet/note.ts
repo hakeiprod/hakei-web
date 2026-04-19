@@ -153,11 +153,9 @@ export class Note extends Core.Note {
     this.ligature.line = this.line;
     this.ligature.append(
       [
-        ...times(
-          this.legerLine,
-          () => new Sheet.Glyph(Sheet.ElementType.LegerLine, 0),
-        ),
-        this.rest ? new Sheet.Glyph(Sheet.ElementType.Rest, 0) : noteLigature,
+        this.rest
+          ? new Sheet.Glyph(Sheet.ElementType.Rest, 0)
+          : new Sheet.Glyph(Sheet.ElementType.Notehead, 0),
       ],
       ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)]),
     );

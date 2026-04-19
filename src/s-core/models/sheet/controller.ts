@@ -10,7 +10,7 @@ import {
   reduce,
 } from "remeda";
 import { match } from "ts-pattern";
-import { LayoutType, Ligature, Score } from "./";
+import { LayoutType, Ligature, Score, Word } from "./";
 import Metadata from "./metadata.json";
 import { Row } from "./row";
 
@@ -34,9 +34,9 @@ export class Controller {
       ...this.score.chords,
       ...this.score.timesignatures,
       ...this.score.keysignatures,
-      ...this.score.staves,
     ])
       data.ligature = new Ligature();
+    for (const stave of this.score.staves) stave.word = new Word();
   }
   layout() {
     match(this.options.layoutType)
@@ -69,7 +69,7 @@ export class Controller {
       data.draw();
   }
   order() {
-    this.score.staves.flatMap((stave) => stave.ligature?.order());
+    this.score.staves.flatMap((stave) => stave.word?.order());
   }
   space(width: number) {
     for (const row of this.score.rows) {

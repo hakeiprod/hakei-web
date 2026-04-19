@@ -1,24 +1,28 @@
 import * as d3 from "d3";
 import * as R from "remeda";
-import { match, P } from "ts-pattern";
+import { P, match } from "ts-pattern";
 import * as Sheet from "../../sheet";
 import * as SMUFL from "../../smufl";
 
 declare module ".." {
   interface Score {
-    toSVG: (options: { ratio: number; scale: number }) => SVGSVGElement | null;
+    toSVG: (options: {
+      ratio: number;
+      scale: number;
+      debug: boolean;
+    }) => SVGSVGElement | null;
   }
 }
 
 let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
-  const ligatureToSVG = (
-    element: d3.BaseType | SVGGElement,
+  svg ??= d3.create("svg");
+  function handleLigature(
+    ds: d3.BaseType | SVGGElement,
     ligature: Sheet.Ligature,
-  ) => {
-    const group = d3
-      .select(element)
-      .selectAll("g[type=ligature]")
+  ) {
+    const g = d3.select(ds);
+    g?.selectAll("g[type=ligature]")
       .data([ligature])
       .join("g")
       .attr("type", "ligature")
@@ -28,36 +32,48 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
       )
       .attr("attr", JSON.stringify(ligature.attributes))
       .attr("width", ligature.width)
-      .call((g) => {
-        g.selectAll("g[type=children]")
-          .data(ligature.children.flat())
+      .call(function (g) {
+        g.selectAll("g[type=glyph]")
+          .data(ligature.glyphLists.flat())
           .join("g")
-          .attr("type", "children")
-          .each(function (children) {
+          .attr("type", "glyph")
+          .each(function (glyph) {
             const g = d3.select(this);
-            match(children)
-              .with(P.instanceOf(SMUFL.Glyph), (glyph) =>
-                g
-                  .selectAll("text")
-                  .data([glyph])
-                  .join("text")
-                  .attr("type", "glyph")
-                  .attr("x", glyph.boundingBox.x)
-                  .attr("y", -glyph.line)
-                  .attr("width", glyph.width)
-                  .text(String.fromCodePoint(glyph.codepoint)),
-              )
-              .with(P.instanceOf(Sheet.Ligature), (childLigature) => {
-                ligatureToSVG(g.node() as SVGGElement, childLigature);
-              });
+            g.selectAll("text")
+              .data([glyph])
+              .join("text")
+              .attr("type", "glyph")
+              .attr("x", glyph.boundingBox.x)
+              .attr("y", -glyph.line)
+              .attr("width", glyph.width)
+              .text(String.fromCodePoint((glyph as SMUFL.Glyph).codepoint));
           });
       });
-    ligature.onClassListChange = () => {
-      group.attr("class", ligature.classList);
-    };
-  };
-
-  svg ??= d3.create("svg");
+  }
+  function handleGlyph(ds: d3.BaseType | SVGGElement, glyph: Sheet.Glyph) {
+    const g = d3.select(ds);
+    g.selectAll("g[type=glyph]")
+      .data([glyph])
+      .join("g")
+      .attr("type", "glyph")
+      .each(function (glyph) {
+        const g = d3.select(this);
+        g.selectAll("text")
+          .data([glyph])
+          .join("text")
+          .attr("type", "glyph")
+          .attr("x", glyph.boundingBox.x)
+          .attr("y", -glyph.line)
+          .attr("width", glyph.width)
+          .text(String.fromCodePoint((glyph as SMUFL.Glyph).codepoint));
+      });
+  }
+  const tooltip = svg
+    .append("g")
+    .attr("type", "tooltip")
+    .append("text")
+    .attr("font-size", "2px")
+    .attr("fill-opacity", 0);
   svg
     .attr("font-size", options.ratio)
     .attr("viewBox", `0 0 ${this.width} ${this.height}`)
@@ -84,6 +100,33 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
             .attr("transform", (masterbar) => createTranslate(masterbar.x, 0))
             .each(function (masterbar) {
               const g = d3.select(this);
+              g.selectAll("rect")
+                .data(() => [masterbar])
+                .join("rect")
+                .style("fill", "transparent")
+                .style("stroke", "red")
+                .style("stroke-width", "0.1")
+                .attr("y", -masterbar.height)
+                .attr("width", () => masterbar.width)
+                .attr("height", () => row.height)
+                .on("mouseenter", function () {
+                  d3.select(this)
+                    .style("fill", "red")
+                    .style("fill-opacity", "0.25");
+                  tooltip
+                    .attr("fill-opacity", 1)
+                    .text("masterbar:" + JSON.stringify(masterbar.export()));
+                })
+                .on("mousemove", function (event) {
+                  const [x, y] = d3.pointer(event, svg?.node());
+                  tooltip.attr("transform", () => createTranslate(x, y));
+                })
+                .on("mouseleave", function () {
+                  d3.select(this)
+                    .style("fill", "transparent")
+                    .style("fill-opacity", 0);
+                  tooltip.attr("fill-opacity", 0);
+                });
               g.selectAll("g[type=track]")
                 .data(masterbar.score.tracks)
                 .join("g")
@@ -221,35 +264,98 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                           createTranslate(0, stave.y),
                         )
                         .each(function (stave) {
-                          ligatureToSVG(this, stave.ligature);
                           const g = d3.select(this);
+                          g.selectAll("g[type=word]")
+                            .data([stave.word])
+                            .join("g")
+                            .attr("type", "word")
+                            .each(function (word) {
+                              for (const glyphOrLigatureList of word.glyphOrLigatureLists)
+                                for (const glyphOrLigature of glyphOrLigatureList)
+                                  match(glyphOrLigature)
+                                    .with(
+                                      P.instanceOf(Sheet.Ligature),
+                                      (ligature) =>
+                                        handleLigature(this, ligature),
+                                    )
+                                    .with(P.instanceOf(Sheet.Glyph), (glyph) =>
+                                      handleGlyph(this, glyph),
+                                    )
+                                    .exhaustive();
+                            });
+                          g.selectAll("g[type=slots]")
+                            .data([stave])
+                            .join("g")
+                            .attr("type", "slots")
+                            .attr(
+                              "transform",
+                              createTranslate(stave.word.width, 0),
+                            )
+                            .each(function () {
+                              const g = d3.select(this);
+                              g.selectAll("g[type=slot]")
+                                .data(stave.slots)
+                                .join("g")
+                                .attr("type", "slot")
+                                .attr("transform", (slot) =>
+                                  createTranslate(slot.x, 0),
+                                )
+                                .each(function (slot) {
+                                  const g = d3.select(this);
+                                  g.selectAll("g[type=note]")
+                                    .data(
+                                      slot.getTrackStaveNotes(
+                                        track.id,
+                                        stave.id,
+                                      ),
+                                    )
+                                    .join("g")
+                                    .attr("type", "note")
+                                    .each(function (note) {
+                                      handleLigature(this, note.ligature);
+                                    });
+                                  g.selectAll("rect")
+                                    .data([slot])
+                                    .join("rect")
+                                    .style("fill", "transparent")
+                                    .style("stroke", "green")
+                                    .style("stroke-width", "0.1")
+                                    .attr("y", -stave.height)
+                                    .attr("width", () => slot.width)
+                                    .attr("height", () => stave.height)
+                                    .on("mouseenter", function () {
+                                      d3.select(this)
+                                        .style("fill", "green")
+                                        .style("fill-opacity", "0.25");
+                                      tooltip
+                                        .attr("fill-opacity", 1)
+                                        .text(
+                                          "slot:" +
+                                            JSON.stringify(slot.export()),
+                                        );
+                                    })
+                                    .on("mousemove", function () {
+                                      const [x, y] = d3.pointer(
+                                        event,
+                                        svg?.node(),
+                                      );
+                                      tooltip.attr("transform", () =>
+                                        createTranslate(x, y),
+                                      );
+                                    })
+                                    .on("mouseleave", function () {
+                                      d3.select(this)
+                                        .style("fill", "transparent")
+                                        .style("fill-opacity", 0);
+                                      tooltip.attr("fill-opacity", 0);
+                                    });
+                                });
+                            });
                           g.selectAll("g[type=decoration]")
                             .data([stave])
                             .join("g")
                             .attr("type", "decoration")
-                            .attr(
-                              "transform",
-                              createTranslate(
-                                (() => {
-                                  const ligatures = [];
-                                  if (stave.bar.masterbar.isRowFirst)
-                                    ligatures.push(stave.ligature.children[0]);
-                                  if (stave.bar.masterbar.isFirst)
-                                    ligatures.push(
-                                      stave.ligature.children[1],
-                                      stave.ligature.children[2],
-                                    );
-                                  return ligatures
-                                    .flat()
-                                    .reduce(
-                                      (accumulator, current) =>
-                                        accumulator + current.width,
-                                      0,
-                                    );
-                                })(),
-                                0,
-                              ),
-                            )
+                            .attr("transform", createTranslate(stave.width, 0))
                             .call((g) => {
                               const stemGlyph = new SMUFL.Glyph(
                                 SMUFL.Glyph.find("stems", (v) =>
@@ -345,7 +451,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                     })
                                     .with("none", () => ({ x1: 0, x2: 0 }))
                                     .exhaustive();
-
                                   g.selectAll("path")
                                     .data([beamGroup])
                                     .join("path")

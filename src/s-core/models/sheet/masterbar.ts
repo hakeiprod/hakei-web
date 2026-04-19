@@ -30,7 +30,7 @@ export class Masterbar extends Core.Event {
     return (
       this.bars.reduce(
         (accumulator, current) => accumulator + current.height,
-        0
+        0,
       ) +
       (this.bars.length - 1) * 13
     );
@@ -47,11 +47,11 @@ export class Masterbar extends Core.Event {
   get isLast() {
     return this.score.masterbars.at(-1)?.id === this.id;
   }
-  get prev() {
-    return this.score.masterbars[this.id - 1];
-  }
   get row() {
     return this.score.rows.find((row) => row.id === this.rowId)!;
+  }
+  get slots() {
+    return this.score.slots.filter((slot) => slot.isOverlapped(this));
   }
   get bars() {
     return this.score.bars.filter((bar) => bar.id === this.id);
@@ -70,7 +70,7 @@ export class Masterbar extends Core.Event {
       id: number;
       rowId?: number;
       barline: Barline;
-    } & ConstructorParameters<typeof Core.Event>[0]
+    } & ConstructorParameters<typeof Core.Event>[0],
   ) {
     const { id, rowId, barline } = masterbar;
     super(masterbar);

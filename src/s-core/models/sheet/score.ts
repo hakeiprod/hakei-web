@@ -21,6 +21,7 @@ import {
   reduce,
   subtract,
   times,
+  uniqueBy,
 } from "remeda";
 import { match, P } from "ts-pattern";
 import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
@@ -36,12 +37,14 @@ export class Score<
   Masterbar extends Sheet.Masterbar = Sheet.Masterbar,
   Row extends Sheet.Row = Sheet.Row,
   Timesignature extends Sheet.Timesignature = Sheet.Timesignature,
+  Slot extends Sheet.Slot = Sheet.Slot,
   Keysignature extends Sheet.Keysignature = Sheet.Keysignature,
   Tempo extends Core.Tempo = Core.Tempo,
   Chord extends Sheet.Chord = Sheet.Chord,
 > extends Core.Score<Note, Track, Timesignature, Keysignature, Tempo> {
   rows;
   masterbars: Masterbar[];
+  slots: Slot[];
   bars: Bar[];
   staves: Stave[];
   chords: Chord[];
@@ -99,6 +102,34 @@ export class Score<
       ...this.chords,
     ])
       data.score = this;
+    this.slots = pipe(
+      this.masterbars,
+      flatMap(
+        piped(
+          (masterbar) => masterbar.notes,
+          map((note) => note.start),
+          uniqueBy((beat) => beat.value),
+          (beats) =>
+            beats.reduce(
+              (accumulator, current) => {
+                const slot = new Sheet.Slot({
+                  beat: current,
+                  previousSlot: accumulator.prevSlot,
+                }) as Slot;
+                slot.score = this;
+                accumulator.prevSlot = slot;
+                accumulator.slots.push(slot);
+                return accumulator;
+              },
+              { slots: [], prevSlot: undefined } as {
+                slots: Slot[];
+                prevSlot?: Slot;
+              },
+            ),
+          prop("slots"),
+        ),
+      ),
+    );
     this.beamGroups = this.staves.flatMap((stave) =>
       pipe(
         stave.notes,
@@ -144,6 +175,7 @@ export class Score<
       staves: map(this.staves, (data) => data.export()),
       masterbars: map(this.masterbars, (data) => data.export()),
       chords: map(this.chords, (data) => data.export()),
+      slots: map(this.slots, (data) => data.export()),
       rows: [],
     };
   }

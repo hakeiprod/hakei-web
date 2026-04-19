@@ -7,12 +7,12 @@ export class Bar {
   score!: Sheet.Score;
   get timesignature() {
     return this.score.timesignatures.find((timesignature) =>
-      timesignature.isOverlapped(this.masterbar)
+      timesignature.isOverlapped(this.masterbar),
     )!;
   }
   get keysignature() {
     return this.score.keysignatures.find((keysignature) =>
-      keysignature.isOverlapped(this.masterbar)
+      keysignature.isOverlapped(this.masterbar),
     )!;
   }
   get track() {
@@ -26,25 +26,25 @@ export class Bar {
   }
   get chords() {
     return this.masterbar.chords.filter(
-      (chord) => chord.trackId === this.trackId
+      (chord) => chord.trackId === this.trackId,
     );
   }
   get events() {
     return this.masterbar.events.filter(
-      (event) => event.trackId === this.trackId
+      (event) => event.trackId === this.trackId,
     );
   }
   get staves() {
     return this.score.staves.filter(
-      (stave) => stave.barId === this.id && stave.trackId === this.trackId
+      (stave) => stave.barId === this.id && stave.trackId === this.trackId,
     );
   }
   get width() {
     return (
       pipe(
         this.staves,
-        map(piped(prop("ligature", "width"))),
-        firstBy([identity(), "desc"])
+        map(piped(prop("width"))),
+        firstBy([identity(), "desc"]),
       ) ?? 0
     );
   }
@@ -53,7 +53,7 @@ export class Bar {
       pipe(
         this.staves,
         map(piped(prop("ligature", "minWidth"))),
-        firstBy([identity(), "desc"])
+        firstBy([identity(), "desc"]),
       ) ?? 0
     );
   }
@@ -61,7 +61,7 @@ export class Bar {
     return (
       this.staves.reduce(
         (accumulator, current) => accumulator + current.height,
-        0
+        0,
       ) +
       (this.staves.length - 1) * 6.5
     );

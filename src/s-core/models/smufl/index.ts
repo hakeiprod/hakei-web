@@ -8,6 +8,7 @@ export * from "./masterbar";
 export * from "./note";
 export * from "./row";
 export * from "./score";
+export * from "./slot";
 export * from "./stave";
 export * from "./timesignature";
 export * from "./track";

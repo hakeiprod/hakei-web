@@ -1,9 +1,11 @@
 import { BoundingBox } from "../boundingbox";
 import { Inset } from "../inset";
 import { Ligature } from "./ligature";
+import { Word } from "./word";
 
 export class Element {
-  parent: Ligature | null = null;
+  // TODO: Element | nullでよくね？
+  parent: Ligature | Word | null = null;
   boundingBox = new BoundingBox(0, 0, 0, 0);
   inset = new Inset(0, 0, 0, 0);
   classList: string[] = [];
@@ -24,7 +26,7 @@ export class Element {
   setClassName(
     value:
       | typeof this.classList
-      | ((previouseValue: typeof this.classList) => typeof this.classList)
+      | ((previouseValue: typeof this.classList) => typeof this.classList),
   ) {
     this.classList =
       typeof value === "function" ? value(this.classList) : value;
