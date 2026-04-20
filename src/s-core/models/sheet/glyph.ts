@@ -8,5 +8,6 @@ export class Glyph extends Element {
     ...element: ConstructorParameters<typeof Element>
   ) {
     super(...element);
+    this.y = line;
   }
 }

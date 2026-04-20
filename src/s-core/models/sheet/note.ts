@@ -20,6 +20,9 @@ export class Note extends Core.Note {
   alter;
   ligature = new Sheet.Ligature(undefined, { type: "note" });
   score!: Sheet.Score;
+  get width() {
+    return this.ligature.boundingBox.width;
+  }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
   }
@@ -160,7 +163,6 @@ export class Note extends Core.Note {
       ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)]),
     );
   }
-
   serialize() {
     return {
       ...super.serialize(),

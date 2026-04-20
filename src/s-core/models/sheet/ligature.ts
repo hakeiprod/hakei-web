@@ -3,13 +3,14 @@ import {
   firstBy,
   identity,
   isTruthy,
-  last,
   map,
   pipe,
   piped,
   prop,
   reduce,
 } from "remeda";
+import { BoundingBox } from "../boundingbox";
+import { Edge } from "../edge";
 import { Element } from "./element";
 import { Glyph } from "./glyph";
 
@@ -21,38 +22,54 @@ export class Ligature extends Element {
   ) {
     super(...elementArguments);
   }
-  override get minWidth(): number {
-    return pipe(
-      this.glyphLists,
-      map(piped(map(prop("minWidth")), firstBy([identity(), "desc"]))),
-      filter(isTruthy),
-      reduce((accumulator, current) => accumulator + (current as number), 0),
+  get boundingBox() {
+    return new BoundingBox(
+      0,
+      0,
+      pipe(
+        this.glyphLists,
+        map(
+          piped(
+            map(prop("boundingBox", "width")),
+            firstBy([identity(), "desc"]),
+          ),
+        ),
+        filter(isTruthy),
+        reduce((accumulator, current) => accumulator + (current as number), 0),
+      ),
+      0,
+    );
+  }
+  get edge() {
+    return new Edge(
+      this.boundingBox.y,
+      this.boundingBox.width + this.x,
+      this.boundingBox.height,
+      this.boundingBox.x,
     );
   }
   order() {
     reduce(
       this.glyphLists,
       (accumulator, current) => {
-        for (const glyphOrLigature of current)
-          if (glyphOrLigature instanceof Ligature) glyphOrLigature.order();
         if (accumulator)
           for (const glyph of current) {
             const previousMaxWidthGlyph = firstBy(accumulator, [
-              prop("width"),
+              (glyph) => glyph.boundingBox.width,
               "desc",
             ]);
             if (previousMaxWidthGlyph)
-              glyph.boundingBox.x = previousMaxWidthGlyph.right;
+              glyph.x = previousMaxWidthGlyph.edge.right;
           }
         return current;
       },
       null as Ligature["glyphLists"][number] | null,
     );
-    const lastMaxWidthGlyph = firstBy(last(this.glyphLists) ?? [], [
-      prop("width"),
-      "desc",
-    ]);
-    if (lastMaxWidthGlyph) this.boundingBox.width = lastMaxWidthGlyph.right;
+    // const lastMaxWidthGlyph = firstBy(last(this.glyphLists) ?? [], [
+    //   prop("boundingBox", "width"),
+    //   "desc",
+    // ]);
+    // if (lastMaxWidthGlyph) this.boundingBox.width = lastMaxWidthGlyph.right;
   }
   append(...elementLists: Glyph[][]) {
     this.glyphLists.push(...elementLists);

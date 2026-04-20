@@ -2,6 +2,7 @@ import { P, match } from "ts-pattern";
 import * as SMUFL from ".";
 import { Barline, Clef, NoteType } from "../../const/musicxml/4.0/musicxml";
 import { BoundingBox } from "../boundingbox";
+import { Edge } from "../edge";
 import * as Sheet from "../sheet";
 
 export class Glyph<
@@ -11,10 +12,26 @@ export class Glyph<
   glyphBBox;
   glyphAdvancedWidth;
   glyphWithAnchor;
+  get boundingBox() {
+    return new BoundingBox(
+      this.glyphBBox.x,
+      this.glyphBBox.y,
+      this.glyphBBox.width + this.glyphAdvancedWidth,
+      this.glyphBBox.height,
+    );
+  }
+  get edge() {
+    return new Edge(
+      this.boundingBox.y,
+      this.boundingBox.width + this.x,
+      this.boundingBox.height,
+      this.boundingBox.x,
+    );
+  }
   get codepoint() {
     return Number.parseInt(
       SMUFL.Glyphnames[this.glyphName].codepoint.replace("U+", ""),
-      16
+      16,
     );
   }
   constructor(
@@ -27,17 +44,18 @@ export class Glyph<
       bBoxSW[0],
       bBoxNE[1],
       bBoxNE[0] - bBoxSW[0],
-      bBoxNE[1] - bBoxSW[1]
+      bBoxNE[1] - bBoxSW[1],
     );
-    this.glyphAdvancedWidth = SMUFL.getGlyphAdvanceWidth(glyphName);
+    const isAdvanced = false;
+    this.glyphAdvancedWidth = isAdvanced
+      ? SMUFL.getGlyphAdvanceWidth(glyphName)
+      : 0;
     this.glyphWithAnchor = SMUFL.getGlyphWithAnchor(glyphName);
     this.glyphName = glyphName;
-    // this.boundingBox.width = this.glyphBBox.width;
-    this.boundingBox.width = this.glyphAdvancedWidth;
   }
   static find(
     type: keyof SMUFL.Ranges,
-    predicate: (glyph: SMUFL.Ranges[typeof type]["glyphs"][number]) => boolean
+    predicate: (glyph: SMUFL.Ranges[typeof type]["glyphs"][number]) => boolean,
   ) {
     return SMUFL.Ranges[type].glyphs.find(predicate)!;
   }
@@ -92,9 +110,9 @@ export class Glyph<
           "128th",
           "256th",
           "512th",
-          "1024th"
+          "1024th",
         ),
-        () => "noteheadBlack" as const
+        () => "noteheadBlack" as const,
       )
       .exhaustive();
   }
@@ -120,7 +138,7 @@ export class Glyph<
       .with(Sheet.AccidentalType.Flat as 1, () => "accidentalFlat" as const)
       .with(
         Sheet.AccidentalType.Natural as 2,
-        () => "accidentalNatural" as const
+        () => "accidentalNatural" as const,
       )
       .exhaustive();
   }

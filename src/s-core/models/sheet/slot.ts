@@ -11,10 +11,7 @@ export class Slot extends Core.Event {
     return this.score.notes.filter((note) => note.start.equal(this.beat));
   }
   get width() {
-    return (
-      firstBy(this.notes, [prop("ligature", "width"), "desc"])?.ligature
-        .width ?? 0
-    );
+    return firstBy(this.notes, [prop("width"), "desc"])?.width ?? 0;
   }
   get x(): number {
     return (this.previousSlot?.x ?? 0) + (this.previousSlot?.width ?? 0);

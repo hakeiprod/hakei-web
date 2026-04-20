@@ -88,9 +88,9 @@ export class Controller {
           for (const [, events] of groupedByStartEvents)
             for (const event of events)
               if (event.ligature) {
-                event.ligature.inset.right =
+                event.ligature.edge.right =
                   Metadata.defaultValue.spacing.note.right;
-                event.ligature.inset.left =
+                event.ligature.edge.left =
                   Metadata.defaultValue.spacing.note.left;
               }
         })
@@ -100,7 +100,7 @@ export class Controller {
             pipe(groupedByStartEvents, length());
           for (const [, events] of groupedByStartEvents)
             for (const event of events)
-              if (event.ligature) event.ligature.inset.right = space;
+              if (event.ligature) event.ligature.edge.right = space;
         })
         .exhaustive();
     }

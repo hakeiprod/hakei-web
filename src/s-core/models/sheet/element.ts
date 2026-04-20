@@ -1,27 +1,19 @@
 import { BoundingBox } from "../boundingbox";
-import { Inset } from "../inset";
-import { Ligature } from "./ligature";
-import { Word } from "./word";
+import { Edge } from "../edge";
 
-export class Element {
-  // TODO: Element | nullでよくね？
-  parent: Ligature | Word | null = null;
-  boundingBox = new BoundingBox(0, 0, 0, 0);
-  inset = new Inset(0, 0, 0, 0);
+export abstract class Element {
+  x = 0;
+  y = 0;
+
+  parent: Element | null = null;
   classList: string[] = [];
+  get boundingBox() {
+    return new BoundingBox(0, 0, 0, 0);
+  }
+  get edge() {
+    return new Edge(0, 0, 0, 0);
+  }
   onClassListChange?: (value: typeof this.classList) => void;
-  get width() {
-    return this.boundingBox.width + this.inset.left + this.inset.right;
-  }
-  get minWidth() {
-    return this.boundingBox.width;
-  }
-  get height() {
-    return this.boundingBox.height + this.inset.top + this.inset.bottom;
-  }
-  get right() {
-    return this.width + this.boundingBox.x;
-  }
   constructor(public attributes: Record<string, string> = {}) {}
   setClassName(
     value:
