@@ -1,23 +1,25 @@
-import * as xml2js from "xml2js";
+import { JSONSchema, compile } from "json-schema-to-typescript";
 import fs from "node:fs";
 import * as R from "remeda";
-import { JSONSchema, compile } from "json-schema-to-typescript";
+import { isNonNullish, isNullish } from "remeda";
 import { SetRequired } from "type-fest";
+import * as xml2js from "xml2js";
 
 const parser = new xml2js.Parser({
   explicitChildren: true,
 });
+const preserveChildrenOrder = true;
+
 const musicxml = await parser.parseStringPromise(
-  fs.readFileSync("src/const/musicxml/4.0/musicxml.xsd")
+  fs.readFileSync("src/s-core/const/musicxml/4.0/musicxml.xsd"),
 );
 export const xsdToJsonSchema = async () => {
   const xlink = await parser.parseStringPromise(
-    fs.readFileSync("src/const/musicxml/4.0/xlink.xsd")
+    fs.readFileSync("src/s-core/const/musicxml/4.0/xlink.xsd"),
   );
   const xml = await parser.parseStringPromise(
-    fs.readFileSync("src/const/musicxml/4.0/xml.xsd")
+    fs.readFileSync("src/s-core/const/musicxml/4.0/xml.xsd"),
   );
-
   const ts = await compile(
     {
       type: "object",
@@ -31,19 +33,19 @@ export const xsdToJsonSchema = async () => {
           attribute: R.pipe(
             xlink["xs:schema"].$$["xs:attribute"] as Attribute[],
             R.map(handleAttribute),
-            R.mapToObj(({ title, ...other }) => [title, other])
+            R.mapToObj(({ title, ...other }) => [title, other]),
           ),
         },
         xml: {
           attribute: R.pipe(
             xml["xs:schema"].$$["xs:attribute"],
             R.map(handleAttribute),
-            R.mapToObj(({ title, ...other }) => [title, other])
+            R.mapToObj(({ title, ...other }) => [title, other]),
           ),
           attributeGroup: R.pipe(
             xml["xs:schema"].$$["xs:attributeGroup"],
             R.map(handleAttributeGroup),
-            R.mapToObj(({ title, ...other }) => [title, other])
+            R.mapToObj(({ title, ...other }) => [title, other]),
           ),
         },
         musicxml: {
@@ -52,41 +54,46 @@ export const xsdToJsonSchema = async () => {
               musicxml["xs:schema"].$$["xs:simpleType"],
               R.map(
                 (data) =>
-                  handleSimpleType(data) as SetRequired<JSONSchema, "title">
+                  handleSimpleType(data) as SetRequired<JSONSchema, "title">,
               ),
-              R.mapToObj(({ title, ...other }) => [title, other])
+              R.mapToObj(({ title, ...other }) => [title, other]),
             ),
             R.pipe(
               musicxml["xs:schema"].$$["xs:complexType"],
               R.map(
                 (data) =>
-                  handleComplexType(data) as SetRequired<JSONSchema, "title">
+                  handleComplexType(data) as SetRequired<JSONSchema, "title">,
               ),
-              R.mapToObj(({ title, ...other }) => [title, other])
+              R.mapToObj(({ title, ...other }) => [title, other]),
             ),
           ]),
           attributeGroup: R.pipe(
             musicxml["xs:schema"].$$["xs:attributeGroup"],
             R.map(handleAttributeGroup),
-            R.mapToObj(({ title, ...other }) => [title, other])
+            R.mapToObj(({ title, ...other }) => [title, other]),
           ),
           group: R.pipe(
             musicxml["xs:schema"].$$["xs:group"],
-            R.map(handleGroup),
-            R.mapToObj(({ title, ...other }) => [title, other])
+            R.map((group) => handleGroup(group)),
+            R.mapToObj(({ title, ...other }) => [title, other]),
+          ),
+          preserveChildrenOrderGroup: R.pipe(
+            musicxml["xs:schema"].$$["xs:group"],
+            R.map((group) => handleGroup(group, true)),
+            R.mapToObj(({ title, ...other }) => [title, other]),
           ),
           element: R.pipe(
             musicxml["xs:schema"].$$["xs:element"],
-            R.map(handleElement),
-            R.mapToObj(({ title, ...other }) => [title, other])
+            R.map((element) => handleElement(element)),
+            R.mapToObj(({ title, ...other }) => [title, other]),
           ),
         },
       },
     },
     "MusicXML",
-    { additionalProperties: false }
+    { additionalProperties: false },
   );
-  fs.writeFileSync("src/const/musicxml/4.0/musicxml.ts", ts);
+  fs.writeFileSync("src/s-core/const/musicxml/4.0/musicxml.ts", ts);
 };
 
 type XsType =
@@ -240,28 +247,26 @@ function handleAttributeGroup({
   const annotation = $$?.["xs:annotation"]?.[0];
   return {
     title: name ?? ref ?? "error",
-    ...(ref ? { $ref: "#/$defs/musicxml/attributeGroup/" + ref } : {}),
-    ...(annotation ? handleAnnotation(annotation) : {}),
-    ...(attributes || attributeGroups
-      ? {
-          allOf: [
-            ...(attributes
-              ? [
-                  {
-                    properties: R.pipe(
-                      attributes,
-                      R.map(handleAttribute),
-                      R.mapToObj(({ title, ...other }) => [title, other])
-                    ),
-                  },
-                ]
-              : []),
-            ...(attributeGroups?.map((attributeGroup) => ({
-              $ref: "#/$defs/musicxml/attributeGroup/" + attributeGroup.$.ref,
-            })) ?? []),
-          ],
-        }
-      : {}),
+    ...(ref && { $ref: "#/$defs/musicxml/attributeGroup/" + ref }),
+    ...(annotation && handleAnnotation(annotation)),
+    ...((attributes || attributeGroups) && {
+      allOf: [
+        ...(attributes
+          ? [
+              {
+                properties: R.pipe(
+                  attributes,
+                  R.map(handleAttribute),
+                  R.mapToObj(({ title, ...other }) => [title, other]),
+                ),
+              },
+            ]
+          : []),
+        ...(attributeGroups?.map((attributeGroup) => ({
+          $ref: "#/$defs/musicxml/attributeGroup/" + attributeGroup.$.ref,
+        })) ?? []),
+      ],
+    }),
   };
 }
 function handleAttribute({
@@ -272,11 +277,11 @@ function handleAttribute({
   const annotation = $$?.["xs:annotation"]?.[0];
   return {
     title: name ?? ref ?? "error",
-    ...($default ? { default: $default } : {}),
-    ...(ref ? handleReference(ref) : {}),
-    ...(type ? handleType(type) : {}),
-    ...(simpleType ? handleSimpleType(simpleType) : {}),
-    ...(annotation ? handleAnnotation(annotation) : {}),
+    ...($default && { default: $default }),
+    ...(ref && handleReference(ref)),
+    ...(type && handleType(type)),
+    ...(simpleType && handleSimpleType(simpleType)),
+    ...(annotation && handleAnnotation(annotation)),
   };
 }
 function handleAnnotation({ $$ }: Annotation): JSONSchema {
@@ -288,9 +293,9 @@ function handleSimpleType({ $, $$ }: SimpleType): JSONSchema {
   const restriction = $$["xs:restriction"]?.[0];
   const union = $$["xs:union"]?.[0];
   return {
-    ...($?.name ? { title: $.name } : {}),
-    ...(restriction ? handleRestriction(restriction) : {}),
-    ...(union ? handleUnion(union) : {}),
+    ...($?.name && { title: $.name }),
+    ...(restriction && handleRestriction(restriction)),
+    ...(union && handleUnion(union)),
   };
 }
 function handleUnion({ $, $$ }: Union): JSONSchema {
@@ -309,55 +314,91 @@ function handleRestriction({ $, $$ }: Restriction): JSONSchema {
   const maxInclusive = $$?.["xs:maxInclusive"]?.[0];
   return {
     ...handleXsType($.base),
-    ...(enumeration ? { enum: enumeration.map(({ $ }) => $.value) } : {}),
-    ...(minInclusive ? { minimum: Number(minInclusive.$.value) } : {}),
-    ...(maxInclusive ? { maximum: Number(maxInclusive.$.value) } : {}),
+    ...(enumeration && { enum: enumeration.map(({ $ }) => $.value) }),
+    ...(minInclusive && { minimum: Number(minInclusive.$.value) }),
+    ...(maxInclusive && { maximum: Number(maxInclusive.$.value) }),
   };
 }
-function handleGroup({
-  $: { name, ref },
-  $$,
-}: Group): SetRequired<JSONSchema, "title"> {
+function handleGroup(
+  { $: { name, ref }, $$ }: Group,
+  preserveChildrenOrder: boolean = false,
+): SetRequired<JSONSchema, "title"> {
   const annotation = $$?.["xs:annotation"][0];
   const sequence = $$?.["xs:sequence"][0];
   return {
-    title: ref ?? name,
-    ...(ref ? { $ref: "#/$defs/musicxml/group/" + ref } : {}),
-    ...(sequence ? handleSequence(sequence) : {}),
-    ...(annotation ? handleAnnotation(annotation) : {}),
+    title: name,
+    ...(ref && {
+      $ref:
+        `#/$defs/musicxml/${preserveChildrenOrder ? "preserveChildrenOrderGroup" : "group"}/` +
+        ref,
+    }),
+    ...(sequence && handleSequence(sequence, preserveChildrenOrder)),
+    ...(annotation && handleAnnotation(annotation)),
   };
 }
-function handleSequence({ $$ }: Sequence): JSONSchema {
+function handleSequence(
+  { $$ }: Sequence,
+  preserveChildrenOrder: boolean = false,
+): JSONSchema {
   const elements = $$["xs:element"];
   const choices = $$["xs:choice"];
   const groups = $$["xs:group"];
   const sequence = $$["xs:sequence"];
+  if (preserveChildrenOrder) {
+    return {
+      ...((elements || groups || choices || sequence) && {
+        oneOf: [
+          ...(elements
+            ? R.pipe(
+                elements,
+                R.map((element) => handleElement(element)),
+              )
+            : []),
+          ...R.pipe(
+            groups ?? [],
+            R.map((group) => handleGroup(group, preserveChildrenOrder)),
+          ),
+          ...R.pipe(choices ?? [], R.map(handleChoice)),
+          ...R.pipe(
+            sequence ?? [],
+            R.map((sequence) =>
+              handleSequence(sequence, preserveChildrenOrder),
+            ),
+          ),
+        ],
+      }),
+    };
+  }
   return {
-    ...(elements || groups || choices || sequence
-      ? {
-          allOf: [
-            ...(elements
-              ? [
-                  {
-                    properties: R.pipe(
-                      elements,
-                      R.map(handleElement),
-                      R.mapToObj(({ title, ...other }) => [title, other])
-                    ),
-                    // required: R.pipe(
-                    //   elements,
-                    //   R.filter((element) => element.$.minOccurs !== "0"),
-                    //   R.map((element) => element.$.name)
-                    // ),
-                  },
-                ]
-              : []),
-            ...R.pipe(groups ?? [], R.map(handleGroup)),
-            ...R.pipe(choices ?? [], R.map(handleChoice)),
-            ...R.pipe(sequence ?? [], R.map(handleSequence)),
-          ],
-        }
-      : {}),
+    ...((elements || groups || choices || sequence) && {
+      allOf: [
+        ...(elements
+          ? [
+              {
+                properties: R.pipe(
+                  elements,
+                  R.map((element) => handleElement(element)),
+                  R.mapToObj(({ title, ...other }) => [title, other]),
+                ),
+                // required: R.pipe(
+                //   elements,
+                //   R.filter((element) => element.$.minOccurs !== "0"),
+                //   R.map((element) => element.$.name)
+                // ),
+              },
+            ]
+          : []),
+        ...R.pipe(
+          groups ?? [],
+          R.map((group) => handleGroup(group, preserveChildrenOrder)),
+        ),
+        ...R.pipe(choices ?? [], R.map(handleChoice)),
+        ...R.pipe(
+          sequence ?? [],
+          R.map((sequence) => handleSequence(sequence, preserveChildrenOrder)),
+        ),
+      ],
+    }),
   };
 }
 function handleElement({
@@ -366,36 +407,47 @@ function handleElement({
 }: Element): SetRequired<JSONSchema, "title"> {
   const annotation = $$?.["xs:annotation"]?.[0];
   const complexType = $$?.["xs:complexType"]?.[0];
-  return {
+  const min = isNonNullish(minOccurs) ? Number(minOccurs) : 0;
+  const max =
+    maxOccurs === "unbounded"
+      ? undefined
+      : isNullish(maxOccurs)
+        ? 1
+        : Number(maxOccurs);
+  const isArray = max === undefined || max > 1;
+  const schema = {
     title: name,
-    type: "array",
-    ...(minOccurs || maxOccurs
-      ? {
-          ...(minOccurs ? { minItems: Number(minOccurs) } : {}),
-          ...(maxOccurs === undefined || maxOccurs === "unbounded"
-            ? {}
-            : { maxItems: Number(maxOccurs) }),
-        }
-      : {
-          minItems: 1,
-          maxItems: 1,
-        }),
-    items: {
+    allOf: [
       ...(type
-        ? (() => {
-            const typee = handleType(type);
-            if (typee.$ref) {
-              if (isSimpleType(type))
-                return { properties: { _: typee }, required: ["_"] };
-              return typee;
-            }
-            return { properties: { _: typee }, required: ["_"] };
-          })()
-        : {}),
-      ...(complexType ? handleComplexType(complexType) : {}),
-    },
-    ...(annotation ? handleAnnotation(annotation) : {}),
+        ? [
+            (() => {
+              const typee = handleType(type);
+              if (typee.$ref) {
+                return isSimpleType(type)
+                  ? { properties: { _: typee }, required: ["_"] }
+                  : typee;
+              } else return { properties: { _: typee }, required: ["_"] };
+            })(),
+          ]
+        : []),
+      ...(complexType ? [handleComplexType(complexType)] : []),
+      ...(preserveChildrenOrder
+        ? [{ properties: { ["#name"]: { const: name } } }]
+        : []),
+    ],
+    ...(annotation && handleAnnotation(annotation)),
   };
+  // if ("score-partwise" === name)
+  //   console.log(schema.allOf[0].allOf[1].properties.$$.items.oneOf[0]);
+  return isArray
+    ? {
+        title: name,
+        type: "array",
+        items: schema,
+        ...(min !== 0 && { minItems: min }),
+        ...(isNonNullish(max) && { maxItems: max }),
+      }
+    : schema;
 }
 function handleChoice({ $, $$ }: Choice): JSONSchema {
   const elements = $$["xs:element"];
@@ -412,14 +464,15 @@ function handleChoice({ $, $$ }: Choice): JSONSchema {
           handleElement({
             ...element,
             $: { ...element.$, minOccurs, maxOccurs },
-          })
+          }),
         ),
-        R.map(({ title, ...other }) => ({
-          properties: { [title]: other },
-        }))
+        R.map(({ title, ...other }) => ({ properties: { [title]: other } })),
       ),
       ...R.pipe(groups ?? [], R.map(handleGroup)),
-      ...R.pipe(sequence ?? [], R.map(handleSequence)),
+      ...R.pipe(
+        sequence ?? [],
+        R.map((sequence) => handleSequence(sequence, false)),
+      ),
       ...R.pipe(choices ?? [], R.map(handleChoice)),
     ],
   };
@@ -427,13 +480,12 @@ function handleChoice({ $, $$ }: Choice): JSONSchema {
 function handleContent({ $$ }: SimpleContent | ComplexContent): JSONSchema {
   const extension = $$["xs:extension"][0];
   return {
-    ...(extension ? handleExtension(extension) : {}),
+    ...(extension && handleExtension(extension)),
   };
 }
 function handleExtension({ $, $$ }: Extension): JSONSchema {
   const attributes = $$?.["xs:attribute"];
   const attributeGroups = $$?.["xs:attributeGroup"];
-
   return {
     properties: {
       _: handleType($.base),
@@ -445,7 +497,7 @@ function handleExtension({ $, $$ }: Extension): JSONSchema {
                   properties: R.pipe(
                     attributes,
                     R.map(handleAttribute),
-                    R.mapToObj(({ title, ...other }) => [title, other])
+                    R.mapToObj(({ title, ...other }) => [title, other]),
                   ),
                 },
               ]
@@ -473,16 +525,42 @@ function handleComplexType({ $, $$ }: ComplexType): JSONSchema {
       title: $.name,
       type: "object",
       properties: {},
-      ...(annotation ? handleAnnotation(annotation) : {}),
+      ...(annotation && handleAnnotation(annotation)),
     };
   }
-
   return {
-    ...($?.name ? { title: $.name } : {}),
-    ...(annotation ? handleAnnotation(annotation) : {}),
-    properties: {
-      ...(attributes || attributeGroups
-        ? {
+    ...($?.name && { title: $.name }),
+    ...(annotation && handleAnnotation(annotation)),
+    // ...((choice || sequence || group) && {
+    //   allOf: [
+    //     ...(choice ? [handleChoice(choice)] : []),
+    //     ...(sequence ? [handleSequence(sequence)] : []),
+    //     ...(group ? [handleGroup(group)] : []),
+    //     ...R.pipe(attributeGroups ?? [], R.map(handleAttributeGroup)),
+    //     ...(attributes
+    //       ? [
+    //           {
+    //             properties: R.pipe(
+    //               attributes,
+    //               R.map(handleAttribute),
+    //               R.mapToObj(({ title, ...other }) => [title, other]),
+    //             ),
+    //           },
+    //         ]
+    //       : []),
+    //   ],
+    // }),
+    allOf: [
+      ...(preserveChildrenOrder
+        ? [
+            ...(choice ? [handleChoice(choice)] : []),
+            ...(sequence ? [handleSequence(sequence)] : []),
+            ...(group ? [handleGroup(group)] : []),
+          ]
+        : []),
+      {
+        properties: {
+          ...((attributes || attributeGroups) && {
             $: {
               allOf: [
                 ...R.pipe(attributeGroups ?? [], R.map(handleAttributeGroup)),
@@ -492,40 +570,53 @@ function handleComplexType({ $, $$ }: ComplexType): JSONSchema {
                         properties: R.pipe(
                           attributes,
                           R.map(handleAttribute),
-                          R.mapToObj(({ title, ...other }) => [title, other])
+                          R.mapToObj(({ title, ...other }) => [title, other]),
                         ),
                       },
                     ]
                   : []),
               ],
             },
-          }
-        : {}),
-      ...(choice || sequence || group
-        ? {
+          }),
+          ...((choice || sequence || group) && {
             $$: {
-              allOf: [
-                ...(choice ? [handleChoice(choice)] : []),
-                ...(sequence ? [handleSequence(sequence)] : []),
-                ...(group ? [handleGroup(group)] : []),
-              ],
+              ...(preserveChildrenOrder
+                ? {
+                    type: "array",
+                    items: (choice || sequence || group) && {
+                      oneOf: [
+                        ...(sequence
+                          ? [handleSequence(sequence, preserveChildrenOrder)]
+                          : []),
+                        ...(choice ? [handleChoice(choice)] : []),
+                        ...(group
+                          ? [handleGroup(group, preserveChildrenOrder)]
+                          : []),
+                      ],
+                    },
+                  }
+                : {
+                    allOf: [
+                      ...(choice ? [handleChoice(choice)] : []),
+                      ...(sequence ? [handleSequence(sequence)] : []),
+                      ...(group ? [handleGroup(group)] : []),
+                    ],
+                  }),
             },
-          }
-        : {}),
-      ...(simpleContent || complexContent
-        ? {
-            ...(simpleContent ? handleContent(simpleContent).properties : {}),
-            ...(complexContent ? handleContent(complexContent).properties : {}),
-          }
-        : {}),
-    },
-    required: [
-      ...(choice || sequence || group ? ["$$"] : []),
-      ...(simpleContent || complexContent ? ["_"] : []),
+          }),
+          ...((simpleContent || complexContent) && {
+            ...(simpleContent && handleContent(simpleContent).properties),
+            ...(complexContent && handleContent(complexContent).properties),
+          }),
+        },
+      },
     ],
+    // required: [
+    //   ...(choice || sequence || group ? ["$$"] : []),
+    //   ...(simpleContent || complexContent ? ["_"] : []),
+    // ],
   };
 }
-
 function handleReference(reference: string) {
   if (reference.includes("xml")) {
     return { $ref: "#/$defs/xml/attribute/" + reference.replace("xml:", "") };
@@ -536,11 +627,10 @@ function handleReference(reference: string) {
     };
   }
 }
-
-xsdToJsonSchema();
-
 function isSimpleType(type: string) {
   return musicxml["xs:schema"].$$["xs:simpleType"].some(
-    (data: SimpleType) => data.$?.name === type
+    (data: SimpleType) => data.$?.name === type,
   );
 }
+
+xsdToJsonSchema();

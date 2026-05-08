@@ -2,7 +2,6 @@ import { P, match } from "ts-pattern";
 import * as SMUFL from ".";
 import { Barline, Clef, NoteType } from "../../const/musicxml/4.0/musicxml";
 import { BoundingBox } from "../boundingbox";
-import { Edge } from "../edge";
 import * as Sheet from "../sheet";
 
 export class Glyph<
@@ -12,21 +11,11 @@ export class Glyph<
   glyphBBox;
   glyphAdvancedWidth;
   glyphWithAnchor;
-  get boundingBox() {
-    return new BoundingBox(
-      this.glyphBBox.x,
-      this.glyphBBox.y,
-      this.glyphBBox.width + this.glyphAdvancedWidth,
-      this.glyphBBox.height,
-    );
+  get width() {
+    return this.glyphBBox.width + this.glyphAdvancedWidth;
   }
-  get edge() {
-    return new Edge(
-      this.boundingBox.y,
-      this.boundingBox.width + this.x,
-      this.boundingBox.height,
-      this.boundingBox.x,
-    );
+  get height() {
+    return this.glyphBBox.height;
   }
   get codepoint() {
     return Number.parseInt(
@@ -36,6 +25,7 @@ export class Glyph<
   }
   constructor(
     glyphName: T,
+    // isAdvanced: boolean,
     ...parameters: ConstructorParameters<typeof Sheet.Glyph>
   ) {
     super(...parameters);
@@ -46,7 +36,7 @@ export class Glyph<
       bBoxNE[0] - bBoxSW[0],
       bBoxNE[1] - bBoxSW[1],
     );
-    const isAdvanced = false;
+    const isAdvanced = true;
     this.glyphAdvancedWidth = isAdvanced
       ? SMUFL.getGlyphAdvanceWidth(glyphName)
       : 0;

@@ -255,9 +255,9 @@ export class Score<
     parameter.chords ??= pipe(
       parameter.tracks,
       map(
-        piped(prop("notes"), (notes) =>
+        piped(
+          prop("notes"),
           reduce(
-            notes,
             (accumulator, current, index, array) => {
               if (current.chord)
                 if (array[index - 1]?.chord) accumulator.at(-1)!.push(current);

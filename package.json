@@ -2,12 +2,14 @@
   "name": "hakei",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "vitest"
+    "test": "vitest",
+    "generate:mxl": "npx tsx src/s-core/models/files/xsd/extensions/to-json-schema.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.11.1",

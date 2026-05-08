@@ -8,7 +8,7 @@ import { Glyph } from "./glyph";
 import { Ligature } from "./ligature";
 
 export class Keysignature extends Core.Keysignature {
-  ligature = new Ligature(undefined, { type: "keysignature" });
+  ligature = new Ligature(undefined);
   static import(data: ReturnType<Keysignature["export"]>) {
     return new Keysignature(super.import(data));
   }
@@ -23,18 +23,18 @@ export class Keysignature extends Core.Keysignature {
                 .with(Core.Enums.Tonality.Major as 0, () =>
                   n < new PitchClassName("A").toneIndex
                     ? n + musicTheory.diatonicScale.length
-                    : n
+                    : n,
                 )
                 .with(Core.Enums.Tonality.Minor as 1, () =>
                   n < new PitchClassName("F").toneIndex
                     ? n + musicTheory.diatonicScale.length
-                    : n
+                    : n,
                 )
                 .exhaustive() / 2
             );
-          })
+          }),
         ),
-      ])
+      ]),
     );
   }
 }

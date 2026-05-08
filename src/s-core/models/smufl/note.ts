@@ -5,6 +5,10 @@ import * as Sheet from "../sheet";
 
 export class Note extends Sheet.Note {
   declare score: SMUFL.Score;
+  declare ligature: Sheet.Ligature<SMUFL.Glyph>;
+  get noteheadGlyph() {
+    return super.noteheadGlyph as SMUFL.Glyph;
+  }
   get stave() {
     return super.stave as SMUFL.Stave;
   }
@@ -16,6 +20,7 @@ export class Note extends Sheet.Note {
           Sheet.ElementType.Stem,
         ).glyphBBox.height;
   }
+
   draw() {
     super.draw();
     this.ligature.glyphLists = pipe(

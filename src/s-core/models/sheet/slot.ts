@@ -10,8 +10,16 @@ export class Slot extends Core.Event {
   get notes() {
     return this.score.notes.filter((note) => note.start.equal(this.beat));
   }
+  get masterbar() {
+    return this.score.masterbars.find((masterbar) =>
+      masterbar.slots.includes(this),
+    )!;
+  }
   get width() {
     return firstBy(this.notes, [prop("width"), "desc"])?.width ?? 0;
+  }
+  get height() {
+    return 4;
   }
   get x(): number {
     return (this.previousSlot?.x ?? 0) + (this.previousSlot?.width ?? 0);
@@ -21,7 +29,7 @@ export class Slot extends Core.Event {
     this.beat = beat;
     this.previousSlot = previousSlot;
   }
-  getTrackStaveNotes(trackId: number, staveId: number) {
+  getTrackStaveNotesOrChords(trackId: number, staveId: number) {
     return this.notes.filter(
       (note) =>
         note.trackId === trackId &&

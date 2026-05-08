@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 async function handleAction(formData: FormData) {
   "use server";
   const sheet = await new Browser.Importer().import(
-    formData.get("data") as File
+    formData.get("data") as File,
   );
   const score = await prisma.score.create({
     data: { data: sheet.export() as object },
@@ -15,7 +15,11 @@ async function handleAction(formData: FormData) {
 }
 
 export default function Create() {
-  return <FormCreateScore action={handleAction} />;
+  return (
+    <>
+      <FormCreateScore action={handleAction} />;
+    </>
+  );
 }
 
 export const config = {

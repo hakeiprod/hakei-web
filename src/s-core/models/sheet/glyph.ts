@@ -2,12 +2,16 @@ import { ElementType } from ".";
 import { Element } from "./element";
 
 export class Glyph extends Element {
+  get width() {
+    return -1;
+  }
+  get height() {
+    return -1;
+  }
   constructor(
     public type: ElementType,
-    public line: number = 0,
-    ...element: ConstructorParameters<typeof Element>
+    public line?: number,
   ) {
-    super(...element);
-    this.y = line;
+    super();
   }
 }

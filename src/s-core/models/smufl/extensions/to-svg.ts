@@ -1,22 +1,55 @@
 import * as d3 from "d3";
 import * as R from "remeda";
 import { P, match } from "ts-pattern";
+import { BoundingBox } from "../../boundingbox";
 import * as Sheet from "../../sheet";
 import * as SMUFL from "../../smufl";
 
 declare module ".." {
   interface Score {
-    toSVG: (options: {
-      ratio: number;
-      scale: number;
-      debug: boolean;
-    }) => SVGSVGElement | null;
+    toSVG: (
+      options: Sheet.Controller["options"] & {
+        ratio: number;
+      },
+    ) => SVGSVGElement | null;
   }
 }
 
+function lineToSVG(line: number) {
+  return -(line - 5);
+}
 let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
+  console.log(this);
   svg ??= d3.create("svg");
+  const tooltip = new Tooltip(svg);
+  function renderRect(
+    ds: d3.BaseType | SVGGElement,
+    boundingBox: Omit<BoundingBox, "x" | "y">,
+    data: Record<string, unknown>,
+    color: string,
+  ) {
+    const g = d3.select(ds);
+    g.selectAll("rect")
+      .data([null])
+      .join("rect")
+      .style("fill-opacity", 0)
+      .style("stroke", color)
+      .style("stroke-width", "0.1")
+      .attr("width", () => boundingBox.width)
+      .attr("height", () => boundingBox.height)
+      .on("mouseenter", function () {
+        d3.select(this).style("fill", color).style("fill-opacity", 0.25);
+        tooltip.visible(JSON.stringify(data));
+      })
+      .on("mousemove", function (event) {
+        tooltip.move(d3.pointer(event, svg?.node()));
+      })
+      .on("mouseleave", function () {
+        d3.select(this).style("fill-opacity", 0);
+        tooltip.invisible();
+      });
+  }
   function handleLigature(
     ds: d3.BaseType | SVGGElement,
     ligature: Sheet.Ligature,
@@ -26,34 +59,20 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
       .data([ligature])
       .join("g")
       .attr("type", "ligature")
-      .attr("transform", `translate(${ligature.x}, ${-ligature.line})`)
-      .attr("attr", JSON.stringify(ligature.attributes))
-      .attr("width", ligature.boundingBox.width)
-      .call(function (g) {
-        g.selectAll("g[type=glyph]")
-          .data(ligature.glyphLists.flat())
-          .join("g")
-          .attr("type", "glyph")
-          .each(function (glyph) {
-            const g = d3.select(this);
-            g.selectAll("text")
-              .data([glyph])
-              .join("text")
-              .attr("type", "glyph")
-              .attr("x", glyph.x)
-              .attr("y", -glyph.line)
-              .text(String.fromCodePoint((glyph as SMUFL.Glyph).codepoint));
-          });
-      });
-  }
-  function handleGlyph(ds: d3.BaseType | SVGGElement, glyph: Sheet.Glyph) {
-    const g = d3.select(ds);
-    g.selectAll("g[type=glyph]")
-      .data([glyph])
-      .join("g")
-      .attr("type", "glyph")
       .attr(
         "transform",
+        `translate(${ligature.x}, ${ligature.line ? lineToSVG(ligature.line) : 0})`,
+      )
+      .attr("width", ligature.width)
+      .call((g) => handleGlyphs(g.node(), ligature.glyphLists.flat()));
+  }
+  function handleGlyphs(ds: d3.BaseType | SVGGElement, glyphs: Sheet.Glyph[]) {
+    const g = d3.select(ds);
+    g.selectAll("g[type=glyph]")
+      .data(glyphs)
+      .join("g")
+      .attr("type", "glyph")
+      .attr("transform", (glyph) =>
         createTranslate((glyph as SMUFL.Glyph).glyphAdvancedWidth, 0),
       )
       .each(function (glyph) {
@@ -63,26 +82,19 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
           .join("text")
           .attr("type", "glyph")
           .attr("x", glyph.x)
-          .attr("y", -glyph.y)
+          .attr("y", glyph.line ? lineToSVG(glyph.line) : 0)
           .text(String.fromCodePoint((glyph as SMUFL.Glyph).codepoint));
       });
   }
-  const tooltip = svg
-    .append("g")
-    .attr("type", "tooltip")
-    .append("text")
-    .attr("font-size", "2px")
-    .attr("fill-opacity", 0);
   svg
     .attr("font-size", options.ratio)
     .attr("viewBox", `0 0 ${this.width} ${this.height}`)
-    .attr("height", this.height * options.scale)
+    .attr("height", this.height * options.scale + 100)
     .attr("width", this.width * options.scale)
     .selectAll("g[type=score]")
     .data([this])
     .join("g")
     .attr("type", "score")
-    .attr("transform", createTranslate(0, 17))
     .each(function (score) {
       const g = d3.select(this);
       g.selectAll("g[type=row]")
@@ -99,33 +111,8 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
             .attr("transform", (masterbar) => createTranslate(masterbar.x, 0))
             .each(function (masterbar) {
               const g = d3.select(this);
-              g.selectAll("rect")
-                .data(() => [masterbar])
-                .join("rect")
-                .style("fill", "transparent")
-                .style("stroke", "red")
-                .style("stroke-width", "0.1")
-                .attr("y", -masterbar.height)
-                .attr("width", () => masterbar.width)
-                .attr("height", () => row.height)
-                .on("mouseenter", function () {
-                  d3.select(this)
-                    .style("fill", "red")
-                    .style("fill-opacity", "0.25");
-                  tooltip
-                    .attr("fill-opacity", 1)
-                    .text("masterbar:" + JSON.stringify(masterbar.export()));
-                })
-                .on("mousemove", function (event) {
-                  const [x, y] = d3.pointer(event, svg?.node());
-                  tooltip.attr("transform", () => createTranslate(x, y));
-                })
-                .on("mouseleave", function () {
-                  d3.select(this)
-                    .style("fill", "transparent")
-                    .style("fill-opacity", 0);
-                  tooltip.attr("fill-opacity", 0);
-                });
+              if (options.debug)
+                renderRect(this, masterbar, masterbar.export(), "red");
               g.selectAll("g[type=track]")
                 .data(masterbar.score.tracks)
                 .join("g")
@@ -143,7 +130,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                         .data([null])
                         .join("g")
                         .attr("type", "barline")
-                        .attr("transform", createTranslate(0, -11.5))
                         .each(function () {
                           const g = d3.select(this);
                           g.selectAll("path[position=start]")
@@ -278,7 +264,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                         handleLigature(this, ligature),
                                     )
                                     .with(P.instanceOf(Sheet.Glyph), (glyph) =>
-                                      handleGlyph(this, glyph),
+                                      handleGlyphs(this, [glyph]),
                                     )
                                     .exhaustive();
                             });
@@ -301,230 +287,198 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                 )
                                 .each(function (slot) {
                                   const g = d3.select(this);
+                                  if (options.debug)
+                                    renderRect(
+                                      this,
+                                      slot,
+                                      slot.export(),
+                                      "green",
+                                    );
                                   g.selectAll("g[type=note]")
                                     .data(
-                                      slot.getTrackStaveNotes(
+                                      slot.getTrackStaveNotesOrChords(
                                         track.id,
                                         stave.id,
                                       ),
                                     )
                                     .join("g")
                                     .attr("type", "note")
+                                    .attr("note.line", (note) => note.line)
+                                    .attr("note.linetoSVG", (note) =>
+                                      lineToSVG(note.line),
+                                    )
+                                    .attr("transform", (note) =>
+                                      createTranslate(0, lineToSVG(note.line)),
+                                    )
                                     .each(function (note) {
                                       handleLigature(this, note.ligature);
-                                    });
-                                  g.selectAll("rect")
-                                    .data([slot])
-                                    .join("rect")
-                                    .style("fill", "transparent")
-                                    .style("stroke", "green")
-                                    .style("stroke-width", "0.1")
-                                    .attr("y", -stave.height)
-                                    .attr("width", () => slot.width)
-                                    .attr("height", () => stave.height)
-                                    .on("mouseenter", function () {
-                                      d3.select(this)
-                                        .style("fill", "green")
-                                        .style("fill-opacity", "0.25");
-                                      tooltip
-                                        .attr("fill-opacity", 1)
-                                        .text(
-                                          "slot:" +
-                                            JSON.stringify(slot.export()),
+                                      const x = match(note.stem?._ ?? "none")
+                                        .with(
+                                          "up",
+                                          () =>
+                                            note.noteheadGlyph?.glyphBBox.x ??
+                                            0,
+                                        )
+                                        .with(
+                                          "down",
+                                          () =>
+                                            note.noteheadGlyph?.glyphBBox
+                                              .width ?? 0,
+                                        )
+                                        .with("double", () => {
+                                          throw new Error("wip");
+                                        })
+                                        .with("none", () => 0)
+                                        .exhaustive();
+                                      g.selectAll("path")
+                                        .data([note])
+                                        .join("path")
+                                        .attr("stroke", "black")
+                                        .attr(
+                                          "stroke-width",
+                                          SMUFL.BravuraMetadata
+                                            .engravingDefaults.stemThickness,
+                                        )
+                                        .attr(
+                                          "d",
+                                          d3.line()([
+                                            [x, lineToSVG(note.line)],
+                                            [
+                                              x,
+                                              lineToSVG(note.line) +
+                                                match(note.stem?._ ?? "none")
+                                                  .with(
+                                                    "up",
+                                                    () => -note.stemLength,
+                                                  )
+                                                  .with(
+                                                    "down",
+                                                    () => note.stemLength,
+                                                  )
+                                                  .with("double", () => {
+                                                    throw new Error("wip");
+                                                  })
+                                                  .with("none", () => 0)
+                                                  .exhaustive(),
+                                            ],
+                                          ]),
                                         );
-                                    })
-                                    .on("mousemove", function () {
-                                      const [x, y] = d3.pointer(
-                                        event,
-                                        svg?.node(),
-                                      );
-                                      tooltip.attr("transform", () =>
-                                        createTranslate(x, y),
-                                      );
-                                    })
-                                    .on("mouseleave", function () {
-                                      d3.select(this)
-                                        .style("fill", "transparent")
-                                        .style("fill-opacity", 0);
-                                      tooltip.attr("fill-opacity", 0);
                                     });
                                 });
                             });
-                          // g.selectAll("g[type=decoration]")
-                          //   .data([stave])
-                          //   .join("g")
-                          //   .attr("type", "decoration")
-                          //   .attr("transform", createTranslate(stave.width, 0))
-                          //   .call((g) => {
-                          //     const stemGlyph = new SMUFL.Glyph(
-                          //       SMUFL.Glyph.find("stems", (v) =>
-                          //         v.includes("stem"),
-                          //       ),
-                          //       Sheet.ElementType.Stem,
-                          //     );
-                          //     g.selectAll("g[type=stem]")
-                          //       .data(stave.notes)
-                          //       .join("g")
-                          //       .attr("type", "stem")
-                          //       .each(function (note) {
-                          //         const g = d3.select(this);
-                          //         const x = match(note.stem?._ ?? "none")
-                          //           .with(
-                          //             "up",
-                          //             () =>
-                          //               note.ligature.boundingBox.toInset()
-                          //                 .right,
-                          //           )
-                          //           .with(
-                          //             "down",
-                          //             () =>
-                          //               note.ligature.boundingBox.toInset()
-                          //                 .left,
-                          //           )
-                          //           .with("double", () => {
-                          //             throw new Error("wip");
-                          //           })
-                          //           .with("none", () => 0)
-                          //           .exhaustive();
-                          //         g.selectAll("path")
-                          //           .data([note])
-                          //           .join("path")
-                          //           .attr("stroke", "black")
-                          //           .attr(
-                          //             "stroke-width",
-                          //             SMUFL.BravuraMetadata.engravingDefaults
-                          //               .stemThickness,
-                          //           )
-                          //           .attr(
-                          //             "d",
-                          //             d3.line()([
-                          //               [x, -note.line],
-                          //               [
-                          //                 x,
-                          //                 -note.line +
-                          //                   match(note.stem?._ ?? "none")
-                          //                     .with(
-                          //                       "up",
-                          //                       () => -note.stemLength,
-                          //                     )
-                          //                     .with(
-                          //                       "down",
-                          //                       () => note.stemLength,
-                          //                     )
-                          //                     .with("double", () => {
-                          //                       throw new Error("wip");
-                          //                     })
-                          //                     .with("none", () => 0)
-                          //                     .exhaustive(),
-                          //               ],
-                          //             ]),
-                          //           );
-                          //       });
-                          //     g.selectAll("g[type=beam]")
-                          //       .data(stave.beamGroups)
-                          //       .join("g")
-                          //       .attr("type", "beam")
-                          //       .each(function (beamGroup) {
-                          //         const g = d3.select(this);
-                          //         const { x1, x2 } = match(
-                          //           beamGroup.firstNote.stem?._ ?? "none",
-                          //         )
-                          //           .with("up", () => ({
-                          //             x1:
-                          //               beamGroup.firstNote.ligature?.boundingBox.toInset()
-                          //                 .right ?? 0,
-                          //             x2:
-                          //               beamGroup.lastNote.ligature?.boundingBox.toInset()
-                          //                 .right ?? 0,
-                          //           }))
-                          //           .with("down", () => ({
-                          //             x1:
-                          //               beamGroup.firstNote.ligature?.boundingBox.toInset()
-                          //                 .left ?? 0,
-                          //             x2:
-                          //               beamGroup.lastNote.ligature?.boundingBox.toInset()
-                          //                 .left ?? 0,
-                          //           }))
-                          //           .with("double", () => {
-                          //             throw new Error("wip");
-                          //           })
-                          //           .with("none", () => ({ x1: 0, x2: 0 }))
-                          //           .exhaustive();
-                          //         g.selectAll("path")
-                          //           .data([beamGroup])
-                          //           .join("path")
-                          //           .attr(
-                          //             "transform",
-                          //             createTranslate(
-                          //               0,
-                          //               match(
-                          //                 beamGroup.firstNote.stem?._ ?? "none",
-                          //               )
-                          //                 .with(
-                          //                   "up",
-                          //                   () =>
-                          //                     -stemGlyph.glyphBBox.height +
-                          //                     SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness /
-                          //                       2,
-                          //                 )
-                          //                 .with(
-                          //                   "down",
-                          //                   () =>
-                          //                     stemGlyph.glyphBBox.height -
-                          //                     SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness /
-                          //                       2,
-                          //                 )
-                          //                 .with("double", () => {
-                          //                   throw new Error("wip");
-                          //                 })
-                          //                 .with("none", () => 0)
-                          //                 .exhaustive(),
-                          //             ),
-                          //           )
-                          //           .attr("stroke", "black")
-                          //           .attr(
-                          //             "stroke-width",
-                          //             SMUFL.BravuraMetadata.engravingDefaults
-                          //               .beamThickness,
-                          //           )
-                          //           .attr(
-                          //             "d",
-                          //             d3.line()([
-                          //               [
-                          //                 x1,
-                          //                 -beamGroup.firstNote.line +
-                          //                   beamGroup.level *
-                          //                     (SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness +
-                          //                       SMUFL.BravuraMetadata
-                          //                         .engravingDefaults
-                          //                         .beamSpacing),
-                          //               ],
-                          //               [
-                          //                 x2,
-                          //                 -beamGroup.lastNote.line +
-                          //                   beamGroup.level *
-                          //                     (SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness +
-                          //                       SMUFL.BravuraMetadata
-                          //                         .engravingDefaults
-                          //                         .beamSpacing),
-                          //               ],
-                          //             ]),
-                          //           );
-                          //       });
-                          //   });
+                          g.selectAll("g[type=decoration]")
+                            .data([stave])
+                            .join("g")
+                            .attr("type", "decoration")
+                            .attr("transform", createTranslate(stave.width, 0))
+                            .call((g) => {
+                              const stemGlyph = new SMUFL.Glyph(
+                                SMUFL.Glyph.find("stems", (v) =>
+                                  v.includes("stem"),
+                                ),
+                                Sheet.ElementType.Stem,
+                              );
+                              g.selectAll("g[type=beam]")
+                                .data(stave.beamGroups)
+                                .join("g")
+                                .attr("type", "beam")
+                                .each(function (beamGroup) {
+                                  const g = d3.select(this);
+                                  const { x1, x2 } = match(
+                                    beamGroup.firstNote.stem?._ ?? "none",
+                                  )
+                                    .with("up", () => ({
+                                      x1:
+                                        beamGroup.firstNote.ligature?.right ??
+                                        0,
+                                      x2:
+                                        beamGroup.lastNote.ligature?.right ?? 0,
+                                    }))
+                                    .with("down", () => ({
+                                      x1:
+                                        beamGroup.firstNote.ligature?.left ?? 0,
+                                      x2:
+                                        beamGroup.lastNote.ligature?.left ?? 0,
+                                    }))
+                                    .with("double", () => {
+                                      throw new Error("wip");
+                                    })
+                                    .with("none", () => ({ x1: 0, x2: 0 }))
+                                    .exhaustive();
+                                  g.selectAll("path")
+                                    .data([beamGroup])
+                                    .join("path")
+                                    .attr(
+                                      "transform",
+                                      createTranslate(
+                                        0,
+                                        match(
+                                          beamGroup.firstNote.stem?._ ?? "none",
+                                        )
+                                          .with(
+                                            "up",
+                                            () =>
+                                              -stemGlyph.glyphBBox.height +
+                                              SMUFL.BravuraMetadata
+                                                .engravingDefaults
+                                                .beamThickness /
+                                                2,
+                                          )
+                                          .with(
+                                            "down",
+                                            () =>
+                                              stemGlyph.glyphBBox.height -
+                                              SMUFL.BravuraMetadata
+                                                .engravingDefaults
+                                                .beamThickness /
+                                                2,
+                                          )
+                                          .with("double", () => {
+                                            throw new Error("wip");
+                                          })
+                                          .with("none", () => 0)
+                                          .exhaustive(),
+                                      ),
+                                    )
+                                    .attr("stroke", "black")
+                                    .attr(
+                                      "stroke-width",
+                                      SMUFL.BravuraMetadata.engravingDefaults
+                                        .beamThickness,
+                                    )
+                                    .attr(
+                                      "d",
+                                      d3.line()([
+                                        [
+                                          x1,
+                                          -beamGroup.firstNote.line +
+                                            beamGroup.level *
+                                              (SMUFL.BravuraMetadata
+                                                .engravingDefaults
+                                                .beamThickness +
+                                                SMUFL.BravuraMetadata
+                                                  .engravingDefaults
+                                                  .beamSpacing),
+                                        ],
+                                        [
+                                          x2,
+                                          -beamGroup.lastNote.line +
+                                            beamGroup.level *
+                                              (SMUFL.BravuraMetadata
+                                                .engravingDefaults
+                                                .beamThickness +
+                                                SMUFL.BravuraMetadata
+                                                  .engravingDefaults
+                                                  .beamSpacing),
+                                        ],
+                                      ]),
+                                    );
+                                });
+                            });
                           g.selectAll("g[type=staff]")
                             .data(R.times(5, R.doNothing))
                             .join("g")
                             .attr("type", "staff")
-                            .attr("transform", createTranslate(0, 0))
                             .each(function (_, index) {
                               const g = d3.select(this);
                               g.selectAll("path")
@@ -539,8 +493,8 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                 .attr(
                                   "d",
                                   d3.line()([
-                                    [0, -(index + 1)],
-                                    [masterbar.width, -(index + 1)],
+                                    [0, index],
+                                    [masterbar.width, index],
                                   ]),
                                 );
                             });
@@ -556,4 +510,25 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
 
 function createTranslate(x: number, y: number) {
   return `translate(${x}, ${y})`;
+}
+
+class Tooltip {
+  d3;
+  constructor(svg: d3.Selection<SVGSVGElement, undefined, null, undefined>) {
+    this.d3 = svg
+      .append("g")
+      .attr("type", "tooltip")
+      .append("text")
+      .attr("font-size", "2px")
+      .attr("fill-opacity", 0);
+  }
+  visible(text: string) {
+    this.d3.attr("fill-opacity", 1).text(text);
+  }
+  move([x, y]: ReturnType<typeof d3.pointer>) {
+    this.d3.attr("transform", () => createTranslate(x, y));
+  }
+  invisible() {
+    this.d3.attr("fill-opacity", 0).text();
+  }
 }

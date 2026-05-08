@@ -15,29 +15,30 @@ import {
   take,
   times,
 } from "remeda";
+import MusicXML from "..";
 import { StaffDetails } from "../../../../const/musicxml/4.0/musicxml";
 import * as Core from "../../../core";
 import { MidiNoteNumber } from "../../../core/units";
 import * as Sheet from "../../../sheet";
-import * as MusicXML from "../../musicxml";
 
 declare module ".." {
-  interface MXL {
+  interface MusicXML {
     toSheet(): Sheet.Score;
   }
 }
-MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
+export const toSheet = function (this: MusicXML) {
   if (process.env.NODE_ENV === "development") console.log({ mxl: this });
+  const a = this.data["score-partwise"].$$.find(Boolean);
   const { keysignatures, timesignatures, tracks, bars, staves, tempos } =
-    this.mxl["score-partwise"].$$.part?.reduce(
+    this.data["score-partwise"].$$.part?.reduce(
       (partAccumulator, current, trackId) => {
-        const scorePart = this.mxl["score-partwise"].$$["part-list"]?.[0].$$[
+        const scorePart = this.data["score-partwise"].$$["part-list"]?.[0].$$[
           "score-part"
         ]?.find((scorePart) => scorePart.$?.id === current.$?.id);
         const partName = scorePart?.$$["part-name"]?.[0];
         partAccumulator.tracks.push({
-          name:
-            partName?.$?.["print-object"] === "no" ? "" : (partName?._ ?? ""),
+          name: partName?._ ?? "",
+          // partName?.$?.["print-object"] === "no" ? "" : (partName?._ ?? ""),
           preset: 0,
           notes: [],
           staffDetails: <StaffDetails>{
@@ -62,7 +63,7 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
               "sound",
               0,
               "$",
-              "tempo"
+              "tempo",
             );
             if (partAccumulator.tracks[trackId])
               partAccumulator.tracks[trackId].staffDetails = staffDetails ?? {
@@ -99,8 +100,8 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                 piped(
                   last(),
                   groupBy(piped(prop("$$", "voice", 0, "_"))),
-                  entries()
-                )
+                  entries(),
+                ),
               ),
               map(
                 piped(last(), (last) =>
@@ -133,7 +134,7 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                                   "$$",
                                   "step",
                                   "0",
-                                  "_"
+                                  "_",
                                 ) ?? "C"
                               }${
                                 prop(
@@ -143,9 +144,9 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                                   "$$",
                                   "octave",
                                   "0",
-                                  "_"
+                                  "_",
                                 ) ?? 0
-                              }`
+                              }`,
                             ).toMidiNoteNumber().value,
                         start: pipe(
                           array,
@@ -160,15 +161,15 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                                     array[index_ - 1]!.$$,
                                     "duration",
                                     "0",
-                                    "_"
+                                    "_",
                                   ) as number) /
                                     measureAccumulator.division,
-                            0
+                            0,
                           ),
                           add(
                             partAccumulator.timesignatures!.at(-1)!.numerator *
-                              barId
-                          )
+                              barId,
+                          ),
                         ),
                         duration,
                       };
@@ -182,11 +183,11 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                       notes: [] as Parameters<
                         typeof Sheet.Score.create
                       >[0]["tracks"][number]["notes"],
-                    }
-                  )
-                )
+                    },
+                  ),
+                ),
               ),
-              flatMap(prop("notes"))
+              flatMap(prop("notes")),
             );
 
             partAccumulator.tracks[trackId]?.notes.push(...notes);
@@ -203,10 +204,10 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
                   barId,
                   trackId,
                   clefs: attributes[0]?.$$?.clef?.filter(
-                    (clef) => (clef.$?.number ?? 1) === staveId + 1
+                    (clef) => (clef.$?.number ?? 1) === staveId + 1,
                   ),
                 });
-              }
+              },
             );
             partAccumulator.staves?.push(...staves);
             measureAccumulator.bars.push({ id: barId, trackId });
@@ -217,7 +218,7 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
               Parameters<typeof Sheet.Score.create>[0]["bars"]
             >,
             division: -1,
-          }
+          },
         ) ?? { bars: [] };
         partAccumulator.bars?.push(...bars);
         return partAccumulator;
@@ -229,7 +230,7 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
         timesignatures: [],
         keysignatures: [],
         tempos: [],
-      } as Parameters<typeof Sheet.Score.create>[0]
+      } as Parameters<typeof Sheet.Score.create>[0],
     ) ?? {
       bars: [],
       tracks: [],
@@ -240,7 +241,8 @@ MusicXML.MXL.prototype.toSheet = function (this: MusicXML.MXL) {
     };
   const parameters = {
     name:
-      this.mxl["score-partwise"].$$.work?.[0]?.$$?.["work-title"]?.[0]?._ ?? "",
+      this.data["score-partwise"].$$.work?.[0]?.$$?.["work-title"]?.[0]?._ ??
+      "",
     keysignatures,
     timesignatures,
     tempos,

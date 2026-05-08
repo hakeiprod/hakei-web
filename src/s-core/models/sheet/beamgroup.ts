@@ -41,14 +41,14 @@ export class BeamGroup {
     this.trackId = trackId;
   }
   calculateStemLength(note: Sheet.Note) {
-    const x1 = this.firstNote.ligature.boundingBox.x;
-    const x2 = this.lastNote.ligature.boundingBox.x;
+    const x1 = this.firstNote.ligature.x;
+    const x2 = this.lastNote.ligature.x;
     const y1 = this.firstNote.line;
     const y2 = this.lastNote.line;
     const dx = x2 - x1;
     const dy = y2 - y1;
     const m = dy / dx;
-    const beamY = m * (note.ligature.boundingBox.x - x1) + y1;
+    const beamY = m * (note.ligature.x - x1) + y1;
     return (note.stem?._ === "up" ? beamY - note.line : note.line - beamY) + 3;
   }
 }

@@ -1,20 +1,26 @@
 import { BoundingBox } from "../boundingbox";
 import { Edge } from "../edge";
 
-export abstract class Element {
+export abstract class Element implements BoundingBox, Edge {
   x = 0;
   y = 0;
-
+  abstract get width(): number;
+  abstract get height(): number;
+  get top() {
+    return this.y;
+  }
+  get right() {
+    return this.x + this.width;
+  }
+  get left() {
+    return this.x;
+  }
+  get bottom() {
+    return this.y + this.height;
+  }
   parent: Element | null = null;
   classList: string[] = [];
-  get boundingBox() {
-    return new BoundingBox(0, 0, 0, 0);
-  }
-  get edge() {
-    return new Edge(0, 0, 0, 0);
-  }
   onClassListChange?: (value: typeof this.classList) => void;
-  constructor(public attributes: Record<string, string> = {}) {}
   setClassName(
     value:
       | typeof this.classList

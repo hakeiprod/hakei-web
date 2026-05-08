@@ -1,4 +1,3 @@
-import * as Audio from "../audio";
 import { Controller } from "../browser/audio";
 import * as Sheet from "../sheet";
 export class NoteHighlighter {
@@ -7,21 +6,6 @@ export class NoteHighlighter {
     public sheet: Sheet.Score,
     public controller: Controller,
   ) {}
-  noteOn(note: Audio.Note) {
-    this.sheet.notes
-      .find(({ id, trackId }) => note.id === id && note.trackId === trackId)
-      ?.ligature?.setClassName(["note-highlight"]);
-  }
-  noteOff(note: Audio.Note) {
-    this.sheet.notes
-      .find(({ id, trackId }) => note.id === id && note.trackId === trackId)
-      ?.ligature?.setClassName([]);
-  }
-  reset() {
-    for (const note of this.sheet.notes) {
-      note.ligature?.setClassName([]);
-    }
-  }
   highlight() {
     const loop = () => {
       const nextNotes = new Set<Sheet.Note>();

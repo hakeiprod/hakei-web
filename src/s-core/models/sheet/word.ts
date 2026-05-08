@@ -10,12 +10,13 @@ export class Word extends Element {
     return this.glyphOrLigatureLists.reduce(
       (accumulator, current) =>
         accumulator +
-        (firstBy(current, [
-          (glyphOrLigature) => glyphOrLigature.boundingBox,
-          "desc",
-        ])?.boundingBox.width ?? 0),
+        (firstBy(current, [(glyphOrLigature) => glyphOrLigature, "desc"])
+          ?.width ?? 0),
       0,
     );
+  }
+  get height(): number {
+    throw new Error("wip");
   }
   get boundingBox() {
     return new BoundingBox(
@@ -24,9 +25,9 @@ export class Word extends Element {
       this.glyphOrLigatureLists.reduce(
         (accumulator, current) =>
           (firstBy(current, [
-            (glyphOrLigature) => glyphOrLigature.boundingBox.width,
+            (glyphOrLigature) => glyphOrLigature.width,
             "desc",
-          ])?.boundingBox.width ?? 0) + accumulator,
+          ])?.width ?? 0) + accumulator,
         0,
       ),
       0,
@@ -45,11 +46,11 @@ export class Word extends Element {
         if (accumulator)
           for (const glyphOrLigature of current) {
             const previousMaxWidthGlyph = firstBy(accumulator, [
-              prop("boundingBox", "width"),
+              prop("width"),
               "desc",
             ]);
             if (previousMaxWidthGlyph)
-              glyphOrLigature.x = previousMaxWidthGlyph.edge.right;
+              glyphOrLigature.x = previousMaxWidthGlyph.right;
           }
         return current;
       },

@@ -4,7 +4,7 @@ export class Controller extends Sheet.Controller {
   declare public score: SMUFL.Score;
   constructor(
     score: SMUFL.Score,
-    public options: ConstructorParameters<typeof Sheet.Controller>[1]
+    public options: ConstructorParameters<typeof Sheet.Controller>[1],
   ) {
     super(score, options);
   }
@@ -13,6 +13,6 @@ export class Controller extends Sheet.Controller {
     this.space(window.innerWidth);
     this.order();
     this.align();
-    return this.score.toSVG({ ratio: 4, scale: this.options.scale });
+    return this.score.toSVG({ ...this.options, ratio: 4 });
   }
 }

@@ -11,16 +11,28 @@ import {
 } from "remeda";
 import { match } from "ts-pattern";
 import { LayoutType, Ligature, Score, Word } from "./";
-import Metadata from "./metadata.json";
 import { Row } from "./row";
+
+type Debug =
+  | boolean
+  | {
+      enabled: boolean;
+      showBoundingBox:
+        | boolean
+        | {
+            slot?: boolean;
+            masterbar?: boolean;
+          };
+    };
 
 export class Controller {
   public score: Score;
   onChangeScale?: (scale: typeof this.options.scale) => void;
   onChangeLayoutType?: (scale: typeof this.options.layoutType) => void;
+  onChangeDebug?: (debug: typeof this.options.debug) => void;
   constructor(
     score: Score,
-    public options: { scale: number; layoutType: LayoutType },
+    public options: { scale: number; layoutType: LayoutType; debug: Debug },
   ) {
     this.score = score;
   }
@@ -31,7 +43,6 @@ export class Controller {
   unmount() {
     for (const data of [
       ...this.score.notes,
-      ...this.score.chords,
       ...this.score.timesignatures,
       ...this.score.keysignatures,
     ])
@@ -61,7 +72,7 @@ export class Controller {
   draw() {
     for (const data of [
       ...this.score.notes,
-      ...this.score.chords,
+      // ...this.score.chords,
       ...this.score.timesignatures,
       ...this.score.keysignatures,
       ...this.score.staves,
@@ -86,42 +97,40 @@ export class Controller {
         })
         .with(LayoutType.Horizontal as 0, () => {
           for (const [, events] of groupedByStartEvents)
-            for (const event of events)
-              if (event.ligature) {
-                event.ligature.edge.right =
-                  Metadata.defaultValue.spacing.note.right;
-                event.ligature.edge.left =
-                  Metadata.defaultValue.spacing.note.left;
-              }
+            for (const event of events) {
+            }
+          // if (event.ligature) {
+          // event.ligature.edge.right =
+          //   Metadata.defaultValue.spacing.note.right;
+          // event.ligature.edge.left =
+          //   Metadata.defaultValue.spacing.note.left;
+          // }
         })
         .with(LayoutType.Vertical as 1, () => {
           const space =
             (width / this.options.scale - row.minWidth) /
             pipe(groupedByStartEvents, length());
           for (const [, events] of groupedByStartEvents)
-            for (const event of events)
-              if (event.ligature) event.ligature.edge.right = space;
+            for (const event of events) {
+            }
+          // if (event.ligature) event.ligature.right = space;
         })
         .exhaustive();
     }
   }
   align() {
-    pipe(
-      this.score.events,
-      groupBy(prop("start", "value")),
-      entries(),
-      forEach(([, notes]) => {
-        const maxXNote = firstBy(notes, [
-          prop("ligature", "boundingBox", "x"),
-          "desc",
-        ]);
-        for (const note of notes) {
-          if (note === maxXNote) continue;
-          if (note.ligature)
-            note.ligature.boundingBox.x = maxXNote.ligature?.boundingBox.x ?? 0;
-        }
-      }),
-    );
+    // pipe(
+    //   this.score.events,
+    //   groupBy(prop("start", "value")),
+    //   entries(),
+    //   forEach(([, notes]) => {
+    //     const maxXNote = firstBy(notes, [prop("ligature", "x"), "desc"]);
+    //     for (const note of notes) {
+    //       if (note === maxXNote) continue;
+    //       if (note.ligature) note.ligature.x = maxXNote.ligature?.x ?? 0;
+    //     }
+    //   }),
+    // );
   }
   setScale(scale: typeof this.options.scale) {
     this.options.scale = scale;
@@ -130,6 +139,10 @@ export class Controller {
   setLayoutType(layoutType: typeof this.options.layoutType) {
     this.options.layoutType = layoutType;
     this.onChangeLayoutType?.(layoutType);
+  }
+  setDebug(debug: typeof this.options.debug) {
+    this.options.debug = debug;
+    this.onChangeDebug?.(debug);
   }
 }
 

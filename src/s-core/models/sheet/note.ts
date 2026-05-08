@@ -18,10 +18,10 @@ export class Note extends Core.Note {
   beam;
   flag: null = null;
   alter;
-  ligature = new Sheet.Ligature(undefined, { type: "note" });
+  ligature = new Sheet.Ligature();
   score!: Sheet.Score;
   get width() {
-    return this.ligature.boundingBox.width;
+    return this.ligature.width;
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
@@ -114,6 +114,12 @@ export class Note extends Core.Note {
   get stemLength() {
     return -1;
   }
+  get noteheadGlyph() {
+    return this.ligature.glyphLists
+      .flat()
+      .flat()
+      .find((glyph) => glyph.type === Sheet.ElementType.Notehead);
+  }
   constructor(
     note: {
       id: number;
@@ -147,13 +153,8 @@ export class Note extends Core.Note {
     this.beam = beam;
   }
   draw() {
-    const noteLigature = new Sheet.Ligature();
-    noteLigature.append([new Sheet.Glyph(Sheet.ElementType.Notehead, 0)]);
-
     if (this.accidental)
       this.ligature.append([new Sheet.Glyph(Sheet.ElementType.Accidental, 0)]);
-
-    this.ligature.line = this.line;
     this.ligature.append(
       [
         this.rest

@@ -1,4 +1,4 @@
-import { filter, firstBy, isTruthy, map, pipe, prop } from "remeda";
+import { firstBy, prop } from "remeda";
 import * as Sheet from ".";
 import * as Core from "../core";
 export class Chord extends Core.Event {
@@ -7,14 +7,13 @@ export class Chord extends Core.Event {
   trackId;
   voice;
   score!: Sheet.Score;
-  ligature = new Sheet.Ligature();
   get notes() {
     return this.score.notes.filter((note) => note.chordId === this.id);
   }
-  override get start() {
+  get start() {
     return firstBy(this.notes, [prop("start"), "asc"])!.start;
   }
-  override get end() {
+  get end() {
     return firstBy(this.notes, [prop("end"), "desc"])!.end;
   }
   constructor({
@@ -49,10 +48,5 @@ export class Chord extends Core.Event {
   }
   static import(data: ReturnType<Chord["export"]>) {
     return new Chord(data);
-  }
-  draw() {
-    this.ligature.append(
-      pipe(this.notes, map(prop("ligature")), filter(isTruthy))
-    );
   }
 }

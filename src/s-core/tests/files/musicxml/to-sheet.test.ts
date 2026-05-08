@@ -1,13 +1,13 @@
 /* eslint-disable unicorn/no-await-expression-member */
-import fs from "node:fs";
-import { expect, test } from "vitest";
-import { importCore } from "../..";
-import * as xml2js from "xml2js";
-import * as MusicXml from "../../../models/files/musicxml";
-import { parseNumbers } from "xml2js/lib/processors";
-import path from "node:path";
-import { ScorePartwise } from "../../../const/musicxml/4.0/musicxml";
 import JSZip from "jszip";
+import fs from "node:fs";
+import path from "node:path";
+import { expect, test } from "vitest";
+import * as xml2js from "xml2js";
+import { parseNumbers } from "xml2js/lib/processors";
+import { importCore } from "../..";
+import { ScorePartwise } from "../../../const/musicxml/4.0/musicxml";
+import * as MusicXml from "../../../models/files/musicxml";
 
 const importMusicXML = async (fileName: string) => {
   const arrayBuffer = fs.readFileSync(
@@ -17,8 +17,8 @@ const importMusicXML = async (fileName: string) => {
       "fixtures",
       "files",
       "musicxml",
-      `${fileName}.mxl`
-    )
+      `${fileName}.mxl`,
+    ),
   );
   const zip = await new JSZip().loadAsync(arrayBuffer);
   const meta = await zip.files["META-INF/container.xml"]?.async("text");
@@ -30,7 +30,7 @@ const importMusicXML = async (fileName: string) => {
   if (!pathName) return;
   const data = await zip.files[pathName]?.async("text");
   if (!data) return;
-  return new MusicXml.MXL(
+  return new MusicXml.MusicXML(
     (await new xml2js.Parser({
       explicitArray: true,
       explicitCharkey: true,
@@ -39,23 +39,23 @@ const importMusicXML = async (fileName: string) => {
       attrValueProcessors: [parseNumbers],
     }).parseStringPromise(data)) as {
       ["score-partwise"]: ScorePartwise[0];
-    }
+    },
   ).toSheet();
 };
 
 test("quarter_middle_c", async () =>
   expect(await importMusicXML("quarter_middle_c")).toEqual(
-    (await importCore("quarter_middle_c")).toSheet()
+    (await importCore("quarter_middle_c")).toSheet(),
   ));
 test("8th_middle_c", async () =>
   expect(await importMusicXML("8th_middle_c")).toEqual(
-    (await importCore("8th_middle_c")).toSheet()
+    (await importCore("8th_middle_c")).toSheet(),
   ));
 test("beat_4", async () =>
   expect(await importMusicXML("beat_4")).toEqual(
-    (await importCore("beat_4")).toSheet()
+    (await importCore("beat_4")).toSheet(),
   ));
 test("c_major_chord", async () =>
   expect(await importMusicXML("c_major_chord")).toEqual(
-    (await importCore("c_major_chord")).toSheet()
+    (await importCore("c_major_chord")).toSheet(),
   ));

@@ -19,7 +19,11 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [scale, setScale] = useAtom(scaleAtom);
   const reference = useRef<HTMLDivElement | null>(null);
   const controller = useMemo(() => {
-    const controller = new SMUFL.Controller(score, { scale, layoutType });
+    const controller = new SMUFL.Controller(score, {
+      scale,
+      layoutType,
+      debug: false,
+    });
     controller.onChangeScale = (value) => setScale(value);
     controller.onChangeLayoutType = (value) => setLayoutType(value);
     return controller;

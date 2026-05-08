@@ -49,7 +49,7 @@ export class Stave {
     );
   }
   get y() {
-    return this.id * this.height + (this.id - 1) * 6.5;
+    return this.id * this.height + this.id * 6.5;
   }
   get prev() {
     return this.bar.prev?.staves[this.id];

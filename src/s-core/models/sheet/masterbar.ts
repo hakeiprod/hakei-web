@@ -13,6 +13,9 @@ export class Masterbar extends Core.Event {
       this.row.masterbars[this.row.masterbars.indexOf(this) - 1]?.right ?? 0
     );
   }
+  get y(): number {
+    return this.row.y;
+  }
   get right() {
     return this.x + this.width;
   }
