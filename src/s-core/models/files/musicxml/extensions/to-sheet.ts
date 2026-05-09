@@ -28,11 +28,10 @@ declare module ".." {
 }
 export const toSheet = function (this: MusicXML) {
   if (process.env.NODE_ENV === "development") console.log({ mxl: this });
-  const a = this.data["score-partwise"].$$.find(Boolean);
   const { keysignatures, timesignatures, tracks, bars, staves, tempos } =
-    this.data["score-partwise"].$$.part?.reduce(
+    this.data["score-partwise"]?.part?.reduce(
       (partAccumulator, current, trackId) => {
-        const scorePart = this.data["score-partwise"].$$["part-list"]?.[0].$$[
+        const scorePart = this.data["score-partwise"]?.["part-list"]?.[0].$$[
           "score-part"
         ]?.find((scorePart) => scorePart.$?.id === current.$?.id);
         const partName = scorePart?.$$["part-name"]?.[0];

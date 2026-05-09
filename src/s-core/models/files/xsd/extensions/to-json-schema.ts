@@ -28,6 +28,7 @@ export const xsdToJsonSchema = async () => {
           $ref: "#/$defs/musicxml/element/score-partwise",
         },
       },
+      required: ["score-partwise"],
       $defs: {
         xlink: {
           attribute: R.pipe(
@@ -348,12 +349,7 @@ function handleSequence(
     return {
       ...((elements || groups || choices || sequence) && {
         oneOf: [
-          ...(elements
-            ? R.pipe(
-                elements,
-                R.map((element) => handleElement(element)),
-              )
-            : []),
+          ...(elements ? R.pipe(elements, R.map(handleElement)) : []),
           ...R.pipe(
             groups ?? [],
             R.map((group) => handleGroup(group, preserveChildrenOrder)),
@@ -378,7 +374,10 @@ function handleSequence(
                 properties: R.pipe(
                   elements,
                   R.map((element) => handleElement(element)),
-                  R.mapToObj(({ title, ...other }) => [title, other]),
+                  R.mapToObj(({ title, ...other }) => [
+                    title,
+                    { type: "array", items: other },
+                  ]),
                 ),
                 // required: R.pipe(
                 //   elements,
@@ -414,40 +413,25 @@ function handleElement({
       : isNullish(maxOccurs)
         ? 1
         : Number(maxOccurs);
-  const isArray = max === undefined || max > 1;
-  const schema = {
+  return {
     title: name,
-    allOf: [
-      ...(type
-        ? [
-            (() => {
-              const typee = handleType(type);
-              if (typee.$ref) {
-                return isSimpleType(type)
-                  ? { properties: { _: typee }, required: ["_"] }
-                  : typee;
-              } else return { properties: { _: typee }, required: ["_"] };
-            })(),
-          ]
-        : []),
-      ...(complexType ? [handleComplexType(complexType)] : []),
-      ...(preserveChildrenOrder
-        ? [{ properties: { ["#name"]: { const: name } } }]
-        : []),
-    ],
+    ...(type &&
+      (() => {
+        const typee = handleType(type);
+        if (typee.$ref) {
+          return isSimpleType(type)
+            ? { properties: { _: typee }, required: ["_"] }
+            : typee;
+        } else return { properties: { _: typee }, required: ["_"] };
+      })()),
+    ...(complexType && handleComplexType(complexType)),
+    ...(preserveChildrenOrder && {
+      properties: { ["#name"]: { const: name } },
+    }),
     ...(annotation && handleAnnotation(annotation)),
+    ...(min !== 0 && { minItems: min }),
+    ...(isNonNullish(max) && { maxItems: max }),
   };
-  // if ("score-partwise" === name)
-  //   console.log(schema.allOf[0].allOf[1].properties.$$.items.oneOf[0]);
-  return isArray
-    ? {
-        title: name,
-        type: "array",
-        items: schema,
-        ...(min !== 0 && { minItems: min }),
-        ...(isNonNullish(max) && { maxItems: max }),
-      }
-    : schema;
 }
 function handleChoice({ $, $$ }: Choice): JSONSchema {
   const elements = $$["xs:element"];
@@ -531,25 +515,6 @@ function handleComplexType({ $, $$ }: ComplexType): JSONSchema {
   return {
     ...($?.name && { title: $.name }),
     ...(annotation && handleAnnotation(annotation)),
-    // ...((choice || sequence || group) && {
-    //   allOf: [
-    //     ...(choice ? [handleChoice(choice)] : []),
-    //     ...(sequence ? [handleSequence(sequence)] : []),
-    //     ...(group ? [handleGroup(group)] : []),
-    //     ...R.pipe(attributeGroups ?? [], R.map(handleAttributeGroup)),
-    //     ...(attributes
-    //       ? [
-    //           {
-    //             properties: R.pipe(
-    //               attributes,
-    //               R.map(handleAttribute),
-    //               R.mapToObj(({ title, ...other }) => [title, other]),
-    //             ),
-    //           },
-    //         ]
-    //       : []),
-    //   ],
-    // }),
     allOf: [
       ...(preserveChildrenOrder
         ? [

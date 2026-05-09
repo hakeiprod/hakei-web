@@ -3,7 +3,7 @@ import { Part } from "./part";
 
 export class Measure {
   get musicData() {
-    return this.data.$$;
+    return this.data;
   }
   get attributes() {
     return prop(this.musicData, "attributes");
@@ -12,7 +12,7 @@ export class Measure {
     return;
   }
   constructor(
-    public data: NonNullable<Part["data"]["$$"]["measure"]>[number],
+    public data: NonNullable<Part["data"]["measure"]>[number],
     public part: Part,
   ) {}
 }

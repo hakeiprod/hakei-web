@@ -9,10 +9,10 @@ export class Part {
     );
   }
   constructor(
-    public data: NonNullable<ScorePartwise["data"]["$$"]["part"]>[number],
+    public data: NonNullable<ScorePartwise["data"]["part"]>[number],
     public scorePartwise: ScorePartwise,
   ) {
-    this.mesures = this.data.$$.measure?.map(
+    this.mesures = this.data.measure?.map(
       (measure) => new Measure(measure, this),
     );
   }
