@@ -20,7 +20,7 @@ export class ScientificPitchNotation extends ValueObject<string> {
   }
   toMidiNoteNumber() {
     return new MidiNoteNumber(
-      (this.octave + 1) * 12 + this.pitchClassName.toPitchClass().value
+      (this.octave + 1) * 12 + this.pitchClassName.toPitchClass().value,
     );
   }
   static readonly MIDDLE_C = "C4";

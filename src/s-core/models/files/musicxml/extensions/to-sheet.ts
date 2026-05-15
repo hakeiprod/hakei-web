@@ -1,3 +1,4 @@
+import { i } from "framer-motion/dist/types.d-BJcRxCew";
 import {
   add,
   defaultTo,
@@ -250,6 +251,66 @@ export const toSheet = function (this: MusicXML) {
     tracks,
     bars,
   };
+
+  Sheet.Score.import({
+    name: this.name ?? "",
+    rows: [],
+    timesignatures:
+      this.scorePartwise.parts?.[0].times.map((time) => ({
+        denominator: time.denominator,
+        numerator: time.numerator,
+        start: time.start,
+        duration: time.duration,
+        end: time.end,
+      })) ?? [],
+    keysignatures:
+      this.scorePartwise.parts?.[0].keys.map((key) => ({
+        accidental: key.fifths ?? 0,
+        tonality:
+          key.mode === "minor"
+            ? Core.Enums.Tonality.Minor
+            : Core.Enums.Tonality.Major,
+        start: key.start,
+        duration: key.duration,
+        end: key.end,
+      })) ?? [],
+    tempo:
+      this.scorePartwise.parts?.[0].tempos.map((tempo) => ({
+        value: tempo.tempo,
+        start: tempo.start,
+        duration: tempo.duration,
+        end: tempo.end,
+      })) ?? [],
+    tracks:
+      this.scorePartwise.parts?.map((part) => ({
+        id: Number(part.data.$?.id),
+        name: part.scorePart?.partName ?? "",
+        preset: 0,
+        staffDetails: <StaffDetails>{ "staff-lines": [{ _: 5 }] },
+        start: part.start,
+        duration: part.end - part.start,
+        end: part.end,
+      })) ?? [],
+    bars: this.scorePartwise.measures.map((measure, id) => ({
+      id,
+      trackId: Number(measure.part.data.$?.id),
+    })),
+    notes: this.scorePartwise.notes.map((note, id) => ({
+      id,
+      staveId: note.staff,
+      beam: prop(note, "musicData", "data", "beam"),
+      rest: note.rest,
+      voice: note.voice,
+      velocity: 102,
+      trackId: note.measure.part.data.$!.id,
+      pitch: note.pitch.toMidiNoteNumber().value,
+      alter: prop(note, "musicData", "data", "pitch", 0, "alter", 0, "_"),
+      stem: prop(note, "musicData", "data", "stem"),
+      start: 0,
+      duration: 0,
+      end: 0,
+    })),
+  });
 
   return Sheet.Score.create(parameters);
 };

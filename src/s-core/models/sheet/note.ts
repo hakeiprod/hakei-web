@@ -1,11 +1,7 @@
 import { isIncludedIn, map, pipe, prop, times } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
-import {
-  Note as MxlNote,
-  NoteType,
-  Stem,
-} from "../../const/musicxml/4.0/musicxml";
+import { Note as MxlNote, Stem, Type } from "../../const/musicxml/4.0/musicxml";
 import * as Core from "../core";
 
 export class Note extends Core.Note {
@@ -16,7 +12,6 @@ export class Note extends Core.Note {
   rest;
   voice;
   beam;
-  flag: null = null;
   alter;
   ligature = new Sheet.Ligature();
   score!: Sheet.Score;
@@ -71,7 +66,7 @@ export class Note extends Core.Note {
     );
   }
   get type() {
-    return <NoteType>{
+    return <Type>{
       _: match(Math.pow(2, Math.floor(Math.log2(this.duration.value))))
         .with(4, () => "whole")
         .with(2, () => "half")
@@ -117,7 +112,6 @@ export class Note extends Core.Note {
   get noteheadGlyph() {
     return this.ligature.glyphLists
       .flat()
-      .flat()
       .find((glyph) => glyph.type === Sheet.ElementType.Notehead);
   }
   constructor(
@@ -127,7 +121,7 @@ export class Note extends Core.Note {
       chordId?: number;
       stem?: Stem;
       rest?: boolean;
-      beam?: MxlNote["$$"]["beam"];
+      beam?: MxlNote["beam"];
       alter?: number;
       voice: number;
     } & ConstructorParameters<typeof Core.Note>[0],
@@ -173,7 +167,6 @@ export class Note extends Core.Note {
       rest: this.rest,
       voice: this.voice,
       beam: this.beam,
-      flag: this.flag,
       alter: this.alter,
     };
   }

@@ -65,6 +65,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
       )
       .attr("width", ligature.width)
       .call((g) => handleGlyphs(g.node(), ligature.glyphLists.flat()));
+    ligature.onClassListChange = () => g.attr("class", ligature.classList);
   }
   function handleGlyphs(ds: d3.BaseType | SVGGElement, glyphs: Sheet.Glyph[]) {
     const g = d3.select(ds);

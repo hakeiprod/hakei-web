@@ -33,7 +33,7 @@ export class Importer {
           valueProcessors: [parseNumbers],
           attrValueProcessors: [parseNumbers],
         }).parseStringPromise(data)) as {
-          ["score-partwise"]: ScorePartwise[number];
+          ["score-partwise"]: ScorePartwise[0];
         },
       ).toSheet();
     } else if (extname === ".json")

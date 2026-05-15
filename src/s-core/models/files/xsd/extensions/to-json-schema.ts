@@ -354,7 +354,10 @@ function handleSequence(
             groups ?? [],
             R.map((group) => handleGroup(group, preserveChildrenOrder)),
           ),
-          ...R.pipe(choices ?? [], R.map(handleChoice)),
+          ...R.pipe(
+            choices ?? [],
+            R.map((choice) => handleChoice(choice, preserveChildrenOrder)),
+          ),
           ...R.pipe(
             sequence ?? [],
             R.map((sequence) =>
@@ -374,10 +377,7 @@ function handleSequence(
                 properties: R.pipe(
                   elements,
                   R.map((element) => handleElement(element)),
-                  R.mapToObj(({ title, ...other }) => [
-                    title,
-                    { type: "array", items: other },
-                  ]),
+                  R.mapToObj(({ title, ...other }) => [title, other]),
                 ),
                 // required: R.pipe(
                 //   elements,
@@ -406,40 +406,73 @@ function handleElement({
 }: Element): SetRequired<JSONSchema, "title"> {
   const annotation = $$?.["xs:annotation"]?.[0];
   const complexType = $$?.["xs:complexType"]?.[0];
-  const min = isNonNullish(minOccurs) ? Number(minOccurs) : 0;
-  const max =
-    maxOccurs === "unbounded"
-      ? undefined
-      : isNullish(maxOccurs)
-        ? 1
-        : Number(maxOccurs);
   return {
     title: name,
-    ...(type &&
-      (() => {
-        const typee = handleType(type);
-        if (typee.$ref) {
-          return isSimpleType(type)
-            ? { properties: { _: typee }, required: ["_"] }
-            : typee;
-        } else return { properties: { _: typee }, required: ["_"] };
-      })()),
-    ...(complexType && handleComplexType(complexType)),
-    ...(preserveChildrenOrder && {
-      properties: { ["#name"]: { const: name } },
-    }),
-    ...(annotation && handleAnnotation(annotation)),
-    ...(min !== 0 && { minItems: min }),
-    ...(isNonNullish(max) && { maxItems: max }),
+    type: "array",
+    ...(minOccurs || maxOccurs
+      ? {
+          ...(minOccurs && { minItems: Number(minOccurs) }),
+          ...(maxOccurs === undefined || maxOccurs === "unbounded"
+            ? {}
+            : { maxItems: Number(maxOccurs) }),
+        }
+      : {
+          minItems: 1,
+          maxItems: 1,
+        }),
+    items: {
+      title: name,
+      allOf: [
+        ...(type
+          ? [
+              (() => {
+                const typee = handleType(type);
+                if (typee.$ref) {
+                  return isSimpleType(type)
+                    ? { properties: { _: typee }, required: ["_"] }
+                    : typee;
+                } else return { properties: { _: typee }, required: ["_"] };
+              })(),
+            ]
+          : []),
+        ...(complexType ? [handleComplexType(complexType)] : []),
+        ...(preserveChildrenOrder
+          ? [
+              {
+                properties: { ["#name"]: { const: name } },
+              },
+            ]
+          : []),
+      ],
+      ...(annotation && handleAnnotation(annotation)),
+    },
   };
 }
-function handleChoice({ $, $$ }: Choice): JSONSchema {
+function handleChoice(
+  { $, $$ }: Choice,
+  preserveChildrenOrder: boolean = false,
+): JSONSchema {
   const elements = $$["xs:element"];
   const sequence = $$["xs:sequence"];
   const groups = $$["xs:group"];
   const choices = $$["xs:choice"];
   const minOccurs = $?.minOccurs;
   const maxOccurs = $?.maxOccurs;
+  if (preserveChildrenOrder)
+    return {
+      ...(elements && {
+        oneOf: R.pipe(
+          elements ?? [],
+          R.map(
+            (element) =>
+              handleElement({
+                ...element,
+                $: { ...element.$, minOccurs, maxOccurs },
+              }).items,
+          ),
+        ),
+      }),
+    };
   return {
     oneOf: [
       ...R.pipe(
