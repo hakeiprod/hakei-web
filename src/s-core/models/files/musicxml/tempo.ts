@@ -1,4 +1,4 @@
-import { prop } from "remeda";
+import { firstBy, prop } from "remeda";
 import { MusicData } from "./music-data";
 import { Part } from "./part";
 
@@ -12,11 +12,13 @@ export class Tempo {
   get end() {
     return (
       this.part.tempos[this.part.tempos.indexOf(this) + 1]?.start ??
-      this.part.end
+      firstBy(this.part.scorePartwise.parts ?? [], [prop("end"), "desc"])
+        ?.end ??
+      0
     );
   }
   get tempo() {
-    return prop(this.musicData, "data", "sound", 0, "$", "tempo");
+    return prop(this.musicData, "data", "sound", 0, "$", "tempo") ?? 120;
   }
   constructor(
     public musicData: MusicData,

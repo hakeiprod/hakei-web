@@ -1,6 +1,6 @@
 import { P, match } from "ts-pattern";
 import * as SMUFL from ".";
-import { Barline, Clef, NoteType } from "../../const/musicxml/4.0/musicxml";
+import { Barline, Clef, NormalType } from "../../const/musicxml/4.0/musicxml";
 import { BoundingBox } from "../boundingbox";
 import * as Sheet from "../sheet";
 
@@ -51,7 +51,7 @@ export class Glyph<
   }
 
   static findClef(clef: Clef) {
-    return match(clef.$$.sign![0]._)
+    return match(clef.sign![0]._)
       .with("G", () => "gClef" as const)
       .with("F", () => "fClef" as const)
       .with("C", () => "cClef" as const)
@@ -64,7 +64,7 @@ export class Glyph<
       .exhaustive();
   }
 
-  static findRest(type: NoteType) {
+  static findRest(type: NormalType) {
     return match(type._)
       .with("breve", () => "restDoubleWhole" as const)
       .with("long", () => "restLonga" as const)
@@ -83,7 +83,7 @@ export class Glyph<
       .exhaustive();
   }
 
-  static findNotehead(type: NoteType) {
+  static findNotehead(type: NormalType) {
     return match(type._)
       .with("breve", () => "noteheadDoubleWhole" as const)
       .with("long", () => "noteheadWhole" as const)
@@ -108,7 +108,7 @@ export class Glyph<
   }
 
   static findBarline(type: Barline) {
-    return match(type.$$["bar-style"]![0]!._)
+    return match(type["bar-style"]?.[0]._)
       .with("light-heavy", () => "barlineFinal" as const)
       .with("light-light", () => "barlineDouble" as const)
       .with("heavy-light", () => "barlineReverseFinal" as const)

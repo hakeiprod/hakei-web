@@ -1,25 +1,36 @@
-import { isDefined, prop } from "remeda";
+import { filter, isDefined, last, pipe, prop } from "remeda";
 import { Measure } from "./measure";
 
 export class MusicData {
+  get start(): number {
+    return (
+      this.measure.part.musicDatas[
+        this.measure.part.musicDatas.indexOf(this) - 1
+      ]?.end ?? 0
+    );
+  }
   get end() {
-    return this.start + (this.duration ?? 0);
+    return this.start + this.duration;
   }
   get duration() {
-    if (!this.division) return;
-    if (this._duration == null) return;
-    return this._duration / this.division;
+    const duration = (prop(this.data, "duration", 0, "_") as number) ?? 0;
+    if (duration === 0 || this.division === 0) return 0;
+    return duration / this.division;
   }
   get division() {
     return (
       (prop(
-        this.measure.part.data.measure
-          ?.slice(0, this.measure.part.data.measure.indexOf(this.measure.data))
-          .findLast((measure) =>
-            isDefined(prop(measure, "attributes", 0, "divisions")),
+        pipe(
+          this.measure.part.musicDatas.slice(
+            0,
+            this.measure.part.musicDatas.indexOf(this),
           ),
-        "attributes",
-        0,
+          filter((musicData) =>
+            isDefined(prop(musicData, "data", "divisions")),
+          ),
+          last(),
+        ),
+        "data",
         "divisions",
         0,
         "_",
@@ -29,7 +40,5 @@ export class MusicData {
   constructor(
     public data: NonNullable<Measure["data"]["$$"]>[0],
     public measure: Measure,
-    public start: number = 0,
-    public _duration: number = 0,
   ) {}
 }

@@ -89,13 +89,13 @@ export class Stave {
       this.word.append([
         new Sheet.Glyph(
           Sheet.ElementType.Clef,
-          this.resolveClefs()[0]?.$$.line?.[0]?._ ?? 0,
+          this.resolveClefs()[0]?.line?.[0]?._ ?? 0,
         ),
       ]);
     if (this.bar.masterbar.isFirst) {
       const keysignatureLigature = new Sheet.Ligature(
         (this.bar.keysignature.ligature.line = match(
-          this.resolveClefs()[0]?.$$.sign![0]._,
+          this.resolveClefs()[0]?.sign![0]._,
         )
           .with("G", () => 0.5)
           .with("F", () => -0.5)
@@ -117,7 +117,7 @@ export class Stave {
   }
   getClefScientificPitchNotation() {
     return new Core.Units.ScientificPitchNotation(
-      match(this.resolveClefs()[0]?.$$.sign![0]._)
+      match(this.resolveClefs()[0]?.sign![0]._)
         .with("G", (value) => `${value}4`)
         .with("F", (value) => `${value}3`)
         .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {

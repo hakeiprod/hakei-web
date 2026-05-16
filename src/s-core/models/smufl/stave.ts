@@ -15,7 +15,7 @@ export class Stave extends Sheet.Stave {
     return super.notes as SMUFL.Note[];
   }
   override get height() {
-    return (this.track.staffDetails.$$["staff-lines"]?.[0]._ ?? 0) - 1;
+    return (this.track.staffDetails["staff-lines"]?.[0]._ ?? 0) - 1;
   }
   override get slots() {
     return super.slots as SMUFL.Slot[];

@@ -6,10 +6,26 @@ import { Part } from "./part";
 export class Measure {
   notes;
   musicDatas?: MusicData[];
+  get staveCount() {
+    return (
+      prop(
+        this.musicDatas?.find(
+          (musicData) => musicData.data["#name"] === "attributes",
+        ),
+        "data",
+        "staves",
+        0,
+        "_",
+      ) ?? 1
+    );
+  }
   get start() {
     return (
       firstBy(this.notes, prop("musicData", "start"))?.musicData.start ?? 0
     );
+  }
+  get duration() {
+    return this.end - this.start;
   }
   get end() {
     return (
@@ -21,27 +37,7 @@ export class Measure {
     public data: NonNullable<Part["data"]["measure"]>[number],
     public part: Part,
   ) {
-    this.musicDatas = data.$$?.reduce(
-      (accumulator, current) => {
-        accumulator.musicDatas.push(
-          new MusicData(
-            current,
-            this,
-            accumulator.prev?.end,
-            prop(current, "duration", 0, "_") as number,
-          ),
-        );
-        accumulator.prev = accumulator.musicDatas.at(-1)!;
-        return accumulator;
-      },
-      {
-        musicDatas: [],
-        prev: null,
-      } as {
-        musicDatas: MusicData[];
-        prev: MusicData | null;
-      },
-    ).musicDatas;
+    this.musicDatas = data.$$?.map((current) => new MusicData(current, this));
     this.notes = pipe(
       this.musicDatas ?? [],
       filter((musicData) => musicData.data["#name"] === "note"),

@@ -18,6 +18,9 @@ export class Part {
   get musicDatas() {
     return this.measures.flatMap(prop("musicDatas"));
   }
+  get notes() {
+    return this.measures.flatMap(prop("notes"));
+  }
   get start() {
     return firstBy(this.measures, prop("start"))?.start ?? 0;
   }
