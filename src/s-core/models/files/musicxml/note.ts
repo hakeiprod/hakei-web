@@ -4,8 +4,12 @@ import { Measure } from "./measure";
 import { MusicData } from "./music-data";
 
 export class Note {
+  chordId: number | undefined;
   get staff() {
     return prop(this.musicData, "data", "staff", 0, "_") ?? 1;
+  }
+  get chord() {
+    return isDefined(prop(this.musicData, "data", "chord"));
   }
   get rest() {
     return isDefined(prop(this.musicData, "data", "rest"));
@@ -22,6 +26,12 @@ export class Note {
   }
   get voice() {
     return Number(prop(this.musicData, "data", "voice", "0", "_") ?? 1);
+  }
+  get prev() {
+    return this.measure.notes[this.measure.notes.indexOf(this) - 1];
+  }
+  get next() {
+    return this.measure.notes[this.measure.notes.indexOf(this) + 1];
   }
   constructor(
     public musicData: MusicData,

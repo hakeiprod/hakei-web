@@ -1,11 +1,8 @@
 import { firstBy, prop } from "remeda";
 import * as Sheet from ".";
 import * as Core from "../core";
-export class Chord extends Core.Event {
+export class Chord extends Core.Event<{ id: number }> {
   readonly id;
-  staveId;
-  trackId;
-  voice;
   score!: Sheet.Score;
   get notes() {
     return this.score.notes.filter((note) => note.chordId === this.id);
@@ -16,35 +13,24 @@ export class Chord extends Core.Event {
   get end() {
     return firstBy(this.notes, [prop("end"), "desc"])!.end;
   }
-  constructor({
-    id,
-    staveId,
-    trackId,
-    voice,
-    ...event
-  }: {
-    id: number;
-    staveId: number;
-    trackId: number;
-    voice: number;
-  }) {
+  get staveId() {
+    return this.notes[0].staveId!;
+  }
+  get trackId() {
+    return this.notes[0].trackId!;
+  }
+  get voice() {
+    return this.notes[0].voice;
+  }
+  constructor({ id, ...event }: { id: number }) {
     super(event);
     this.id = id;
-    this.staveId = staveId;
-    this.trackId = trackId;
-    this.voice = voice;
   }
   serialize() {
-    return {
-      ...super.serialize(),
-      id: this.id,
-      staveId: this.staveId,
-      trackId: this.trackId,
-      voice: this.voice,
-    };
+    return { id: this.id };
   }
   export() {
-    return { ...super.export(), ...this.serialize() };
+    return this.serialize();
   }
   static import(data: ReturnType<Chord["export"]>) {
     return new Chord(data);

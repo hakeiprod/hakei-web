@@ -8,20 +8,16 @@ export class MusicData {
         this.measure.part.musicDatas.indexOf(this) - 1
       ];
     if (prop(this.data, "chord")) return previousMusicData?.start ?? 0;
-    if (this.data["#name"] === "backup")
-      return (
-        (previousMusicData?.end ?? 0) -
-        (prop(this.data, "duration", 0, "_") ?? 0)
-      );
     return previousMusicData?.end ?? 0;
   }
   get end() {
     return this.start + this.duration;
   }
   get duration() {
-    const duration = (prop(this.data, "duration", 0, "_") as number) ?? 0;
-    if (duration === 0 || this.division === 0) return 0;
-    return duration / this.division;
+    const duration =
+      ((prop(this.data, "duration", 0, "_") as number) ?? 0) / this.division;
+    if (this.data["#name"] === "backup") return -duration;
+    return duration;
   }
   get division() {
     return (
@@ -40,7 +36,7 @@ export class MusicData {
         "divisions",
         0,
         "_",
-      ) as number) ?? 0
+      ) as number) ?? 1
     );
   }
   constructor(

@@ -1,4 +1,14 @@
-import { firstBy, prop, times } from "remeda";
+import {
+  firstBy,
+  isEmpty,
+  length,
+  map,
+  pipe,
+  prop,
+  times,
+  unique,
+  when,
+} from "remeda";
 import MusicXML from "..";
 import { StaffDetails } from "../../../../const/musicxml/4.0/musicxml";
 import * as Core from "../../../core";
@@ -11,23 +21,23 @@ declare module ".." {
 }
 export const toSheet = function (this: MusicXML) {
   if (process.env.NODE_ENV === "development") console.log({ mxl: this });
-  const score = Sheet.Score.import({
+  return Sheet.Score.import({
     name: this.name ?? "",
     rows: [],
-    chords: [],
     notes:
       this.scorePartwise.parts?.flatMap((part, trackId) =>
         part.notes.map((note, id) => ({
           id,
           trackId,
           staveId: note.staff - 1,
+          chordId: note.chordId,
           beam: prop(note, "musicData", "data", "beam"),
           rest: note.rest,
           voice: note.voice,
           velocity: 102,
           pitch: note.pitch.toMidiNoteNumber().value,
           alter: prop(note, "musicData", "data", "pitch", 0, "alter", 0, "_"),
-          stem: prop(note, "musicData", "data", "stem"),
+          stem: prop(note, "musicData", "data", "stem", 0),
           start: note.musicData.start,
           duration: note.musicData.duration,
           end: note.musicData.end,
@@ -62,15 +72,25 @@ export const toSheet = function (this: MusicXML) {
         duration: key.duration,
         end: key.end,
       })) ?? [],
-    tempos:
-      this.scorePartwise.parts?.[0].tempos.map((tempo) => ({
+    tempos: pipe(
+      this.scorePartwise.parts?.[0].tempos ?? [],
+      map((tempo) => ({
         value: tempo.tempo,
         start: tempo.start,
         duration: tempo.duration,
         end: tempo.end,
-      })) ?? [],
+      })),
+      when(isEmpty, () => [
+        {
+          value: 120,
+          start: this.scorePartwise.start,
+          end: this.scorePartwise.end,
+          duration: this.scorePartwise.duration,
+        },
+      ]),
+    ),
     masterbars:
-      firstBy(this.scorePartwise.parts ?? [], [
+      firstBy(this.scorePartwise.parts, [
         prop("measures"),
         "desc",
       ])?.measures.map((measure, id) => ({
@@ -80,22 +100,29 @@ export const toSheet = function (this: MusicXML) {
         duration: measure.duration,
         end: measure.end,
       })) ?? [],
-    bars:
-      this.scorePartwise.parts?.flatMap((part, trackId) =>
-        part.measures.map((_, id) => ({ id, trackId })),
-      ) ?? [],
-    staves:
-      this.scorePartwise.parts?.flatMap((part, trackId) =>
-        part.measures.flatMap((measure, barId) =>
-          times(measure.staveCount, (id) => ({
-            id,
-            barId,
-            trackId,
-            clefs: prop(measure, "data", "attributes", 0, "clef"),
-          })),
-        ),
-      ) ?? [],
+    bars: this.scorePartwise.parts.flatMap((part, trackId) =>
+      part.measures.map((_, id) => ({ id, trackId })),
+    ),
+    staves: this.scorePartwise.parts.flatMap((part, trackId) =>
+      part.measures.flatMap((measure, barId) =>
+        times(measure.staveCount, (id) => ({
+          id,
+          barId,
+          trackId,
+          clefs: prop(measure, "data", "attributes", 0, "clef"),
+        })),
+      ),
+    ),
+    chords: pipe(
+      this.scorePartwise.notes,
+      map(prop("chordId")),
+      unique(),
+      length(),
+      times((id) => ({ id })),
+    ),
+    slots: [],
+    start: 0,
+    duration: 0,
+    end: 0,
   });
-  console.log(score);
-  return score;
 };

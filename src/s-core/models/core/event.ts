@@ -1,6 +1,6 @@
 import { Beat } from "./units/beat";
 
-export class Event {
+export class Event<T = { start: number; duration: number; end: number }> {
   _start;
   _duration;
   _end;
@@ -26,12 +26,12 @@ export class Event {
     this._duration = duration;
     this._end = end;
   }
-  serialize() {
+  serialize(): T {
     return {
       start: this.start.value,
       duration: this.duration.value,
       end: this.end.value,
-    };
+    } as T;
   }
   export() {
     return this.serialize();

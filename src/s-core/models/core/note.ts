@@ -11,7 +11,7 @@ export class Note extends Core.Event {
   }
   get keysignature() {
     return this.score.keysignatures.find((keysignature) =>
-      keysignature.isOverlapped(this)
+      keysignature.isOverlapped(this),
     )!;
   }
   get track() {
@@ -23,7 +23,7 @@ export class Note extends Core.Event {
       trackId: number;
       velocity: number;
       pitch: Core.Units.MidiNoteNumber;
-    } & ConstructorParameters<typeof Core.Event>[0]
+    } & ConstructorParameters<typeof Core.Event>[0],
   ) {
     const { id, trackId, pitch, velocity } = note;
     super(note);
@@ -34,11 +34,13 @@ export class Note extends Core.Event {
   }
   serialize() {
     return {
-      ...super.serialize(),
       id: this.id,
       trackId: this.trackId,
       pitch: this.pitch.value,
       velocity: this.velocity,
+      start: this.start.value,
+      duration: this.duration.value,
+      end: this.end.value,
     };
   }
   export() {
