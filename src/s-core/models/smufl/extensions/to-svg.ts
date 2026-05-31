@@ -25,7 +25,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
   const tooltip = new Tooltip(svg);
   function renderRect(
     ds: d3.BaseType | SVGGElement,
-    boundingBox: Omit<BoundingBox, "x" | "y">,
+    boundingBox: BoundingBox,
     data: Record<string, unknown>,
     color: string,
   ) {
@@ -38,6 +38,8 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
       .style("stroke-width", "0.1")
       .attr("width", () => boundingBox.width)
       .attr("height", () => boundingBox.height)
+      .attr("x", boundingBox.x)
+      .attr("y", boundingBox.y)
       .on("mouseenter", function () {
         d3.select(this).style("fill", color).style("fill-opacity", 0.25);
         tooltip.visible(JSON.stringify(data));
@@ -113,7 +115,17 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
             .each(function (masterbar) {
               const g = d3.select(this);
               if (options.debug)
-                renderRect(this, masterbar, masterbar.export(), "red");
+                renderRect(
+                  this,
+                  {
+                    width: masterbar.width,
+                    height: masterbar.height,
+                    x: 0,
+                    y: 0,
+                  },
+                  masterbar.export(),
+                  "red",
+                );
               g.selectAll("g[type=track]")
                 .data(masterbar.score.tracks)
                 .join("g")
@@ -291,79 +303,143 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                   if (options.debug)
                                     renderRect(
                                       this,
-                                      slot,
+                                      {
+                                        width: slot.width,
+                                        height: slot.height,
+                                        x: 0,
+                                        y: 0,
+                                      },
                                       slot.export(),
                                       "green",
                                     );
-                                  g.selectAll("g[type=note]")
+                                  g.selectAll("g[type=chord]")
                                     .data(
-                                      slot.getTrackStaveNotesOrChords(
+                                      slot.getTrackStaveChords(
                                         track.id,
                                         stave.id,
                                       ),
                                     )
                                     .join("g")
-                                    .attr("type", "note")
-                                    .attr("note.line", (note) => note.line)
-                                    .attr("note.linetoSVG", (note) =>
-                                      lineToSVG(note.line),
-                                    )
-                                    .attr("transform", (note) =>
-                                      createTranslate(0, lineToSVG(note.line)),
-                                    )
-                                    .each(function (note) {
-                                      handleLigature(this, note.ligature);
-                                      const x = match(note.stem?._ ?? "none")
-                                        .with(
-                                          "up",
-                                          () =>
-                                            note.noteheadGlyph?.glyphBBox.x ??
-                                            0,
-                                        )
-                                        .with(
-                                          "down",
-                                          () =>
-                                            note.noteheadGlyph?.glyphBBox
-                                              .width ?? 0,
-                                        )
-                                        .with("double", () => {
-                                          throw new Error("wip");
-                                        })
-                                        .with("none", () => 0)
-                                        .exhaustive();
-                                      g.selectAll("path")
-                                        .data([note])
-                                        .join("path")
-                                        .attr("stroke", "black")
-                                        .attr(
-                                          "stroke-width",
-                                          SMUFL.BravuraMetadata
-                                            .engravingDefaults.stemThickness,
-                                        )
-                                        .attr(
-                                          "d",
-                                          d3.line()([
-                                            [x, lineToSVG(note.line)],
-                                            [
-                                              x,
-                                              lineToSVG(note.line) +
-                                                match(note.stem?._ ?? "none")
-                                                  .with(
-                                                    "up",
-                                                    () => -note.stemLength,
-                                                  )
-                                                  .with(
-                                                    "down",
-                                                    () => note.stemLength,
-                                                  )
-                                                  .with("double", () => {
-                                                    throw new Error("wip");
-                                                  })
-                                                  .with("none", () => 0)
-                                                  .exhaustive(),
-                                            ],
-                                          ]),
+                                    .attr("type", "chord")
+                                    .each(function (chord) {
+                                      if (options.debug)
+                                        renderRect(
+                                          this,
+                                          {
+                                            width: chord.width,
+                                            height: chord.height,
+                                            x: chord.x,
+                                            y: lineToSVG(chord.line),
+                                          },
+                                          chord.export(),
+                                          "blue",
                                         );
+                                      const g = d3.select(this);
+                                      // const x = match(chord.stem?._ ?? "none")
+                                      //   .with(
+                                      //     "up",
+                                      //     () =>
+                                      //       chord.noteheadGlyph?.glyphBBox.x ??
+                                      //       0,
+                                      //   )
+                                      //   .with(
+                                      //     "down",
+                                      //     () =>
+                                      //       chord.noteheadGlyph?.glyphBBox
+                                      //         .width ?? 0,
+                                      //   )
+                                      //   .with("double", () => {
+                                      //     throw new Error("wip");
+                                      //   })
+                                      //   .with("none", () => 0)
+                                      //   .exhaustive();
+                                      g.selectAll("g[type=note]")
+                                        .data(chord.notes)
+                                        .join("g")
+                                        .attr("type", "note")
+                                        .attr("note.line", (note) => note.line)
+                                        .attr("note.linetoSVG", (note) =>
+                                          lineToSVG(note.line),
+                                        )
+                                        .attr("transform", (note) =>
+                                          createTranslate(
+                                            0,
+                                            lineToSVG(note.line),
+                                          ),
+                                        )
+                                        .each(function (note) {
+                                          handleLigature(this, note.ligature);
+                                        });
+
+                                      // g.selectAll("g[type=note]")
+                                      //   .data(
+                                      //     slot.getTrackStaveNotesOrChords(
+                                      //       track.id,
+                                      //       stave.id,
+                                      //     ),
+                                      //   )
+                                      //   .join("g")
+                                      //   .attr("type", "note")
+                                      //   .attr("note.line", (note) => note.line)
+                                      //   .attr("note.linetoSVG", (note) =>
+                                      //     lineToSVG(note.line),
+                                      //   )
+                                      //   .attr("transform", (note) =>
+                                      //     createTranslate(0, lineToSVG(note.line)),
+                                      //   )
+                                      //   .each(function (note) {
+                                      //     handleLigature(this, note.ligature);
+                                      //     const x = match(note.stem?._ ?? "none")
+                                      //       .with(
+                                      //         "up",
+                                      //         () =>
+                                      //           note.noteheadGlyph?.glyphBBox.x ??
+                                      //           0,
+                                      //       )
+                                      //       .with(
+                                      //         "down",
+                                      //         () =>
+                                      //           note.noteheadGlyph?.glyphBBox
+                                      //             .width ?? 0,
+                                      //       )
+                                      //       .with("double", () => {
+                                      //         throw new Error("wip");
+                                      //       })
+                                      //       .with("none", () => 0)
+                                      //       .exhaustive();
+                                      //     g.selectAll("path")
+                                      //       .data([note])
+                                      //       .join("path")
+                                      //       .attr("stroke", "black")
+                                      //       .attr(
+                                      //         "stroke-width",
+                                      //         SMUFL.BravuraMetadata
+                                      //           .engravingDefaults.stemThickness,
+                                      //       )
+                                      //       .attr(
+                                      //         "d",
+                                      //         d3.line()([
+                                      //           [x, lineToSVG(note.line)],
+                                      //           [
+                                      //             x,
+                                      //             lineToSVG(note.line) +
+                                      //               match(note.stem?._ ?? "none")
+                                      //                 .with(
+                                      //                   "up",
+                                      //                   () => -note.stemLength,
+                                      //                 )
+                                      //                 .with(
+                                      //                   "down",
+                                      //                   () => note.stemLength,
+                                      //                 )
+                                      //                 .with("double", () => {
+                                      //                   throw new Error("wip");
+                                      //                 })
+                                      //                 .with("none", () => 0)
+                                      //                 .exhaustive(),
+                                      //           ],
+                                      //         ]),
+                                      //       );
                                     });
                                 });
                             });

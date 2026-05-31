@@ -1,6 +1,7 @@
 import {
   filter,
   firstBy,
+  flat,
   identity,
   isTruthy,
   map,
@@ -30,7 +31,20 @@ export class Ligature<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
     );
   }
   get height(): number {
-    throw new Error("wip");
+    return pipe(
+      this.glyphLists,
+      flat(),
+      map((glyph) => ({
+        top: glyph.line ?? 0,
+        bottom: (glyph.line ?? 0) + glyph.height,
+      })),
+      (bounds) => {
+        if (bounds.length === 0) return 0;
+        const minY = Math.min(...bounds.map((b) => b.top));
+        const maxY = Math.max(...bounds.map((b) => b.bottom));
+        return maxY - minY;
+      },
+    );
   }
   order() {
     reduce(

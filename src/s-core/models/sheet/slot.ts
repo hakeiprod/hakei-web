@@ -32,14 +32,6 @@ export class Slot extends Core.Event {
     this.beat = beat;
     this.previousSlot = previousSlot;
   }
-  getTrackStaveNotesOrChords(trackId: number, staveId: number) {
-    return this.notes.filter(
-      (note) =>
-        note.trackId === trackId &&
-        note.staveId === staveId &&
-        note.start.equal(this.beat),
-    );
-  }
   getTrackStaveChords(trackId: number, staveId: number) {
     return this.chords.filter(
       (note) =>
