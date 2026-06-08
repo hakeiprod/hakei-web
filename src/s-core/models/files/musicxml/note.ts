@@ -15,6 +15,7 @@ export class Note {
     return isDefined(prop(this.musicData, "data", "rest"));
   }
   get pitch() {
+    // TODO: alterを考慮するようにする
     return new Core.Units.ScientificPitchNotation(
       `${prop(this.musicData, "data", "pitch", 0, "step", 0, "_") ?? "C"}${
         prop(this.musicData, "data", "pitch", 0, "octave", 0, "_") ?? 0

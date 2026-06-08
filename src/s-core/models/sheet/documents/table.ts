@@ -1,7 +1,6 @@
 import {
   filter,
   firstBy,
-  flat,
   identity,
   isTruthy,
   map,
@@ -9,15 +8,13 @@ import {
   piped,
   reduce,
 } from "remeda";
-import * as Sheet from ".";
-import { Element } from "./element";
+import { Element } from "../element";
 
-export class Ligature<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
-  glyphLists: Glyph[][] = [];
-  constructor(public line?: number) {
+export class Table<T extends Element> extends Element {
+  constructor(public glyphLists: T[][] = []) {
     super();
   }
-  get width() {
+  get width(): number {
     return pipe(
       this.glyphLists,
       map(
@@ -31,20 +28,7 @@ export class Ligature<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
     );
   }
   get height(): number {
-    return pipe(
-      this.glyphLists,
-      flat(),
-      map((glyph) => ({
-        top: glyph.line ?? 0,
-        bottom: (glyph.line ?? 0) + glyph.height,
-      })),
-      (bounds) => {
-        if (bounds.length === 0) return 0;
-        const minY = Math.min(...bounds.map((b) => b.top));
-        const maxY = Math.max(...bounds.map((b) => b.bottom));
-        return maxY - minY;
-      },
-    );
+    throw new Error("unset");
   }
   order() {
     reduce(
@@ -60,12 +44,12 @@ export class Ligature<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
           }
         return current;
       },
-      null as Ligature["glyphLists"][number] | null,
+      null as Table<T>["glyphLists"][number] | null,
     );
   }
-  append(...elementLists: Glyph[][]) {
-    this.glyphLists.push(...elementLists);
-    for (const elements of elementLists)
+  append(...glyphLists: T[][]) {
+    this.glyphLists.push(...glyphLists);
+    for (const elements of glyphLists)
       for (const element of elements) element.parent = this;
   }
 }

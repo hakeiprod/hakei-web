@@ -1,9 +1,11 @@
-import { firstBy, flat, map, pipe, prop } from "remeda";
+import { filter, firstBy, flat, isTruthy, map, pipe, prop } from "remeda";
 import * as Sheet from ".";
 import * as Core from "../core";
 export class Chord extends Core.Event<{ id: number }> {
   readonly id;
   score!: Sheet.Score;
+  word = new Sheet.Word();
+  noteheadsLigature = new Sheet.Ligature();
   get notes() {
     return this.score.notes.filter((note) => note.chordId === this.id);
   }
@@ -22,13 +24,16 @@ export class Chord extends Core.Event<{ id: number }> {
   get voice() {
     return this.notes[0].voice;
   }
+  get stem() {
+    return this.notes[0].stem;
+  }
   get height() {
     return pipe(
       this.notes,
       flat(),
       map((note) => ({
         top: note.line ?? 0,
-        bottom: (note.line ?? 0) + note.ligature.height,
+        bottom: (note.line ?? 0) + note.glyph.height,
       })),
       (bounds) => {
         if (bounds.length === 0) return 0;
@@ -39,14 +44,10 @@ export class Chord extends Core.Event<{ id: number }> {
     );
   }
   get width() {
-    return firstBy(this.notes, prop("ligature", "width"))?.ligature.width ?? 0;
+    return firstBy(this.notes, prop("width"))?.width ?? 0;
   }
-
   get x() {
     return 0;
-  }
-  get y() {
-    return firstBy(this.notes, prop("line"))?.line;
   }
   get line() {
     return firstBy(this.notes, [prop("line"), "desc"])?.line ?? 0;
@@ -63,5 +64,13 @@ export class Chord extends Core.Event<{ id: number }> {
   }
   static import(data: ReturnType<Chord["export"]>) {
     return new Chord(data);
+  }
+  draw() {
+    this.noteheadsLigature.append(this.notes.map(prop("glyph")));
+    this.word.append(
+      pipe(this.notes, map(prop("accidentalGlyph")), filter(isTruthy)),
+      [this.noteheadsLigature],
+      this.notes.map(prop("dotLigature")),
+    );
   }
 }

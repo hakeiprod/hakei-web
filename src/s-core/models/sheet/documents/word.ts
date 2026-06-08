@@ -1,11 +1,11 @@
 import { firstBy, prop, reduce } from "remeda";
-import { BoundingBox } from "../boundingbox";
-import { Element } from "./element";
-import { Glyph } from "./glyph";
+import * as Sheet from "..";
+import { BoundingBox } from "../../boundingbox";
+import { Element } from "../element";
 import { Ligature } from "./ligature";
 
-export class Word extends Element {
-  public glyphOrLigatureLists: (Ligature | Glyph)[][] = [];
+export class Word<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
+  public glyphOrLigatureLists: (Ligature<Glyph> | Glyph)[][] = [];
   get width() {
     return this.glyphOrLigatureLists.reduce(
       (accumulator, current) =>
@@ -33,10 +33,6 @@ export class Word extends Element {
       0,
     );
   }
-  constructor() {
-    super();
-  }
-
   order() {
     reduce(
       this.glyphOrLigatureLists,
@@ -57,7 +53,7 @@ export class Word extends Element {
       null as Word["glyphOrLigatureLists"][number] | null,
     );
   }
-  append(...glyphOrLigatures: Word["glyphOrLigatureLists"]) {
+  append(...glyphOrLigatures: (Ligature<Glyph> | Glyph)[][]) {
     this.glyphOrLigatureLists.push(...glyphOrLigatures);
     for (const elements of glyphOrLigatures)
       for (const element of elements) if (element) element.parent = this;

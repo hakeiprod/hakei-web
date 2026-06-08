@@ -5,6 +5,7 @@ import * as SMUFL from "../smufl";
 
 export class Stave extends Sheet.Stave {
   declare score: SMUFL.Score;
+  declare word: Sheet.Word<SMUFL.Glyph>;
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
   }

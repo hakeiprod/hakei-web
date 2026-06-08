@@ -12,7 +12,8 @@ export class Glyph<
   glyphAdvancedWidth;
   glyphWithAnchor;
   get width() {
-    return this.glyphBBox.width + this.glyphAdvancedWidth;
+    return this.glyphBBox.width;
+    // + this.glyphAdvancedWidth;
   }
   get height() {
     return this.glyphBBox.height;
@@ -25,7 +26,6 @@ export class Glyph<
   }
   constructor(
     glyphName: T,
-    // isAdvanced: boolean,
     ...parameters: ConstructorParameters<typeof Sheet.Glyph>
   ) {
     super(...parameters);
@@ -36,10 +36,7 @@ export class Glyph<
       bBoxNE[0] - bBoxSW[0],
       bBoxNE[1] - bBoxSW[1],
     );
-    const isAdvanced = true;
-    this.glyphAdvancedWidth = isAdvanced
-      ? SMUFL.getGlyphAdvanceWidth(glyphName)
-      : 0;
+    this.glyphAdvancedWidth = SMUFL.getGlyphAdvanceWidth(glyphName);
     this.glyphWithAnchor = SMUFL.getGlyphWithAnchor(glyphName);
     this.glyphName = glyphName;
   }

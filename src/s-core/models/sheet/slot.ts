@@ -19,7 +19,7 @@ export class Slot extends Core.Event {
     )!;
   }
   get width() {
-    return firstBy(this.notes, [prop("width"), "desc"])?.width ?? 0;
+    return firstBy(this.chords, [prop("width"), "desc"])?.width ?? 0;
   }
   get height() {
     return 4;

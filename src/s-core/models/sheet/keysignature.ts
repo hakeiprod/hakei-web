@@ -4,8 +4,8 @@ import { ElementType } from ".";
 import musicTheory from "../../const/music-theory.json";
 import * as Core from "../core";
 import { PitchClassName } from "../core/units";
-import { Glyph } from "./glyph";
-import { Ligature } from "./ligature";
+import { Glyph } from "./documents/glyph";
+import { Ligature } from "./documents/ligature";
 
 export class Keysignature extends Core.Keysignature {
   ligature = new Ligature(undefined);

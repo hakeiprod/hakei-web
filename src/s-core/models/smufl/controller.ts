@@ -12,7 +12,6 @@ export class Controller extends Sheet.Controller {
     this.layout();
     this.space(window.innerWidth);
     this.order();
-    this.align();
     return this.score.toSVG({ ...this.options, ratio: 4 });
   }
 }

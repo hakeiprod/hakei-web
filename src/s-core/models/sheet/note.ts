@@ -1,4 +1,4 @@
-import { isIncludedIn, map, pipe, prop, times } from "remeda";
+import { isIncludedIn, isNonNull, map, pipe, prop, times } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
 import { Note as MxlNote, Stem, Type } from "../../const/musicxml/4.0/musicxml";
@@ -13,10 +13,16 @@ export class Note extends Core.Note {
   voice;
   beam;
   alter;
-  ligature = new Sheet.Ligature();
+  glyph!: Sheet.Glyph;
+  dotLigature!: Sheet.Ligature;
+  accidentalGlyph?: Sheet.Glyph;
   score!: Sheet.Score;
   get width() {
-    return this.ligature.width;
+    return (
+      this.glyph.width +
+      (this.accidentalGlyph?.width ?? 0) +
+      this.dotLigature.width
+    );
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
@@ -109,11 +115,6 @@ export class Note extends Core.Note {
   get stemLength() {
     return -1;
   }
-  get noteheadGlyph() {
-    return this.ligature.glyphLists
-      .flat()
-      .find((glyph) => glyph.type === Sheet.ElementType.Notehead);
-  }
   constructor(
     note: {
       id: number;
@@ -147,15 +148,19 @@ export class Note extends Core.Note {
     this.beam = beam;
   }
   draw() {
-    if (this.accidental)
-      this.ligature.append([new Sheet.Glyph(Sheet.ElementType.Accidental, 0)]);
-    this.ligature.append(
-      [
-        this.rest
-          ? new Sheet.Glyph(Sheet.ElementType.Rest, 0)
-          : new Sheet.Glyph(Sheet.ElementType.Notehead, 0),
-      ],
-      ...times(this.dot, () => [new Sheet.Glyph(Sheet.ElementType.Dot, 0)]),
+    if (isNonNull(this.accidental))
+      this.accidentalGlyph = new Sheet.Glyph(
+        Sheet.ElementType.Accidental,
+        this.line,
+      );
+    this.glyph = new Sheet.Glyph(
+      this.rest ? Sheet.ElementType.Rest : Sheet.ElementType.Notehead,
+      this.line,
+    );
+    this.dotLigature = new Sheet.Ligature(
+      times(this.dot, () => [
+        new Sheet.Glyph(Sheet.ElementType.Dot, this.line),
+      ]),
     );
   }
   serialize() {

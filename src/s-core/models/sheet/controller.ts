@@ -1,14 +1,4 @@
-import {
-  entries,
-  firstBy,
-  flatMap,
-  forEach,
-  groupBy,
-  length,
-  pipe,
-  prop,
-  reduce,
-} from "remeda";
+import { entries, flatMap, groupBy, length, pipe, prop, reduce } from "remeda";
 import { match } from "ts-pattern";
 import { LayoutType, Ligature, Score, Word } from "./";
 import { Row } from "./row";
@@ -26,28 +16,34 @@ type Debug =
     };
 
 export class Controller {
-  public score: Score;
   onChangeScale?: (scale: typeof this.options.scale) => void;
   onChangeLayoutType?: (scale: typeof this.options.layoutType) => void;
   onChangeDebug?: (debug: typeof this.options.debug) => void;
+  onChangeAdvanced?: (advanced: typeof this.options.advanced) => void;
   constructor(
-    score: Score,
-    public options: { scale: number; layoutType: LayoutType; debug: Debug },
-  ) {
-    this.score = score;
-  }
+    public score: Score,
+    public options: {
+      scale: number;
+      layoutType: LayoutType;
+      advanced: boolean;
+      debug: Debug;
+    },
+  ) {}
   mount() {
     this.layout();
     this.draw();
   }
   unmount() {
     for (const data of [
-      ...this.score.notes,
+      // ...this.score.notes,
       ...this.score.timesignatures,
       ...this.score.keysignatures,
     ])
       data.ligature = new Ligature();
-    for (const stave of this.score.staves) stave.word = new Word();
+    for (const data of this.score.chords)
+      data.noteheadsLigature = new Ligature();
+    for (const data of [...this.score.chords, ...this.score.staves])
+      data.word = new Word();
   }
   layout() {
     match(this.options.layoutType)
@@ -72,7 +68,7 @@ export class Controller {
   draw() {
     for (const data of [
       ...this.score.notes,
-      // ...this.score.chords,
+      ...this.score.chords,
       ...this.score.timesignatures,
       ...this.score.keysignatures,
       ...this.score.staves,
@@ -80,7 +76,8 @@ export class Controller {
       data.draw();
   }
   order() {
-    this.score.staves.flatMap((stave) => stave.word?.order());
+    this.score.staves.map((stave) => stave.word?.order());
+    this.score.chords.map((chord) => chord.word.order());
   }
   space(width: number) {
     for (const row of this.score.rows) {
@@ -118,20 +115,6 @@ export class Controller {
         .exhaustive();
     }
   }
-  align() {
-    // pipe(
-    //   this.score.events,
-    //   groupBy(prop("start", "value")),
-    //   entries(),
-    //   forEach(([, notes]) => {
-    //     const maxXNote = firstBy(notes, [prop("ligature", "x"), "desc"]);
-    //     for (const note of notes) {
-    //       if (note === maxXNote) continue;
-    //       if (note.ligature) note.ligature.x = maxXNote.ligature?.x ?? 0;
-    //     }
-    //   }),
-    // );
-  }
   setScale(scale: typeof this.options.scale) {
     this.options.scale = scale;
     this.onChangeScale?.(scale);
@@ -143,6 +126,10 @@ export class Controller {
   setDebug(debug: typeof this.options.debug) {
     this.options.debug = debug;
     this.onChangeDebug?.(debug);
+  }
+  setAdvanced(advanced: typeof this.options.advanced) {
+    this.options.advanced = advanced;
+    this.onChangeAdvanced?.(advanced);
   }
 }
 

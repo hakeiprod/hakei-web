@@ -2,6 +2,7 @@ import BravuraMetadata from "../../const/bravura/bravura_metadata.json";
 import Glyphnames from "../../const/smufl/glyphnames.json";
 
 export * from "./bar";
+export * from "./chord";
 export * from "./controller";
 export * from "./glyph";
 export * from "./masterbar";

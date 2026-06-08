@@ -3,10 +3,10 @@ import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
-import { NumberInput, Select, SelectItem } from "@heroui/react";
+import { NumberInput, Select, SelectItem, Switch } from "@heroui/react";
 import { useAtom } from "jotai";
 import localFont from "next/font/local";
-import { ChangeEvent, useEffect, useMemo, useRef } from "react";
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
 import { filter, keys, map, pipe } from "remeda";
 import { useDebouncedCallback } from "use-debounce";
 import "../s-core/models/smufl/extensions/to-svg";
@@ -17,17 +17,20 @@ const bravura = localFont({
 export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
+  const [advanced, setAdvanced] = useState(true);
   const reference = useRef<HTMLDivElement | null>(null);
   const controller = useMemo(() => {
     const controller = new SMUFL.Controller(score, {
       scale,
       layoutType,
-      debug: true,
+      debug: false,
+      advanced,
     });
     controller.onChangeScale = (value) => setScale(value);
     controller.onChangeLayoutType = (value) => setLayoutType(value);
+    controller.onChangeAdvanced = (value) => setAdvanced(value);
     return controller;
-  }, [layoutType, scale, score, setLayoutType, setScale]);
+  }, [layoutType, scale, score, setLayoutType, setScale, advanced]);
   const handleResize = useDebouncedCallback(() => {
     if (controller.options.layoutType === LayoutType.Vertical)
       controller?.render();
@@ -44,6 +47,10 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   }
   function handleLayoutTypeChange(event: ChangeEvent<HTMLSelectElement>) {
     controller.setLayoutType(Number(event.target.value));
+    controller.render();
+  }
+  function handleAdvancedChange(value: boolean) {
+    controller.setAdvanced(value);
     controller.render();
   }
   useEffect(() => {
@@ -86,6 +93,9 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
           map((key) => <SelectItem key={key}>{LayoutType[key]}</SelectItem>),
         )}
       </Select>
+      <Switch isSelected={advanced} onValueChange={handleAdvancedChange}>
+        advanced
+      </Switch>
     </>
   );
 }

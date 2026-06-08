@@ -23,9 +23,9 @@ export class Score<
   Row extends Sheet.Row = Sheet.Row,
   Timesignature extends Sheet.Timesignature = Sheet.Timesignature,
   Slot extends Sheet.Slot = Sheet.Slot,
+  Chord extends Sheet.Chord = Sheet.Chord,
   Keysignature extends Sheet.Keysignature = Sheet.Keysignature,
   Tempo extends Core.Tempo = Core.Tempo,
-  Chord extends Sheet.Chord = Sheet.Chord,
 > extends Core.Score<Note, Track, Timesignature, Keysignature, Tempo> {
   rows;
   masterbars: Masterbar[];
