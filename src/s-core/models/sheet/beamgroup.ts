@@ -2,16 +2,18 @@ import { first, last } from "remeda";
 import * as Sheet from ".";
 export class BeamGroup {
   level;
-  notes;
+  chordIds;
   staveId;
   barId;
   trackId;
   score!: Sheet.Score;
-  get firstNote() {
-    return first(this.notes)!;
+  get firstChord() {
+    return this.score.chords.find(
+      (chord) => chord.id === first(this.chordIds),
+    )!;
   }
-  get lastNote() {
-    return last(this.notes)!;
+  get lastChord() {
+    return this.score.chords.find((chord) => chord.id === last(this.chordIds))!;
   }
   get stave() {
     return this.score.staves.find(
@@ -23,28 +25,28 @@ export class BeamGroup {
   }
   constructor({
     level,
-    notes,
+    chordIds,
     staveId,
     barId,
     trackId,
   }: {
     staveId: number;
     level: number;
-    notes: Sheet.Note[];
+    chordIds: number[];
     barId: number;
     trackId: number;
   }) {
     this.level = level;
-    this.notes = notes;
+    this.chordIds = chordIds;
     this.staveId = staveId;
     this.barId = barId;
     this.trackId = trackId;
   }
   calculateStemLength(note: Sheet.Note) {
-    const x1 = this.firstNote.ligature.x;
-    const x2 = this.lastNote.ligature.x;
-    const y1 = this.firstNote.line;
-    const y2 = this.lastNote.line;
+    const x1 = this.firstChord.noteheadsLigature.x;
+    const x2 = this.lastChord.noteheadsLigature.x;
+    const y1 = this.firstChord.line;
+    const y2 = this.lastChord.line;
     const dx = x2 - x1;
     const dy = y2 - y1;
     const m = dy / dx;

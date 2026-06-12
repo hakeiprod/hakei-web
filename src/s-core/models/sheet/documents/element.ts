@@ -1,9 +1,10 @@
-import { BoundingBox } from "../boundingbox";
-import { Edge } from "../edge";
+import { BoundingBox } from "../../boundingbox";
+import { Edge } from "../../edge";
 
 export abstract class Element implements BoundingBox, Edge {
   x = 0;
   y = 0;
+  spaceLeft = 0;
   abstract get width(): number;
   abstract get height(): number;
   get top() {

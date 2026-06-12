@@ -1,7 +1,11 @@
-import { isIncludedIn, isNonNull, map, pipe, prop, times } from "remeda";
+import { isNonNull, times } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
-import { Note as MxlNote, Stem, Type } from "../../const/musicxml/4.0/musicxml";
+import {
+  Note as MxlNote,
+  NormalType,
+  Stem,
+} from "../../const/musicxml/4.0/musicxml";
 import * as Core from "../core";
 
 export class Note extends Core.Note {
@@ -37,11 +41,11 @@ export class Note extends Core.Note {
       this.isOverlapped(keysignature),
     )!;
   }
-  get beamGroup() {
-    return this.score.beamGroups.find((beamGroup) =>
-      isIncludedIn(this.id, pipe(beamGroup.notes, map(prop("id")))),
-    )!;
-  }
+  // get beamGroup() {
+  //   return this.score.beamGroups.find((beamGroup) =>
+  //     isIncludedIn(this.id, pipe(beamGroup.notes, map(prop("id")))),
+  //   )!;
+  // }
   get accidental() {
     // TODO: Natural
     if (this.rest) return null;
@@ -72,7 +76,7 @@ export class Note extends Core.Note {
     );
   }
   get type() {
-    return <Type>{
+    return <NormalType>{
       _: match(Math.pow(2, Math.floor(Math.log2(this.duration.value))))
         .with(4, () => "whole")
         .with(2, () => "half")
@@ -89,17 +93,17 @@ export class Note extends Core.Note {
     };
   }
   // FIXME:
-  get legerLine() {
-    return match(this.stave.resolveClefs()[0]?.sign![0]._)
-      .with("G", () => this.pitch.value > 80 || this.pitch.value <= 60)
-      .with("F", () => 60 >= this.pitch.value || this.pitch.value <= 43)
-      .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
-        throw new Error("wip");
-      })
-      .exhaustive()
-      ? Math.ceil((this.pitch.value - 59) / 2)
-      : 0;
-  }
+  // get legerLine() {
+  //   return match(this.stave.resolveClefs()[0]?.sign![0]._)
+  //     .with("G", () => this.pitch.value > 80 || this.pitch.value <= 60)
+  //     .with("F", () => 60 >= this.pitch.value || this.pitch.value <= 43)
+  //     .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
+  //       throw new Error("wip");
+  //     })
+  //     .exhaustive()
+  //     ? Math.ceil((this.pitch.value - 59) / 2)
+  //     : 0;
+  // }
   get dot() {
     let duration = this.duration.value;
     let dot = 0;
@@ -111,9 +115,6 @@ export class Note extends Core.Note {
       dot += 1;
     }
     return dot;
-  }
-  get stemLength() {
-    return -1;
   }
   constructor(
     note: {

@@ -10,34 +10,6 @@ export class Note extends Sheet.Note {
   get stave() {
     return super.stave as SMUFL.Stave;
   }
-  get stemLength(): number {
-    return this.beam
-      ? this.beamGroup.calculateStemLength(this)
-      : new SMUFL.Glyph(
-          SMUFL.Glyph.find("stems", (v) => v.includes("stem")),
-          Sheet.ElementType.Stem,
-        ).glyphBBox.height;
-  }
-  // get dotLigature() {
-  //   super.dotLigature.glyphLists.return(
-  //     super.dotLigature &&
-  //       new SMUFL.Glyph(
-  //         SMUFL.Glyph.find("individualNotes", (v) => v.includes("Dot")),
-  //         super.dotLigature.type,
-  //         super.dotLigature.line,
-  //       ),
-  //   );
-  // }
-  get accidentalGlyph() {
-    return (
-      super.accidentalGlyph &&
-      new SMUFL.Glyph(
-        SMUFL.Glyph.findAccidental(this.accidental!),
-        super.accidentalGlyph.type,
-        super.accidentalGlyph.line,
-      )
-    );
-  }
   draw() {
     super.draw();
     this.glyph = new SMUFL.Glyph(
@@ -63,40 +35,7 @@ export class Note extends Sheet.Note {
         ),
       ),
     );
-    // this.ligature.glyphLists = pipe( this.ligature.glyphLists,
-    //   map(
-    //     map(
-    //       (glyph) =>
-    //         new SMUFL.Glyph(
-    //           match(glyph.type)
-    //             .with(Sheet.ElementType.Accidental, () =>
-    //               SMUFL.Glyph.findAccidental(this.accidental!),
-    //             )
-    //             .with(Sheet.ElementType.LegerLine, () =>
-    //               SMUFL.Glyph.find("staves", (v) => v === "legerLine"),
-    //             )
-    //             .with(Sheet.ElementType.Rest, () =>
-    //               SMUFL.Glyph.findRest(this.type),
-    //             )
-    //             .with(Sheet.ElementType.Notehead, () =>
-    //               SMUFL.Glyph.findNotehead(this.type),
-    //             )
-    //             .with(Sheet.ElementType.Stem, () =>
-    //               SMUFL.Glyph.find("stems", (v) => v.includes("stem")),
-    //             )
-    //             .with(Sheet.ElementType.Dot, () =>
-    //               SMUFL.Glyph.find("individualNotes", (v) => v.includes("Dot")),
-    //             )
-    //             // .with(Sheet.GlyphType.Flag, (type) => new SMUFL.Glyph(type))
-    //             .run(),
-    //           glyph.type,
-    //           glyph.line,
-    //         ),
-    //     ),
-    //   ),
-    // );
   }
-
   static import(data: ReturnType<Note["export"]>) {
     return new Note(super.import(data));
   }

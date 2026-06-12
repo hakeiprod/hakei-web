@@ -1,5 +1,5 @@
 import { ElementType } from "..";
-import { Element } from "../element";
+import { Element } from "./element";
 
 export class Glyph extends Element {
   get width(): number {

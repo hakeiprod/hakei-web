@@ -27,6 +27,9 @@ export class Chord extends Core.Event<{ id: number }> {
   get stem() {
     return this.notes[0].stem;
   }
+  get beam() {
+    return this.notes[0].beam;
+  }
   get height() {
     return pipe(
       this.notes,

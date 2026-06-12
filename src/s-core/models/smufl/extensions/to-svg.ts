@@ -93,7 +93,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
           .data([glyph])
           .join("text")
           .attr("type", "glyph")
-          .attr("x", glyph.x)
+          .attr("x", glyph.x + glyph.glyphAdvancedWidth)
           .attr("y", lineToSVG(glyph.line))
           .text(String.fromCodePoint(glyph.codepoint));
       });
@@ -389,7 +389,9 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                         )
                                         .with(
                                           "down",
-                                          () => chord.noteheadsLigature?.x,
+                                          () =>
+                                            chord.noteheadsLigature?.x +
+                                            chord.glyphAdvancedWidth,
                                         )
                                         .with("double", () => {
                                           throw new Error("wip");
@@ -440,109 +442,96 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                           //   .attr("type", "decoration")
                           //   .attr("transform", createTranslate(stave.width, 0))
                           //   .call((g) => {
-                          //     const stemGlyph = new SMUFL.Glyph(
-                          //       SMUFL.Glyph.find("stems", (v) =>
-                          //         v.includes("stem"),
-                          //       ),
-                          //       Sheet.ElementType.Stem,
-                          //     );
-                          //     g.selectAll("g[type=beam]")
-                          //       .data(stave.beamGroups)
-                          //       .join("g")
-                          //       .attr("type", "beam")
-                          //       .each(function (beamGroup) {
-                          //         const g = d3.select(this);
-                          //         const { x1, x2 } = match(
-                          //           beamGroup.firstNote.stem?._ ?? "none",
-                          //         )
-                          //           .with("up", () => ({
-                          //             x1:
-                          //               beamGroup.firstNote.ligature?.right ??
-                          //               0,
-                          //             x2:
-                          //               beamGroup.lastNote.ligature?.right ?? 0,
-                          //           }))
-                          //           .with("down", () => ({
-                          //             x1:
-                          //               beamGroup.firstNote.ligature?.left ?? 0,
-                          //             x2:
-                          //               beamGroup.lastNote.ligature?.left ?? 0,
-                          //           }))
-                          //           .with("double", () => {
-                          //             throw new Error("wip");
-                          //           })
-                          //           .with("none", () => ({ x1: 0, x2: 0 }))
-                          //           .exhaustive();
-                          //         g.selectAll("path")
-                          //           .data([beamGroup])
-                          //           .join("path")
-                          //           .attr(
-                          //             "transform",
-                          //             createTranslate(
-                          //               0,
-                          //               match(
-                          //                 beamGroup.firstNote.stem?._ ?? "none",
-                          //               )
-                          //                 .with(
-                          //                   "up",
-                          //                   () =>
-                          //                     -stemGlyph.glyphBBox.height +
-                          //                     SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness /
-                          //                       2,
-                          //                 )
-                          //                 .with(
-                          //                   "down",
-                          //                   () =>
-                          //                     stemGlyph.glyphBBox.height -
-                          //                     SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness /
-                          //                       2,
-                          //                 )
-                          //                 .with("double", () => {
-                          //                   throw new Error("wip");
-                          //                 })
-                          //                 .with("none", () => 0)
-                          //                 .exhaustive(),
-                          //             ),
-                          //           )
-                          //           .attr("stroke", "black")
-                          //           .attr(
-                          //             "stroke-width",
-                          //             SMUFL.BravuraMetadata.engravingDefaults
-                          //               .beamThickness,
-                          //           )
-                          //           .attr(
-                          //             "d",
-                          //             d3.line()([
-                          //               [
-                          //                 x1,
-                          //                 -beamGroup.firstNote.line +
-                          //                   beamGroup.level *
-                          //                     (SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness +
-                          //                       SMUFL.BravuraMetadata
-                          //                         .engravingDefaults
-                          //                         .beamSpacing),
-                          //               ],
-                          //               [
-                          //                 x2,
-                          //                 -beamGroup.lastNote.line +
-                          //                   beamGroup.level *
-                          //                     (SMUFL.BravuraMetadata
-                          //                       .engravingDefaults
-                          //                       .beamThickness +
-                          //                       SMUFL.BravuraMetadata
-                          //                         .engravingDefaults
-                          //                         .beamSpacing),
-                          //               ],
-                          //             ]),
-                          //           );
-                          //       });
-                          //   });
+                          // const stemGlyph = new SMUFL.Glyph(
+                          //   SMUFL.Glyph.find("stems", (v) =>
+                          //     v.includes("stem"),
+                          //   ),
+                          //   Sheet.ElementType.Stem,
+                          // );
+                          // g.selectAll("g[type=beam]")
+                          //   .data(stave.beamGroups)
+                          //   .join("g")
+                          //   .attr("type", "beam")
+                          //   .each(function (beamGroup) {
+                          //     const g = d3.select(this);
+                          //     const { x1, x2 } = match(
+                          //       beamGroup.firstNote.stem?._ ?? "none",
+                          //     )
+                          //       .with("up", () => ({
+                          //         x1: beamGroup.firstNote.glyph?.right,
+                          //         x2: beamGroup.lastNote.glyph?.right,
+                          //       }))
+                          //       .with("down", () => ({
+                          //         x1: beamGroup.firstNote.glyph.left,
+                          //         x2: beamGroup.lastNote.glyph.left,
+                          //       }))
+                          //       .with("double", () => {
+                          //         throw new Error("wip");
+                          //       })
+                          //       .with("none", () => ({ x1: 0, x2: 0 }))
+                          //       .exhaustive();
+                          //     g.selectAll("path")
+                          //       .data([beamGroup])
+                          //       .join("path")
+                          //       .attr(
+                          //         "transform",
+                          //         createTranslate(
+                          //           0,
+                          //           match(beamGroup.firstNote.stem?._ ?? "none")
+                          //             .with(
+                          //               "up",
+                          //               () =>
+                          //                 -stemGlyph.glyphBBox.height +
+                          //                 SMUFL.BravuraMetadata
+                          //                   .engravingDefaults.beamThickness /
+                          //                   2,
+                          //             )
+                          //             .with(
+                          //               "down",
+                          //               () =>
+                          //                 stemGlyph.glyphBBox.height -
+                          //                 SMUFL.BravuraMetadata
+                          //                   .engravingDefaults.beamThickness /
+                          //                   2,
+                          //             )
+                          //             .with("double", () => {
+                          //               throw new Error("wip");
+                          //             })
+                          //             .with("none", () => 0)
+                          //             .exhaustive(),
+                          //         ),
+                          //       )
+                          //       .attr("stroke", "black")
+                          //       .attr(
+                          //         "stroke-width",
+                          //         SMUFL.BravuraMetadata.engravingDefaults
+                          //           .beamThickness,
+                          //       )
+                          //       .attr(
+                          //         "d",
+                          //         d3.line()([
+                          //           [
+                          //             x1,
+                          //             -beamGroup.firstNote.line +
+                          //               beamGroup.level *
+                          //                 (SMUFL.BravuraMetadata
+                          //                   .engravingDefaults.beamThickness +
+                          //                   SMUFL.BravuraMetadata
+                          //                     .engravingDefaults.beamSpacing),
+                          //           ],
+                          //           [
+                          //             x2,
+                          //             -beamGroup.lastNote.line +
+                          //               beamGroup.level *
+                          //                 (SMUFL.BravuraMetadata
+                          //                   .engravingDefaults.beamThickness +
+                          //                   SMUFL.BravuraMetadata
+                          //                     .engravingDefaults.beamSpacing),
+                          //           ],
+                          //         ]),
+                          //       );
+                          // });
+                          // });
                           g.selectAll("g[type=staff]")
                             .data(R.times(5, R.doNothing))
                             .join("g")

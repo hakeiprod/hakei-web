@@ -117,7 +117,7 @@ export class Score<
     );
     this.beamGroups = this.staves.flatMap((stave) =>
       pipe(
-        stave.notes,
+        stave.chords,
         reduce(
           (accumulator, current) => {
             for (const beam of current.beam ?? []) {
@@ -126,7 +126,7 @@ export class Score<
                 .with(P.union("begin", "backward hook", "forward hook"), () =>
                   accumulator.push({
                     level,
-                    notes: [current],
+                    chordIds: [current.id],
                     staveId: stave.id,
                     barId: stave.barId,
                     trackId: stave.trackId,
@@ -135,7 +135,7 @@ export class Score<
                 .with(P.union("continue", "end"), () =>
                   accumulator
                     .findLast((beam) => beam.level === level)
-                    ?.notes.push(current),
+                    ?.chordIds.push(current.id),
                 )
                 .with(undefined, () => {
                   throw new Error("wip");

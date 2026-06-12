@@ -1,7 +1,7 @@
 import { firstBy, prop, reduce } from "remeda";
 import * as Sheet from "..";
 import { BoundingBox } from "../../boundingbox";
-import { Element } from "../element";
+import { Element } from "./element";
 import { Ligature } from "./ligature";
 
 export class Word<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {

@@ -12,8 +12,7 @@ export class Glyph<
   glyphAdvancedWidth;
   glyphWithAnchor;
   get width() {
-    return this.glyphBBox.width;
-    // + this.glyphAdvancedWidth;
+    return this.glyphBBox.width + this.glyphAdvancedWidth;
   }
   get height() {
     return this.glyphBBox.height;
@@ -105,7 +104,7 @@ export class Glyph<
   }
 
   static findBarline(type: Barline) {
-    return match(type["bar-style"]?.[0]._)
+    return match(type["bar-style"]![0]._!)
       .with("light-heavy", () => "barlineFinal" as const)
       .with("light-light", () => "barlineDouble" as const)
       .with("heavy-light", () => "barlineReverseFinal" as const)

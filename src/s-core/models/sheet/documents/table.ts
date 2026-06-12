@@ -8,7 +8,7 @@ import {
   piped,
   reduce,
 } from "remeda";
-import { Element } from "../element";
+import { Element } from "./element";
 
 export class Table<T extends Element> extends Element {
   constructor(public glyphLists: T[][] = []) {
