@@ -41,11 +41,6 @@ export class Note extends Core.Note {
       this.isOverlapped(keysignature),
     )!;
   }
-  // get beamGroup() {
-  //   return this.score.beamGroups.find((beamGroup) =>
-  //     isIncludedIn(this.id, pipe(beamGroup.notes, map(prop("id")))),
-  //   )!;
-  // }
   get accidental() {
     // TODO: Natural
     if (this.rest) return null;

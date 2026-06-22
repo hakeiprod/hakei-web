@@ -1,4 +1,13 @@
-import { filter, firstBy, flat, isTruthy, map, pipe, prop } from "remeda";
+import {
+  filter,
+  firstBy,
+  flat,
+  isIncludedIn,
+  isTruthy,
+  map,
+  pipe,
+  prop,
+} from "remeda";
 import * as Sheet from ".";
 import * as Core from "../core";
 export class Chord extends Core.Event<{ id: number }> {
@@ -8,6 +17,14 @@ export class Chord extends Core.Event<{ id: number }> {
   noteheadsLigature = new Sheet.Ligature();
   get notes() {
     return this.score.notes.filter((note) => note.chordId === this.id);
+  }
+  get slot() {
+    return this.score.slots.find((slot) => slot.chords.includes(this))!;
+  }
+  get beamGroup() {
+    return this.score.beamGroups.find((beamGroup) =>
+      isIncludedIn(this.id, pipe(beamGroup.chordIds)),
+    )!;
   }
   get start() {
     return firstBy(this.notes, [prop("start"), "asc"])!.start;
@@ -49,11 +66,17 @@ export class Chord extends Core.Event<{ id: number }> {
   get width() {
     return firstBy(this.notes, prop("width"))?.width ?? 0;
   }
-  get x() {
-    return 0;
+  get right() {
+    return firstBy(this.notes, [prop("glyph", "right"), "desc"])!.glyph.right;
+  }
+  get left() {
+    return firstBy(this.notes, [prop("glyph", "left"), "desc"])!.glyph.left;
   }
   get line() {
     return firstBy(this.notes, [prop("line"), "desc"])?.line ?? 0;
+  }
+  get stemLength() {
+    return 0;
   }
   constructor({ id, ...event }: { id: number }) {
     super(event);

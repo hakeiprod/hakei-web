@@ -9,10 +9,10 @@ export class Glyph<
 > extends Sheet.Glyph {
   glyphName;
   glyphBBox;
-  glyphAdvancedWidth;
+  glyphAdvanceWidth;
   glyphWithAnchor;
   get width() {
-    return this.glyphBBox.width + this.glyphAdvancedWidth;
+    return this.glyphBBox.width + this.spaceLeft;
   }
   get height() {
     return this.glyphBBox.height;
@@ -35,8 +35,9 @@ export class Glyph<
       bBoxNE[0] - bBoxSW[0],
       bBoxNE[1] - bBoxSW[1],
     );
-    this.glyphAdvancedWidth = SMUFL.getGlyphAdvanceWidth(glyphName);
+    this.glyphAdvanceWidth = SMUFL.getGlyphAdvanceWidth(glyphName);
     this.glyphWithAnchor = SMUFL.getGlyphWithAnchor(glyphName);
+    this.spaceLeft = this.glyphAdvanceWidth;
     this.glyphName = glyphName;
   }
   static find(

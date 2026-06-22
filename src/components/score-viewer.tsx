@@ -23,7 +23,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     const controller = new SMUFL.Controller(score, {
       scale,
       layoutType,
-      debug: false,
+      debug: true,
       advanced,
     });
     controller.onChangeScale = (value) => setScale(value);

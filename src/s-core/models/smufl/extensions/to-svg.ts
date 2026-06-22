@@ -73,7 +73,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
             g.selectAll("text")
               .data([glyph])
               .join("text")
-              .attr("type", "glyph")
               .attr("x", glyph.x)
               .attr("y", lineToSVG(glyph.line))
               .text(String.fromCodePoint(glyph.codepoint));
@@ -92,8 +91,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
         g.selectAll("text")
           .data([glyph])
           .join("text")
-          .attr("type", "glyph")
-          .attr("x", glyph.x + glyph.glyphAdvancedWidth)
+          .attr("x", glyph.x + glyph.spaceLeft)
           .attr("y", lineToSVG(glyph.line))
           .text(String.fromCodePoint(glyph.codepoint));
       });
@@ -340,7 +338,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                           {
                                             width: chord.width,
                                             height: chord.height,
-                                            x: chord.x,
+                                            x: 0,
                                             y: lineToSVG(chord.line) - 0.5,
                                           },
                                           chord.export(),
@@ -391,7 +389,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                           "down",
                                           () =>
                                             chord.noteheadsLigature?.x +
-                                            chord.glyphAdvancedWidth,
+                                            chord.glyphAdvanceWidth,
                                         )
                                         .with("double", () => {
                                           throw new Error("wip");
@@ -436,102 +434,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                     });
                                 });
                             });
-                          // g.selectAll("g[type=decoration]")
-                          //   .data([stave])
-                          //   .join("g")
-                          //   .attr("type", "decoration")
-                          //   .attr("transform", createTranslate(stave.width, 0))
-                          //   .call((g) => {
-                          // const stemGlyph = new SMUFL.Glyph(
-                          //   SMUFL.Glyph.find("stems", (v) =>
-                          //     v.includes("stem"),
-                          //   ),
-                          //   Sheet.ElementType.Stem,
-                          // );
-                          // g.selectAll("g[type=beam]")
-                          //   .data(stave.beamGroups)
-                          //   .join("g")
-                          //   .attr("type", "beam")
-                          //   .each(function (beamGroup) {
-                          //     const g = d3.select(this);
-                          //     const { x1, x2 } = match(
-                          //       beamGroup.firstNote.stem?._ ?? "none",
-                          //     )
-                          //       .with("up", () => ({
-                          //         x1: beamGroup.firstNote.glyph?.right,
-                          //         x2: beamGroup.lastNote.glyph?.right,
-                          //       }))
-                          //       .with("down", () => ({
-                          //         x1: beamGroup.firstNote.glyph.left,
-                          //         x2: beamGroup.lastNote.glyph.left,
-                          //       }))
-                          //       .with("double", () => {
-                          //         throw new Error("wip");
-                          //       })
-                          //       .with("none", () => ({ x1: 0, x2: 0 }))
-                          //       .exhaustive();
-                          //     g.selectAll("path")
-                          //       .data([beamGroup])
-                          //       .join("path")
-                          //       .attr(
-                          //         "transform",
-                          //         createTranslate(
-                          //           0,
-                          //           match(beamGroup.firstNote.stem?._ ?? "none")
-                          //             .with(
-                          //               "up",
-                          //               () =>
-                          //                 -stemGlyph.glyphBBox.height +
-                          //                 SMUFL.BravuraMetadata
-                          //                   .engravingDefaults.beamThickness /
-                          //                   2,
-                          //             )
-                          //             .with(
-                          //               "down",
-                          //               () =>
-                          //                 stemGlyph.glyphBBox.height -
-                          //                 SMUFL.BravuraMetadata
-                          //                   .engravingDefaults.beamThickness /
-                          //                   2,
-                          //             )
-                          //             .with("double", () => {
-                          //               throw new Error("wip");
-                          //             })
-                          //             .with("none", () => 0)
-                          //             .exhaustive(),
-                          //         ),
-                          //       )
-                          //       .attr("stroke", "black")
-                          //       .attr(
-                          //         "stroke-width",
-                          //         SMUFL.BravuraMetadata.engravingDefaults
-                          //           .beamThickness,
-                          //       )
-                          //       .attr(
-                          //         "d",
-                          //         d3.line()([
-                          //           [
-                          //             x1,
-                          //             -beamGroup.firstNote.line +
-                          //               beamGroup.level *
-                          //                 (SMUFL.BravuraMetadata
-                          //                   .engravingDefaults.beamThickness +
-                          //                   SMUFL.BravuraMetadata
-                          //                     .engravingDefaults.beamSpacing),
-                          //           ],
-                          //           [
-                          //             x2,
-                          //             -beamGroup.lastNote.line +
-                          //               beamGroup.level *
-                          //                 (SMUFL.BravuraMetadata
-                          //                   .engravingDefaults.beamThickness +
-                          //                   SMUFL.BravuraMetadata
-                          //                     .engravingDefaults.beamSpacing),
-                          //           ],
-                          //         ]),
-                          //       );
-                          // });
-                          // });
                           g.selectAll("g[type=staff]")
                             .data(R.times(5, R.doNothing))
                             .join("g")
@@ -552,6 +454,110 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                   d3.line()([
                                     [0, index],
                                     [masterbar.width, index],
+                                  ]),
+                                );
+                            });
+                          const stemGlyph = new SMUFL.Glyph(
+                            SMUFL.Glyph.find("stems", (v) =>
+                              v.includes("stem"),
+                            ),
+                            Sheet.ElementType.Stem,
+                            0,
+                          );
+                          g.selectAll("g[type=beam]")
+                            .data(stave.beamGroups)
+                            .join("g")
+                            .attr("type", "beam")
+                            .each(function (beamGroup) {
+                              const { x1, x2 } = match(
+                                beamGroup.firstChord.stem?._ ?? "none",
+                              )
+                                .with("up", () => ({
+                                  x1: beamGroup.firstChord.right,
+                                  x2: beamGroup.lastChord.right,
+                                }))
+                                .with("down", () => ({
+                                  x1:
+                                    beamGroup.firstChord.left +
+                                    beamGroup.firstChord.glyphAdvanceWidth,
+                                  x2:
+                                    beamGroup.lastChord.left +
+                                    beamGroup.lastChord.glyphAdvanceWidth,
+                                }))
+                                .with("double", () => {
+                                  throw new Error("wip");
+                                })
+                                .with("none", () => ({ x1: 0, x2: 0 }))
+                                .exhaustive();
+                              const g = d3.select(this);
+                              g.selectAll("path")
+                                .data([beamGroup])
+                                .join("path")
+                                .attr(
+                                  "transform",
+                                  createTranslate(
+                                    0,
+                                    match(
+                                      beamGroup.firstChord.stem?._ ?? "none",
+                                    )
+                                      .with(
+                                        "up",
+                                        () =>
+                                          -stemGlyph.glyphBBox.height +
+                                          SMUFL.BravuraMetadata
+                                            .engravingDefaults.beamThickness *
+                                            2,
+                                      )
+                                      .with(
+                                        "down",
+                                        () =>
+                                          stemGlyph.glyphBBox.height -
+                                          SMUFL.BravuraMetadata
+                                            .engravingDefaults.beamThickness /
+                                            2,
+                                      )
+                                      .with("double", () => {
+                                        throw new Error("wip");
+                                      })
+                                      .with("none", () => 0)
+                                      .exhaustive(),
+                                  ),
+                                )
+                                .attr("stroke", "black")
+                                .attr(
+                                  "stroke-width",
+                                  SMUFL.BravuraMetadata.engravingDefaults
+                                    .beamThickness,
+                                )
+                                .attr(
+                                  "d",
+                                  d3.line()([
+                                    [
+                                      stave.word.width +
+                                        beamGroup.firstChord.slot.x +
+                                        x1,
+                                      lineToSVG(
+                                        beamGroup.firstChord.line +
+                                          beamGroup.level,
+                                      ) *
+                                        (SMUFL.BravuraMetadata.engravingDefaults
+                                          .beamThickness +
+                                          SMUFL.BravuraMetadata
+                                            .engravingDefaults.beamSpacing),
+                                    ],
+                                    [
+                                      stave.word.width +
+                                        beamGroup.lastChord.slot.x +
+                                        x2,
+                                      lineToSVG(
+                                        beamGroup.lastChord.line +
+                                          beamGroup.level,
+                                      ) *
+                                        (SMUFL.BravuraMetadata.engravingDefaults
+                                          .beamThickness +
+                                          SMUFL.BravuraMetadata
+                                            .engravingDefaults.beamSpacing),
+                                    ],
                                   ]),
                                 );
                             });
