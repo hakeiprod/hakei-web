@@ -54,16 +54,6 @@ export class Stave extends Sheet.Stave {
                       glyph.line,
                     ),
                 )
-                /* .with(Sheet.ElementType.Barline, () => {
-                  const glyphName = SMUFL.Glyph.findBarline(
-                    this.bar.masterbar.isLast
-                      ? { $$: { ["bar-style"]: [{ _: "light-heavy" }] } }
-                      : this.bar.masterbar.barline,
-                  );
-                  return glyphName
-                    ? new SMUFL.Glyph(glyphName, glyph.type, glyph.line)
-                    : null;
-                }) */
                 .otherwise(() => glyph),
             )
             .with(P.instanceOf(Sheet.Ligature), (ligature) => {

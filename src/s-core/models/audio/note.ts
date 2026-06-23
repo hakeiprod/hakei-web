@@ -4,8 +4,8 @@ import * as Audio from ".";
 import * as Core from "../core";
 
 type Events = {
-  noteOn?: null;
-  noteOff?: null;
+  noteOn?: undefined;
+  noteOff?: undefined;
 };
 export class Note extends Core.Note {
   emitter = mitt<Events>();

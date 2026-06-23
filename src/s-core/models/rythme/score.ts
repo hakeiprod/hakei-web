@@ -17,9 +17,8 @@ export class Score<
           rest: false,
           voice: -1,
           beam: undefined,
-          flag: null,
           alter: undefined,
-        })
+        }),
       ),
     });
   }
