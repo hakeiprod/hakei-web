@@ -8,6 +8,7 @@ import {
   pipe,
   prop,
 } from "remeda";
+import { match } from "ts-pattern";
 import * as Sheet from ".";
 import * as Core from "../core";
 export class Chord extends Core.Event<{ id: number }> {
@@ -24,7 +25,7 @@ export class Chord extends Core.Event<{ id: number }> {
   get beamGroup() {
     return this.score.beamGroups.find((beamGroup) =>
       isIncludedIn(this.id, pipe(beamGroup.chordIds)),
-    )!;
+    );
   }
   get start() {
     return firstBy(this.notes, [prop("start"), "asc"])!.start;
@@ -52,8 +53,8 @@ export class Chord extends Core.Event<{ id: number }> {
       this.notes,
       flat(),
       map((note) => ({
-        top: note.line ?? 0,
-        bottom: (note.line ?? 0) + note.glyph.height,
+        top: note.line,
+        bottom: note.line + note.glyph.height,
       })),
       (bounds) => {
         if (bounds.length === 0) return 0;
@@ -75,8 +76,18 @@ export class Chord extends Core.Event<{ id: number }> {
   get line() {
     return firstBy(this.notes, [prop("line"), "desc"])?.line ?? 0;
   }
+  get stemX() {
+    return match(this.stem?._ ?? "none")
+      .with("up", () => this.right)
+      .with("down", () => this.left)
+      .with("double", () => {
+        throw new Error("wip");
+      })
+      .with("none", () => 0)
+      .exhaustive();
+  }
   get stemLength() {
-    return 0;
+    return this.beamGroup?.calculateStemLength(this) ?? 3;
   }
   constructor({ id, ...event }: { id: number }) {
     super(event);

@@ -1,4 +1,5 @@
 import { first, last } from "remeda";
+import { match } from "ts-pattern";
 import * as Sheet from ".";
 export class BeamGroup {
   level;
@@ -42,15 +43,22 @@ export class BeamGroup {
     this.barId = barId;
     this.trackId = trackId;
   }
-  calculateStemLength(note: Sheet.Note) {
-    const x1 = this.firstChord.noteheadsLigature.x;
-    const x2 = this.lastChord.noteheadsLigature.x;
-    const y1 = this.firstChord.line;
-    const y2 = this.lastChord.line;
+  calculateStemLength(chord: Sheet.Chord) {
+    const x1 = this.firstChord.stemX + this.firstChord.slot.x;
+    const x2 = this.lastChord.stemX + this.lastChord.slot.x;
+    const b = match(chord.stem?._ ?? "none")
+      .with("up", () => 3)
+      .with("down", () => -3)
+      .with("double", () => {
+        throw new Error("wip");
+      })
+      .with("none", () => 0)
+      .exhaustive();
+    const y1 = this.firstChord.line + b;
+    const y2 = this.lastChord.line + b;
     const dx = x2 - x1;
     const dy = y2 - y1;
     const m = dy / dx;
-    const beamY = m * (note.ligature.x - x1) + y1;
-    return (note.stem?._ === "up" ? beamY - note.line : note.line - beamY) + 3;
+    return Math.abs(m * (chord.stemX + chord.slot.x - x1) + y1 - chord.line);
   }
 }

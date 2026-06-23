@@ -36,8 +36,8 @@ export class Ligature<
       this.glyphLists,
       flat(),
       map((glyph) => ({
-        top: glyph.line ?? 0,
-        bottom: (glyph.line ?? 0) + glyph.height,
+        top: glyph.line,
+        bottom: glyph.line + glyph.height,
       })),
       (bounds) => {
         if (bounds.length === 0) return 0;

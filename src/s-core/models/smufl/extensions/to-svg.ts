@@ -415,13 +415,11 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                                 match(chord.stem?._ ?? "none")
                                                   .with(
                                                     "up",
-                                                    // () => -chord.stemLength,
-                                                    () => -3,
+                                                    () => -chord.stemLength,
                                                   )
                                                   .with(
                                                     "down",
-                                                    // () => chord.stemLength,
-                                                    () => 3,
+                                                    () => chord.stemLength,
                                                   )
                                                   .with("double", () => {
                                                     throw new Error("wip");
