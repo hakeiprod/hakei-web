@@ -4,12 +4,16 @@ import { MidiNoteNumber } from "./midi-note-number";
 import { PitchClassName } from "./pitch-class-name";
 
 export class ScientificPitchNotation extends ValueObject<string> {
-  declare value: `${PitchClassName["value"]}${number}`;
+  declare value: `${PitchClassName["value"]}${string}${number}`;
   get octave() {
     return Number(this.value.slice(-1));
   }
+  get alter() {
+    return this.value.slice(1, -1);
+  }
   get pitchClassName() {
-    return new PitchClassName(this.value.slice(0, -1));
+    console.log(this.value);
+    return new PitchClassName(this.value[0]);
   }
   getDegree(scientificPitchNotation: ScientificPitchNotation) {
     return (
@@ -25,9 +29,8 @@ export class ScientificPitchNotation extends ValueObject<string> {
   }
   static readonly MIDDLE_C = "C4";
   protected validate(value: typeof this.value) {
-    const pitchClassName = value.slice(0, -1);
-    if (!PitchClassName.isPitchClassName(pitchClassName))
+    if (!PitchClassName.isPitchClassName(this.pitchClassName.value))
       throw new Error("Invalid");
-    return `${pitchClassName}${Number(value.slice(-1))}` as const;
+    return value;
   }
 }

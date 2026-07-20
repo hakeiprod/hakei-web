@@ -1,4 +1,4 @@
-import { isDefined, prop } from "remeda";
+import { isDefined, prop, times } from "remeda";
 import * as Core from "../../core";
 import { Measure } from "./measure";
 import { MusicData } from "./music-data";
@@ -14,10 +14,13 @@ export class Note {
   get rest() {
     return isDefined(prop(this.musicData, "data", "rest"));
   }
+  get alter() {
+    return prop(this.musicData, "data", "pitch", 0, "alter", 0, "_") ?? 0;
+  }
   get pitch() {
-    // TODO: alterを考慮するようにする
+    // TODO: Restの扱い考える
     return new Core.Units.ScientificPitchNotation(
-      `${prop(this.musicData, "data", "pitch", 0, "step", 0, "_") ?? "C"}${
+      `${prop(this.musicData, "data", "pitch", 0, "step", 0, "_") ?? "C"}${times(Math.abs(this.alter), () => (this.alter > 0 ? "#" : "b")).join("")}${
         prop(this.musicData, "data", "pitch", 0, "octave", 0, "_") ?? 0
       }`,
     );
