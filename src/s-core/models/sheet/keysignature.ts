@@ -17,7 +17,7 @@ export class Keysignature extends Core.Keysignature {
       ...this.accidentalPitchClasses.map((pitchClass) => [
         new Glyph(
           ElementType.Accidental,
-          pipe(pitchClass.toPitchClassName(this.tonality).toneIndex, (n) => {
+          pipe(pitchClass.toPitchClassName(this).toneIndex, (n) => {
             return (
               match(this.tonality)
                 .with(Core.Enums.Tonality.Major as 0, () =>

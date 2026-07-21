@@ -26,12 +26,12 @@ export class Bar {
   }
   get chords() {
     return this.masterbar.chords.filter(
-      (chord) => chord.trackId === this.trackId,
+      (chord) => chord.track.id === this.trackId,
     );
   }
   get events() {
     return this.masterbar.events.filter(
-      (event) => event.trackId === this.trackId,
+      (event) => event.track.id === this.trackId,
     );
   }
   get staves() {

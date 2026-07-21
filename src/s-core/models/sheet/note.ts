@@ -1,4 +1,4 @@
-import { isNonNull, times } from "remeda";
+import { times } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
 import {
@@ -45,8 +45,7 @@ export class Note extends Core.Note {
     // TODO: Natural
     if (this.rest) return null;
     return match(
-      this.pitch.toPitchClass().toPitchClassName(this.keysignature.tonality)
-        .accidental,
+      this.pitch.toPitchClass().toPitchClassName(this.keysignature).accidental,
     )
       .with("#", () => Sheet.AccidentalType.Sharp)
       .with("b", () => Sheet.AccidentalType.Flat)
@@ -64,9 +63,7 @@ export class Note extends Core.Note {
       (this.stave.resolveClefs()[0].line?.[0]?._ ?? 0) -
       this.stave
         .getClefScientificPitchNotation()
-        .getDegree(
-          this.pitch.toScientificPitchNotation(this.keysignature.tonality),
-        ) /
+        .getDegree(this.pitch.toScientificPitchNotation(this.keysignature)) /
         2
     );
   }
@@ -87,18 +84,6 @@ export class Note extends Core.Note {
         .otherwise(() => "quarter"),
     };
   }
-  // FIXME:
-  // get legerLine() {
-  //   return match(this.stave.resolveClefs()[0]?.sign![0]._)
-  //     .with("G", () => this.pitch.value > 80 || this.pitch.value <= 60)
-  //     .with("F", () => 60 >= this.pitch.value || this.pitch.value <= 43)
-  //     .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
-  //       throw new Error("wip");
-  //     })
-  //     .exhaustive()
-  //     ? Math.ceil((this.pitch.value - 59) / 2)
-  //     : 0;
-  // }
   get dot() {
     let duration = this.duration.value;
     let dot = 0;
@@ -144,11 +129,11 @@ export class Note extends Core.Note {
     this.beam = beam;
   }
   draw() {
-    if (isNonNull(this.accidental))
-      this.accidentalGlyph = new Sheet.Glyph(
-        Sheet.ElementType.Accidental,
-        this.line,
-      );
+    // if (isNonNull(this.accidental))
+    //   this.accidentalGlyph = new Sheet.Glyph(
+    //     Sheet.ElementType.Accidental,
+    //     this.line,
+    //   );
     this.glyph = new Sheet.Glyph(
       this.rest ? Sheet.ElementType.Rest : Sheet.ElementType.Notehead,
       this.line,

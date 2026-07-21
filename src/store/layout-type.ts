@@ -3,5 +3,7 @@ import { atomWithStorage } from "jotai/utils";
 
 export const layoutTypeAtom = atomWithStorage(
   "layoutType",
-  LayoutType.Horizontal
+  LayoutType.Horizontal,
+  undefined,
+  { getOnInit: true },
 );

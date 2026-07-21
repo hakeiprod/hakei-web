@@ -32,10 +32,10 @@ export class Stave {
     );
   }
   get chords() {
-    return this.bar.chords.filter((chord) => chord.staveId === this.id);
+    return this.bar.chords.filter((chord) => chord.stave.id === this.id);
   }
   get events() {
-    return this.bar.events.filter((event) => event.staveId === this.id);
+    return this.bar.events.filter((event) => event.stave.id === this.id);
   }
   get height() {
     return -1;

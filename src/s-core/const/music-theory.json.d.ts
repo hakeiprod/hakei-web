@@ -1,13 +1,11 @@
 export default {
-  pitchClasses: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-  accidentalPitchClasses: [1, 3, 6, 8, 10],
-  orderOfSharps: [5, 0, 7, 2, 9, 4, 11],
-  orderOfFlats: [10, 3, 8, 1, 6, 11, 4],
-  majorTonicsByAccidentals: [0, 7, 2, 9, 4, 11, 6, 1, 8, 3, 10, 5],
-  minorTonicsByAccidentals: [9, 4, 11, 6, 1, 8, 3, 10, 5, 0, 7, 2],
-  accidentals: ["#", "b"],
-  diatonicScale: ["C", "D", "E", "F", "G", "A", "B"],
-  chromaticScale: [
+  "pitchClasses": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+  "accidentalPitchClasses": [1, 3, 6, 8, 10],
+  "orderOfSharps": [5, 0, 7, 2, 9, 4, 11],
+  "orderOfFlats": [11, 4, 9, 2, 7, 0, 5],
+  "accidentals": ["#", "b"],
+  "diatonicScale": ["C", "D", "E", "F", "G", "A", "B"],
+  "chromaticScale": [
     "C",
     null,
     "D",
@@ -19,6 +17,23 @@ export default {
     null,
     "A",
     null,
-    "B",
+    "B"
   ],
+  "pitchNames": {
+    "-7": ["C", "Db", "D", "Eb", "Fb", "F", "Gb", "G", "Ab", "A", "Bb", "Cb"],
+    "-6": ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "Cb"],
+    "-5": ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"],
+    "-4": ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"],
+    "-3": ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"],
+    "-2": ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"],
+    "-1": ["C", "Db", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"],
+    "0": ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"],
+    "1": ["C", "C#", "D", "Eb", "E", "F", "F#", "G", "Ab", "A", "Bb", "B"],
+    "2": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "Bb", "B"],
+    "3": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+    "4": ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
+    "5": ["B#", "C#", "D", "D#", "E", "E#", "F#", "G", "G#", "A", "A#", "B"],
+    "6": ["B#", "C#", "D", "D#", "E", "E#", "F#", "F##", "G#", "A", "A#", "B"],
+    "7": ["B#", "C#", "D", "D#", "E", "E#", "F#", "F##", "G#", "A", "A#", "B"]
+  }
 } as const;

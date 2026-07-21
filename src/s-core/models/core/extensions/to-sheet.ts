@@ -34,17 +34,16 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
         chordId: undefined,
         rest: false,
         beam: undefined,
-        flag: null,
         alter: undefined,
         staveId: match(note.track.preset.toName())
           .with("Acoustic Grand Piano", () =>
-            note.pitch.value < Core.Units.MidiNoteNumber.MIDDLE_C ? 1 : 0
+            note.pitch.value < Core.Units.MidiNoteNumber.MIDDLE_C ? 1 : 0,
           )
           .otherwise(() => 0),
       })),
       groupByProp("start"),
       entries(),
-      flatMap(piped(last(), (last) => only(last) ?? last))
+      flatMap(piped(last(), (last) => only(last) ?? last)),
     ),
     bars: [],
     staves: [],

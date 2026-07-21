@@ -1,3 +1,4 @@
+import { IntRange } from "type-fest";
 import * as Core from ".";
 import musicTheory from "../../const/music-theory.json";
 export class Keysignature extends Core.Event {
@@ -12,9 +13,9 @@ export class Keysignature extends Core.Event {
   }
   constructor(
     keysignature: {
-      accidental: number;
+      accidental: -7 | -6 | -5 | -4 | -3 | -2 | -1 | IntRange<0, 8>;
       tonality: Core.Enums.Tonality;
-    } & ConstructorParameters<typeof Core.Event>[0]
+    } & ConstructorParameters<typeof Core.Event>[0],
   ) {
     const { accidental, tonality } = keysignature;
     super(keysignature);

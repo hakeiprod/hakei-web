@@ -4,33 +4,37 @@ import { MidiNoteNumber } from "./midi-note-number";
 import { PitchClassName } from "./pitch-class-name";
 
 export class ScientificPitchNotation extends ValueObject<string> {
-  declare value: `${PitchClassName["value"]}${string}${number}`;
+  declare value: `${(typeof musicTheory.diatonicScale)[number]}${string}${number}`;
   get octave() {
     return Number(this.value.slice(-1));
   }
   get alter() {
     return this.value.slice(1, -1);
   }
-  get pitchClassName() {
-    console.log(this.value);
-    return new PitchClassName(this.value[0]);
+  get step() {
+    return this.value[0] as (typeof musicTheory.diatonicScale)[number];
   }
   getDegree(scientificPitchNotation: ScientificPitchNotation) {
     return (
-      this.pitchClassName.getDegree(scientificPitchNotation.pitchClassName) +
+      this.toPitchClassName().getDegree(
+        scientificPitchNotation.toPitchClassName(),
+      ) +
       (this.octave - scientificPitchNotation.octave) *
         musicTheory.diatonicScale.length
     );
   }
+  toPitchClassName() {
+    return new PitchClassName(this.step);
+  }
   toMidiNoteNumber() {
     return new MidiNoteNumber(
-      (this.octave + 1) * 12 + this.pitchClassName.toPitchClass().value,
+      (this.octave + 1) * 12 +
+        musicTheory.chromaticScale.indexOf(this.step) +
+        (this.alter.includes("#") ? this.alter.length : -this.alter.length),
     );
   }
-  static readonly MIDDLE_C = "C4";
   protected validate(value: typeof this.value) {
-    if (!PitchClassName.isPitchClassName(this.pitchClassName.value))
-      throw new Error("Invalid");
+    if (!PitchClassName.isPitchClassName(this.step)) throw new Error("Invalid");
     return value;
   }
 }

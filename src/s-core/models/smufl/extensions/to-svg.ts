@@ -380,6 +380,16 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                               );
                                             });
                                         });
+                                      g.selectAll("g[type=legerlines]")
+                                        .data([null])
+                                        .join("g")
+                                        .attr("type", "legerlines")
+                                        .each(function () {
+                                          handleLigature(
+                                            this,
+                                            chord.legerlinesLigature,
+                                          );
+                                        });
                                       const x = match(chord.stem?._ ?? "none")
                                         .with(
                                           "up",

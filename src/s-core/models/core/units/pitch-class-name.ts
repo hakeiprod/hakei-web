@@ -32,7 +32,7 @@ export class PitchClassName extends ValueObject<string> {
           .with("#", () => 1)
           .with("b", () => -1)
           .with("", () => 0)
-          .exhaustive()
+          .exhaustive(),
     );
   }
   static isPitchClassName(value: string): value is PitchClassName["value"] {

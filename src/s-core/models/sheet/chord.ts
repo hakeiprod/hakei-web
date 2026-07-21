@@ -7,8 +7,9 @@ import {
   map,
   pipe,
   prop,
+  times,
 } from "remeda";
-import { match } from "ts-pattern";
+import { match, P } from "ts-pattern";
 import * as Sheet from ".";
 import * as Core from "../core";
 export class Chord extends Core.Event<{ id: number }> {
@@ -16,11 +17,32 @@ export class Chord extends Core.Event<{ id: number }> {
   score!: Sheet.Score;
   word = new Sheet.Word();
   noteheadsLigature = new Sheet.Ligature();
+  legerlinesLigature = new Sheet.Ligature();
   get notes() {
     return this.score.notes.filter((note) => note.chordId === this.id);
   }
+  get maxPitchNote() {
+    return pipe(
+      this.notes,
+      filter((note) => !note.rest),
+      firstBy([prop("pitch"), "desc"]),
+    );
+  }
+  get minPitchNote() {
+    return pipe(
+      this.notes,
+      filter((note) => !note.rest),
+      firstBy(prop("pitch")),
+    );
+  }
   get slot() {
     return this.score.slots.find((slot) => slot.chords.includes(this))!;
+  }
+  get stave() {
+    return this.notes[0].stave;
+  }
+  get track() {
+    return this.notes[0].track;
   }
   get beamGroup() {
     return this.score.beamGroups.find((beamGroup) =>
@@ -28,16 +50,10 @@ export class Chord extends Core.Event<{ id: number }> {
     );
   }
   get start() {
-    return firstBy(this.notes, [prop("start"), "asc"])!.start;
+    return firstBy(this.notes, prop("start"))!.start;
   }
   get end() {
     return firstBy(this.notes, [prop("end"), "desc"])!.end;
-  }
-  get staveId() {
-    return this.notes[0].staveId!;
-  }
-  get trackId() {
-    return this.notes[0].trackId!;
   }
   get voice() {
     return this.notes[0].voice;
@@ -89,6 +105,22 @@ export class Chord extends Core.Event<{ id: number }> {
   get stemLength() {
     return this.beamGroup?.calculateStemLength(this) ?? 3;
   }
+  get legerlines() {
+    if (!this.maxPitchNote || !this.minPitchNote) return [];
+    const bounds = match(this.stave.resolveClefs()[0]?.sign![0]._)
+      .with("G", () => ({ max: 79, min: 59 }))
+      .with("F", () => ({ max: 59, min: 39 }))
+      .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
+        throw new Error("wip");
+      })
+      .exhaustive();
+    const maxDiff = this.maxPitchNote.pitch.value - bounds.max;
+    const upcount = maxDiff > 0 ? Math.floor((maxDiff + 1) / 2) : 0;
+    return [
+      ...times(upcount, (index) => index + 6),
+      ...times(bounds.min - this.minPitchNote.pitch.value, (index) => index),
+    ];
+  }
   constructor({ id, ...event }: { id: number }) {
     super(event);
     this.id = id;
@@ -108,6 +140,11 @@ export class Chord extends Core.Event<{ id: number }> {
       pipe(this.notes, map(prop("accidentalGlyph")), filter(isTruthy)),
       [this.noteheadsLigature],
       this.notes.map(prop("dotLigature")),
+    );
+    this.legerlinesLigature.append(
+      this.legerlines.map(
+        (legerline) => new Sheet.Glyph(Sheet.ElementType.LegerLine, legerline),
+      ),
     );
   }
 }

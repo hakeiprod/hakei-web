@@ -6,7 +6,7 @@ import { scaleAtom } from "@/store/scale";
 import { NumberInput, Select, SelectItem, Switch } from "@heroui/react";
 import { useAtom } from "jotai";
 import localFont from "next/font/local";
-import { ChangeEvent, useEffect, useMemo, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { filter, keys, map, pipe } from "remeda";
 import { useDebouncedCallback } from "use-debounce";
 import "../s-core/models/smufl/extensions/to-svg";
@@ -19,21 +19,10 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [scale, setScale] = useAtom(scaleAtom);
   const [advanced, setAdvanced] = useState(true);
   const reference = useRef<HTMLDivElement | null>(null);
-  const controller = useMemo(() => {
-    const controller = new SMUFL.Controller(score, {
-      scale,
-      layoutType,
-      debug: false,
-      advanced,
-    });
-    controller.onChangeScale = (value) => setScale(value);
-    controller.onChangeLayoutType = (value) => setLayoutType(value);
-    controller.onChangeAdvanced = (value) => setAdvanced(value);
-    return controller;
-  }, [layoutType, scale, score, setLayoutType, setScale, advanced]);
+  const controllerReference = useRef<SMUFL.Controller | null>(null);
   const handleResize = useDebouncedCallback(() => {
-    if (controller.options.layoutType === LayoutType.Vertical)
-      controller?.render();
+    if (controllerReference.current?.options.layoutType === LayoutType.Vertical)
+      controllerReference.current?.render();
   }, 100);
   function handleScaleChange(
     eventOrValue: ChangeEvent<HTMLInputElement> | number,
@@ -42,18 +31,30 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       typeof eventOrValue === "number"
         ? eventOrValue
         : Number(eventOrValue.target.value);
-    controller.setScale(value);
-    controller.render();
+    controllerReference.current?.setScale(value);
+    controllerReference.current?.render();
   }
   function handleLayoutTypeChange(event: ChangeEvent<HTMLSelectElement>) {
-    controller.setLayoutType(Number(event.target.value));
-    controller.render();
+    controllerReference.current?.setLayoutType(Number(event.target.value));
+    controllerReference.current?.render();
   }
   function handleAdvancedChange(value: boolean) {
-    controller.setAdvanced(value);
-    controller.render();
+    controllerReference.current?.setAdvanced(value);
+    controllerReference.current?.render();
   }
   useEffect(() => {
+    if (!controllerReference.current) {
+      controllerReference.current = new SMUFL.Controller(score, {
+        scale,
+        layoutType,
+        debug: false,
+        advanced,
+      });
+    }
+    const controller = controllerReference.current;
+    controller.onChangeScale = (value) => setScale(value);
+    controller.onChangeLayoutType = (value) => setLayoutType(value);
+    controller.onChangeAdvanced = (value) => setAdvanced(value);
     controller.mount();
     const svg = controller.render();
     window.addEventListener("resize", handleResize);
@@ -62,7 +63,15 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       controller.unmount();
       window.removeEventListener("resize", handleResize);
     };
-  }, [controller, handleResize]);
+  }, [
+    advanced,
+    handleResize,
+    layoutType,
+    scale,
+    score,
+    setLayoutType,
+    setScale,
+  ]);
   return (
     <>
       <div

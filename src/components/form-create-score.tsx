@@ -3,7 +3,7 @@ import * as Browser from "@/s-core/models/browser";
 import * as Sheet from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
 import { Button, Form, FormProps, Input } from "@heroui/react";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { ScoreViewer } from "./score-viewer";
 
 export function FormCreateScore(properties: FormProps) {
@@ -27,7 +27,9 @@ export function FormCreateScore(properties: FormProps) {
       />
       {score && (
         <div style={{ overflowX: "auto" }}>
-          <ScoreViewer score={score} />
+          <Suspense fallback={"よみこみちゅー"}>
+            <ScoreViewer score={score} />
+          </Suspense>
         </div>
       )}
       <Button type="submit">submit</Button>
