@@ -33,6 +33,9 @@ export class ScientificPitchNotation extends ValueObject<string> {
         (this.alter.includes("#") ? this.alter.length : -this.alter.length),
     );
   }
+  toNaturalScientificPitchNotation() {
+    return new ScientificPitchNotation(`${this.step}${this.octave}`);
+  }
   protected validate(value: typeof this.value) {
     if (!PitchClassName.isPitchClassName(this.step)) throw new Error("Invalid");
     return value;

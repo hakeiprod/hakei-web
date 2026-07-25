@@ -3,7 +3,6 @@ import { Element } from "./element";
 
 export class Glyph extends Element {
   get width(): number {
-    console.log(this);
     throw new Error("unset");
   }
   get height(): number {

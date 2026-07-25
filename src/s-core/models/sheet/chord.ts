@@ -35,6 +35,9 @@ export class Chord extends Core.Event<{ id: number }> {
       firstBy(prop("pitch")),
     );
   }
+  get keysignature() {
+    return this.notes[0].keysignature;
+  }
   get slot() {
     return this.score.slots.find((slot) => slot.chords.includes(this))!;
   }
@@ -108,17 +111,39 @@ export class Chord extends Core.Event<{ id: number }> {
   get legerlines() {
     if (!this.maxPitchNote || !this.minPitchNote) return [];
     const bounds = match(this.stave.resolveClefs()[0]?.sign![0]._)
-      .with("G", () => ({ max: 79, min: 59 }))
-      .with("F", () => ({ max: 59, min: 39 }))
+      .with("G", () => ({
+        max: new Core.Units.ScientificPitchNotation("F5"),
+        min: new Core.Units.ScientificPitchNotation("E4"),
+      }))
+      .with("F", () => ({
+        max: new Core.Units.ScientificPitchNotation("A3"),
+        min: new Core.Units.ScientificPitchNotation("G2"),
+      }))
       .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
         throw new Error("wip");
       })
       .exhaustive();
-    const maxDiff = this.maxPitchNote.pitch.value - bounds.max;
-    const upcount = maxDiff > 0 ? Math.floor((maxDiff + 1) / 2) : 0;
+    console.log(
+      bounds.max.getDegree(
+        this.maxPitchNote.pitch.toScientificPitchNotation(this.keysignature),
+      ),
+      this.minPitchNote.pitch
+        .toScientificPitchNotation(this.keysignature)
+        .getDegree(bounds.min) / 2,
+    );
     return [
-      ...times(upcount, (index) => index + 6),
-      ...times(bounds.min - this.minPitchNote.pitch.value, (index) => index),
+      ...times(
+        this.maxPitchNote.pitch
+          .toScientificPitchNotation(this.keysignature)
+          .getDegree(bounds.max) / 2,
+        (index) => index + 6,
+      ),
+      ...times(
+        bounds.min.getDegree(
+          this.minPitchNote.pitch.toScientificPitchNotation(this.keysignature),
+        ) / 2,
+        (index) => index,
+      ),
     ];
   }
   constructor({ id, ...event }: { id: number }) {

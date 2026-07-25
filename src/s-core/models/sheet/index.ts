@@ -15,7 +15,6 @@ export * from "./slot";
 export * from "./stave";
 export * from "./timesignature";
 export * from "./track";
-export * as Units from "./units";
 
 export enum LayoutType {
   Horizontal,
