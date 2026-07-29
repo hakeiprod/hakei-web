@@ -123,14 +123,6 @@ export class Chord extends Core.Event<{ id: number }> {
         throw new Error("wip");
       })
       .exhaustive();
-    console.log(
-      bounds.max.getDegree(
-        this.maxPitchNote.pitch.toScientificPitchNotation(this.keysignature),
-      ),
-      this.minPitchNote.pitch
-        .toScientificPitchNotation(this.keysignature)
-        .getDegree(bounds.min) / 2,
-    );
     return [
       ...times(
         this.maxPitchNote.pitch
