@@ -15,7 +15,7 @@ Sheet.Score.prototype.toAudio = function (this: Sheet.Score) {
       .map((note) => ({
         ...note.export(),
         masterbarId: note.stave.bar.masterbar.id,
-        pitch: note.pitch.value + (note.alter ?? 0),
+        pitch: note.pitch.value,
       })),
   });
 };

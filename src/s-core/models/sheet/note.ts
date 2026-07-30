@@ -16,7 +16,6 @@ export class Note extends Core.Note {
   rest;
   voice;
   beam;
-  alter;
   glyph!: Sheet.Glyph;
   dotLigature!: Sheet.Ligature;
   accidentalGlyph?: Sheet.Glyph;
@@ -108,19 +107,9 @@ export class Note extends Core.Note {
       voice: number;
     } & ConstructorParameters<typeof Core.Note>[0],
   ) {
-    const {
-      id,
-      staveId,
-      rest = false,
-      chordId,
-      stem,
-      voice,
-      beam,
-      alter,
-    } = note;
+    const { id, staveId, rest = false, chordId, stem, voice, beam } = note;
     super(note);
     this.id = id;
-    this.alter = alter;
     this.staveId = staveId;
     this.chordId = chordId;
     this.stem = stem;
@@ -153,7 +142,6 @@ export class Note extends Core.Note {
       rest: this.rest,
       voice: this.voice,
       beam: this.beam,
-      alter: this.alter,
     };
   }
   export() {

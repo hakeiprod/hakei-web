@@ -78,7 +78,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
               .text(String.fromCodePoint(glyph.codepoint));
           });
       });
-    ligature.onClassListChange = () => g.attr("class", ligature.classList);
   }
   function handleGlyph(ds: d3.BaseType | SVGGElement, glyph: SMUFL.Glyph) {
     const g = d3.select(ds);
@@ -95,6 +94,7 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
           .attr("y", lineToSVG(glyph.line))
           .text(String.fromCodePoint(glyph.codepoint));
       });
+    glyph.onClassListChange = () => g.attr("class", glyph.classList);
   }
   svg
     .attr("font-size", options.ratio)
