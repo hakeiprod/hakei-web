@@ -2,7 +2,7 @@ import { isNonNullish, isNullish } from "remeda";
 import { Seconds } from "../../files/soundfont2/units/seconds";
 
 export class Timer {
-  startSeconds?: Seconds;
+  startSeconds?: Seconds | null;
   pauseSeconds?: Seconds | null;
   totalPausedSeconds = new Seconds(0);
   get elapsedSeconds() {
@@ -30,5 +30,7 @@ export class Timer {
       );
     this.pauseSeconds = null;
   }
-  stop() {}
+  stop() {
+    this.startSeconds = null;
+  }
 }

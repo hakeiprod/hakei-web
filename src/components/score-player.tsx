@@ -44,7 +44,7 @@ const machine = createMachine({
     stopped: {
       entry: "stop",
       on: {
-        PLAY: "playing",
+        PLAY: { target: "playing", actions: "play" },
       },
     },
   },

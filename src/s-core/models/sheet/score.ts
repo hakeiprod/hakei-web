@@ -2,6 +2,7 @@ import {
   filter,
   firstBy,
   flatMap,
+  isNonNullish,
   isNullish,
   map,
   pipe,
@@ -56,6 +57,7 @@ export class Score<
   override get end(): Core.Units.Beat {
     return firstBy(this.masterbars, [prop("end"), "desc"])!.end;
   }
+  notesByChordId: Map<number, Note[]> | null = null;
   constructor({
     rows,
     masterbars,
@@ -180,5 +182,17 @@ export class Score<
       masterbars: data.masterbars.map(Sheet.Masterbar.import),
       chords: data.chords.map(Sheet.Chord.import),
     });
+  }
+  getNotesByChordId(chordId: number) {
+    if (isNullish(this.notesByChordId)) {
+      this.notesByChordId = new Map();
+      for (const note of this.notes)
+        if (isNonNullish(note.chordId)) {
+          const list = this.notesByChordId.get(note.chordId) ?? [];
+          list.push(note);
+          this.notesByChordId.set(note.chordId, list);
+        }
+    }
+    return this.notesByChordId.get(chordId)!;
   }
 }

@@ -49,6 +49,7 @@ export class Controller {
     );
   }
   play() {
+    if (this.audioContext.state === "suspended") this.audioContext.resume();
     this.timer.play();
     for (const track of this.score.tracks) {
       const trackGain = this.audioContext.createGain();
@@ -91,8 +92,8 @@ export class Controller {
   stop() {
     this.timer.stop();
     this.emitter.emit("stop");
-    this.audioContext.close();
-    this.synths = [];
+    this.audioContext.suspend();
+    for (const synth of this.synths) synth.clearAllScheduled();
   }
   mute() {
     this.isMute = true;
@@ -108,5 +109,8 @@ export class Controller {
   setMasterGain(value: typeof this.masterGain.gain.value) {
     this.emitter.emit("changeMasterGain", value);
     this.masterGain.gain.value = value;
+  }
+  unmount() {
+    this.audioContext.close();
   }
 }

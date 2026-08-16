@@ -162,9 +162,12 @@ export class Synth {
     bufferSource.connect(this.filter);
     bufferSource.addEventListener("ended", () => {
       onEnd?.();
+      // try {
       bufferSource.disconnect(this.filter);
       this.bufferSources.splice(
-        this.bufferSources.indexOf({ bufferSource, pitch }),
+        this.bufferSources.findIndex(
+          (item) => item.bufferSource === bufferSource,
+        ),
         1,
       );
     });
@@ -192,5 +195,13 @@ export class Synth {
     filterEnvelope.noteOff(time);
   }
 
+  clearAllScheduled() {
+    const now = this.audioContext.currentTime;
+    for (const bufferSource of this.bufferSources)
+      bufferSource.bufferSource.stop();
+    this.gain.gain.cancelScheduledValues(now);
+    this.gain.gain.setValueAtTime(0, now);
+    this.filter.frequency.cancelScheduledValues(now);
+  }
   static Envelope = Envelope;
 }

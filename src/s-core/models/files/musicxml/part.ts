@@ -15,9 +15,7 @@ export class Part {
       (scorePart) => scorePart.data.$?.id === this.data.$?.id,
     );
   }
-  get musicDatas() {
-    return this.measures.flatMap(prop("musicDatas"));
-  }
+  musicDatas;
   get notes() {
     return this.measures.flatMap(prop("notes"));
   }
@@ -33,6 +31,7 @@ export class Part {
   ) {
     this.measures =
       this.data.measure?.map((measure) => new Measure(measure, this)) ?? [];
+    this.musicDatas = this.measures.flatMap(prop("musicDatas"));
     this.times = this.musicDatas
       .filter((musicData) => isDefined(prop(musicData, "data", "time")))
       .map((current) => new Time(current!, this));

@@ -19,7 +19,7 @@ export class Chord extends Core.Event<{ id: number }> {
   noteheadsLigature = new Sheet.Ligature();
   legerlinesLigature = new Sheet.Ligature();
   get notes() {
-    return this.score.notes.filter((note) => note.chordId === this.id);
+    return this.score.getNotesByChordId(this.id);
   }
   get maxPitchNote() {
     return pipe(
