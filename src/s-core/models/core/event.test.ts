@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
-import { Event } from "../../models/core/event";
-import { Beat } from "../../models/core/units";
+import { Event } from "./event";
+import { Beat } from "./units";
 
 describe("isOverlapped", () => {
   test("partial overlap", () => {

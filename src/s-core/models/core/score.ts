@@ -16,6 +16,7 @@ import {
 import { match } from "ts-pattern";
 import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import * as Core from "../core";
+import { PositiveIntSchema } from "../validator";
 import { MidiNoteNumber } from "./units";
 export class Score<
   Note extends Core.Note = Core.Note,
@@ -34,9 +35,11 @@ export class Score<
     return (["asc", "desc"] as const).map(
       (sort) =>
         firstBy(
-          this.notes.filter((note) => 0 <= note.pitch.value),
-          [prop("pitch", "value"), sort]
-        )!.pitch
+          this.notes.filter(
+            (note) => PositiveIntSchema.safeParse(note.pitch.value).success,
+          ),
+          [prop("pitch", "value"), sort],
+        )!.pitch,
     ) as [min: MidiNoteNumber, max: MidiNoteNumber];
   }
   name;
@@ -102,22 +105,22 @@ export class Score<
       defaultValue?: PartialDeep<
         LiteralToPrimitiveDeep<typeof Core.Metadata.defaultValue>
       >;
-    }
+    },
   ) {
     const defaultValue = mergeDeep(
       options?.defaultValue ?? {},
-      Core.Metadata.defaultValue
+      Core.Metadata.defaultValue,
     );
     for (const key of ["keysignatures", "timesignatures", "tempos"] as const) {
       if (isNullish(parameter[key]) || isEmpty(parameter[key]))
         match(key)
           .with(
             "timesignatures",
-            (key) => (parameter[key] = [defaultValue[key]])
+            (key) => (parameter[key] = [defaultValue[key]]),
           )
           .with(
             "keysignatures",
-            (key) => (parameter[key] = [defaultValue[key]])
+            (key) => (parameter[key] = [defaultValue[key]]),
           )
           .with("tempos", (key) => (parameter[key] = [defaultValue[key]]))
           .exhaustive();
@@ -136,11 +139,11 @@ export class Score<
               (note) => note.end ?? (note.start ?? 0) + (note.duration ?? 0),
               "desc",
             ]),
-            (note) => note?.end ?? (note?.start ?? 0) + (note?.duration ?? 0)
+            (note) => note?.end ?? (note?.start ?? 0) + (note?.duration ?? 0),
           ),
           duration: -1,
           end: -1,
-        } as EventParameter
+        } as EventParameter,
       );
     }
 
@@ -155,9 +158,9 @@ export class Score<
               { start, duration, end },
               entries(),
               filter(piped(last, isDefined)),
-              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
             ),
-          })
+          }),
       ) as [Core.Timesignature, ...Core.Timesignature[]],
       keysignatures: parameter.keysignatures?.map(
         ({ start, end, duration, ...keysignature }) =>
@@ -167,9 +170,9 @@ export class Score<
               { start, duration, end },
               entries(),
               filter(piped(last, isDefined)),
-              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
             ),
-          })
+          }),
       ) as [Core.Keysignature, ...Core.Keysignature[]],
       tempos: parameter.tempos?.map(
         ({ start, end, duration, ...tempo }) =>
@@ -179,9 +182,9 @@ export class Score<
               { start, duration, end },
               entries(),
               filter(piped(last, isDefined)),
-              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
             ),
-          })
+          }),
       ) as [Core.Tempo, ...Core.Tempo[]],
       notes: parameter.tracks.flatMap((track, trackId) =>
         track.notes.map(
@@ -196,10 +199,10 @@ export class Score<
                 { start, duration, end },
                 entries(),
                 filter(piped(last, isDefined)),
-                mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+                mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
               ),
-            })
-        )
+            }),
+        ),
       ),
       tracks: parameter.tracks.map(
         ({ start, duration, end, ...track }, trackId) =>
@@ -207,15 +210,15 @@ export class Score<
             ...track,
             id: trackId,
             preset: new Core.Units.Preset(
-              track.preset ?? defaultValue.track.preset
+              track.preset ?? defaultValue.track.preset,
             ),
             ...pipe(
               { start, duration, end },
               entries(),
               filter(piped(last, isDefined)),
-              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)])
+              mapToObj(([key, value]) => [key, new Core.Units.Beat(value!)]),
             ),
-          })
+          }),
       ),
     });
     return core;

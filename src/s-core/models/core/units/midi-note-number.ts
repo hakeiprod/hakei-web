@@ -1,4 +1,5 @@
 import musicTheory from "../../../const/music-theory.json";
+import { NonNegativeIntSchema } from "../../validator";
 import { ValueObject } from "../../valueobject";
 import { PitchClass } from "./pitch-class";
 import { ScientificPitchNotation } from "./scientific-pitch-notation";
@@ -16,6 +17,7 @@ export class MidiNoteNumber extends ValueObject<number> {
     );
   }
   protected validate(value: typeof this.value) {
+    NonNegativeIntSchema.optional().parse(value);
     return value;
   }
   static readonly MIDDLE_C = 60;

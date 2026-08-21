@@ -40,7 +40,7 @@ export class Score<
     return [
       ...pipe(this.notes, filter(piped(prop("chordId"), isNullish))),
       ...this.chords,
-    ].toSorted((a, b) => a.start.subtract(b.start).value);
+    ].toSorted((a, b) => a.start.value - b.start.value);
   }
   get height() {
     return this.rows.reduce(

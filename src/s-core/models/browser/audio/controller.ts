@@ -23,6 +23,7 @@ export class Controller {
   emitter = mitt<Events>();
   timer = new Timer(this.audioContext);
   masterGain;
+  trackGains = new Map<number, GainNode>();
   presets;
   synths;
   isMute = false;
@@ -47,18 +48,24 @@ export class Controller {
           track,
         }),
     );
+    for (const track of this.score.tracks)
+      this.trackGains.set(track.id, this.audioContext.createGain());
   }
   play() {
-    if (this.audioContext.state === "suspended") this.audioContext.resume();
     this.timer.play();
+    if (this.audioContext.state === "suspended") this.audioContext.resume();
     for (const track of this.score.tracks) {
-      const trackGain = this.audioContext.createGain();
+      // TODO: playするたびにcreateGainをしていると音が大きくなるバグが発生する
       const synth = this.synths.find((synth) => synth.track.id === track.id)!;
+      const trackGain = this.trackGains.get(track.id)!;
       track.emitter.on(
         "changeGain",
         (value: number) => (trackGain.gain.value = value),
       );
-      trackGain.connect(this.masterGain);
+      track.emitter.on("changeMute", (value) => {
+        trackGain.gain.value = value ? 0 : track.gain;
+      });
+      trackGain?.connect(this.masterGain);
       synth.gain.connect(trackGain);
       if (isNonNullish(this.timer.startSeconds))
         for (const note of track.notes) {

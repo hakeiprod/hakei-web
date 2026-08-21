@@ -1,7 +1,9 @@
+import { PositiveIntSchema } from "../../validator";
 import { ValueObject } from "../../valueobject";
 
 export class Tempo extends ValueObject<number> {
-  protected validate(value: typeof this.value): number {
+  validate(value: typeof this.value) {
+    PositiveIntSchema.parse(value);
     return value;
   }
 }

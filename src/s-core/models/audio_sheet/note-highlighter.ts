@@ -20,8 +20,15 @@ export class NoteHighlighter {
       for (const note of this.activeNotes)
         if (!nextNotes.has(note)) note.glyph.setClassName([]);
       for (const note of nextNotes)
-        if (!this.activeNotes.has(note))
-          note.glyph.setClassName(["note-highlight"]);
+        if (!this.activeNotes.has(note)) {
+          // FIX:
+          try {
+            note.glyph.setClassName(["note-highlight"]);
+          } catch {
+            console.log(note);
+            throw new Error("aaaaaaaaaaaaaaaaaaa");
+          }
+        }
       this.activeNotes = nextNotes;
       requestAnimationFrame(loop);
     };

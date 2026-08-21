@@ -8,6 +8,7 @@ import * as Sheet from "@/s-core/models/sheet";
 import "@/s-core/models/sheet/extensions/to-audio";
 import * as SMUFL from "@/s-core/models/smufl";
 import { useEffect, useMemo, useState } from "react";
+import { ScoreMixier } from "./score-mixier";
 import { ScorePlayer } from "./score-player";
 import { ScoreViewer } from "./score-viewer";
 import { VirtualKeyboard } from "./virtual-keyboard";
@@ -46,6 +47,7 @@ export function ShowScore(properties: {
     <>
       <ScoreViewer score={smufl} />
       {controller && <ScorePlayer score={audio} controller={controller} />}
+      <ScoreMixier score={audio} />
       <VirtualKeyboard keyboard={keyboard} />
     </>
   );
