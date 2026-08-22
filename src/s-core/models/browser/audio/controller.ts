@@ -15,25 +15,29 @@ type Events = {
   pause?: undefined;
   stop?: undefined;
   end?: undefined;
-  changeMasterGain: Controller["masterGain"]["gain"]["value"];
+  changeMasterGain: Audio.Units.Gain;
   changeMute: Controller["isMute"];
 };
 export class Controller {
   audioContext = new AudioContext();
   emitter = mitt<Events>();
   timer = new Timer(this.audioContext);
-  masterGain;
-  trackGains = new Map<number, GainNode>();
+  masterGainNode;
+  trackGainNodes = new Map<number, GainNode>();
   presets;
   synths;
   isMute = false;
-  previouseGain?: number;
+  masterGain;
   constructor(
     public score: Audio.Score,
     public soundfont2: Soundfont2,
+    defaultMasterGain: Audio.Units.Gain,
   ) {
-    this.masterGain = this.audioContext.createGain();
-    this.masterGain.connect(this.audioContext.destination);
+    this.masterGain = defaultMasterGain;
+    this.masterGainNode = this.audioContext.createGain();
+    this.masterGainNode.connect(this.audioContext.destination);
+    for (const track of this.score.tracks)
+      this.trackGainNodes.set(track.id, this.audioContext.createGain());
     this.presets = pipe(
       score.tracks,
       map(prop("preset", "value")),
@@ -48,24 +52,29 @@ export class Controller {
           track,
         }),
     );
-    for (const track of this.score.tracks)
-      this.trackGains.set(track.id, this.audioContext.createGain());
+  }
+  mount() {
+    this.emitter.on("changeMute", (value) => {
+      this.masterGainNode.gain.value = value ? 0 : this.masterGain.value;
+    });
+    this.emitter.on("changeMasterGain", (gain) => {
+      this.masterGainNode.gain.value = gain.value;
+    });
   }
   play() {
     this.timer.play();
     if (this.audioContext.state === "suspended") this.audioContext.resume();
     for (const track of this.score.tracks) {
-      // TODO: playするたびにcreateGainをしていると音が大きくなるバグが発生する
       const synth = this.synths.find((synth) => synth.track.id === track.id)!;
-      const trackGain = this.trackGains.get(track.id)!;
+      const trackGain = this.trackGainNodes.get(track.id)!;
       track.emitter.on(
         "changeGain",
-        (value: number) => (trackGain.gain.value = value),
+        (gain: Audio.Units.Gain) => (trackGain.gain.value = gain.value),
       );
       track.emitter.on("changeMute", (value) => {
-        trackGain.gain.value = value ? 0 : track.gain;
+        trackGain.gain.value = value ? 0 : track.gain.value;
       });
-      trackGain?.connect(this.masterGain);
+      trackGain?.connect(this.masterGainNode);
       synth.gain.connect(trackGain);
       if (isNonNullish(this.timer.startSeconds))
         for (const note of track.notes) {
@@ -102,20 +111,13 @@ export class Controller {
     this.audioContext.suspend();
     for (const synth of this.synths) synth.clearAllScheduled();
   }
-  mute() {
-    this.isMute = true;
-    this.emitter.emit("changeMute", this.isMute);
-    this.previouseGain = this.masterGain.gain.value;
-    this.setMasterGain(0);
+  setMute(value: typeof this.isMute) {
+    this.isMute = value;
+    this.emitter.emit("changeMute", value);
   }
-  unmute() {
-    this.isMute = false;
-    this.emitter.emit("changeMute", this.isMute);
-    if (this.previouseGain) this.setMasterGain(this.previouseGain);
-  }
-  setMasterGain(value: typeof this.masterGain.gain.value) {
+  setMasterGain(value: Audio.Units.Gain) {
+    this.masterGain = value;
     this.emitter.emit("changeMasterGain", value);
-    this.masterGain.gain.value = value;
   }
   unmount() {
     this.audioContext.close();

@@ -7,7 +7,7 @@ interface VolumeSlider {
   sliderProps: SliderProps;
   muteButtonProps: ButtonProps;
 }
-export function VolumeSlider(properties: VolumeSlider) {
+export function SliderVolume(properties: VolumeSlider) {
   const numericValue =
     (Array.isArray(properties.sliderProps.value)
       ? (properties.sliderProps.value[0] ?? 0)
@@ -24,6 +24,7 @@ export function VolumeSlider(properties: VolumeSlider) {
       {...properties.sliderProps}
       aria-label="Volume"
       color="foreground"
+      label={"Volume"}
       startContent={
         <Button {...properties.muteButtonProps} isIconOnly radius="full">
           {volumeIcon}

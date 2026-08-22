@@ -11,7 +11,7 @@ import { FastForward, Rewind, Square } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createMachine } from "xstate";
 import { ButtonPlayPause } from "./button-play-pause";
-import { VolumeSlider } from "./slider-volume";
+import { SliderVolume } from "./slider-volume";
 
 const machine = createMachine({
   initial: "idle",
@@ -68,20 +68,17 @@ export function ScorePlayer({
       },
     }),
   );
-  const [isMute, setIsMute] = useState(false);
+  const [isMute, setIsMute] = useState(controller.isMute);
   const [masterVolume, setMasterVolume] = useAtom(masterVolumeAtom);
   function handleChange(value: SliderValue) {
-    controller?.setMasterGain(
-      (Array.isArray(value) ? (value[0] ?? 0) : value) / 100,
-    );
+    controller.setMasterGain(new Audio.Units.Volume(value as number).toGain());
   }
   function handleChangeEnd(value: SliderValue) {
     if (value) setIsMute(false);
     else setIsMute(true);
   }
   function handleMute() {
-    if (controller.isMute) controller.unmute();
-    else controller.mute();
+    controller.setMute(!controller.isMute);
   }
   function handlePlay() {
     if (state.matches("playing")) send({ type: "PAUSE" });
@@ -90,19 +87,16 @@ export function ScorePlayer({
   function handleStop() {
     send({ type: "STOP" });
   }
-
   useEffect(() => {
-    controller.setMasterGain(masterVolume / 100);
+    controller.mount();
+    controller.emitter.on("changeMute", setIsMute);
     controller.emitter.on("changeMasterGain", (value) =>
-      setMasterVolume(value * 100),
+      setMasterVolume(value.toVolume().value),
     );
-    controller.emitter.on("changeMute", (value) => setIsMute(value));
     return () => {
-      controller.emitter.off("changeMasterGain");
-      controller.emitter.off("changeMute");
+      controller.emitter.all.clear();
     };
-  }, [controller]);
-
+  }, [controller, setMasterVolume]);
   return (
     <Navbar>
       <ButtonGroup isDisabled={!score}>
@@ -120,7 +114,7 @@ export function ScorePlayer({
           onPress={handlePlay}
         />
       </ButtonGroup>
-      <VolumeSlider
+      <SliderVolume
         isMute={isMute}
         sliderProps={{
           value: masterVolume,

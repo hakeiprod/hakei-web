@@ -1,5 +1,6 @@
 "use client";
 import { prisma } from "@/prisma";
+import * as Audio from "@/s-core/models/audio";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
@@ -7,6 +8,8 @@ import Soundfont2 from "@/s-core/models/files/soundfont2";
 import * as Sheet from "@/s-core/models/sheet";
 import "@/s-core/models/sheet/extensions/to-audio";
 import * as SMUFL from "@/s-core/models/smufl";
+import { masterVolumeAtom } from "@/store/master-volume";
+import { getDefaultStore } from "jotai";
 import { useEffect, useMemo, useState } from "react";
 import { ScoreMixier } from "./score-mixier";
 import { ScorePlayer } from "./score-player";
@@ -30,7 +33,13 @@ export function ShowScore(properties: {
   );
   const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
   const controller = useMemo(() => {
-    if (soundfont2) return new BrowserAudio.Controller(audio, soundfont2);
+    const store = getDefaultStore();
+    if (soundfont2)
+      return new BrowserAudio.Controller(
+        audio,
+        soundfont2,
+        new Audio.Units.Volume(store.get(masterVolumeAtom)).toGain(),
+      );
   }, [audio, soundfont2]);
   const noteHighlighter = useMemo(() => {
     if (controller) return new NoteHighlighter(smufl, controller);

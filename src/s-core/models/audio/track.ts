@@ -6,12 +6,12 @@ import { MidiNoteNumber } from "../core/units";
 import { PositiveIntSchema } from "../validator";
 
 type Events = {
-  changeGain: number;
+  changeGain: Audio.Units.Gain;
   changeMute: boolean;
 };
 export class Track extends Core.Track {
   isMute = false;
-  gain = 1;
+  gain = new Audio.Units.Gain(1);
   emitter = mitt<Events>();
   override get notes() {
     return super.notes as Audio.Note[];
@@ -28,8 +28,9 @@ export class Track extends Core.Track {
     ) as [min: MidiNoteNumber, max: MidiNoteNumber];
   }
   setMute(value: typeof this.isMute) {
-    this.isMute = value;
-    this.emitter.emit("changeMute", this.isMute);
+    this.emitter.emit("changeMute", (this.isMute = value));
   }
-  setGain(value: number) {}
+  setGain(value: Audio.Units.Gain) {
+    this.emitter.emit("changeGain", value);
+  }
 }
