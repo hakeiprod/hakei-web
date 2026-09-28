@@ -25,7 +25,7 @@ export class Timer {
   }
   resume() {
     if (isNonNullish(this.pauseSeconds))
-      this.totalPausedSeconds.add(
+      this.totalPausedSeconds = this.totalPausedSeconds.add(
         this.audioContext.getCurrentSeconds().subtract(this.pauseSeconds),
       );
     this.pauseSeconds = null;
