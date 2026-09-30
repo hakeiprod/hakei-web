@@ -6,6 +6,7 @@
     "ghcr.io/cirolosapio/devcontainers-features/alpine-bash:0": {},
     "ghcr.io/cirolosapio/devcontainers-features/alpine-openssh:0": {}
   },
+  "postCreateCommand": "apk add --no-cache github-cli",
   "customizations": {
     "vscode": {
       "extensions": [
