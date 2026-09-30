@@ -17,8 +17,8 @@ export class Note {
   get alter() {
     return prop(this.musicData, "data", "pitch", 0, "alter", 0, "_") ?? 0;
   }
-  get pitch() {
-    // TODO: Restの扱い考える
+  get pitch(): Core.Units.ScientificPitchNotation | undefined {
+    if (this.rest) return undefined;
     return new Core.Units.ScientificPitchNotation(
       `${prop(this.musicData, "data", "pitch", 0, "step", 0, "_") ?? "C"}${times(Math.abs(this.alter), () => (this.alter > 0 ? "#" : "b")).join("")}${
         prop(this.musicData, "data", "pitch", 0, "octave", 0, "_") ?? 0
