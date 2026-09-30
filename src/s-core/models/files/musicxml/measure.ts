@@ -30,16 +30,11 @@ export class Measure {
   }
   get declaredNominalDuration(): number | undefined {
     for (const musicData of this.musicDatas ?? []) {
-      const times = prop(musicData, "data", "time") as
-        | Array<{
-            beats?: Array<{ _: string | number }>;
-            "beat-type"?: Array<{ _: string | number }>;
-          }>
-        | undefined;
+      const times = prop(musicData, "data", "time");
       const time = times?.[0];
       if (!time) continue;
-      const beats = time.beats ?? [];
-      const beatTypes = time["beat-type"] ?? [];
+      const beats = prop(time, "beats") ?? [];
+      const beatTypes = prop(time, "beat-type") ?? [];
       const timeDuration = beats.reduce((total, beat, index) => {
         const beatType = Number(beatTypes[index]?._);
         if (!beatType) return total;
@@ -55,9 +50,7 @@ export class Measure {
   get duration() {
     const contentDuration = Math.max(
       0,
-      ...(this.musicDatas ?? []).map(
-        (musicData) => musicData.end - this.start,
-      ),
+      ...(this.musicDatas ?? []).map((musicData) => musicData.end - this.start),
     );
     if (this.data.$?.implicit === "yes") return contentDuration;
     return Math.max(contentDuration, this.nominalMeasureDuration ?? 0);
