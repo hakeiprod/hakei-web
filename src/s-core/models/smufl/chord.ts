@@ -28,5 +28,10 @@ export class Chord extends Sheet.Chord {
         ),
       ),
     );
+    // Noteheads are rendered at their glyph advance offset. Keep ledger lines
+    // on that same horizontal origin so their center sits under the notehead.
+    this.legerlinesLigature.glyphLists.flat().forEach((glyph) => {
+      glyph.x = this.glyphAdvanceWidth;
+    });
   }
 }
