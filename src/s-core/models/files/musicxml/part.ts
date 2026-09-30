@@ -32,6 +32,14 @@ export class Part {
     this.measures =
       this.data.measure?.map((measure) => new Measure(measure, this)) ?? [];
     this.musicDatas = this.measures.flatMap(prop("musicDatas"));
+    let measureStart = 0;
+    let nominalDuration: number | undefined;
+    for (const measure of this.measures) {
+      nominalDuration =
+        measure.declaredNominalDuration ?? nominalDuration;
+      measure.setTimeline(measureStart, nominalDuration);
+      measureStart = measure.end;
+    }
     this.times = this.musicDatas
       .filter((musicData) => isDefined(prop(musicData, "data", "time")))
       .map((current) => new Time(current!, this));

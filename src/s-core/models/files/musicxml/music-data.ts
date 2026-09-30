@@ -3,12 +3,11 @@ import { Measure } from "./measure";
 
 export class MusicData {
   get start(): number {
-    const previousMusicData =
-      this.measure.part.musicDatas[
-        this.measure.part.musicDatas.indexOf(this) - 1
-      ];
-    if (prop(this.data, "chord")) return previousMusicData?.start ?? 0;
-    return previousMusicData?.end ?? 0;
+    const musicDatas = this.measure.musicDatas ?? [];
+    const previousMusicData = musicDatas[musicDatas.indexOf(this) - 1];
+    if (prop(this.data, "chord"))
+      return previousMusicData?.start ?? this.measure.start;
+    return previousMusicData?.end ?? this.measure.start;
   }
   get end() {
     return this.start + this.duration;

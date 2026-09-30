@@ -35,7 +35,9 @@ export const toSheet = function (this: MusicXML) {
           rest: note.rest,
           voice: note.voice,
           velocity: 102,
-          pitch: note.pitch.toMidiNoteNumber().value,
+          // Sheet notes require a pitch even for rests. The explicit rest flag
+          // keeps this placeholder out of audio conversion.
+          pitch: note.pitch?.toMidiNoteNumber().value ?? 0,
           alter: prop(note, "musicData", "data", "pitch", 0, "alter", 0, "_"),
           stem: prop(note, "musicData", "data", "stem", 0),
           start: note.musicData.start,
