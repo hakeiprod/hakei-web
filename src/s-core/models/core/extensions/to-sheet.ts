@@ -44,21 +44,30 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     duration: number;
     end: number;
   }[] = [];
-  let masterbarStart = 0;
-  for (const timesignature of this.timesignatures) {
-    const barCount = Math.ceil(
-      timesignature.duration.value / timesignature.numerator,
-    );
+  for (const [timesignatureIndex, timesignature] of
+    this.timesignatures.entries()) {
+    const beatsPerBar =
+      (timesignature.numerator * 4) / timesignature.denominator;
+    const start = timesignature.start.value;
+    const end = timesignature.end.value;
+    const isLastTimesignature =
+      timesignatureIndex === this.timesignatures.length - 1;
+    const barCount = isLastTimesignature
+      ? Math.max(1, Math.ceil((end - start) / beatsPerBar))
+      : Math.ceil((end - start) / beatsPerBar);
     for (let i = 0; i < barCount; i++) {
-      const duration = timesignature.numerator;
+      const barStart = start + i * beatsPerBar;
+      const duration =
+        !isLastTimesignature && i === barCount - 1
+          ? end - barStart
+          : beatsPerBar;
       masterbars.push({
         id: masterbars.length,
         barline: {},
-        start: masterbarStart,
+        start: barStart,
         duration,
-        end: masterbarStart + duration,
+        end: barStart + duration,
       });
-      masterbarStart += duration;
     }
   }
   const staveIdsByTrack = new Map<number, Set<number>>();
