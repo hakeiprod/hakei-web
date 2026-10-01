@@ -52,6 +52,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       });
     }
     const controller = controllerReference.current;
+    controller.score = score;
     controller.onChangeScale = (value) => setScale(value);
     controller.onChangeLayoutType = (value) => setLayoutType(value);
     controller.onChangeAdvanced = (value) => setAdvanced(value);
