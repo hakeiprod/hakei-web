@@ -62,6 +62,7 @@ export class Chord extends Core.Event<{ id: number }> {
     return this.notes[0].voice;
   }
   get stem() {
+    if (this.notes.every((note) => note.rest)) return undefined;
     return this.notes[0].stem;
   }
   get beam() {
