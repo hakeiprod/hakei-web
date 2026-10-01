@@ -106,11 +106,13 @@ export class Stave {
       );
       keysignatureLigature.glyphLists =
         this.bar.keysignature.ligature.glyphLists;
-      this.word.append(
-        [keysignatureLigature],
-        [this.bar.timesignature.ligature],
-      );
+      this.word.append([keysignatureLigature]);
     }
+    if (
+      this.bar.masterbar.isRowFirst ||
+      this.bar.timesignature.start.equal(this.bar.masterbar.start)
+    )
+      this.word.append([this.bar.timesignature.ligature]);
   }
   resolveClefs(): Clef[] {
     return this.clefs ?? this.prev!.resolveClefs();
