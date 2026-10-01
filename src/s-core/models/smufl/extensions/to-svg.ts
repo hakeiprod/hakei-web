@@ -390,55 +390,58 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             chord.legerlinesLigature,
                                           );
                                         });
-                                      const x = match(chord.stem?._ ?? "none")
-                                        .with(
-                                          "up",
-                                          () => chord.noteheadsLigature?.width,
-                                        )
-                                        .with(
-                                          "down",
-                                          () =>
-                                            chord.noteheadsLigature?.x +
-                                            chord.glyphAdvanceWidth,
-                                        )
-                                        .with("double", () => {
-                                          throw new Error("wip");
-                                        })
-                                        .with("none", () => 0)
-                                        .exhaustive();
-                                      g.selectAll("path")
-                                        .data([chord])
-                                        .join("path")
-                                        .attr("stroke", "black")
-                                        .attr(
-                                          "stroke-width",
-                                          SMUFL.BravuraMetadata
-                                            .engravingDefaults.stemThickness,
-                                        )
-                                        .attr(
-                                          "d",
-                                          d3.line()([
-                                            [x, lineToSVG(chord.line)],
-                                            [
-                                              x,
-                                              lineToSVG(chord.line) +
-                                                match(chord.stem?._ ?? "none")
-                                                  .with(
-                                                    "up",
-                                                    () => -chord.stemLength,
-                                                  )
-                                                  .with(
-                                                    "down",
-                                                    () => chord.stemLength,
-                                                  )
-                                                  .with("double", () => {
-                                                    throw new Error("wip");
-                                                  })
-                                                  .with("none", () => 0)
-                                                  .exhaustive(),
-                                            ],
-                                          ]),
-                                        );
+                                      if (chord.stem?._ !== undefined &&
+                                          chord.stem._ !== "none") {
+                                        const x = match(chord.stem?._ ?? "none")
+                                          .with(
+                                            "up",
+                                            () => chord.noteheadsLigature?.width,
+                                          )
+                                          .with(
+                                            "down",
+                                            () =>
+                                              chord.noteheadsLigature?.x +
+                                              chord.glyphAdvanceWidth,
+                                          )
+                                          .with("double", () => {
+                                            throw new Error("wip");
+                                          })
+                                          .with("none", () => 0)
+                                          .exhaustive();
+                                        g.selectAll("path")
+                                          .data([chord])
+                                          .join("path")
+                                          .attr("stroke", "black")
+                                          .attr(
+                                            "stroke-width",
+                                            SMUFL.BravuraMetadata
+                                              .engravingDefaults.stemThickness,
+                                          )
+                                          .attr(
+                                            "d",
+                                            d3.line()([
+                                              [x, lineToSVG(chord.line)],
+                                              [
+                                                x,
+                                                lineToSVG(chord.line) +
+                                                  match(chord.stem?._ ?? "none")
+                                                    .with(
+                                                      "up",
+                                                      () => -chord.stemLength,
+                                                    )
+                                                    .with(
+                                                      "down",
+                                                      () => chord.stemLength,
+                                                    )
+                                                    .with("double", () => {
+                                                      throw new Error("wip");
+                                                    })
+                                                    .with("none", () => 0)
+                                                    .exhaustive(),
+                                              ],
+                                            ]),
+                                          );
+                                      }
                                     });
                                 });
                             });
