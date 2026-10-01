@@ -17,7 +17,7 @@ import { match } from "ts-pattern";
 import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import * as Core from "../core";
 import { PositiveIntSchema } from "../validator";
-import { MidiNoteNumber } from "./units";
+import { Beat, MidiNoteNumber } from "./units";
 export class Score<
   Note extends Core.Note = Core.Note,
   Track extends Core.Track = Core.Track,
@@ -26,10 +26,10 @@ export class Score<
   Tempo extends Core.Tempo = Core.Tempo,
 > extends Core.Event {
   override get start() {
-    return firstBy(this.tracks, [prop("start"), "asc"])!.start;
+    return firstBy(this.tracks, [prop("start"), "asc"])?.start ?? new Beat(0);
   }
   override get end() {
-    return firstBy(this.tracks, [prop("end"), "asc"])!.end;
+    return firstBy(this.tracks, [prop("end"), "desc"])?.end ?? new Beat(0);
   }
   get keyRange() {
     return (["asc", "desc"] as const).map(
