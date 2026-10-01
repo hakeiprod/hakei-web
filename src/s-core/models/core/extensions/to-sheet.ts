@@ -33,7 +33,6 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
   }
   const chords: { id: number }[] = [];
   for (const chordNotes of notesByChord.values()) {
-    if (chordNotes.length < 2) continue;
     const id = chords.length;
     chords.push({ id });
     for (const note of chordNotes) note.chordId = id;
