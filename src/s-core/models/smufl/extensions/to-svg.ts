@@ -207,10 +207,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                               );
                           }
                           if (masterbar.isLast) {
-                            g.selectAll("path[position=end]")
+                            g.selectAll("path[position=end-thin]")
                               .data([null])
                               .join("path")
-                              .attr("position", "end")
+                              .attr("position", "end-thin")
                               .attr(
                                 "transform",
                                 createTranslate(
@@ -232,10 +232,10 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                   [masterbar.width, bar.height],
                                 ]),
                               );
-                            g.selectAll("path[position=end]")
+                            g.selectAll("path[position=end-thick]")
                               .data([null])
                               .join("path")
-                              .attr("position", "end")
+                              .attr("position", "end-thick")
                               .attr(
                                 "transform",
                                 createTranslate(
