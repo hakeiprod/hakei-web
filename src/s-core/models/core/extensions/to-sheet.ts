@@ -181,7 +181,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
       ...track.export(),
       staffDetails: <StaffDetails>{ "staff-lines": [{ _: 5 }] },
     })),
-    notes: [...notes, ...rests],
+    notes: [...notes, ...rests].sort((a, b) => a.start - b.start),
     bars,
     staves,
     masterbars,
