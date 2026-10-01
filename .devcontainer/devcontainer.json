@@ -12,7 +12,8 @@
       "extensions": [
         "prisma.prisma",
         "dbaeumer.vscode-eslint",
-        "esbenp.prettier-vscode"
+        "esbenp.prettier-vscode",
+        "openai.chatgpt"
       ],
       "settings": {
         "editor.defaultFormatter": "esbenp.prettier-vscode",
