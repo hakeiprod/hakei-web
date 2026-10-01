@@ -48,9 +48,10 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
       2;
     const stem = chordNotes.some((note) => note.duration < 4)
       ? {
-          _: centerPitch <= middleLinePitch
-            ? ("up" as const)
-            : ("down" as const),
+          _:
+            centerPitch <= middleLinePitch
+              ? ("up" as const)
+              : ("down" as const),
         }
       : undefined;
     for (const note of chordNotes) {
@@ -65,8 +66,10 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     duration: number;
     end: number;
   }[] = [];
-  for (const [timesignatureIndex, timesignature] of
-    this.timesignatures.entries()) {
+  for (const [
+    timesignatureIndex,
+    timesignature,
+  ] of this.timesignatures.entries()) {
     const beatsPerBar =
       (timesignature.numerator * 4) / timesignature.denominator;
     const start = timesignature.start.value;
@@ -76,10 +79,10 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     const barCount = isLastTimesignature
       ? Math.max(1, Math.ceil((end - start) / beatsPerBar))
       : Math.ceil((end - start) / beatsPerBar);
-    for (let i = 0; i < barCount; i++) {
-      const barStart = start + i * beatsPerBar;
+    for (let index = 0; index < barCount; index++) {
+      const barStart = start + index * beatsPerBar;
       const duration =
-        !isLastTimesignature && i === barCount - 1
+        !isLastTimesignature && index === barCount - 1
           ? end - barStart
           : beatsPerBar;
       masterbars.push({
@@ -118,7 +121,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
             start: Math.max(note.start, masterbar.start),
             end: Math.min(note.end, masterbar.end),
           }))
-          .sort((a, b) => a.start - b.start);
+          .toSorted((a, b) => a.start - b.start);
         const gaps: { start: number; end: number }[] = [];
         let cursor = masterbar.start;
         for (const interval of intervals) {
@@ -159,8 +162,9 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     [...(staveIdsByTrack.get(bar.trackId) ?? [0])].map((id) => {
       const isBassStave =
         id === 1 &&
-        this.tracks.find((track) => track.id === bar.trackId)?.preset.toName() ===
-        "Acoustic Grand Piano";
+        this.tracks
+          .find((track) => track.id === bar.trackId)
+          ?.preset.toName() === "Acoustic Grand Piano";
       return {
         id,
         barId: bar.id,
@@ -181,7 +185,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
       ...track.export(),
       staffDetails: <StaffDetails>{ "staff-lines": [{ _: 5 }] },
     })),
-    notes: [...notes, ...rests].sort((a, b) => a.start - b.start),
+    notes: [...notes, ...rests].toSorted((a, b) => a.start - b.start),
     bars,
     staves,
     masterbars,

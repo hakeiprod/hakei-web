@@ -22,6 +22,8 @@ export function FormCreateScore(properties: FormProps) {
               file,
             )) as Sheet.Score;
             setScore(SMUFL.Score.import(sheet.export()));
+            console.log({ sheet });
+            console.log({ smufl: score });
           }
         }}
       />
