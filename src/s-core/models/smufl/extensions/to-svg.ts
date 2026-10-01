@@ -393,8 +393,9 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                       const stemDirection =
                                         chord.stem?._ ?? "none";
                                       const shouldDrawStem =
-                                        !chord.notes.some((note) => note.rest) &&
-                                        stemDirection !== "none";
+                                        !chord.notes.some(
+                                          (note) => note.rest,
+                                        ) && stemDirection !== "none";
                                       const stemX = shouldDrawStem
                                         ? match(stemDirection)
                                             .with(
@@ -411,15 +412,11 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             .with("double", () => {
                                               throw new Error("wip");
                                             })
-                                            .with("none", () => 0)
                                             .exhaustive()
                                         : 0;
                                       const stemLength = shouldDrawStem
                                         ? match(stemDirection)
-                                            .with(
-                                              "up",
-                                              () => -chord.stemLength,
-                                            )
+                                            .with("up", () => -chord.stemLength)
                                             .with(
                                               "down",
                                               () => chord.stemLength,
@@ -427,7 +424,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             .with("double", () => {
                                               throw new Error("wip");
                                             })
-                                            .with("none", () => 0)
                                             .exhaustive()
                                         : 0;
                                       g.selectAll("path")
@@ -436,8 +432,8 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                         .attr("stroke", "black")
                                         .attr(
                                           "stroke-width",
-                                          SMUFL.BravuraMetadata.engravingDefaults
-                                            .stemThickness,
+                                          SMUFL.BravuraMetadata
+                                            .engravingDefaults.stemThickness,
                                         )
                                         .attr(
                                           "d",
@@ -445,7 +441,8 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             [stemX, lineToSVG(chord.line)],
                                             [
                                               stemX,
-                                              lineToSVG(chord.line) + stemLength,
+                                              lineToSVG(chord.line) +
+                                                stemLength,
                                             ],
                                           ]),
                                         );
