@@ -177,89 +177,89 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                 [0, bar.height],
                               ]),
                             );
-                          if (masterbar.isRowLast) {
-                            g.selectAll("path[position=end]")
-                              .data([null])
-                              .join("path")
-                              .attr("position", "end")
-                              .attr(
-                                "transform",
-                                createTranslate(
-                                  -(
-                                    SMUFL.BravuraMetadata.engravingDefaults
-                                      .thinBarlineThickness / 2
-                                  ),
-                                  0,
+                          g.selectAll("path[position=end]")
+                            .data(
+                              masterbar.isRowLast && !masterbar.isLast
+                                ? [null]
+                                : [],
+                            )
+                            .join("path")
+                            .attr("position", "end")
+                            .attr(
+                              "transform",
+                              createTranslate(
+                                -(
+                                  SMUFL.BravuraMetadata.engravingDefaults
+                                    .thinBarlineThickness / 2
                                 ),
-                              )
-                              .attr("stroke", "black")
-                              .attr(
-                                "stroke-width",
-                                SMUFL.BravuraMetadata.engravingDefaults
-                                  .thinBarlineThickness,
-                              )
-                              .attr(
-                                "d",
-                                d3.line()([
-                                  [masterbar.width, 0],
-                                  [masterbar.width, bar.height],
-                                ]),
-                              );
-                          }
-                          if (masterbar.isLast) {
-                            g.selectAll("path[position=end-thin]")
-                              .data([null])
-                              .join("path")
-                              .attr("position", "end-thin")
-                              .attr(
-                                "transform",
-                                createTranslate(
-                                  -SMUFL.BravuraMetadata.engravingDefaults
-                                    .thickBarlineThickness * 2,
-                                  0,
+                                0,
+                              ),
+                            )
+                            .attr("stroke", "black")
+                            .attr(
+                              "stroke-width",
+                              SMUFL.BravuraMetadata.engravingDefaults
+                                .thinBarlineThickness,
+                            )
+                            .attr(
+                              "d",
+                              d3.line()([
+                                [masterbar.width, 0],
+                                [masterbar.width, bar.height],
+                              ]),
+                            );
+                          g.selectAll("path[position=end-thin]")
+                            .data(masterbar.isLast ? [null] : [])
+                            .join("path")
+                            .attr("position", "end-thin")
+                            .attr(
+                              "transform",
+                              createTranslate(
+                                -SMUFL.BravuraMetadata.engravingDefaults
+                                  .thickBarlineThickness * 2,
+                                0,
+                              ),
+                            )
+                            .attr("stroke", "black")
+                            .attr(
+                              "stroke-width",
+                              SMUFL.BravuraMetadata.engravingDefaults
+                                .thinBarlineThickness,
+                            )
+                            .attr(
+                              "d",
+                              d3.line()([
+                                [masterbar.width, 0],
+                                [masterbar.width, bar.height],
+                              ]),
+                            );
+                          g.selectAll("path[position=end-thick]")
+                            .data(masterbar.isLast ? [null] : [])
+                            .join("path")
+                            .attr("position", "end-thick")
+                            .attr(
+                              "transform",
+                              createTranslate(
+                                -(
+                                  SMUFL.BravuraMetadata.engravingDefaults
+                                    .thickBarlineThickness / 2
                                 ),
-                              )
-                              .attr("stroke", "black")
-                              .attr(
-                                "stroke-width",
-                                SMUFL.BravuraMetadata.engravingDefaults
-                                  .thinBarlineThickness,
-                              )
-                              .attr(
-                                "d",
-                                d3.line()([
-                                  [masterbar.width, 0],
-                                  [masterbar.width, bar.height],
-                                ]),
-                              );
-                            g.selectAll("path[position=end-thick]")
-                              .data([null])
-                              .join("path")
-                              .attr("position", "end-thick")
-                              .attr(
-                                "transform",
-                                createTranslate(
-                                  -(
-                                    SMUFL.BravuraMetadata.engravingDefaults
-                                      .thickBarlineThickness / 2
-                                  ),
-                                  0,
-                                ),
-                              )
-                              .attr("stroke", "black")
-                              .attr(
-                                "stroke-width",
-                                SMUFL.BravuraMetadata.engravingDefaults
-                                  .thickBarlineThickness,
-                              )
-                              .attr(
-                                "d",
-                                d3.line()([
-                                  [masterbar.width, 0],
-                                  [masterbar.width, bar.height],
-                                ]),
-                              );
-                          }
+                                0,
+                              ),
+                            )
+                            .attr("stroke", "black")
+                            .attr(
+                              "stroke-width",
+                              SMUFL.BravuraMetadata.engravingDefaults
+                                .thickBarlineThickness,
+                            )
+                            .attr(
+                              "d",
+                              d3.line()([
+                                [masterbar.width, 0],
+                                [masterbar.width, bar.height],
+                              ]),
+                            );
                         });
                       g.selectAll("g[type=stave]")
                         .data(bar.staves)
