@@ -20,7 +20,6 @@ function lineToSVG(line: number) {
 }
 let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
-  console.log(this);
   svg ??= d3.create("svg");
   const tooltip = new Tooltip(svg);
   function renderRect(
