@@ -442,6 +442,8 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                               ],
                                             ]),
                                           );
+                                      } else {
+                                        d3.select(this).selectAll("path").remove();
                                       }
                                     });
                                 });
