@@ -128,22 +128,26 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
         }
         if (cursor < masterbar.end)
           gaps.push({ start: cursor, end: masterbar.end });
-        return gaps.map(({ start, end }) => ({
-          id: restId++,
-          trackId: track.id,
-          staveId,
-          chordId: undefined as number | undefined,
-          stem: undefined as Stem | undefined,
-          voice: 1,
-          rest: true,
-          beam: undefined,
-          alter: undefined,
-          pitch: 0,
-          velocity: 0,
-          start,
-          duration: end - start,
-          end,
-        }));
+        return gaps.map(({ start, end }) => {
+          const chordId = chords.length;
+          chords.push({ id: chordId });
+          return {
+            id: restId++,
+            trackId: track.id,
+            staveId,
+            chordId,
+            stem: undefined as Stem | undefined,
+            voice: 1,
+            rest: true,
+            beam: undefined,
+            alter: undefined,
+            pitch: 0,
+            velocity: 0,
+            start,
+            duration: end - start,
+            end,
+          };
+        });
       }),
     ),
   );
