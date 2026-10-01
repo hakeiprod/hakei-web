@@ -108,7 +108,10 @@ export class Stave {
         this.bar.keysignature.ligature.glyphLists;
       this.word.append([keysignatureLigature]);
     }
-    if (this.bar.timesignature.start.equal(this.bar.masterbar.start))
+    if (
+      this.bar.masterbar.isRowFirst ||
+      this.bar.timesignature.start.equal(this.bar.masterbar.start)
+    )
       this.word.append([this.bar.timesignature.ligature]);
   }
   resolveClefs(): Clef[] {
