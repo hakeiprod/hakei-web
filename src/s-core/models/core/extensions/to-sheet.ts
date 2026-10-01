@@ -103,7 +103,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
 
   // Core scores store sounding notes only. Fill the uncovered parts of each
   // staff and bar with Sheet rests so the notation layer can render silence.
-  let restId = notes.length;
+  let restId = Math.max(-1, ...notes.map((note) => note.id)) + 1;
   const rests = masterbars.flatMap((masterbar) =>
     this.tracks.flatMap((track) =>
       [...(staveIdsByTrack.get(track.id) ?? [0])].flatMap((staveId) => {
