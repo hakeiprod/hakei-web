@@ -52,10 +52,18 @@ export class Score<
     return firstBy(this.rows, [prop("width"), "desc"])?.width ?? 0;
   }
   override get start(): Core.Units.Beat {
-    return firstBy(this.masterbars, [prop("start"), "asc"])!.start;
+    return (
+      firstBy(this.masterbars, [prop("start"), "asc"])?.start ??
+      firstBy(this.notes, [prop("start"), "asc"])?.start ??
+      new Core.Units.Beat(0)
+    );
   }
   override get end(): Core.Units.Beat {
-    return firstBy(this.masterbars, [prop("end"), "desc"])!.end;
+    return (
+      firstBy(this.masterbars, [prop("end"), "desc"])?.end ??
+      firstBy(this.notes, [prop("end"), "desc"])?.end ??
+      new Core.Units.Beat(0)
+    );
   }
   notesByChordId: Map<number, Note[]> | null = null;
   constructor({
