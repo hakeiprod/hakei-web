@@ -1,5 +1,5 @@
 import { match } from "ts-pattern";
-import { Clef, StaffDetails } from "../../../const/musicxml/4.0/musicxml";
+import { Clef, StaffDetails, Stem } from "../../../const/musicxml/4.0/musicxml";
 import * as Core from "../../core";
 import * as Sheet from "../../sheet";
 
@@ -12,7 +12,7 @@ declare module "../../core" {
 Core.Score.prototype.toSheet = function (this: Core.Score) {
   const notes = this.notes.map((note) => ({
     ...note.export(),
-    stem: undefined,
+    stem: undefined as Stem | undefined,
     voice: 1,
     chordId: undefined as number | undefined,
     rest: false,
@@ -35,7 +35,28 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
   for (const chordNotes of notesByChord.values()) {
     const id = chords.length;
     chords.push({ id });
-    for (const note of chordNotes) note.chordId = id;
+    const firstNote = chordNotes[0]!;
+    const isBassStave =
+      firstNote.staveId === 1 &&
+      this.tracks
+        .find((track) => track.id === firstNote.trackId)
+        ?.preset.toName() === "Acoustic Grand Piano";
+    const middleLinePitch = isBassStave ? 50 : 71;
+    const centerPitch =
+      (Math.min(...chordNotes.map((note) => note.pitch)) +
+        Math.max(...chordNotes.map((note) => note.pitch))) /
+      2;
+    const stem = chordNotes.some((note) => note.duration < 4)
+      ? {
+          _: centerPitch <= middleLinePitch
+            ? ("up" as const)
+            : ("down" as const),
+        }
+      : undefined;
+    for (const note of chordNotes) {
+      note.chordId = id;
+      note.stem = stem;
+    }
   }
   const masterbars: {
     id: number;
