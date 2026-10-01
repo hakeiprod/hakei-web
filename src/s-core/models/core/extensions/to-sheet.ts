@@ -101,6 +101,53 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     if (!staveIdsByTrack.has(track.id))
       staveIdsByTrack.set(track.id, new Set([0]));
 
+  // Core scores store sounding notes only. Fill the uncovered parts of each
+  // staff and bar with Sheet rests so the notation layer can render silence.
+  let restId = notes.length;
+  const rests = masterbars.flatMap((masterbar) =>
+    this.tracks.flatMap((track) =>
+      [...(staveIdsByTrack.get(track.id) ?? [0])].flatMap((staveId) => {
+        const intervals = notes
+          .filter(
+            (note) => note.trackId === track.id && note.staveId === staveId,
+          )
+          .filter(
+            (note) => note.start < masterbar.end && note.end > masterbar.start,
+          )
+          .map((note) => ({
+            start: Math.max(note.start, masterbar.start),
+            end: Math.min(note.end, masterbar.end),
+          }))
+          .sort((a, b) => a.start - b.start);
+        const gaps: { start: number; end: number }[] = [];
+        let cursor = masterbar.start;
+        for (const interval of intervals) {
+          if (interval.start > cursor)
+            gaps.push({ start: cursor, end: interval.start });
+          cursor = Math.max(cursor, interval.end);
+        }
+        if (cursor < masterbar.end)
+          gaps.push({ start: cursor, end: masterbar.end });
+        return gaps.map(({ start, end }) => ({
+          id: restId++,
+          trackId: track.id,
+          staveId,
+          chordId: undefined as number | undefined,
+          stem: undefined as Stem | undefined,
+          voice: 1,
+          rest: true,
+          beam: undefined,
+          alter: undefined,
+          pitch: 0,
+          velocity: 0,
+          start,
+          duration: end - start,
+          end,
+        }));
+      }),
+    ),
+  );
+
   const bars = masterbars.flatMap((masterbar) =>
     this.tracks.map((track) => ({ id: masterbar.id, trackId: track.id })),
   );
@@ -130,7 +177,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
       ...track.export(),
       staffDetails: <StaffDetails>{ "staff-lines": [{ _: 5 }] },
     })),
-    notes,
+    notes: [...notes, ...rests],
     bars,
     staves,
     masterbars,
