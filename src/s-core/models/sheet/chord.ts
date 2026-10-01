@@ -152,6 +152,9 @@ export class Chord extends Core.Event<{ id: number }> {
     return new Chord(data);
   }
   draw() {
+    this.word = new Sheet.Word();
+    this.noteheadsLigature = new Sheet.Ligature();
+    this.legerlinesLigature = new Sheet.Ligature();
     this.noteheadsLigature.append(this.notes.map(prop("glyph")));
     this.word.append(
       pipe(this.notes, map(prop("accidentalGlyph")), filter(isTruthy)),
