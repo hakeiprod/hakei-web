@@ -30,6 +30,10 @@ export class Controller {
     },
   ) {}
   mount() {
+    // Layout uses chord widths, which in turn use note glyph widths. Initialize
+    // those drawing objects before calculating the layout.
+    for (const note of this.score.notes) note.draw();
+    for (const chord of this.score.chords) chord.draw();
     this.layout();
     this.draw();
   }
