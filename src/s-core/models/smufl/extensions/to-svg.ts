@@ -22,6 +22,7 @@ let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
   console.log(this);
   svg ??= d3.create("svg");
+  svg.selectAll("g[type=tooltip]").remove();
   const tooltip = new Tooltip(svg);
   function renderRect(
     ds: d3.BaseType | SVGGElement,
