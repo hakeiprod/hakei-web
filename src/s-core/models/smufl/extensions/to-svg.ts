@@ -390,13 +390,15 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             chord.legerlinesLigature,
                                           );
                                         });
-                                      if (!chord.notes.some((note) => note.rest) &&
-                                          chord.stem?._ !== undefined &&
-                                          chord.stem._ !== "none") {
+                                      if (
+                                        chord.stem?._ !== undefined &&
+                                        chord.stem._ !== "none"
+                                      ) {
                                         const x = match(chord.stem?._ ?? "none")
                                           .with(
                                             "up",
-                                            () => chord.noteheadsLigature?.width,
+                                            () =>
+                                              chord.noteheadsLigature?.width,
                                           )
                                           .with(
                                             "down",
@@ -443,7 +445,9 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
                                             ]),
                                           );
                                       } else {
-                                        d3.select(this).selectAll("path").remove();
+                                        d3.select(this)
+                                          .selectAll("path")
+                                          .remove();
                                       }
                                     });
                                 });
