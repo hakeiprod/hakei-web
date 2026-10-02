@@ -19,13 +19,11 @@ export class Controller {
   onChangeScale?: (scale: typeof this.options.scale) => void;
   onChangeLayoutType?: (scale: typeof this.options.layoutType) => void;
   onChangeDebug?: (debug: typeof this.options.debug) => void;
-  onChangeAdvanced?: (advanced: typeof this.options.advanced) => void;
   constructor(
     public score: Score,
     public options: {
       scale: number;
       layoutType: LayoutType;
-      advanced: boolean;
       debug: Debug;
     },
   ) {}
@@ -130,10 +128,6 @@ export class Controller {
   setDebug(debug: typeof this.options.debug) {
     this.options.debug = debug;
     this.onChangeDebug?.(debug);
-  }
-  setAdvanced(advanced: typeof this.options.advanced) {
-    this.options.advanced = advanced;
-    this.onChangeAdvanced?.(advanced);
   }
 }
 
