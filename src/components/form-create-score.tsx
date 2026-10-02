@@ -21,7 +21,8 @@ export function FormCreateScore(properties: FormProps) {
             const sheet = (await new Browser.Importer().import(
               file,
             )) as Sheet.Score;
-            setScore(SMUFL.Score.import(sheet.export()));
+            const score = SMUFL.Score.import(sheet.export());
+            setScore(score);
             console.log({ sheet });
             console.log({ smufl: score });
           }

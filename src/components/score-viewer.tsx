@@ -47,7 +47,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       controllerReference.current = new SMUFL.Controller(score, {
         scale,
         layoutType,
-        debug: false,
+        debug: true,
         advanced,
       });
     }
