@@ -20,9 +20,6 @@ function lineToSVG(line: number) {
 }
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
   const svg = d3.create("svg");
-  svg.selectAll("g[type=tooltip]").remove();
-  const tooltip = new Tooltip(svg);
-  let activeDebugGroup: SVGGElement | null = null;
   function renderRect(
     ds: d3.BaseType | SVGGElement,
     boundingBox: BoundingBox,
@@ -47,46 +44,6 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
       .attr("y", boundingBox.y);
   }
 
-  svg
-    .on("mousemove.debugTooltip", (event: MouseEvent) => {
-      let target = event.target;
-      while (target instanceof Element && target !== svg?.node()) {
-        if (
-          target instanceof SVGGElement &&
-          target.dataset.debugTooltip !== undefined
-        ) {
-          if (activeDebugGroup !== target) {
-            if (activeDebugGroup)
-              d3.select(activeDebugGroup)
-                .select("rect[data-debug-bounds]")
-                .style("fill-opacity", 0);
-            activeDebugGroup = target;
-            d3.select(target)
-              .select("rect[data-debug-bounds]")
-              .style("fill", target.dataset.debugColor)
-              .style("fill-opacity", 0.25);
-          }
-          tooltip.visible(target.dataset.debugTooltip ?? "");
-          tooltip.move(d3.pointer(event, svg?.node()));
-          return;
-        }
-        target = target.parentElement;
-      }
-      if (activeDebugGroup)
-        d3.select(activeDebugGroup)
-          .select("rect[data-debug-bounds]")
-          .style("fill-opacity", 0);
-      activeDebugGroup = null;
-      tooltip.invisible();
-    })
-    .on("mouseleave.debugTooltip", () => {
-      if (activeDebugGroup)
-        d3.select(activeDebugGroup)
-          .select("rect[data-debug-bounds]")
-          .style("fill-opacity", 0);
-      activeDebugGroup = null;
-      tooltip.invisible();
-    });
   function handleLigature(
     ds: d3.BaseType | SVGGElement,
     ligature: Sheet.Ligature<SMUFL.Glyph>,
@@ -618,7 +575,48 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
         });
     });
 
-  svg.select("g[type=tooltip]").raise();
+  const tooltip = new Tooltip(svg);
+  let activeDebugGroup: SVGGElement | null = null;
+  svg
+    .on("mousemove.debugTooltip", (event: MouseEvent) => {
+      let target = event.target;
+      while (target instanceof Element && target !== svg.node()) {
+        if (
+          target instanceof SVGGElement &&
+          target.dataset.debugTooltip !== undefined
+        ) {
+          if (activeDebugGroup !== target) {
+            if (activeDebugGroup)
+              d3.select(activeDebugGroup)
+                .select("rect[data-debug-bounds]")
+                .style("fill-opacity", 0);
+            activeDebugGroup = target;
+            d3.select(target)
+              .select("rect[data-debug-bounds]")
+              .style("fill", target.dataset.debugColor)
+              .style("fill-opacity", 0.25);
+          }
+          tooltip.visible(target.dataset.debugTooltip ?? "");
+          tooltip.move(d3.pointer(event, svg.node()));
+          return;
+        }
+        target = target.parentElement;
+      }
+      if (activeDebugGroup)
+        d3.select(activeDebugGroup)
+          .select("rect[data-debug-bounds]")
+          .style("fill-opacity", 0);
+      activeDebugGroup = null;
+      tooltip.invisible();
+    })
+    .on("mouseleave.debugTooltip", () => {
+      if (activeDebugGroup)
+        d3.select(activeDebugGroup)
+          .select("rect[data-debug-bounds]")
+          .style("fill-opacity", 0);
+      activeDebugGroup = null;
+      tooltip.invisible();
+    });
   return svg.node();
 };
 
