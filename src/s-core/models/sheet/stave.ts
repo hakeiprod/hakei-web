@@ -93,21 +93,8 @@ export class Stave {
         ),
       ]);
     if (this.bar.masterbar.isFirst) {
-      const keysignatureLigature = new Sheet.Ligature(
-        (this.bar.keysignature.ligature.line = match(
-          this.resolveClefs()[0]?.sign![0]._,
-        )
-          .with("G", () => 0.5)
-          .with("F", () => -0.5)
-          .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
-            throw new Error("wip");
-          })
-          .exhaustive()),
-      );
-      keysignatureLigature.glyphLists =
-        this.bar.keysignature.ligature.glyphLists;
       this.word.append(
-        [keysignatureLigature],
+        [this.bar.keysignature.ligature],
         [this.bar.timesignature.ligature],
       );
     }

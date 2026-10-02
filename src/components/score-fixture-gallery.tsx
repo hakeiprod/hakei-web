@@ -51,7 +51,6 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
         debug: false,
-        advanced: true,
       });
       controller.mount();
       const svg = controller.render();

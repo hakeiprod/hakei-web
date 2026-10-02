@@ -8,22 +8,21 @@ export class Timesignature extends Sheet.Timesignature {
   draw() {
     super.draw();
     this.ligature.glyphLists = this.ligature.glyphLists.map((glyphs) =>
-      glyphs.map(
-        (glyph) =>
-          new Glyph(
-            Glyph.find("timeSignatures", (v) =>
-              v.toLocaleLowerCase().includes(
-                match(glyph.type)
-                  .with(Sheet.ElementType.Numerator, () => this.numerator)
-                  .with(Sheet.ElementType.Denominator, () => this.denominator)
-                  .run()
-                  .toString(),
-              ),
-            ),
-            glyph.type,
-            glyph.line,
-          ),
-      ),
+      glyphs.map((glyph) => {
+        const value = match(glyph.type)
+          .with(Sheet.ElementType.Numerator, () => this.numerator)
+          .with(Sheet.ElementType.Denominator, () => this.denominator)
+          .run();
+        const glyphName = Glyph.find(
+          "timeSignatures",
+          (name) => name === `timeSig${value}`,
+        );
+        if (!glyphName)
+          throw new RangeError(
+            `Unsupported time signature component: ${value}`,
+          );
+        return new Glyph(glyphName, glyph.type, glyph.line);
+      }),
     );
   }
 }
