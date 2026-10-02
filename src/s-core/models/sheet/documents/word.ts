@@ -1,4 +1,4 @@
-import { firstBy, prop, reduce } from "remeda";
+import { firstBy, reduce } from "remeda";
 import * as Sheet from "..";
 import { BoundingBox } from "../../boundingbox";
 import { Element } from "./element";
@@ -39,15 +39,12 @@ export class Word<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
       (accumulator, current) => {
         for (const glyphOrLigature of current)
           if (glyphOrLigature instanceof Ligature) glyphOrLigature.order();
-        if (accumulator)
-          for (const glyphOrLigature of current) {
-            const previousMaxWidthGlyph = firstBy(accumulator, [
-              prop("width"),
-              "desc",
-            ]);
-            if (previousMaxWidthGlyph)
-              glyphOrLigature.x = previousMaxWidthGlyph.right;
-          }
+        if (accumulator?.length) {
+          const nextX = Math.max(
+            ...accumulator.map((element) => element.right),
+          );
+          for (const glyphOrLigature of current) glyphOrLigature.x = nextX;
+        }
         return current;
       },
       null as Word["glyphOrLigatureLists"][number] | null,

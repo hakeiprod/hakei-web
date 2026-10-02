@@ -34,14 +34,10 @@ export class Table<T extends Element> extends Element {
     reduce(
       this.glyphLists,
       (accumulator, current) => {
-        if (accumulator)
-          for (const glyph of current) {
-            const previousMaxWidthGlyph = firstBy(accumulator, [
-              (glyph) => glyph.width,
-              "desc",
-            ]);
-            if (previousMaxWidthGlyph) glyph.x = previousMaxWidthGlyph.right;
-          }
+        if (accumulator?.length) {
+          const nextX = Math.max(...accumulator.map((glyph) => glyph.right));
+          for (const glyph of current) glyph.x = nextX;
+        }
         return current;
       },
       null as Table<T>["glyphLists"][number] | null,

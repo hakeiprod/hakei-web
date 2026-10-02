@@ -1,14 +1,4 @@
-import {
-  filter,
-  firstBy,
-  flat,
-  identity,
-  isTruthy,
-  map,
-  pipe,
-  piped,
-  reduce,
-} from "remeda";
+import { flat, map, pipe } from "remeda";
 import * as Sheet from "..";
 import { Table } from "./table";
 
@@ -17,19 +7,6 @@ export class Ligature<
 > extends Table<Glyph> {
   constructor(public glyphLists: Glyph[][] = []) {
     super();
-  }
-  get width(): number {
-    return pipe(
-      this.glyphLists,
-      map(
-        piped(
-          map((glyph) => glyph.width),
-          firstBy([identity(), "desc"]),
-        ),
-      ),
-      filter(isTruthy),
-      reduce((accumulator, current) => accumulator + (current as number), 0),
-    );
   }
   get height(): number {
     return pipe(
@@ -45,23 +22,6 @@ export class Ligature<
         const maxY = Math.max(...bounds.map((b) => b.bottom));
         return maxY - minY;
       },
-    );
-  }
-  order() {
-    reduce(
-      this.glyphLists,
-      (accumulator, current) => {
-        if (accumulator)
-          for (const glyph of current) {
-            const previousMaxWidthGlyph = firstBy(accumulator, [
-              (glyph) => glyph.width,
-              "desc",
-            ]);
-            if (previousMaxWidthGlyph) glyph.x = previousMaxWidthGlyph.right;
-          }
-        return current;
-      },
-      null as Ligature["glyphLists"][number] | null,
     );
   }
   append(...glyphLists: Glyph[][]) {
