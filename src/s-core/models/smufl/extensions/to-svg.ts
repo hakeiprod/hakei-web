@@ -18,11 +18,8 @@ declare module ".." {
 function lineToSVG(line: number) {
   return -(line - 5);
 }
-let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
-  svg ??= d3.create("svg");
-  svg.selectAll("g[type=tooltip]").remove();
-  const tooltip = new Tooltip(svg);
+  const svg = d3.create("svg");
   function renderRect(
     ds: d3.BaseType | SVGGElement,
     boundingBox: BoundingBox,
@@ -30,28 +27,23 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
     color: string,
   ) {
     const g = d3.select(ds);
+    g.attr("data-debug-tooltip", JSON.stringify(data)).attr(
+      "data-debug-color",
+      color,
+    );
     g.selectAll("rect")
       .data([null])
       .join("rect")
+      .attr("data-debug-bounds", "")
       .style("fill-opacity", 0)
       .style("stroke", color)
       .style("stroke-width", "0.1")
       .attr("width", () => boundingBox.width)
       .attr("height", () => boundingBox.height)
       .attr("x", boundingBox.x)
-      .attr("y", boundingBox.y)
-      .on("mouseenter", function () {
-        d3.select(this).style("fill", color).style("fill-opacity", 0.25);
-        tooltip.visible(JSON.stringify(data));
-      })
-      .on("mousemove", function (event) {
-        tooltip.move(d3.pointer(event, svg?.node()));
-      })
-      .on("mouseleave", function () {
-        d3.select(this).style("fill-opacity", 0);
-        tooltip.invisible();
-      });
+      .attr("y", boundingBox.y);
   }
+
   function handleLigature(
     ds: d3.BaseType | SVGGElement,
     ligature: Sheet.Ligature<SMUFL.Glyph>,
@@ -583,6 +575,48 @@ SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
         });
     });
 
+  const tooltip = new Tooltip(svg);
+  let activeDebugGroup: SVGGElement | null = null;
+  svg
+    .on("mousemove.debugTooltip", (event: MouseEvent) => {
+      let target = event.target;
+      while (target instanceof Element && target !== svg.node()) {
+        if (
+          target instanceof SVGGElement &&
+          target.dataset.debugTooltip !== undefined
+        ) {
+          if (activeDebugGroup !== target) {
+            if (activeDebugGroup)
+              d3.select(activeDebugGroup)
+                .select("rect[data-debug-bounds]")
+                .style("fill-opacity", 0);
+            activeDebugGroup = target;
+            d3.select(target)
+              .select("rect[data-debug-bounds]")
+              .style("fill", target.dataset.debugColor)
+              .style("fill-opacity", 0.25);
+          }
+          tooltip.visible(target.dataset.debugTooltip ?? "");
+          tooltip.move(d3.pointer(event, svg.node()));
+          return;
+        }
+        target = target.parentElement;
+      }
+      if (activeDebugGroup)
+        d3.select(activeDebugGroup)
+          .select("rect[data-debug-bounds]")
+          .style("fill-opacity", 0);
+      activeDebugGroup = null;
+      tooltip.invisible();
+    })
+    .on("mouseleave.debugTooltip", () => {
+      if (activeDebugGroup)
+        d3.select(activeDebugGroup)
+          .select("rect[data-debug-bounds]")
+          .style("fill-opacity", 0);
+      activeDebugGroup = null;
+      tooltip.invisible();
+    });
   return svg.node();
 };
 
@@ -598,7 +632,8 @@ class Tooltip {
       .attr("type", "tooltip")
       .append("text")
       .attr("font-size", "2px")
-      .attr("fill-opacity", 0);
+      .attr("fill-opacity", 0)
+      .attr("pointer-events", "none");
   }
   visible(text: string) {
     this.d3.attr("fill-opacity", 1).text(text);
