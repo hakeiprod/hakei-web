@@ -18,9 +18,8 @@ declare module ".." {
 function lineToSVG(line: number) {
   return -(line - 5);
 }
-let svg: d3.Selection<SVGSVGElement, undefined, null, undefined> | null = null;
 SMUFL.Score.prototype.toSVG = function (this: SMUFL.Score, options) {
-  svg ??= d3.create("svg");
+  const svg = d3.create("svg");
   svg.selectAll("g[type=tooltip]").remove();
   const tooltip = new Tooltip(svg);
   let activeDebugGroup: SVGGElement | null = null;

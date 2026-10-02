@@ -1,12 +1,12 @@
 "use client";
 
 import * as Core from "@/s-core/models/core";
+import "@/s-core/models/core/extensions/to-sheet";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
+import "@/s-core/models/smufl/extensions/to-svg";
 import localFont from "next/font/local";
 import { useEffect, useRef, useState } from "react";
-import "@/s-core/models/core/extensions/to-sheet";
-import "@/s-core/models/smufl/extensions/to-svg";
 
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
@@ -50,16 +50,14 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
       controller = new SMUFL.Controller(score, {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
-        debug: false,
+        debug: true,
         advanced: true,
       });
       controller.mount();
       const svg = controller.render();
       if (!svg) throw new Error("Renderer returned no SVG");
 
-      // toSVG currently reuses one SVG root; snapshot it before rendering the
-      // next fixture so every card keeps its own visible copy.
-      containerElement?.replaceChildren(svg.cloneNode(true));
+      containerElement?.replaceChildren(svg);
       setRenderState({ status: "ready" });
     } catch (error) {
       setRenderState({
