@@ -1,6 +1,8 @@
 "use client";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
+import "@/s-core/models/document/extensions/to-svg";
+import { bindNoteHighlights } from "@/s-core/models/browser/bind-note-highlights";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { NumberInput, Select, SelectItem, Switch } from "@heroui/react";
@@ -9,20 +11,35 @@ import localFont from "next/font/local";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { filter, keys, map, pipe } from "remeda";
 import { useDebouncedCallback } from "use-debounce";
-import "../s-core/models/smufl/extensions/to-svg";
 
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
+function renderDocument(controller: SMUFL.Controller) {
+  const document = controller.toDocument();
+  const svg = document.toSVG({
+    scale: controller.options.scale,
+    fontFamily: bravura.style.fontFamily,
+    paddingBottom: 100,
+  });
+  bindNoteHighlights(controller.score, svg);
+  return svg;
+}
+
 export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [advanced, setAdvanced] = useState(true);
+  const [debug, setDebug] = useState(true);
   const reference = useRef<HTMLDivElement | null>(null);
   const controllerReference = useRef<SMUFL.Controller | null>(null);
   const handleResize = useDebouncedCallback(() => {
-    if (controllerReference.current?.options.layoutType === LayoutType.Vertical)
-      controllerReference.current?.render();
+    if (
+      controllerReference.current?.options.layoutType === LayoutType.Vertical
+    ) {
+      const svg = renderDocument(controllerReference.current);
+      reference.current?.replaceChildren(svg);
+    }
   }, 100);
   function handleScaleChange(
     eventOrValue: ChangeEvent<HTMLInputElement> | number,
@@ -32,32 +49,30 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
         ? eventOrValue
         : Number(eventOrValue.target.value);
     controllerReference.current?.setScale(value);
-    controllerReference.current?.render();
   }
   function handleLayoutTypeChange(event: ChangeEvent<HTMLSelectElement>) {
     controllerReference.current?.setLayoutType(Number(event.target.value));
-    controllerReference.current?.render();
   }
   function handleAdvancedChange(value: boolean) {
     controllerReference.current?.setAdvanced(value);
-    controllerReference.current?.render();
   }
   useEffect(() => {
     if (!controllerReference.current) {
       controllerReference.current = new SMUFL.Controller(score, {
         scale,
         layoutType,
-        debug: true,
+        debug,
         advanced,
       });
     }
     const controller = controllerReference.current;
     controller.score = score;
+    controller.options.debug = debug;
     controller.onChangeScale = (value) => setScale(value);
     controller.onChangeLayoutType = (value) => setLayoutType(value);
     controller.onChangeAdvanced = (value) => setAdvanced(value);
     controller.mount();
-    const svg = controller.render();
+    const svg = renderDocument(controller);
     window.addEventListener("resize", handleResize);
     if (reference.current && svg) reference.current.replaceChildren(svg);
     return () => {
@@ -66,6 +81,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     };
   }, [
     advanced,
+    debug,
     handleResize,
     layoutType,
     scale,
@@ -103,6 +119,9 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
           map((key) => <SelectItem key={key}>{LayoutType[key]}</SelectItem>),
         )}
       </Select>
+      <Switch aria-label="debug" isSelected={debug} onValueChange={setDebug}>
+        debug
+      </Switch>
       <Switch isSelected={advanced} onValueChange={handleAdvancedChange}>
         advanced
       </Switch>

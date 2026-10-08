@@ -1,5 +1,5 @@
 import * as Sheet from "@/s-core/models/sheet";
-import * as SMUFL from ".";
+import type * as SMUFL from ".";
 export class Controller extends Sheet.Controller {
   declare public score: SMUFL.Score;
   constructor(
@@ -8,10 +8,14 @@ export class Controller extends Sheet.Controller {
   ) {
     super(score, options);
   }
-  render() {
+  toDocument() {
     this.layout();
     this.space(window.innerWidth);
     this.order();
-    return this.score.toSVG({ ...this.options, ratio: 4 });
+    const debug =
+      typeof this.options.debug === "boolean"
+        ? this.options.debug
+        : this.options.debug.enabled;
+    return this.score.toDocument({ debug });
   }
 }

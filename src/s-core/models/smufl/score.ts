@@ -1,5 +1,7 @@
 import * as SMUFL from ".";
 import * as Sheet from "../sheet";
+import type { Document } from "../document";
+import { toDocument, type ToDocumentOptions } from "./extensions/to-document";
 
 export class Score<
   Note extends SMUFL.Note = SMUFL.Note,
@@ -22,6 +24,11 @@ export class Score<
   Slot,
   Chord
 > {
+  /** Convert drawn, laid out and ordered geometry into a detached snapshot. */
+  toDocument(options?: ToDocumentOptions): Document {
+    return toDocument(this, options);
+  }
+
   static import(data: ReturnType<Score["export"]>) {
     return new Score({
       ...data,
