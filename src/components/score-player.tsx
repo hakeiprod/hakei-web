@@ -88,13 +88,13 @@ export function ScorePlayer({
     send({ type: "STOP" });
   }
   useEffect(() => {
-    controller.mount();
     controller.emitter.on("changeMute", setIsMute);
-    controller.emitter.on("changeMasterGain", (value) =>
-      setMasterVolume(value.toVolume().value),
-    );
+    const handleMasterGain = (value: Audio.Units.Gain) =>
+      setMasterVolume(value.toVolume().value);
+    controller.emitter.on("changeMasterGain", handleMasterGain);
     return () => {
-      controller.emitter.all.clear();
+      controller.emitter.off("changeMute", setIsMute);
+      controller.emitter.off("changeMasterGain", handleMasterGain);
     };
   }, [controller, setMasterVolume]);
   return (

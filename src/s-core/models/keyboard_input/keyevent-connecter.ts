@@ -4,27 +4,39 @@ import { Keyboard } from "../browser/keyboard";
 import { MidiNoteNumber } from "../core/units/midi-note-number";
 
 export class KeyeventConnecter {
+  private abort = new AbortController();
   constructor(public keyboard: Keyboard) {
-    globalThis.window.addEventListener("keydown", (event) => {
-      this.keyboard.noteOn(
-        new Core.Note({
-          id: 0,
-          trackId: 0,
-          velocity: 100,
-          pitch: new MidiNoteNumber(this.mapTo(event.key)),
-        })
-      );
-    });
-    globalThis.window.addEventListener("keyup", (event) => {
-      this.keyboard.noteOff(
-        new Core.Note({
-          id: 0,
-          trackId: 0,
-          velocity: 100,
-          pitch: new MidiNoteNumber(this.mapTo(event.key)),
-        })
-      );
-    });
+    globalThis.window.addEventListener(
+      "keydown",
+      (event) => {
+        this.keyboard.noteOn(
+          new Core.Note({
+            id: 0,
+            trackId: 0,
+            velocity: 100,
+            pitch: new MidiNoteNumber(this.mapTo(event.key)),
+          }),
+        );
+      },
+      { signal: this.abort.signal },
+    );
+    globalThis.window.addEventListener(
+      "keyup",
+      (event) => {
+        this.keyboard.noteOff(
+          new Core.Note({
+            id: 0,
+            trackId: 0,
+            velocity: 100,
+            pitch: new MidiNoteNumber(this.mapTo(event.key)),
+          }),
+        );
+      },
+      { signal: this.abort.signal },
+    );
+  }
+  dispose() {
+    this.abort.abort();
   }
   mapTo(key: string) {
     return match(key)

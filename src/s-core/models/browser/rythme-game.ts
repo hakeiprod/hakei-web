@@ -13,6 +13,10 @@ import { JudgeType } from "../rythme/enums/judge";
 import { Keyboard } from "./keyboard";
 
 export class RythmeGame {
+  private disposed = false;
+  private application?: Application;
+  private keys?: KeyeventConnecter;
+  private midi?: MidiinputConnecter;
   rythme;
   keyboard;
   audioController;
@@ -26,7 +30,12 @@ export class RythmeGame {
   ) {
     this.rythme = Rythme.Score.import(this.audio.export());
     this.keyboard = new Keyboard();
-    this.audioController = new BrowserAudio.Controller(audio, soundfont2);
+    this.audioController = new BrowserAudio.Controller(
+      audio,
+      soundfont2,
+      new Audio.Units.Gain(1),
+    );
+    this.audioController.mount();
     this.keyboard.onNoteOn = (note) => this.noteOn(note);
     this.audioController.emitter.on("end", () =>
       console.log(
@@ -70,9 +79,14 @@ export class RythmeGame {
       background: "white",
       resizeTo: globalThis.window,
     });
+    if (this.disposed) {
+      application.destroy(true, { children: true });
+      return null;
+    }
+    this.application = application;
     this.keyboard.range = this.rythme.keyRange;
-    new KeyeventConnecter(this.keyboard);
-    new MidiinputConnecter(this.keyboard);
+    this.keys = new KeyeventConnecter(this.keyboard);
+    this.midi = new MidiinputConnecter(this.keyboard);
     this.keyboard.render();
 
     const FallingNoteHeight =
@@ -138,6 +152,14 @@ export class RythmeGame {
     this.rythme.notes = this.rythme.notes.filter((note) =>
       trackIds.includes(note.trackId),
     );
+  }
+  dispose() {
+    if (this.disposed) return;
+    this.disposed = true;
+    this.keys?.dispose();
+    this.midi?.dispose();
+    this.application?.destroy(true, { children: true });
+    this.audioController.unmount();
   }
   pause() {}
   end() {}

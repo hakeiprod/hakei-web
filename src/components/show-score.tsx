@@ -32,25 +32,37 @@ export function ShowScore(properties: {
     [audio.keyRange],
   );
   const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
-  const controller = useMemo(() => {
-    const store = getDefaultStore();
-    if (soundfont2)
-      return new BrowserAudio.Controller(
-        audio,
-        soundfont2,
-        new Audio.Units.Volume(store.get(masterVolumeAtom)).toGain(),
-      );
+  const [controller, setController] = useState<BrowserAudio.Controller>();
+  useEffect(() => {
+    if (!soundfont2) return;
+    const next = new BrowserAudio.Controller(
+      audio,
+      soundfont2,
+      new Audio.Units.Volume(getDefaultStore().get(masterVolumeAtom)).toGain(),
+    );
+    next.mount();
+    // The controller owns browser resources and must be created after commit.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setController(next);
+    return () => next.unmount();
   }, [audio, soundfont2]);
-  const noteHighlighter = useMemo(() => {
-    if (controller) return new NoteHighlighter(smufl, controller);
+  useEffect(() => {
+    if (!controller) return;
+    const highlighter = new NoteHighlighter(smufl, controller);
+    highlighter.highlight();
+    return () => highlighter.stop();
   }, [controller, smufl]);
   useEffect(() => {
-    noteHighlighter?.highlight();
-  }, [noteHighlighter]);
-  useEffect(() => {
-    fetch("/A320U.sf2")
+    const abort = new AbortController();
+    fetch("/A320U.sf2", { signal: abort.signal })
       .then((response) => response.arrayBuffer())
-      .then((buffer) => setSoundfont2(Soundfont2.create(buffer)));
+      .then((buffer) => {
+        if (!abort.signal.aborted) setSoundfont2(Soundfont2.create(buffer));
+      })
+      .catch((error: unknown) => {
+        if (!abort.signal.aborted) console.error(error);
+      });
+    return () => abort.abort();
   }, []);
   return (
     <>

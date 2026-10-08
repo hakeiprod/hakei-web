@@ -11,6 +11,8 @@ export class Synth {
   audioContext;
   track;
   resources;
+  private endListeners = new Map<AudioBufferSourceNode, () => void>();
+  private startTimers = new Set<ReturnType<typeof setTimeout>>();
   bufferSources: {
     bufferSource: AudioBufferSourceNode;
     pitch: MidiNoteNumber;
@@ -160,21 +162,28 @@ export class Synth {
     }
     bufferSource.playbackRate.value = sample.playBackRate(pitch.value);
     bufferSource.connect(this.filter);
-    bufferSource.addEventListener("ended", () => {
+    const handleEnd = () => {
+      this.endListeners.delete(bufferSource);
       onEnd?.();
-      // try {
       bufferSource.disconnect(this.filter);
-      this.bufferSources.splice(
-        this.bufferSources.findIndex(
-          (item) => item.bufferSource === bufferSource,
-        ),
-        1,
+      const index = this.bufferSources.findIndex(
+        (item) => item.bufferSource === bufferSource,
       );
-    });
+      if (index !== -1) this.bufferSources.splice(index, 1);
+    };
+    bufferSource.addEventListener("ended", handleEnd);
+    this.endListeners.set(bufferSource, handleEnd);
     bufferSource.start(time);
     gainEnvelope.noteOn(time);
     filterEnvelope.noteOn(time);
-    setTimeout(() => onStart?.(), (time ?? 0) * 1000);
+    const timer = setTimeout(
+      () => {
+        this.startTimers.delete(timer);
+        onStart?.();
+      },
+      Math.max(0, time - this.audioContext.currentTime) * 1000,
+    );
+    this.startTimers.add(timer);
   }
   noteOff(pitch: MidiNoteNumber, when?: number) {
     const time = when ?? this.audioContext.currentTime;
@@ -197,11 +206,23 @@ export class Synth {
 
   clearAllScheduled() {
     const now = this.audioContext.currentTime;
-    for (const bufferSource of this.bufferSources)
-      bufferSource.bufferSource.stop();
+    for (const timer of this.startTimers) clearTimeout(timer);
+    this.startTimers.clear();
+    for (const { bufferSource } of this.bufferSources.splice(0)) {
+      const handleEnd = this.endListeners.get(bufferSource);
+      if (handleEnd) bufferSource.removeEventListener("ended", handleEnd);
+      this.endListeners.delete(bufferSource);
+      bufferSource.stop();
+      bufferSource.disconnect();
+    }
     this.gain.gain.cancelScheduledValues(now);
     this.gain.gain.setValueAtTime(0, now);
     this.filter.frequency.cancelScheduledValues(now);
+  }
+  dispose() {
+    this.clearAllScheduled();
+    this.filter.disconnect();
+    this.gain.disconnect();
   }
   static Envelope = Envelope;
 }
