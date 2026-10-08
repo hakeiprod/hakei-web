@@ -1,5 +1,6 @@
 import * as Sheet from "@/s-core/models/sheet";
 import * as SMUFL from ".";
+import "./extensions/to-svg";
 export class Controller extends Sheet.Controller {
   declare public score: SMUFL.Score;
   constructor(

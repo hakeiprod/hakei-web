@@ -21,8 +21,12 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const reference = useRef<HTMLDivElement | null>(null);
   const controllerReference = useRef<SMUFL.Controller | null>(null);
   const handleResize = useDebouncedCallback(() => {
-    if (controllerReference.current?.options.layoutType === LayoutType.Vertical)
-      controllerReference.current?.render();
+    if (
+      controllerReference.current?.options.layoutType === LayoutType.Vertical
+    ) {
+      const svg = controllerReference.current.render();
+      reference.current?.replaceChildren(svg);
+    }
   }, 100);
   function handleScaleChange(
     eventOrValue: ChangeEvent<HTMLInputElement> | number,
