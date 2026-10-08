@@ -11,7 +11,8 @@ export class Note extends Sheet.Note {
   get judge() {
     if (isNullish(this.hitSeconds)) return JudgeType.Miss;
     const diffSeconds = Math.abs(
-      this.hitSeconds.subtract(this.start.toSeconds(this.tempo.value)).value,
+      this.hitSeconds.subtract(this.score.tempoMap.beatToSeconds(this.start))
+        .value,
     );
     if (diffSeconds <= 0.3) return JudgeType.Perfect;
     if (diffSeconds <= 0.5) return JudgeType.Good;
@@ -20,7 +21,7 @@ export class Note extends Sheet.Note {
   canHit(seconds: Seconds) {
     return (
       Math.abs(
-        seconds.subtract(this.start.toSeconds(this.tempo.value)).value,
+        seconds.subtract(this.score.tempoMap.beatToSeconds(this.start)).value,
       ) <= 1
     );
   }

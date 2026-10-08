@@ -93,13 +93,14 @@ export class Controller {
     for (const synth of this.synths) synth.clearAllScheduled();
     this.timer.play();
     if (this.audioContext.state === "suspended") this.audioContext.resume();
+    const tempoMap = this.score.tempoMap;
     for (const track of this.score.tracks) {
       const synth = this.synths.find((synth) => synth.track.id === track.id)!;
       if (isNonNullish(this.timer.startSeconds))
         for (const note of track.notes) {
           synth.noteOn(
             note.pitch,
-            this.timer.startSeconds.add(note.start.toSeconds(note.tempo.value))
+            this.timer.startSeconds.add(tempoMap.beatToSeconds(note.start))
               .value,
             () => note.emitter.emit("noteOn"),
             () => {
@@ -109,8 +110,7 @@ export class Controller {
           );
           synth.noteOff(
             note.pitch,
-            this.timer.startSeconds.add(note.end.toSeconds(note.tempo.value))
-              .value,
+            this.timer.startSeconds.add(tempoMap.beatToSeconds(note.end)).value,
           );
         }
     }

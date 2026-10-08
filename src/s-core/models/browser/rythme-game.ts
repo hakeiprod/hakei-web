@@ -92,6 +92,7 @@ export class RythmeGame {
     const FallingNoteHeight =
       application.renderer.height - this.keyboard.container.height;
 
+    const tempoMap = this.rythme.tempoMap;
     const notes = this.rythme.notes.map((note) => {
       const textWithNote = new TextWithNote({
         text: String.fromCodePoint(note.noteheadGlyph.codepoint),
@@ -104,7 +105,7 @@ export class RythmeGame {
           (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
             -1) * Keyboard.WHITE_KEY_WIDTH,
         y: -(
-          note.duration.toSeconds(note.tempo.value).value *
+          tempoMap.durationToSeconds(note.start, note.end).value *
           RythmeGame.SCROLL_SPEED
         ),
         anchor: { x: 0, y: 0.5 },
@@ -117,7 +118,7 @@ export class RythmeGame {
       for (const note of notes) {
         note.y =
           FallingNoteHeight -
-          ((note.note?.start.toSeconds(note.note.tempo.value).value ?? 0) -
+          ((note.note ? tempoMap.beatToSeconds(note.note.start).value : 0) -
             this.audioController.timer.elapsedSeconds.value) *
             RythmeGame.SCROLL_SPEED;
       }

@@ -9,3 +9,5 @@ export * from "./track";
 export * as Units from "./units";
 
 export { default as Metadata } from "./metadata.json";
+
+export * from "./tempo-map";

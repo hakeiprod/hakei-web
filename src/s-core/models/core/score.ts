@@ -42,6 +42,9 @@ export class Score<
         )!.pitch,
     ) as [min: MidiNoteNumber, max: MidiNoteNumber];
   }
+  get tempoMap() {
+    return new Core.TempoMap(this.tempos);
+  }
   name;
   timesignatures;
   keysignatures;

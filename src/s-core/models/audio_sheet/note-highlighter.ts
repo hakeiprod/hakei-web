@@ -9,14 +9,14 @@ export class NoteHighlighter {
   ) {}
   highlight() {
     this.stop();
+    const tempoMap = this.sheet.tempoMap;
     const loop = () => {
+      const elapsed = this.controller.timer.elapsedSeconds.value;
       const nextNotes = new Set<Sheet.Note>();
       for (const note of this.sheet.notes)
         if (
-          this.controller.timer.elapsedSeconds.value >=
-            note.start.toSeconds(note.tempo.value).value &&
-          this.controller.timer.elapsedSeconds.value <=
-            note.end.toSeconds(note.tempo.value).value
+          elapsed >= tempoMap.beatToSeconds(note.start).value &&
+          elapsed <= tempoMap.beatToSeconds(note.end).value
         )
           nextNotes.add(note);
       for (const note of this.activeNotes)
