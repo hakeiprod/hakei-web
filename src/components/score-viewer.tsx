@@ -2,7 +2,7 @@
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
 import "@/s-core/models/document/extensions/to-svg";
-import { bindNoteHighlights } from "@/s-core/models/smufl/extensions/bind-note-highlights";
+import { bindNoteHighlights } from "@/s-core/models/browser/bind-note-highlights";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { NumberInput, Select, SelectItem, Switch } from "@heroui/react";

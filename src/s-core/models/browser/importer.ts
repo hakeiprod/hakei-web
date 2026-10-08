@@ -7,7 +7,6 @@ import MusicXml from "../files/musicxml";
 import "../files/musicxml/extensions/to-sheet";
 import * as Midi from "../files/standard-midi-file";
 import { Zip } from "../files/zip";
-import "../smufl/extensions/to-svg";
 
 export class Importer {
   async import(file: File) {

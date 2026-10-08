@@ -1,7 +1,5 @@
 import * as Sheet from "@/s-core/models/sheet";
-import * as SMUFL from ".";
-import { bindNoteHighlights } from "./extensions/bind-note-highlights";
-import "./extensions/to-svg";
+import type * as SMUFL from ".";
 export class Controller extends Sheet.Controller {
   declare public score: SMUFL.Score;
   constructor(
@@ -19,14 +17,5 @@ export class Controller extends Sheet.Controller {
         ? this.options.debug
         : this.options.debug.enabled;
     return this.score.toDocument({ debug });
-  }
-  render() {
-    const document = this.toDocument();
-    const svg = document.toSVG({
-      scale: this.options.scale,
-      paddingBottom: 100,
-    });
-    bindNoteHighlights(this.score, svg);
-    return svg;
   }
 }

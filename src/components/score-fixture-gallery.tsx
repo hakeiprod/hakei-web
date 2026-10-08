@@ -4,7 +4,7 @@ import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
-import "@/s-core/models/smufl/extensions/to-svg";
+import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
 import { useEffect, useRef, useState } from "react";
 
@@ -54,7 +54,12 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
         advanced: true,
       });
       controller.mount();
-      const svg = controller.render();
+      const document = controller.toDocument();
+      const svg = document.toSVG({
+        scale: fixtureScale,
+        fontFamily: bravura.style.fontFamily,
+        paddingBottom: 100,
+      });
       if (!svg) throw new Error("Renderer returned no SVG");
 
       containerElement?.replaceChildren(svg);

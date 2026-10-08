@@ -6,10 +6,10 @@ import * as Core from "@/s-core/models/core";
 import { Document } from "@/s-core/models/document";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
-import "@/s-core/models/smufl/extensions/to-svg";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { ScoreViewer } from "./score-viewer";
+import { ScoreFixtureGallery } from "./score-fixture-gallery";
 
 vi.mock("next/font/local", () => ({
   default: () => ({ className: "bravura", style: { fontFamily: "Bravura" } }),
@@ -75,24 +75,17 @@ function prepare(layoutType = LayoutType.Horizontal) {
   store.set(layoutTypeAtom, layoutType);
   store.set(scaleAtom, 12);
   const documentSVG = vi.spyOn(Document.prototype, "toSVG");
-  const controllerRender = vi
-    .spyOn(SMUFL.Controller.prototype, "render")
-    .mockImplementation(() => {
-      throw new Error("ScoreViewer must render Document directly.");
-    });
-  const legacySVG = vi.spyOn(SMUFL.Score.prototype, "toSVG");
   const view = render(
     <Provider store={store}>
       <ScoreViewer score={score} />
     </Provider>,
   );
-  return { ...view, score, store, documentSVG, controllerRender, legacySVG };
+  return { ...view, score, store, documentSVG };
 }
 
 describe("ScoreViewer Document rendering used by ShowScore", () => {
   test("renders Document directly with the score font and connects playback highlights", () => {
-    const { container, score, documentSVG, controllerRender, legacySVG } =
-      prepare();
+    const { container, score, documentSVG } = prepare();
     const svg = container.querySelector("svg")!;
     expect(documentSVG).toHaveBeenCalledWith({
       scale: 12,
@@ -101,8 +94,6 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     });
     expect(svg.getAttribute("font-family")).toBe("Bravura");
     expect(svg.outerHTML).not.toMatch(/NaN|Infinity/);
-    expect(controllerRender).not.toHaveBeenCalled();
-    expect(legacySVG).not.toHaveBeenCalled();
     score.notes[0].glyph.setClassName(["note-highlight"]);
     expect(
       svg.querySelector('[type="note"] [type="glyph"]')?.classList,
@@ -145,5 +136,29 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     expect(documentSVG).toHaveBeenCalledTimes(2);
     expect(container.querySelector("svg")).not.toBe(original);
     expect(container.querySelectorAll("svg")).toHaveLength(1);
+  });
+});
+
+test("renders fixture gallery scores through Document after removing SMUFL SVG rendering", () => {
+  const documentSVG = vi.spyOn(Document.prototype, "toSVG");
+  const { container, getByText } = render(
+    <ScoreFixtureGallery
+      fixtures={[
+        {
+          name: "eighth note",
+          data: {
+            tracks: [{ notes: [{ pitch: 60, start: 0, duration: 0.5 }] }],
+          },
+        },
+      ]}
+    />,
+  );
+  expect(getByText("Rendered")).toBeDefined();
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
+  expect(container.querySelector('[type="flag"]')).not.toBeNull();
+  expect(documentSVG).toHaveBeenCalledWith({
+    scale: 12,
+    fontFamily: "Bravura",
+    paddingBottom: 100,
   });
 });

@@ -1,12 +1,13 @@
 /// <reference types="vite/client" />
 import { describe, expect, test } from "vitest";
-import * as Core from "../../core";
-import "../../core/extensions/to-sheet";
-import { LayoutType } from "../../sheet";
-import * as SMUFL from "..";
-import "./to-svg";
+import * as Core from "../core";
+import "../core/extensions/to-sheet";
+import { LayoutType } from "../sheet";
+import * as SMUFL from "../smufl";
+import "../document/extensions/to-svg";
+import { bindNoteHighlights } from "./bind-note-highlights";
 
-const fixtures = import.meta.glob("../../../fixtures/core/*.json", {
+const fixtures = import.meta.glob("../../fixtures/core/*.json", {
   eager: true,
   import: "default",
 }) as Record<string, Parameters<typeof Core.Score.create>[0]>;
@@ -24,6 +25,16 @@ function prepare(data: Parameters<typeof Core.Score.create>[0]) {
   return { score, controller };
 }
 
+function renderSVG(controller: SMUFL.Controller) {
+  const drawing = controller.toDocument();
+  const svg = drawing.toSVG({
+    scale: controller.options.scale,
+    paddingBottom: 100,
+  });
+  bindNoteHighlights(controller.score, svg);
+  return svg;
+}
+
 function glyph(svg: SVGSVGElement, trackId: number) {
   return svg.querySelector(
     `[type="note"][data-track-id="${trackId}"][data-note-id="0"] [type="glyph"]`,
@@ -31,11 +42,16 @@ function glyph(svg: SVGSVGElement, trackId: number) {
 }
 
 describe("SMUFL through Document to SVG", () => {
+  test("exposes SVG rendering on Document while SMUFL produces only Document", () => {
+    expect("toSVG" in SMUFL.Score.prototype).toBe(false);
+    expect("render" in SMUFL.Controller.prototype).toBe(false);
+    expect(typeof SMUFL.Score.prototype.toDocument).toBe("function");
+  });
   test.each(Object.entries(fixtures))(
-    "renders fixture %s through the controller",
+    "renders fixture %s through Document",
     (_name, fixture) => {
       const { score, controller } = prepare(fixture);
-      const svg = controller.render();
+      const svg = renderSVG(controller);
       expect(svg.namespaceURI).toBe("http://www.w3.org/2000/svg");
       expect(svg.outerHTML).not.toMatch(/NaN|Infinity/);
       expect(svg.querySelectorAll('[type="note"]')).toHaveLength(
@@ -58,12 +74,12 @@ describe("SMUFL through Document to SVG", () => {
         { notes: [{ pitch: 64, start: 0, duration: 1 }] },
       ],
     });
-    const first = controller.render();
+    const first = renderSVG(controller);
     const note = score.notes.find((note) => !note.rest)!;
     note.glyph.setClassName(["note-highlight"]);
     expect(glyph(first, 0).getAttribute("class")).toBe("note-highlight");
     expect(glyph(first, 1).getAttribute("class")).not.toBe("note-highlight");
-    const second = controller.render();
+    const second = renderSVG(controller);
     expect(glyph(second, 0).getAttribute("class")).toBe("note-highlight");
     note.glyph.setClassName([]);
     expect(glyph(second, 0).getAttribute("class")).toBe("");
@@ -77,11 +93,11 @@ describe("SMUFL through Document to SVG", () => {
     });
     controller.options.debug = { enabled: false, showBoundingBox: true };
     expect(
-      controller.render().querySelectorAll("[data-debug-bounds]"),
+      renderSVG(controller).querySelectorAll("[data-debug-bounds]"),
     ).toHaveLength(0);
     controller.options.debug = true;
     expect(
-      controller.render().querySelectorAll("[data-debug-bounds]").length,
+      renderSVG(controller).querySelectorAll("[data-debug-bounds]").length,
     ).toBeGreaterThan(0);
     controller.unmount();
   });
@@ -94,7 +110,7 @@ test.each(["up", "down"] as const)(
       tracks: [{ notes: [{ pitch: 60, start: 0, duration: 0.75 }] }],
     });
     score.notes[0].stem = { _: direction };
-    const svg = controller.render();
+    const svg = renderSVG(controller);
     const notehead = svg.querySelector<SVGTextElement>(
       '[type="note"] [type="glyph"] text',
     )!;

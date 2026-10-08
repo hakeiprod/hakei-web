@@ -1,4 +1,4 @@
-import type { Score } from "../score";
+import type { Score } from "../smufl/score";
 
 /** Connect playback class changes to the latest SVG without coupling Document to SMUFL. */
 export function bindNoteHighlights(score: Score, svg: SVGSVGElement) {

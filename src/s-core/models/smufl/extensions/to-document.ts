@@ -1,18 +1,10 @@
 import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
-import { Score } from "../score";
 import * as Drawing from "../../document";
 import * as Sheet from "../../sheet";
 import * as SMUFL from "..";
 
 export interface ToDocumentOptions {
   debug?: boolean;
-}
-
-declare module ".." {
-  interface Score {
-    /** Convert a drawn, laid out and ordered score into a detached snapshot. */
-    toDocument(options?: ToDocumentOptions): Drawing.Document;
-  }
 }
 
 const engraving = BravuraMetadata.engravingDefaults;
@@ -451,7 +443,3 @@ export function toDocument(
     new Drawing.Page(score.width, score.height, rows),
   ]);
 }
-
-Score.prototype.toDocument = function (options) {
-  return toDocument(this, options);
-};
