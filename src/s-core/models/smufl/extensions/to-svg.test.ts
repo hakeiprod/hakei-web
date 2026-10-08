@@ -86,3 +86,47 @@ describe("SMUFL through Document to SVG", () => {
     controller.unmount();
   });
 });
+
+test.each(["up", "down"] as const)(
+  "renders anchored %s stems and dotted eighth-note flags through Document",
+  (direction) => {
+    const { score, controller } = prepare({
+      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 0.75 }] }],
+    });
+    score.notes[0].stem = { _: direction };
+    const svg = controller.render();
+    const notehead = svg.querySelector<SVGTextElement>(
+      '[type="note"] [type="glyph"] text',
+    )!;
+    const stem = svg.querySelector<SVGLineElement>('[type="stem"]')!;
+    const flag = svg.querySelector<SVGGElement>('[type="flag"]')!;
+    const flagText = flag.querySelector("text")!;
+    const thickness = Number(stem.getAttribute("stroke-width"));
+    const noteX = Number(notehead.getAttribute("x"));
+    const noteY = Number(notehead.getAttribute("y"));
+    expect(Number(stem.getAttribute("x1"))).toBeCloseTo(
+      noteX + (direction === "up" ? 1.18 - thickness / 2 : thickness / 2),
+    );
+    expect(Number(stem.getAttribute("y1"))).toBeCloseTo(
+      noteY + (direction === "up" ? -0.168 : 0.168),
+    );
+    expect(Number(flagText.getAttribute("x"))).toBeCloseTo(
+      Number(stem.getAttribute("x2")) - thickness / 2,
+    );
+    expect(Number(stem.getAttribute("y2"))).toBeCloseTo(
+      Number(flagText.getAttribute("y")) - (direction === "up" ? -0.04 : 0.132),
+    );
+    expect(flag.dataset.glyphName).toBe(
+      direction === "up" ? "flag8thUp" : "flag8thDown",
+    );
+    expect(flagText.textContent).toBe(
+      String.fromCodePoint(direction === "up" ? 0xe2_40 : 0xe2_41),
+    );
+    expect(
+      svg.querySelectorAll(
+        '[data-glyph-name="augmentationDot"][data-track-id="0"][data-note-id="0"]',
+      ),
+    ).toHaveLength(1);
+    controller.unmount();
+  },
+);

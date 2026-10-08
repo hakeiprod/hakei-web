@@ -40,6 +40,13 @@ export class Glyph<
     this.spaceLeft = this.glyphAdvanceWidth;
     this.glyphName = glyphName;
   }
+  /** SMuFL coordinates are relative to the glyph origin, with positive y upwards. */
+  getAnchor(name: string): readonly [number, number] | undefined {
+    const anchors = this.glyphWithAnchor as
+      | Partial<Record<string, readonly [number, number]>>
+      | undefined;
+    return anchors?.[name];
+  }
   static find(
     type: keyof SMUFL.Ranges,
     predicate: (glyph: SMUFL.Ranges[typeof type]["glyphs"][number]) => boolean,
@@ -59,6 +66,13 @@ export class Glyph<
       })
       .with(P.union("none"), () => null)
       .exhaustive();
+  }
+
+  static findFlag(type: NormalType, direction: "up" | "down") {
+    const value = type._ === "eighth" ? "8th" : type._;
+    const name =
+      `flag${value}${direction === "up" ? "Up" : "Down"}` as keyof SMUFL.Glyphnames;
+    return name in SMUFL.Glyphnames ? name : undefined;
   }
 
   static findRest(type: NormalType) {
