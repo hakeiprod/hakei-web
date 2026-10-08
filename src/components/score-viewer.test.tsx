@@ -47,10 +47,12 @@ vi.mock("@heroui/react", () => ({
   Switch: (properties: {
     isSelected: boolean;
     onValueChange: (value: boolean) => void;
+    children: string;
+    "aria-label"?: string;
   }) => (
     <input
       type="checkbox"
-      aria-label="advanced"
+      aria-label={properties["aria-label"] ?? properties.children}
       checked={properties.isSelected}
       onChange={(event) => properties.onValueChange(event.target.checked)}
     />
@@ -100,7 +102,7 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     ).toContain("note-highlight");
   });
 
-  test("replaces the SVG through Document when scale, layout or advanced changes", () => {
+  test("replaces the SVG through Document when scale, layout, advanced or debug changes", () => {
     const { container, getByLabelText, score, documentSVG } = prepare();
     const original = container.querySelector("svg")!;
     fireEvent.change(getByLabelText("scale-input"), {
@@ -120,10 +122,33 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     const latest = container.querySelector("svg")!;
     expect(latest).not.toBe(vertical);
     expect(container.querySelectorAll("svg")).toHaveLength(1);
-    expect(documentSVG).toHaveBeenCalledTimes(4);
+    expect(
+      latest.querySelectorAll("[data-debug-bounds]").length,
+    ).toBeGreaterThan(0);
+    const debugToggle = getByLabelText("debug") as HTMLInputElement;
+    expect(debugToggle.checked).toBe(true);
+    fireEvent.click(debugToggle);
+    const withoutDebug = container.querySelector("svg")!;
+    expect(withoutDebug).not.toBe(latest);
+    expect(withoutDebug.querySelectorAll("[data-debug-bounds]")).toHaveLength(
+      0,
+    );
+    expect(debugToggle.checked).toBe(false);
+    fireEvent.change(getByLabelText("scale-input"), {
+      target: { value: "30" },
+    });
+    expect(container.querySelectorAll("[data-debug-bounds]")).toHaveLength(0);
+    fireEvent.click(debugToggle);
+    const withDebug = container.querySelector("svg")!;
+    expect(
+      withDebug.querySelectorAll("[data-debug-bounds]").length,
+    ).toBeGreaterThan(0);
+    expect(debugToggle.checked).toBe(true);
+    expect(container.querySelectorAll("svg")).toHaveLength(1);
+    expect(documentSVG).toHaveBeenCalledTimes(7);
     score.notes[0].glyph.setClassName(["note-highlight"]);
     expect(
-      latest.querySelector('[type="note"] [type="glyph"]')?.classList,
+      withDebug.querySelector('[type="note"] [type="glyph"]')?.classList,
     ).toContain("note-highlight");
   });
 

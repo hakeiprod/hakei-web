@@ -30,6 +30,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [advanced, setAdvanced] = useState(true);
+  const [debug, setDebug] = useState(true);
   const reference = useRef<HTMLDivElement | null>(null);
   const controllerReference = useRef<SMUFL.Controller | null>(null);
   const handleResize = useDebouncedCallback(() => {
@@ -60,12 +61,13 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
       controllerReference.current = new SMUFL.Controller(score, {
         scale,
         layoutType,
-        debug: true,
+        debug,
         advanced,
       });
     }
     const controller = controllerReference.current;
     controller.score = score;
+    controller.options.debug = debug;
     controller.onChangeScale = (value) => setScale(value);
     controller.onChangeLayoutType = (value) => setLayoutType(value);
     controller.onChangeAdvanced = (value) => setAdvanced(value);
@@ -79,6 +81,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     };
   }, [
     advanced,
+    debug,
     handleResize,
     layoutType,
     scale,
@@ -116,6 +119,9 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
           map((key) => <SelectItem key={key}>{LayoutType[key]}</SelectItem>),
         )}
       </Select>
+      <Switch aria-label="debug" isSelected={debug} onValueChange={setDebug}>
+        debug
+      </Switch>
       <Switch isSelected={advanced} onValueChange={handleAdvancedChange}>
         advanced
       </Switch>
