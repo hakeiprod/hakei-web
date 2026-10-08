@@ -71,7 +71,14 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
     controller.onChangeScale = (value) => setScale(value);
     controller.onChangeLayoutType = (value) => setLayoutType(value);
     controller.onChangeAdvanced = (value) => setAdvanced(value);
+    const glyphClasses = new Map(
+      score.notes.map(
+        (note) => [note, [...(note.glyph?.classList ?? [])]] as const,
+      ),
+    );
     controller.mount();
+    for (const note of score.notes)
+      note.glyph.setClassName([...(glyphClasses.get(note) ?? [])]);
     const svg = renderDocument(controller);
     window.addEventListener("resize", handleResize);
     if (reference.current && svg) reference.current.replaceChildren(svg);
