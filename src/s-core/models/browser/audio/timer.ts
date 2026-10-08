@@ -18,6 +18,8 @@ export class Timer {
   }
   constructor(public audioContext: AudioContext) {}
   play() {
+    this.pauseSeconds = null;
+    this.totalPausedSeconds = new Seconds(0);
     this.startSeconds = this.audioContext.getCurrentSeconds();
   }
   pause() {
@@ -32,5 +34,7 @@ export class Timer {
   }
   stop() {
     this.startSeconds = null;
+    this.pauseSeconds = null;
+    this.totalPausedSeconds = new Seconds(0);
   }
 }
