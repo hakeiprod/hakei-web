@@ -127,6 +127,7 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     ).toBeGreaterThan(0);
     const debugToggle = getByLabelText("debug") as HTMLInputElement;
     expect(debugToggle.checked).toBe(true);
+    score.notes[0].glyph.setClassName(["note-highlight"]);
     fireEvent.click(debugToggle);
     const withoutDebug = container.querySelector("svg")!;
     expect(withoutDebug).not.toBe(latest);
@@ -134,6 +135,9 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
       0,
     );
     expect(debugToggle.checked).toBe(false);
+    expect(
+      withoutDebug.querySelector('[type="note"] [type="glyph"]')?.classList,
+    ).toContain("note-highlight");
     fireEvent.change(getByLabelText("scale-input"), {
       target: { value: "30" },
     });
@@ -146,7 +150,6 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     expect(debugToggle.checked).toBe(true);
     expect(container.querySelectorAll("svg")).toHaveLength(1);
     expect(documentSVG).toHaveBeenCalledTimes(7);
-    score.notes[0].glyph.setClassName(["note-highlight"]);
     expect(
       withDebug.querySelector('[type="note"] [type="glyph"]')?.classList,
     ).toContain("note-highlight");
