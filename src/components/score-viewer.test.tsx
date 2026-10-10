@@ -1,11 +1,12 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
-import { createStore, Provider } from "jotai";
+import { createStore, getDefaultStore, Provider } from "jotai";
 import type { ChangeEvent, ReactNode } from "react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import * as Core from "@/s-core/models/core";
 import { Document } from "@/s-core/models/document";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
+import { debugAtom } from "@/store/debug";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { ScoreViewer } from "./score-viewer";
@@ -68,6 +69,8 @@ vi.mock("@heroui/react", () => ({
 
 afterEach(() => {
   cleanup();
+  getDefaultStore().set(debugAtom, true);
+  localStorage.clear();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
   vi.useRealTimers();
@@ -432,6 +435,47 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
       expect(store.get(scaleAtom)).toBe(12);
     }
   });
+});
+
+test("saves debug changes and restores them when the viewer mounts in a new store", () => {
+  const first = prepare();
+  fireEvent.click(first.getByLabelText("debug"));
+  expect(localStorage.getItem("debug")).toBe("false");
+  first.unmount();
+  const second = prepare();
+  expect((second.getByLabelText("debug") as HTMLInputElement).checked).toBe(
+    false,
+  );
+  expect(second.container.querySelectorAll("[data-debug-bounds]")).toHaveLength(
+    0,
+  );
+  fireEvent.click(second.getByLabelText("debug"));
+  expect(localStorage.getItem("debug")).toBe("true");
+});
+
+test("fixture galleries restore and share the saved debug preference", () => {
+  localStorage.setItem("debug", "false");
+  const store = createStore();
+  const fixture = {
+    name: "quarter note",
+    data: {
+      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+    },
+  };
+  const { container, getAllByText } = render(
+    <Provider store={store}>
+      <ScoreFixtureGallery fixtures={[fixture]} />
+      <ScoreFixtureGallery fixtures={[fixture]} />
+    </Provider>,
+  );
+  expect(getAllByText("debug: OFF")).toHaveLength(2);
+  expect(container.querySelectorAll("[data-debug-bounds]")).toHaveLength(0);
+  fireEvent.click(getAllByText("debug: OFF")[0]);
+  expect(getAllByText("debug: ON")).toHaveLength(2);
+  expect(localStorage.getItem("debug")).toBe("true");
+  expect(
+    container.querySelectorAll("[data-debug-bounds]").length,
+  ).toBeGreaterThan(0);
 });
 
 test("renders fixture gallery scores through Document and toggles their debug bounds", () => {

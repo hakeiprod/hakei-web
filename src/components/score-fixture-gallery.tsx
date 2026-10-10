@@ -1,4 +1,5 @@
 "use client";
+import { debugAtom } from "@/store/debug";
 
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
@@ -6,6 +7,7 @@ import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
+import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 
 const bravura = localFont({
@@ -24,7 +26,7 @@ type RenderState =
   | { status: "error"; message: string };
 
 export function ScoreFixtureGallery({ fixtures }: { fixtures: Fixture[] }) {
-  const [debug, setDebug] = useState(true);
+  const [debug, setDebug] = useAtom(debugAtom);
   return (
     <>
       <button

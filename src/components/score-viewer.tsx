@@ -1,4 +1,5 @@
 "use client";
+import { debugAtom } from "@/store/debug";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
 import type { Document } from "@/s-core/models/document";
@@ -26,7 +27,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [advanced, setAdvanced] = useState(true);
-  const [debug, setDebug] = useState(true);
+  const [debug, setDebug] = useAtom(debugAtom);
   const [pagination, setPagination] = useState({ index: 0, total: 1 });
   const reference = useRef<HTMLDivElement | null>(null);
   const navigationReference = useRef<HTMLElement | null>(null);
