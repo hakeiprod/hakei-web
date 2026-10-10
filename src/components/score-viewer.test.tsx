@@ -434,7 +434,7 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
   });
 });
 
-test("renders fixture gallery scores through Document after removing SMUFL SVG rendering", () => {
+test("renders fixture gallery scores through Document and toggles their debug bounds", () => {
   const documentSVG = vi.spyOn(Document.prototype, "toSVG");
   const { container, getByText } = render(
     <ScoreFixtureGallery
@@ -456,4 +456,19 @@ test("renders fixture gallery scores through Document after removing SMUFL SVG r
     fontFamily: "Bravura",
     paddingBottom: 100,
   });
+  const toggle = getByText("debug: ON");
+  expect(toggle.getAttribute("aria-pressed")).toBe("true");
+  expect(
+    container.querySelectorAll("[data-debug-bounds]").length,
+  ).toBeGreaterThan(0);
+  fireEvent.click(toggle);
+  expect(toggle.textContent).toBe("debug: OFF");
+  expect(toggle.getAttribute("aria-pressed")).toBe("false");
+  expect(container.querySelectorAll("[data-debug-bounds]")).toHaveLength(0);
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
+  fireEvent.click(toggle);
+  expect(
+    container.querySelectorAll("[data-debug-bounds]").length,
+  ).toBeGreaterThan(0);
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
 });

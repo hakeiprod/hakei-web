@@ -1,5 +1,4 @@
 import { P, match } from "ts-pattern";
-import * as Core from "../core";
 import * as Sheet from "../sheet";
 import * as SMUFL from "../smufl";
 
@@ -38,21 +37,8 @@ export class Stave extends Sheet.Stave {
                       glyph.line,
                     ),
                 )
-                .with(
-                  Sheet.ElementType.Accidental,
-                  () =>
-                    new SMUFL.Glyph(
-                      SMUFL.Glyph.find("standardAccidentals12Edo", (v) =>
-                        v.toLowerCase().includes(
-                          match(this.bar.keysignature.tonality)
-                            .with(Core.Enums.Tonality.Major as 0, () => "sharp")
-                            .with(Core.Enums.Tonality.Minor as 1, () => "flat")
-                            .exhaustive(),
-                        ),
-                      ),
-                      glyph.type,
-                      glyph.line,
-                    ),
+                .with(Sheet.ElementType.Accidental, () =>
+                  this.keyAccidental(glyph.line),
                 )
                 .otherwise(() => glyph),
             )
@@ -60,27 +46,8 @@ export class Stave extends Sheet.Stave {
               ligature.glyphLists = ligature.glyphLists.map((glyphList) =>
                 glyphList.map((glyph) =>
                   match(glyph.type)
-                    .with(
-                      Sheet.ElementType.Accidental,
-                      () =>
-                        new SMUFL.Glyph(
-                          SMUFL.Glyph.find("standardAccidentals12Edo", (v) =>
-                            v.toLowerCase().includes(
-                              match(this.bar.keysignature.tonality)
-                                .with(
-                                  Core.Enums.Tonality.Major as 0,
-                                  () => "sharp",
-                                )
-                                .with(
-                                  Core.Enums.Tonality.Minor as 1,
-                                  () => "flat",
-                                )
-                                .exhaustive(),
-                            ),
-                          ),
-                          glyph.type,
-                          glyph.line,
-                        ),
+                    .with(Sheet.ElementType.Accidental, () =>
+                      this.keyAccidental(glyph.line),
                     )
                     .otherwise(() => glyph),
                 ),
@@ -90,6 +57,19 @@ export class Stave extends Sheet.Stave {
             .exhaustive(),
         ),
     );
+  }
+  private keyAccidental(line: number) {
+    const glyph = new SMUFL.Glyph(
+      this.bar.keysignature.accidental > 0
+        ? "accidentalSharp"
+        : "accidentalFlat",
+      Sheet.ElementType.Accidental,
+      line,
+    );
+    // Key signatures already arrange consecutive accidentals in their ligature.
+    // Adding the advance again doubles the gap between them.
+    glyph.spaceLeft = 0;
+    return glyph;
   }
   static import(data: ReturnType<Stave["export"]>) {
     return new Stave(super.import(data));

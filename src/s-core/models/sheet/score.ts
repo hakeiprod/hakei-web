@@ -125,7 +125,7 @@ export class Score<
     );
     this.beamGroups = this.staves.flatMap((stave) =>
       pipe(
-        stave.chords,
+        stave.chords.toSorted((a, b) => a.start.value - b.start.value),
         reduce(
           (accumulator, current) => {
             for (const beam of current.beam ?? []) {
