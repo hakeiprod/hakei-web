@@ -1,7 +1,8 @@
-import { entries, flatMap, groupBy, length, pipe, prop, reduce } from "remeda";
+import { entries, flatMap, groupBy, length, pipe, prop } from "remeda";
 import { match } from "ts-pattern";
 import { LayoutType, Ligature, Score, Word } from "./";
 import { Row } from "./row";
+import type { PageLayout } from "./page";
 
 type Debug =
   | boolean
@@ -27,6 +28,11 @@ export class Controller {
       layoutType: LayoutType;
       advanced: boolean;
       debug: Debug;
+      /** Available display width in pixels for vertical scrolling. */
+      viewportWidth?: number;
+      /** Available display height in pixels for page navigation. */
+      viewportHeight?: number;
+      pageLayout?: PageLayout;
     },
   ) {}
   mount() {
@@ -34,8 +40,9 @@ export class Controller {
     // those drawing objects before calculating the layout.
     for (const note of this.score.notes) note.draw();
     for (const chord of this.score.chords) chord.draw();
-    this.layout();
+    this.setRows();
     this.draw();
+    this.layout();
   }
   unmount() {
     for (const data of [
@@ -49,25 +56,61 @@ export class Controller {
     for (const data of [...this.score.chords, ...this.score.staves])
       data.word = new Word();
   }
+  private setRows() {
+    for (const masterbar of this.score.masterbars) masterbar.rowId = 0;
+    const row = new Row({ id: 0 });
+    row.score = this.score;
+    this.score.rows = [row];
+  }
+  get pageLayout(): PageLayout {
+    if (this.options.pageLayout) return this.options.pageLayout;
+    const width =
+      (this.options.viewportWidth ?? globalThis.window?.innerWidth ?? 1024) /
+      this.options.scale;
+    const height =
+      (this.options.viewportHeight ?? globalThis.window?.innerHeight ?? 768) /
+      this.options.scale;
+    return { width, height, margin: Math.min(4, width / 4, height / 4) };
+  }
+  get layoutWidth() {
+    if (this.options.layoutType === LayoutType.Page) {
+      const page = this.pageLayout;
+      return page.width - page.margin * 2;
+    }
+    return (
+      (this.options.viewportWidth ?? globalThis.window?.innerWidth ?? 1024) /
+      this.options.scale
+    );
+  }
   layout() {
-    match(this.options.layoutType)
-      .with(LayoutType.Page as 2, () => {})
-      .with(LayoutType.Horizontal as 0, () => {
-        for (const masterbar of this.score?.masterbars) masterbar.rowId = 0;
-        this.score.rows = [new Row({ id: 0 })];
-      })
-      .with(LayoutType.Vertical as 1, () => {
-        this.score.rows = splitByWidth(
-          this.score.masterbars,
-          window.innerWidth / this.options.scale,
-          (mb) => mb.minWidth,
-        ).map((masterbars, id) => {
-          for (const masterbar of masterbars) masterbar.rowId = id;
-          return new Row({ id });
-        });
-      })
-      .exhaustive();
-    for (const row of this.score.rows) row.score = this.score;
+    this.setRows();
+    let row = this.score.rows[0];
+    let width = 0;
+    for (const masterbar of this.score.masterbars) {
+      masterbar.rowId = row.id;
+      const drawStaves = () => {
+        for (const bar of masterbar.bars)
+          for (const stave of bar.staves) {
+            stave.word = new Word();
+            stave.draw();
+          }
+      };
+      drawStaves();
+      if (
+        this.options.layoutType !== LayoutType.Horizontal &&
+        width > 0 &&
+        width + masterbar.minWidth > this.layoutWidth
+      ) {
+        row = new Row({ id: this.score.rows.length });
+        row.score = this.score;
+        this.score.rows.push(row);
+        masterbar.rowId = row.id;
+        // A new system repeats its clef; include that width when wrapping.
+        drawStaves();
+        width = 0;
+      }
+      width += masterbar.minWidth;
+    }
   }
   draw() {
     for (const data of [
@@ -93,9 +136,7 @@ export class Controller {
         entries(),
       );
       match(this.options.layoutType)
-        .with(LayoutType.Page as 2, () => {
-          throw new Error("wip");
-        })
+        .with(LayoutType.Page as 2, () => {})
         .with(LayoutType.Horizontal as 0, () => {
           for (const [, events] of groupedByStartEvents)
             for (const event of events) {
@@ -135,29 +176,4 @@ export class Controller {
     this.options.advanced = advanced;
     this.onChangeAdvanced?.(advanced);
   }
-}
-
-function splitByWidth<T>(
-  items: T[],
-  width: number,
-  selector: (item: T) => number,
-): T[][] {
-  return pipe(
-    items,
-    reduce(
-      (accumulator, item) => {
-        const current = accumulator.at(-1);
-        const currentSum =
-          current?.reduce((sum, element) => sum + selector(element), 0) ?? 0;
-        const itemWeight = selector(item);
-        if (currentSum + itemWeight > width) {
-          accumulator.push([item]);
-        } else {
-          current?.push(item);
-        }
-        return accumulator;
-      },
-      [[]] as T[][],
-    ),
-  );
 }

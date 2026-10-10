@@ -2,9 +2,12 @@ import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
 import * as Drawing from "../../document";
 import * as Sheet from "../../sheet";
 import * as SMUFL from "..";
+import type { PageLayout } from "../../sheet/page";
+import { rowSpacing } from "../../sheet/row";
 
 export interface ToDocumentOptions {
   debug?: boolean;
+  pageLayout?: PageLayout;
 }
 
 const engraving = BravuraMetadata.engravingDefaults;
@@ -382,7 +385,12 @@ export function toDocument(
   options: ToDocumentOptions = {},
 ) {
   if (score.tracks.length === 0 && score.notes.length === 0)
-    return new Drawing.Document([new Drawing.Page(0, 0)]);
+    return new Drawing.Document([
+      new Drawing.Page(
+        options.pageLayout?.width ?? 0,
+        options.pageLayout?.height ?? 0,
+      ),
+    ]);
   if (
     score.masterbars.length > 0 &&
     (score.rows.length === 0 ||
@@ -439,6 +447,39 @@ export function toDocument(
       { x: 0, y: row.y },
     ),
   );
+  if (options.pageLayout) {
+    const { width, height, margin } = options.pageLayout;
+    const pages: Drawing.Page[] = [];
+    let elements: Drawing.Element[] = [];
+    let y = margin;
+    let pageWidth = width;
+    let pageHeight = height;
+    const finishPage = () => {
+      pages.push(new Drawing.Page(pageWidth, pageHeight, elements));
+      elements = [];
+      y = margin;
+      pageWidth = width;
+      pageHeight = height;
+    };
+    for (const [index, row] of rows.entries()) {
+      const system = score.rows[index];
+      if (elements.length > 0 && y + system.height > height - margin)
+        finishPage();
+      elements.push(
+        new Drawing.Group(row.children, {
+          role: row.role,
+          source: row.source,
+          position: { x: margin, y },
+        }),
+      );
+      // Keep a single oversized system visible rather than cropping it.
+      pageWidth = Math.max(pageWidth, system.width + margin * 2);
+      pageHeight = Math.max(pageHeight, y + system.height + margin);
+      y += system.height + rowSpacing;
+    }
+    if (elements.length > 0 || pages.length === 0) finishPage();
+    return new Drawing.Document(pages);
+  }
   return new Drawing.Document([
     new Drawing.Page(score.width, score.height, rows),
   ]);

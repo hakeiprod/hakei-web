@@ -10,12 +10,20 @@ export class Controller extends Sheet.Controller {
   }
   toDocument() {
     this.layout();
-    this.space(window.innerWidth);
+    this.space(
+      this.options.viewportWidth ?? globalThis.window?.innerWidth ?? 1024,
+    );
     this.order();
     const debug =
       typeof this.options.debug === "boolean"
         ? this.options.debug
         : this.options.debug.enabled;
-    return this.score.toDocument({ debug });
+    return this.score.toDocument({
+      debug,
+      pageLayout:
+        this.options.layoutType === Sheet.LayoutType.Page
+          ? this.pageLayout
+          : undefined,
+    });
   }
 }
