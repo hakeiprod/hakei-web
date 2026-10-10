@@ -57,6 +57,28 @@ function renderElement(element: Drawing.Element): SVGElement {
     node.append(text);
     return node;
   }
+  if (element instanceof Drawing.Line && element.role === "beam") {
+    // A vertical shear preserves the slope without tilting the end faces beyond stems.
+    const [left, right] =
+      element.start.x <= element.end.x
+        ? [element.start, element.end]
+        : [element.end, element.start];
+    const width = right.x - left.x;
+    const slope = width > 0 ? (right.y - left.y) / width : 0;
+    const node = createSVGElement("rect");
+    setMetadata(node, element);
+    node.setAttribute("x", String(left.x));
+    node.setAttribute("y", String(left.y - element.strokeWidth / 2));
+    node.setAttribute("width", String(width));
+    node.setAttribute("height", String(element.strokeWidth));
+    node.setAttribute("fill", element.stroke);
+    node.setAttribute("stroke", "none");
+    node.setAttribute(
+      "transform",
+      `matrix(1 ${slope} 0 1 0 ${-slope * left.x})`,
+    );
+    return node;
+  }
   if (element instanceof Drawing.Line) {
     const node = createSVGElement("line");
     setMetadata(node, element);
