@@ -204,8 +204,10 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
   });
 
   test("navigates pages without rebuilding the score and binds highlights on each page", () => {
+    vi.stubGlobal("innerHeight", 240);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(480);
     const { container, getByText, getByLabelText, score, documentSVG } =
-      prepare(LayoutType.Page, 160);
+      prepare(LayoutType.Page, 32);
     const previous = getByText("前のページ") as HTMLButtonElement;
     const next = getByText("次のページ") as HTMLButtonElement;
     expect(previous.disabled).toBe(true);
