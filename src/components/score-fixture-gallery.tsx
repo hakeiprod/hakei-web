@@ -24,16 +24,37 @@ type RenderState =
   | { status: "error"; message: string };
 
 export function ScoreFixtureGallery({ fixtures }: { fixtures: Fixture[] }) {
+  const [debug, setDebug] = useState(true);
   return (
-    <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
-      {fixtures.map((fixture) => (
-        <ScoreFixtureCard key={fixture.name} fixture={fixture} />
-      ))}
-    </div>
+    <>
+      <button
+        type="button"
+        aria-pressed={debug}
+        onClick={() => setDebug((value) => !value)}
+        className="mb-4 rounded border px-3 py-2"
+      >
+        debug: {debug ? "ON" : "OFF"}
+      </button>
+      <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
+        {fixtures.map((fixture) => (
+          <ScoreFixtureCard
+            key={fixture.name}
+            fixture={fixture}
+            debug={debug}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
-function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
+function ScoreFixtureCard({
+  fixture,
+  debug,
+}: {
+  fixture: Fixture;
+  debug: boolean;
+}) {
   const container = useRef<HTMLDivElement>(null);
   const [renderState, setRenderState] = useState<RenderState>({
     status: "loading",
@@ -50,7 +71,7 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
       controller = new SMUFL.Controller(score, {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
-        debug: true,
+        debug,
         advanced: true,
       });
       controller.mount();
@@ -75,7 +96,7 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
       controller?.unmount();
       containerElement?.replaceChildren();
     };
-  }, [fixture]);
+  }, [fixture, debug]);
 
   return (
     <article className="min-w-0 overflow-hidden rounded-lg border border-gray-300 bg-white">

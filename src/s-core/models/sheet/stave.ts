@@ -94,22 +94,18 @@ export class Stave {
       ]);
     if (this.bar.masterbar.isFirst) {
       const keysignatureLigature = new Sheet.Ligature(
-        (this.bar.keysignature.ligature.line = match(
-          this.resolveClefs()[0]?.sign![0]._,
-        )
-          .with("G", () => 0.5)
-          .with("F", () => -0.5)
-          .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
-            throw new Error("wip");
-          })
-          .exhaustive()),
+        this.bar.keysignature.ligature.glyphLists,
       );
-      keysignatureLigature.glyphLists =
-        this.bar.keysignature.ligature.glyphLists;
-      this.word.append(
-        [keysignatureLigature],
-        [this.bar.timesignature.ligature],
-      );
+      this.word.append([keysignatureLigature]);
+    }
+    const previous = this.bar.prev?.timesignature;
+    const current = this.bar.timesignature;
+    if (
+      !previous ||
+      previous.numerator !== current.numerator ||
+      previous.denominator !== current.denominator
+    ) {
+      this.word.append([new Sheet.Ligature(current.ligature.glyphLists)]);
     }
   }
   resolveClefs(): Clef[] {

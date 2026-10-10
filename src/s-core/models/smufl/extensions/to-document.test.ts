@@ -525,3 +525,42 @@ test("renders forward and backward beam hooks on the anchored primary beam slope
   }
   controller.unmount();
 });
+
+test.each([
+  { durations: [0.5, 0.5], count: 1 },
+  { durations: [0.25, 0.25], count: 2 },
+  { durations: [0.75, 0.25], count: 2 },
+])(
+  "renders automatically generated beams for $durations without flags",
+  ({ durations, count }) => {
+    const score = prepare({
+      tracks: [
+        {
+          notes: durations.map((duration, index) => ({
+            pitch: 60 + index * 2,
+            start: index === 0 ? 0 : durations[0],
+            duration,
+          })),
+        },
+      ],
+    });
+    const elements = flatten(score.toDocument().pages[0].elements);
+    const lines = drawingLines(score);
+    const beams = lines.filter(({ line }) => line.role === "beam");
+    const stems = lines.filter(({ line }) => line.role === "stem");
+    expect(beams).toHaveLength(count);
+    expect(stems).toHaveLength(2);
+    expect(elements.filter((element) => element.role === "flag")).toHaveLength(
+      0,
+    );
+    for (const element of elements) checkGeometry(element);
+    for (const stem of stems) {
+      const primary = beams[0];
+      const fraction =
+        (stem.end.x - primary.start.x) / (primary.end.x - primary.start.x);
+      expect(stem.end.y).toBeCloseTo(
+        primary.start.y + fraction * (primary.end.y - primary.start.y),
+      );
+    }
+  },
+);
