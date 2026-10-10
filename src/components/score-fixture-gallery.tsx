@@ -3,7 +3,7 @@ import { debugAtom } from "@/store/debug";
 
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
-import { LayoutType } from "@/s-core/models/sheet";
+import { LayoutType, type Score } from "@/s-core/models/sheet";
 import * as SMUFL from "@/s-core/models/smufl";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
@@ -15,10 +15,11 @@ const bravura = localFont({
 });
 const fixtureScale = 12;
 
-type Fixture = {
-  name: string;
-  data: Record<string, unknown>;
-};
+export type Fixture = { name: string } & (
+  | { data: Record<string, unknown> }
+  | { sheet: ReturnType<Score["export"]> }
+  | { error: string }
+);
 
 type RenderState =
   | { status: "loading" }
@@ -66,10 +67,18 @@ function ScoreFixtureCard({
     const containerElement = container.current;
     let controller: SMUFL.Controller | undefined;
     try {
-      const sheet = Core.Score.create(
-        fixture.data as unknown as Parameters<typeof Core.Score.create>[0],
-      ).toSheet();
-      const score = SMUFL.Score.import(sheet.export());
+      if ("error" in fixture) throw new Error(fixture.error);
+      const data =
+        "sheet" in fixture
+          ? fixture.sheet
+          : Core.Score.create(
+              fixture.data as unknown as Parameters<
+                typeof Core.Score.create
+              >[0],
+            )
+              .toSheet()
+              .export();
+      const score = SMUFL.Score.import(data);
       controller = new SMUFL.Controller(score, {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
