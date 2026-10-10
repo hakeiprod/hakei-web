@@ -27,10 +27,7 @@ export function ShowScore(properties: {
     () => Sheet.Score.import(scoreData).toAudio(),
     [scoreData],
   );
-  const keyboard = useMemo(
-    () => new Keyboard(audio.keyRange),
-    [audio.keyRange],
-  );
+  const keyboard = useMemo(() => new Keyboard(audio.keyRange), [audio]);
   const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
   const [controller, setController] = useState<BrowserAudio.Controller>();
   useEffect(() => {

@@ -43,10 +43,8 @@ export class Score<
     ].toSorted((a, b) => a.start.value - b.start.value);
   }
   get height() {
-    return this.rows.reduce(
-      (accumulator, current) => accumulator + current.height,
-      0,
-    );
+    const last = this.rows.at(-1);
+    return last ? last.y + last.height : 0;
   }
   get width() {
     return firstBy(this.rows, [prop("width"), "desc"])?.width ?? 0;

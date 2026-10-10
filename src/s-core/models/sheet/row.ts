@@ -1,5 +1,7 @@
 import { firstBy, identity, map, pipe, prop } from "remeda";
 import * as Sheet from ".";
+export const rowSpacing = 10;
+
 export class Row {
   readonly id;
   score!: Sheet.Score;
@@ -25,7 +27,7 @@ export class Row {
     );
   }
   get y(): number {
-    return this.prev ? this.prev.y + this.height : 0;
+    return this.prev ? this.prev.y + this.prev.height + rowSpacing : 0;
   }
   get masterbars() {
     return this.score.masterbars.filter(

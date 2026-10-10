@@ -20,15 +20,22 @@ vi.mock("@heroui/react", () => ({
     value: number;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;
     "aria-label": string;
-  }) => <input type="number" {...properties} />,
+  }) => (
+    <input
+      type="number"
+      value={properties.value}
+      onChange={properties.onChange}
+      aria-label={properties["aria-label"]}
+    />
+  ),
   Select: (properties: {
-    selectedKeys: string;
+    selectedKeys: string[];
     onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
     children: ReactNode;
     "aria-label": string;
   }) => (
     <select
-      value={properties.selectedKeys}
+      value={properties.selectedKeys[0]}
       onChange={properties.onChange}
       aria-label={properties["aria-label"]}
     >
@@ -38,9 +45,9 @@ vi.mock("@heroui/react", () => ({
   SelectItem: ({
     children,
   }: {
-    children: "Horizontal" | "Vertical" | "Page";
+    children: "横スクロール" | "縦スクロール" | "ページ";
   }) => (
-    <option value={{ Horizontal: 0, Vertical: 1, Page: 2 }[children]}>
+    <option value={{ 横スクロール: 0, 縦スクロール: 1, ページ: 2 }[children]}>
       {children}
     </option>
   ),
@@ -62,13 +69,22 @@ vi.mock("@heroui/react", () => ({
 afterEach(() => {
   cleanup();
   vi.restoreAllMocks();
+  vi.unstubAllGlobals();
   vi.useRealTimers();
 });
 
-function prepare(layoutType = LayoutType.Horizontal) {
+function prepare(layoutType = LayoutType.Horizontal, noteCount = 1) {
   const score = SMUFL.Score.import(
     Core.Score.create({
-      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+      tracks: [
+        {
+          notes: Array.from({ length: noteCount }, (_, start) => ({
+            pitch: 60,
+            start,
+            duration: 1,
+          })),
+        },
+      ],
     })
       .toSheet()
       .export(),
@@ -90,6 +106,7 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     const { container, score, documentSVG } = prepare();
     const svg = container.querySelector("svg")!;
     expect(documentSVG).toHaveBeenCalledWith({
+      pageIndex: 0,
       scale: 12,
       fontFamily: "Bravura",
       paddingBottom: 100,
@@ -164,6 +181,166 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     expect(documentSVG).toHaveBeenCalledTimes(2);
     expect(container.querySelector("svg")).not.toBe(original);
     expect(container.querySelectorAll("svg")).toHaveLength(1);
+  });
+
+  test("offers the three drawing types and persists the selection", () => {
+    const { getByLabelText, getByText, store, container } = prepare();
+    for (const label of ["横スクロール", "縦スクロール", "ページ"])
+      expect(getByText(label)).toBeDefined();
+    for (const type of [
+      LayoutType.Vertical,
+      LayoutType.Page,
+      LayoutType.Horizontal,
+    ]) {
+      fireEvent.change(getByLabelText("layouttype-input"), {
+        target: { value: String(type) },
+      });
+      expect(store.get(layoutTypeAtom)).toBe(type);
+      expect(container.querySelectorAll("svg")).toHaveLength(1);
+      expect(container.querySelector("svg")!.outerHTML).not.toMatch(
+        /NaN|Infinity/,
+      );
+    }
+  });
+
+  test("navigates pages without rebuilding the score and binds highlights on each page", () => {
+    vi.stubGlobal("innerHeight", 240);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(480);
+    const { container, getByText, getByLabelText, score, documentSVG } =
+      prepare(LayoutType.Page, 32);
+    const previous = getByText("前のページ") as HTMLButtonElement;
+    const next = getByText("次のページ") as HTMLButtonElement;
+    expect(previous.disabled).toBe(true);
+    expect(next.disabled).toBe(false);
+    const original = container.querySelector("svg")!;
+    const firstNoteCount = original.querySelectorAll('[type="note"]').length;
+    const build = vi.spyOn(SMUFL.Controller.prototype, "toDocument");
+    fireEvent.click(next);
+    const second = container.querySelector("svg")!;
+    expect(second.dataset.pageIndex).toBe("1");
+    expect(build).not.toHaveBeenCalled();
+    expect(documentSVG).toHaveBeenLastCalledWith({
+      pageIndex: 1,
+      scale: 12,
+      fontFamily: "Bravura",
+      paddingBottom: 0,
+    });
+    const note = score.notes[firstNoteCount];
+    note.glyph.setClassName(["note-highlight"]);
+    expect(
+      second.querySelector('[type="note"] [type="glyph"]')?.classList,
+    ).toContain("note-highlight");
+    fireEvent.click(previous);
+    expect(container.querySelector("svg")!.dataset.pageIndex).toBe("0");
+    fireEvent.click(next);
+    expect(
+      container.querySelector('[type="note"] [type="glyph"]')?.classList,
+    ).toContain("note-highlight");
+    while (!next.disabled) fireEvent.click(next);
+    expect(next.disabled).toBe(true);
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Horizontal) },
+    });
+    expect(container.querySelectorAll('[type="note"]')).toHaveLength(
+      score.notes.length,
+    );
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Page) },
+    });
+    expect(container.querySelector("svg")!.dataset.pageIndex).toBe("0");
+    expect((getByText("前のページ") as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  test("wraps to the container width and updates wrapping when its width changes", () => {
+    vi.useFakeTimers();
+    let width = 240;
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(
+      () => width,
+    );
+    const { container } = prepare(LayoutType.Vertical, 32);
+    const rowCount = container.querySelectorAll('[type="row"]').length;
+    expect(rowCount).toBeGreaterThan(1);
+    expect(
+      container.querySelector("[data-layout]")?.getAttribute("style"),
+    ).toContain("overflow-y: auto");
+    width = 480;
+    fireEvent(globalThis.window, new Event("resize"));
+    act(() => vi.advanceTimersByTime(150));
+    expect(container.querySelectorAll('[type="row"]').length).toBeLessThan(
+      rowCount,
+    );
+  });
+
+  test("page size fits the visible screen and leaves room for navigation", () => {
+    vi.stubGlobal("innerHeight", 480);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(480);
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockReturnValue(
+      new DOMRect(0, 120, 480, 0),
+    );
+    const { container, getByText } = prepare(LayoutType.Page, 80);
+    const svg = container.querySelector("svg")!;
+    expect(Number(svg.getAttribute("width"))).toBe(480);
+    expect(Number(svg.getAttribute("height"))).toBe(288);
+    expect(svg.style.maxWidth).toBe("");
+    expect(
+      container.querySelector<HTMLElement>('[data-layout="page"]')!.style
+        .height,
+    ).toBe("288px");
+    expect((getByText("次のページ") as HTMLButtonElement).disabled).toBe(false);
+  });
+
+  test("screen resize recalculates pages and clamps the selected page", () => {
+    vi.useFakeTimers();
+    vi.stubGlobal("innerHeight", 600);
+    vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockReturnValue(480);
+    const { container, getByText, getByLabelText } = prepare(
+      LayoutType.Page,
+      80,
+    );
+    const next = getByText("次のページ") as HTMLButtonElement;
+    const status = container.querySelector('[aria-live="polite"]')!;
+    const originalPageCount = Number(status.textContent!.split("/")[1]);
+    vi.stubGlobal("innerHeight", 240);
+    fireEvent(globalThis.window, new Event("resize"));
+    act(() => vi.advanceTimersByTime(150));
+    expect(Number(container.querySelector("svg")!.getAttribute("height"))).toBe(
+      168,
+    );
+    expect(Number(status.textContent!.split("/")[1])).toBeGreaterThan(
+      originalPageCount,
+    );
+    while (!next.disabled) fireEvent.click(next);
+    vi.stubGlobal("innerHeight", 1200);
+    fireEvent(globalThis.window, new Event("resize"));
+    act(() => vi.advanceTimersByTime(150));
+    const [current, total] = status.textContent!.split("/").map(Number);
+    expect(current).toBe(total);
+    expect(total).toBeLessThan(originalPageCount);
+    expect(container.querySelector("svg")!.dataset.pageIndex).toBe(
+      String(total - 1),
+    );
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Horizontal) },
+    });
+    expect(
+      container.querySelector<HTMLElement>('[data-layout="horizontal"]')!.style
+        .height,
+    ).toBe("");
+  });
+
+  test("a score that fits on screen has a single page", () => {
+    const { getByText } = prepare(LayoutType.Page);
+    expect(getByText("1 / 1")).toBeDefined();
+    expect((getByText("前のページ") as HTMLButtonElement).disabled).toBe(true);
+    expect((getByText("次のページ") as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  test("ignores invalid scales", () => {
+    const { getByLabelText, store } = prepare();
+    for (const value of ["0", "-1", ""]) {
+      fireEvent.change(getByLabelText("scale-input"), { target: { value } });
+      expect(store.get(scaleAtom)).toBe(12);
+    }
   });
 });
 
