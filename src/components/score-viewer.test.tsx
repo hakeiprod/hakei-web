@@ -101,7 +101,97 @@ function prepare(layoutType = LayoutType.Horizontal, noteCount = 1) {
   return { ...view, score, store, documentSVG };
 }
 
+function mockScoreViewport(container: HTMLElement) {
+  const viewport = container.querySelector<HTMLElement>("[data-layout]")!;
+  vi.spyOn(viewport, "clientWidth", "get").mockReturnValue(320);
+  vi.spyOn(viewport, "scrollWidth", "get").mockReturnValue(1600);
+  vi.spyOn(viewport, "getBoundingClientRect").mockReturnValue(
+    new DOMRect(100, 40, 320, 120),
+  );
+  let notePosition = 100;
+  vi.spyOn(SVGElement.prototype, "getBoundingClientRect").mockImplementation(
+    function (this: SVGElement) {
+      // Measure the rendered note in viewport coordinates, including scrolling.
+      expect(viewport.contains(this)).toBe(true);
+      return new DOMRect(100 + notePosition - viewport.scrollLeft, 80, 20, 20);
+    },
+  );
+  return { viewport, position: (value: number) => (notePosition = value) };
+}
+
 describe("ScoreViewer Document rendering used by ShowScore", () => {
+  test("follows playback near the horizontal edges and returns to the start without moving vertically", () => {
+    const { container, score } = prepare();
+    const { viewport, position } = mockScoreViewport(container);
+    const glyph = score.notes[0].glyph;
+    viewport.scrollTop = 30;
+    glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+
+    // Scroll before the note reaches the right edge, leaving space ahead.
+    position(250);
+    glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
+    expect(viewport.scrollLeft).toBeLessThan(250);
+
+    // Seeking forward brings a distant note back into the same viewport.
+    position(800);
+    glyph.setClassName(["note-highlight"]);
+    const visible = container
+      .querySelector('[type="note"] [type="glyph"]')!
+      .getBoundingClientRect();
+    expect(visible.left).toBeGreaterThanOrEqual(100);
+    expect(visible.right).toBeLessThan(420);
+
+    // Replay/rewind follows notes to the left as well.
+    position(20);
+    glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+    position(800);
+    glyph.setClassName([]);
+    expect(viewport.scrollLeft).toBe(0);
+    expect(viewport.scrollTop).toBe(30);
+  });
+
+  test("follows the highlighted note after zoom and stops following after a layout change or unmount", () => {
+    const { container, score, getByLabelText, unmount } = prepare();
+    const { viewport, position } = mockScoreViewport(container);
+    position(800);
+    score.notes[0].glyph.setClassName(["note-highlight"]);
+    viewport.scrollLeft = 0;
+    fireEvent.change(getByLabelText("scale-input"), {
+      target: { value: "24" },
+    });
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
+
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Vertical) },
+    });
+    viewport.scrollLeft = 0;
+    score.notes[0].glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Horizontal) },
+    });
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
+    viewport.scrollLeft = 0;
+    unmount();
+    score.notes[0].glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+  });
+
+  test.each([LayoutType.Vertical, LayoutType.Page])(
+    "does not automatically scroll playback in layout %s",
+    (layoutType) => {
+      const { container, score } = prepare(layoutType);
+      const { viewport, position } = mockScoreViewport(container);
+      position(800);
+      score.notes[0].glyph.setClassName(["note-highlight"]);
+      expect(viewport.scrollLeft).toBe(0);
+    },
+  );
+
   test("renders Document directly with the score font and connects playback highlights", () => {
     const { container, score, documentSVG } = prepare();
     const svg = container.querySelector("svg")!;
