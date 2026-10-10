@@ -472,3 +472,22 @@ test("renders fixture gallery scores through Document and toggles their debug bo
   ).toBeGreaterThan(0);
   expect(container.querySelectorAll("svg")).toHaveLength(1);
 });
+
+test("renders serialized MusicXML sheets and isolates fixture import errors", () => {
+  const sheet = Core.Score.create({
+    tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+  })
+    .toSheet()
+    .export();
+  const { container, getByText } = render(
+    <ScoreFixtureGallery
+      fixtures={[
+        { name: "valid.mxl", sheet },
+        { name: "invalid.mxl", error: "Invalid Musicxml" },
+      ]}
+    />,
+  );
+  expect(getByText("Rendered")).toBeDefined();
+  expect(getByText("Invalid Musicxml")).toBeDefined();
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
+});
