@@ -6,6 +6,7 @@ import * as Core from "../core";
 export class Masterbar extends Core.Event {
   readonly id;
   rowId;
+  allocatedWidth?: number;
   barline;
   score!: Sheet.Score;
   get x(): number {
@@ -21,7 +22,9 @@ export class Masterbar extends Core.Event {
   }
   get width() {
     return (
-      pipe(this.bars, map(prop("width")), firstBy([identity(), "desc"])) ?? 0
+      this.allocatedWidth ??
+      pipe(this.bars, map(prop("width")), firstBy([identity(), "desc"])) ??
+      0
     );
   }
   get minWidth() {
@@ -54,7 +57,7 @@ export class Masterbar extends Core.Event {
     return this.score.rows.find((row) => row.id === this.rowId)!;
   }
   get slots() {
-    return this.score.slots.filter((slot) => slot.isOverlapped(this));
+    return this.score.slots.filter((slot) => this.isOverlapped(slot));
   }
   get bars() {
     return this.score.bars.filter((bar) => bar.id === this.id);

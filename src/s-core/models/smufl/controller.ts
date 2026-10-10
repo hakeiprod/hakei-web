@@ -10,9 +10,7 @@ export class Controller extends Sheet.Controller {
   }
   toDocument() {
     this.layout();
-    this.space(
-      this.options.viewportWidth ?? globalThis.window?.innerWidth ?? 1024,
-    );
+    this.space();
     this.order();
     const debug =
       typeof this.options.debug === "boolean"

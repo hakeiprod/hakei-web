@@ -168,3 +168,80 @@ describe("score drawing layouts", () => {
     expect(drawing.pages[0].height).toBe(40);
   });
 });
+
+test.each([1, 4, 17, 64])(
+  "page rows fill the usable width with %s notes, including the final row",
+  (count) => {
+    const { score, controller } = prepare(LayoutType.Page, count);
+    controller.toDocument();
+    for (const row of score.rows) {
+      expect(row.width).toBeCloseTo(controller.layoutWidth);
+      expect(row.masterbars.at(-1)!.right).toBeCloseTo(controller.layoutWidth);
+      for (const bar of row.masterbars) {
+        expect(bar.width).toBeGreaterThanOrEqual(bar.minWidth);
+        const stave = bar.bars[0].staves[0];
+        const slots = stave.slots;
+        expect(stave.width).toBeCloseTo(bar.width);
+        expect(
+          slots.at(-1)!.x + slots.at(-1)!.width + stave.word.width,
+        ).toBeCloseTo(bar.width);
+      }
+    }
+  },
+);
+
+test("page spacing is repeatable, adjusts on resize and resets in scrolling layouts", () => {
+  const { score, controller } = prepare(LayoutType.Page, 4);
+  controller.toDocument();
+  const positions = score.slots.map((slot) => slot.x);
+  const naturalWidth = score.rows[0].minWidth;
+  expect(score.slots[1].x).toBeGreaterThan(score.slots[0].minWidth);
+  controller.toDocument();
+  expect(score.slots.map((slot) => slot.x)).toEqual(positions);
+  controller.options.pageLayout = { width: 60, height: 40, margin: 6 };
+  controller.toDocument();
+  expect(score.rows[0].width).toBeCloseTo(48);
+  expect(score.slots[1].x).toBeGreaterThan(positions[1]);
+  for (const layoutType of [LayoutType.Horizontal, LayoutType.Vertical]) {
+    controller.options.layoutType = layoutType;
+    controller.toDocument();
+    expect(score.slots.every((slot) => slot.spacing === 0)).toBe(true);
+    expect(score.rows[0].width).toBeCloseTo(naturalWidth);
+  }
+});
+
+test("page spacing keeps simultaneous notes aligned across tracks and piano staves", () => {
+  const notes = Array.from({ length: 4 }, (_, start) => ({
+    pitch: 60,
+    start,
+    duration: 1,
+  }));
+  const score = SMUFL.Score.import(
+    Core.Score.create({
+      tracks: [
+        { preset: 40, notes },
+        { preset: 0, notes: notes.map((note) => ({ ...note, pitch: 48 })) },
+      ],
+    })
+      .toSheet()
+      .export(),
+  );
+  const controller = new SMUFL.Controller(score, {
+    layoutType: LayoutType.Page,
+    scale: 12,
+    advanced: true,
+    debug: false,
+    pageLayout: { width: 60, height: 60, margin: 6 },
+  });
+  controller.mount();
+  const drawing = controller.toDocument();
+  expect(score.rows[0].width).toBeCloseTo(48);
+  const slotGroups = flatten(drawing.pages[0].elements).filter(
+    (element): element is Drawing.Group =>
+      element instanceof Drawing.Group && element.role === "slot",
+  );
+  for (let beat = 0; beat < 4; beat++) {
+    const groups = slotGroups.filter((_, index) => index % 4 === beat);
+    expect(new Set(groups.map((group) => group.position.x)).size).toBe(1);
+  }
+});

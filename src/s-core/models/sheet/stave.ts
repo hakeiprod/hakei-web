@@ -48,6 +48,12 @@ export class Stave {
       ) + this.word.width
     );
   }
+  get minWidth() {
+    return (
+      this.slots.reduce((width, slot) => width + slot.minWidth, 0) +
+      this.word.width
+    );
+  }
   get y() {
     return this.id * this.height + this.id * 6.5;
   }
