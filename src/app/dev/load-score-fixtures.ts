@@ -23,7 +23,8 @@ export async function loadScoreFixtures(
         const sheet = await new Importer().import(
           new File([new Uint8Array(contents)], name),
         );
-        return { name, sheet: sheet.export() };
+        // Exported slots contain Beat instances; the server/client boundary needs plain data.
+        return { name, sheet: structuredClone(sheet.export()) };
       } catch (error) {
         return {
           name,

@@ -16,6 +16,9 @@ test("loads every MusicXML fixture as a serialized sheet or an individual error"
     expect("sheet" in eighths).toBe(true);
     if ("sheet" in eighths) {
       expect(eighths.sheet.notes.length).toBeGreaterThan(0);
+      expect(Object.getPrototypeOf(eighths.sheet.slots[0].beat)).toBe(
+        Object.prototype,
+      );
       // Verify the server-to-client JSON boundary, rather than cloning in memory.
       // eslint-disable-next-line unicorn/prefer-structured-clone
       expect(JSON.parse(JSON.stringify(eighths.sheet))).toEqual(eighths.sheet);
