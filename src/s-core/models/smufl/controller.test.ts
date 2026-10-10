@@ -216,7 +216,7 @@ test("page spacing keeps simultaneous notes aligned across tracks and piano stav
     start,
     duration: 1,
   }));
-  const score = SMUFL.Score.import(
+  const score: SMUFL.Score = SMUFL.Score.import(
     Core.Score.create({
       tracks: [
         { preset: 40, notes },
