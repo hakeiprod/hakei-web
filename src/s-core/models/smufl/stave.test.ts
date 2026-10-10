@@ -39,6 +39,39 @@ function glyphs(document: Drawing.Document) {
 }
 
 describe("stave signatures", () => {
+  test.each([60, 48])(
+    "leaves the time signature's advance after the clef for pitch %s",
+    (pitch) => {
+      const controller = prepare({
+        tracks: [{ notes: [{ pitch, start: 0, duration: 1 }] }],
+      });
+      const elements = flatten(controller.toDocument().pages[0].elements);
+      const word = elements.find(
+        (element) => element.role === "word",
+      ) as Drawing.Group;
+      const clef = word.children.find(
+        (element) => element instanceof Drawing.Glyph,
+      ) as Drawing.Glyph;
+      const signature = word.children.find(
+        (element) =>
+          element instanceof Drawing.Group &&
+          element.children.some(
+            (glyph) =>
+              glyph instanceof Drawing.Glyph &&
+              glyph.glyphName?.startsWith("timeSig"),
+          ),
+      ) as Drawing.Group;
+      for (const glyph of signature.children as Drawing.Glyph[]) {
+        const gap =
+          signature.position.x +
+          glyph.bounds.x -
+          (clef.bounds.x + clef.bounds.width);
+        expect(gap).toBeGreaterThanOrEqual(glyph.advanceWidth);
+      }
+      controller.unmount();
+    },
+  );
+
   test.each([LayoutType.Horizontal, LayoutType.Vertical, LayoutType.Page])(
     "renders changed time signatures exactly once in layout %s",
     (layout) => {
