@@ -1,5 +1,3 @@
-import { entries, flatMap, groupBy, length, pipe, prop } from "remeda";
-import { match } from "ts-pattern";
 import { LayoutType, Ligature, Score, Word } from "./";
 import { Row } from "./row";
 import type { PageLayout } from "./page";
@@ -83,6 +81,9 @@ export class Controller {
     );
   }
   layout() {
+    for (const slot of this.score.slots) slot.spacing = 0;
+    for (const masterbar of this.score.masterbars)
+      masterbar.allocatedWidth = undefined;
     this.setRows();
     let row = this.score.rows[0];
     let width = 0;
@@ -126,38 +127,25 @@ export class Controller {
     this.score.staves.map((stave) => stave.word?.order());
     this.score.chords.map((chord) => chord.word.order());
   }
-  space(width: number) {
+  space() {
+    // Recompute from natural glyph widths so repeated draws do not grow.
+    for (const slot of this.score.slots) slot.spacing = 0;
+    for (const masterbar of this.score.masterbars)
+      masterbar.allocatedWidth = undefined;
+    if (this.options.layoutType !== LayoutType.Page) return;
     for (const row of this.score.rows) {
-      const groupedByStartEvents = pipe(
-        row,
-        prop("masterbars"),
-        flatMap(prop("events")),
-        groupBy(prop("start", "value")),
-        entries(),
-      );
-      match(this.options.layoutType)
-        .with(LayoutType.Page as 2, () => {})
-        .with(LayoutType.Horizontal as 0, () => {
-          for (const [, events] of groupedByStartEvents)
-            for (const event of events) {
-            }
-          // if (event.ligature) {
-          // event.ligature.edge.right =
-          //   Metadata.defaultValue.spacing.note.right;
-          // event.ligature.edge.left =
-          //   Metadata.defaultValue.spacing.note.left;
-          // }
-        })
-        .with(LayoutType.Vertical as 1, () => {
-          const space =
-            (width / this.options.scale - row.minWidth) /
-            pipe(groupedByStartEvents, length());
-          for (const [, events] of groupedByStartEvents)
-            for (const event of events) {
-            }
-          // if (event.ligature) event.ligature.right = space;
-        })
-        .exhaustive();
+      const remaining = Math.max(0, this.layoutWidth - row.minWidth);
+      if (remaining === 0) continue;
+      const naturalWidth = row.minWidth;
+      for (const masterbar of row.masterbars) {
+        const extra =
+          naturalWidth > 0
+            ? (remaining * masterbar.minWidth) / naturalWidth
+            : remaining / row.masterbars.length;
+        masterbar.allocatedWidth = masterbar.minWidth + extra;
+        const slots = [...new Set(masterbar.slots)];
+        for (const slot of slots) slot.spacing = extra / slots.length;
+      }
     }
   }
   setScale(scale: typeof this.options.scale) {
