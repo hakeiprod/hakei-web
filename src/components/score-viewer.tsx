@@ -1,9 +1,11 @@
 "use client";
+import { debugAtom } from "@/store/debug";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as Engraving from "@/s-core/models/engraving";
 import type { Document } from "@/s-core/models/document";
 import "@/s-core/models/document/extensions/to-svg";
 import { bindNoteHighlights } from "@/s-core/models/browser/bind-note-highlights";
+import { scrollNoteIntoView } from "@/s-core/models/browser/scroll-note-into-view";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { NumberInput, Select, SelectItem, Switch } from "@heroui/react";
@@ -25,13 +27,14 @@ export function ScoreViewer({ score }: { score: Engraving.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [advanced, setAdvanced] = useState(true);
-  const [debug, setDebug] = useState(true);
+  const [debug, setDebug] = useAtom(debugAtom);
   const [pagination, setPagination] = useState({ index: 0, total: 1 });
   const reference = useRef<HTMLDivElement | null>(null);
   const navigationReference = useRef<HTMLElement | null>(null);
   const controllerReference = useRef<Engraving.Controller | null>(null);
   const documentReference = useRef<Document | null>(null);
   const pageIndexReference = useRef(0);
+  const unbindHighlightsReference = useRef<(() => void) | null>(null);
   const renderPage = useCallback((index: number) => {
     const controller = controllerReference.current;
     const drawing = documentReference.current;
@@ -48,8 +51,16 @@ export function ScoreViewer({ score }: { score: Engraving.Score }) {
       svg.style.marginInline = "auto";
     }
     svg.style.display = "block";
-    bindNoteHighlights(controller.score, svg);
-    reference.current.replaceChildren(svg);
+    const container = reference.current;
+    unbindHighlightsReference.current?.();
+    container.replaceChildren(svg);
+    unbindHighlightsReference.current = bindNoteHighlights(
+      controller.score,
+      svg,
+      controller.options.layoutType === LayoutType.Horizontal
+        ? (node) => scrollNoteIntoView(container, node)
+        : undefined,
+    );
     pageIndexReference.current = pageIndex;
     setPagination({ index: pageIndex, total: drawing.pages.length });
   }, []);
@@ -138,6 +149,8 @@ export function ScoreViewer({ score }: { score: Engraving.Score }) {
       window.removeEventListener("resize", handleResize);
       window.visualViewport?.removeEventListener("resize", handleResize);
       handleResize.cancel();
+      unbindHighlightsReference.current?.();
+      unbindHighlightsReference.current = null;
       controller.unmount();
     };
   }, [

@@ -1,6 +1,6 @@
-import * as Sheet from "../sheet";
 import { pipe } from "remeda";
 import { match } from "ts-pattern";
+import * as Sheet from "../sheet";
 import { ElementType } from "../sheet";
 import musicTheory from "../../const/music-theory.json";
 import * as Core from "../core";

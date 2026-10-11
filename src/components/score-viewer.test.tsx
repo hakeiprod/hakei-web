@@ -1,11 +1,12 @@
 import { act, cleanup, fireEvent, render } from "@testing-library/react";
-import { createStore, Provider } from "jotai";
+import { createStore, getDefaultStore, Provider } from "jotai";
 import type { ChangeEvent, ReactNode } from "react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import * as Core from "@/s-core/models/core";
 import { Document } from "@/s-core/models/document";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as Engraving from "@/s-core/models/engraving";
+import { debugAtom } from "@/store/debug";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { ScoreViewer } from "./score-viewer";
@@ -68,6 +69,8 @@ vi.mock("@heroui/react", () => ({
 
 afterEach(() => {
   cleanup();
+  getDefaultStore().set(debugAtom, true);
+  localStorage.clear();
   vi.restoreAllMocks();
   vi.unstubAllGlobals();
   vi.useRealTimers();
@@ -101,7 +104,97 @@ function prepare(layoutType = LayoutType.Horizontal, noteCount = 1) {
   return { ...view, score, store, documentSVG };
 }
 
+function mockScoreViewport(container: HTMLElement) {
+  const viewport = container.querySelector<HTMLElement>("[data-layout]")!;
+  vi.spyOn(viewport, "clientWidth", "get").mockReturnValue(320);
+  vi.spyOn(viewport, "scrollWidth", "get").mockReturnValue(1600);
+  vi.spyOn(viewport, "getBoundingClientRect").mockReturnValue(
+    new DOMRect(100, 40, 320, 120),
+  );
+  let notePosition = 100;
+  vi.spyOn(SVGElement.prototype, "getBoundingClientRect").mockImplementation(
+    function (this: SVGElement) {
+      // Measure the rendered note in viewport coordinates, including scrolling.
+      expect(viewport.contains(this)).toBe(true);
+      return new DOMRect(100 + notePosition - viewport.scrollLeft, 80, 20, 20);
+    },
+  );
+  return { viewport, position: (value: number) => (notePosition = value) };
+}
+
 describe("ScoreViewer Document rendering used by ShowScore", () => {
+  test("follows playback near the horizontal edges and returns to the start without moving vertically", () => {
+    const { container, score } = prepare();
+    const { viewport, position } = mockScoreViewport(container);
+    const glyph = score.notes[0].glyph;
+    viewport.scrollTop = 30;
+    glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+
+    // Scroll before the note reaches the right edge, leaving space ahead.
+    position(250);
+    glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
+    expect(viewport.scrollLeft).toBeLessThan(250);
+
+    // Seeking forward brings a distant note back into the same viewport.
+    position(800);
+    glyph.setClassName(["note-highlight"]);
+    const visible = container
+      .querySelector('[type="note"] [type="glyph"]')!
+      .getBoundingClientRect();
+    expect(visible.left).toBeGreaterThanOrEqual(100);
+    expect(visible.right).toBeLessThan(420);
+
+    // Replay/rewind follows notes to the left as well.
+    position(20);
+    glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+    position(800);
+    glyph.setClassName([]);
+    expect(viewport.scrollLeft).toBe(0);
+    expect(viewport.scrollTop).toBe(30);
+  });
+
+  test("follows the highlighted note after zoom and stops following after a layout change or unmount", () => {
+    const { container, score, getByLabelText, unmount } = prepare();
+    const { viewport, position } = mockScoreViewport(container);
+    position(800);
+    score.notes[0].glyph.setClassName(["note-highlight"]);
+    viewport.scrollLeft = 0;
+    fireEvent.change(getByLabelText("scale-input"), {
+      target: { value: "24" },
+    });
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
+
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Vertical) },
+    });
+    viewport.scrollLeft = 0;
+    score.notes[0].glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+
+    fireEvent.change(getByLabelText("layouttype-input"), {
+      target: { value: String(LayoutType.Horizontal) },
+    });
+    expect(viewport.scrollLeft).toBeGreaterThan(0);
+    viewport.scrollLeft = 0;
+    unmount();
+    score.notes[0].glyph.setClassName(["note-highlight"]);
+    expect(viewport.scrollLeft).toBe(0);
+  });
+
+  test.each([LayoutType.Vertical, LayoutType.Page])(
+    "does not automatically scroll playback in layout %s",
+    (layoutType) => {
+      const { container, score } = prepare(layoutType);
+      const { viewport, position } = mockScoreViewport(container);
+      position(800);
+      score.notes[0].glyph.setClassName(["note-highlight"]);
+      expect(viewport.scrollLeft).toBe(0);
+    },
+  );
+
   test("renders Document directly with the score font and connects playback highlights", () => {
     const { container, score, documentSVG } = prepare();
     const svg = container.querySelector("svg")!;
@@ -344,7 +437,48 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
   });
 });
 
-test("renders fixture gallery scores through Document after removing Engraving SVG rendering", () => {
+test("saves debug changes and restores them when the viewer mounts in a new store", () => {
+  const first = prepare();
+  fireEvent.click(first.getByLabelText("debug"));
+  expect(localStorage.getItem("debug")).toBe("false");
+  first.unmount();
+  const second = prepare();
+  expect((second.getByLabelText("debug") as HTMLInputElement).checked).toBe(
+    false,
+  );
+  expect(second.container.querySelectorAll("[data-debug-bounds]")).toHaveLength(
+    0,
+  );
+  fireEvent.click(second.getByLabelText("debug"));
+  expect(localStorage.getItem("debug")).toBe("true");
+});
+
+test("fixture galleries restore and share the saved debug preference", () => {
+  localStorage.setItem("debug", "false");
+  const store = createStore();
+  const fixture = {
+    name: "quarter note",
+    data: {
+      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+    },
+  };
+  const { container, getAllByText } = render(
+    <Provider store={store}>
+      <ScoreFixtureGallery fixtures={[fixture]} />
+      <ScoreFixtureGallery fixtures={[fixture]} />
+    </Provider>,
+  );
+  expect(getAllByText("debug: OFF")).toHaveLength(2);
+  expect(container.querySelectorAll("[data-debug-bounds]")).toHaveLength(0);
+  fireEvent.click(getAllByText("debug: OFF")[0]);
+  expect(getAllByText("debug: ON")).toHaveLength(2);
+  expect(localStorage.getItem("debug")).toBe("true");
+  expect(
+    container.querySelectorAll("[data-debug-bounds]").length,
+  ).toBeGreaterThan(0);
+});
+
+test("renders fixture gallery scores through Document and toggles their debug bounds", () => {
   const documentSVG = vi.spyOn(Document.prototype, "toSVG");
   const { container, getByText } = render(
     <ScoreFixtureGallery
@@ -366,4 +500,38 @@ test("renders fixture gallery scores through Document after removing Engraving S
     fontFamily: "Bravura",
     paddingBottom: 100,
   });
+  const toggle = getByText("debug: ON");
+  expect(toggle.getAttribute("aria-pressed")).toBe("true");
+  expect(
+    container.querySelectorAll("[data-debug-bounds]").length,
+  ).toBeGreaterThan(0);
+  fireEvent.click(toggle);
+  expect(toggle.textContent).toBe("debug: OFF");
+  expect(toggle.getAttribute("aria-pressed")).toBe("false");
+  expect(container.querySelectorAll("[data-debug-bounds]")).toHaveLength(0);
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
+  fireEvent.click(toggle);
+  expect(
+    container.querySelectorAll("[data-debug-bounds]").length,
+  ).toBeGreaterThan(0);
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
+});
+
+test("renders serialized MusicXML sheets and isolates fixture import errors", () => {
+  const sheet = Core.Score.create({
+    tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+  })
+    .toSheet()
+    .export();
+  const { container, getByText } = render(
+    <ScoreFixtureGallery
+      fixtures={[
+        { name: "valid.mxl", sheet },
+        { name: "invalid.mxl", error: "Invalid Musicxml" },
+      ]}
+    />,
+  );
+  expect(getByText("Rendered")).toBeDefined();
+  expect(getByText("Invalid Musicxml")).toBeDefined();
+  expect(container.querySelectorAll("svg")).toHaveLength(1);
 });

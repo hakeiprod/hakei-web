@@ -1,11 +1,13 @@
 "use client";
+import { debugAtom } from "@/store/debug";
 
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
-import { LayoutType } from "@/s-core/models/sheet";
+import { LayoutType, type Score } from "@/s-core/models/sheet";
 import * as Engraving from "@/s-core/models/engraving";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
+import { useAtom } from "jotai";
 import { useEffect, useRef, useState } from "react";
 
 const bravura = localFont({
@@ -13,10 +15,11 @@ const bravura = localFont({
 });
 const fixtureScale = 12;
 
-type Fixture = {
-  name: string;
-  data: Record<string, unknown>;
-};
+export type Fixture = { name: string } & (
+  | { data: Record<string, unknown> }
+  | { sheet: ReturnType<Score["export"]> }
+  | { error: string }
+);
 
 type RenderState =
   | { status: "loading" }
@@ -24,16 +27,37 @@ type RenderState =
   | { status: "error"; message: string };
 
 export function ScoreFixtureGallery({ fixtures }: { fixtures: Fixture[] }) {
+  const [debug, setDebug] = useAtom(debugAtom);
   return (
-    <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
-      {fixtures.map((fixture) => (
-        <ScoreFixtureCard key={fixture.name} fixture={fixture} />
-      ))}
-    </div>
+    <>
+      <button
+        type="button"
+        aria-pressed={debug}
+        onClick={() => setDebug((value) => !value)}
+        className="mb-4 rounded border px-3 py-2"
+      >
+        debug: {debug ? "ON" : "OFF"}
+      </button>
+      <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
+        {fixtures.map((fixture) => (
+          <ScoreFixtureCard
+            key={fixture.name}
+            fixture={fixture}
+            debug={debug}
+          />
+        ))}
+      </div>
+    </>
   );
 }
 
-function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
+function ScoreFixtureCard({
+  fixture,
+  debug,
+}: {
+  fixture: Fixture;
+  debug: boolean;
+}) {
   const container = useRef<HTMLDivElement>(null);
   const [renderState, setRenderState] = useState<RenderState>({
     status: "loading",
@@ -43,14 +67,22 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
     const containerElement = container.current;
     let controller: Engraving.Controller | undefined;
     try {
-      const sheet = Core.Score.create(
-        fixture.data as unknown as Parameters<typeof Core.Score.create>[0],
-      ).toSheet();
-      const score = Engraving.Score.import(sheet.export());
+      if ("error" in fixture) throw new Error(fixture.error);
+      const data =
+        "sheet" in fixture
+          ? fixture.sheet
+          : Core.Score.create(
+              fixture.data as unknown as Parameters<
+                typeof Core.Score.create
+              >[0],
+            )
+              .toSheet()
+              .export();
+      const score = Engraving.Score.import(data);
       controller = new Engraving.Controller(score, {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
-        debug: true,
+        debug,
         advanced: true,
       });
       controller.mount();
@@ -75,7 +107,7 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
       controller?.unmount();
       containerElement?.replaceChildren();
     };
-  }, [fixture]);
+  }, [fixture, debug]);
 
   return (
     <article className="min-w-0 overflow-hidden rounded-lg border border-gray-300 bg-white">

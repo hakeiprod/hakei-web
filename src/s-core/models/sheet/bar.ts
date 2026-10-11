@@ -52,7 +52,7 @@ export class Bar {
     return (
       pipe(
         this.staves,
-        map(piped(prop("width"))),
+        map(piped(prop("minWidth"))),
         firstBy([identity(), "desc"]),
       ) ?? 0
     );

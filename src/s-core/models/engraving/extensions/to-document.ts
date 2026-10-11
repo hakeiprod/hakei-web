@@ -71,7 +71,14 @@ function ligatureToDocument(
     "ligature",
     ligature.glyphLists
       .flat()
-      .map((glyph) => glyphToDocument(glyph, source, false)),
+      .map((glyph) =>
+        glyphToDocument(
+          glyph,
+          source,
+          glyph.type === Sheet.ElementType.Numerator ||
+            glyph.type === Sheet.ElementType.Denominator,
+        ),
+      ),
     source,
     { x: ligature.x, y: 0 },
   );

@@ -1,6 +1,5 @@
 import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
-import * as Core from "../core";
 import * as Sheet from "../sheet";
 import * as Engraving from "./";
 
@@ -9,6 +8,9 @@ export class Stave extends Sheet.Stave {
   word = new Engraving.Word();
   override get width() {
     return super.width + this.word.width;
+  }
+  override get minWidth() {
+    return super.minWidth + this.word.width;
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
@@ -34,14 +36,19 @@ export class Stave extends Sheet.Stave {
         ),
       ]);
     if (this.bar.masterbar.isFirst) {
-      const keysignatureLigature = new Engraving.Ligature();
-      keysignatureLigature.glyphLists = (
-        this.bar.keysignature as Engraving.Keysignature
-      ).ligature.glyphLists;
-      this.word.append(
-        [keysignatureLigature],
-        [(this.bar.timesignature as Engraving.Timesignature).ligature],
+      const keysignatureLigature = new Engraving.Ligature(
+        (this.bar.keysignature as Engraving.Keysignature).ligature.glyphLists,
       );
+      this.word.append([keysignatureLigature]);
+    }
+    const previous = this.bar.prev?.timesignature;
+    const current = this.bar.timesignature as Engraving.Timesignature;
+    if (
+      !previous ||
+      previous.numerator !== current.numerator ||
+      previous.denominator !== current.denominator
+    ) {
+      this.word.append([new Engraving.Ligature(current.ligature.glyphLists)]);
     }
 
     this.word.glyphOrLigatureLists = this.word.glyphOrLigatureLists.map(
@@ -59,21 +66,8 @@ export class Stave extends Sheet.Stave {
                       glyph.line,
                     ),
                 )
-                .with(
-                  Sheet.ElementType.Accidental,
-                  () =>
-                    new Engraving.Glyph(
-                      Engraving.Glyph.find("standardAccidentals12Edo", (v) =>
-                        v.toLowerCase().includes(
-                          match(this.bar.keysignature.tonality)
-                            .with(Core.Enums.Tonality.Major as 0, () => "sharp")
-                            .with(Core.Enums.Tonality.Minor as 1, () => "flat")
-                            .exhaustive(),
-                        ),
-                      ),
-                      glyph.type,
-                      glyph.line,
-                    ),
+                .with(Sheet.ElementType.Accidental, () =>
+                  this.keyAccidental(glyph.line),
                 )
                 .otherwise(() => glyph),
             )
@@ -81,29 +75,8 @@ export class Stave extends Sheet.Stave {
               ligature.glyphLists = ligature.glyphLists.map((glyphList) =>
                 glyphList.map((glyph) =>
                   match(glyph.type)
-                    .with(
-                      Sheet.ElementType.Accidental,
-                      () =>
-                        new Engraving.Glyph(
-                          Engraving.Glyph.find(
-                            "standardAccidentals12Edo",
-                            (v) =>
-                              v.toLowerCase().includes(
-                                match(this.bar.keysignature.tonality)
-                                  .with(
-                                    Core.Enums.Tonality.Major as 0,
-                                    () => "sharp",
-                                  )
-                                  .with(
-                                    Core.Enums.Tonality.Minor as 1,
-                                    () => "flat",
-                                  )
-                                  .exhaustive(),
-                              ),
-                          ),
-                          glyph.type,
-                          glyph.line,
-                        ),
+                    .with(Sheet.ElementType.Accidental, () =>
+                      this.keyAccidental(glyph.line),
                     )
                     .otherwise(() => glyph),
                 ),
@@ -113,6 +86,19 @@ export class Stave extends Sheet.Stave {
             .exhaustive(),
         ),
     );
+  }
+  private keyAccidental(line: number) {
+    const glyph = new Engraving.Glyph(
+      this.bar.keysignature.accidental > 0
+        ? "accidentalSharp"
+        : "accidentalFlat",
+      Sheet.ElementType.Accidental,
+      line,
+    );
+    // Key signatures already arrange consecutive accidentals in their ligature.
+    // Adding the advance again doubles the gap between them.
+    glyph.spaceLeft = 0;
+    return glyph;
   }
   static import(data: ReturnType<Stave["export"]>) {
     return new Stave(super.import(data));

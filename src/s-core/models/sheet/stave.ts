@@ -45,6 +45,9 @@ export class Stave {
       0,
     );
   }
+  get minWidth() {
+    return this.slots.reduce((width, slot) => width + slot.minWidth, 0);
+  }
   get y() {
     return this.id * this.height + this.id * 6.5;
   }

@@ -118,3 +118,79 @@ describe("Document to SVG", () => {
     },
   );
 });
+
+test.each([
+  [
+    { x: 2, y: 3 },
+    { x: 8, y: 3 },
+  ],
+  [
+    { x: 2, y: 3 },
+    { x: 8, y: 5 },
+  ],
+  [
+    { x: 2, y: 5 },
+    { x: 8, y: 3 },
+  ],
+  [
+    { x: 8, y: 3 },
+    { x: 7, y: 4 },
+  ],
+  [
+    { x: 2, y: 3 },
+    { x: 3, y: 4 },
+  ],
+  [
+    { x: 2, y: 3 },
+    { x: 2, y: 3 },
+  ],
+])(
+  "renders beam rectangles with vertical end faces for %j to %j",
+  (start, end) => {
+    const thickness = 0.5;
+    const drawing = new Drawing.Document([
+      new Drawing.Page(10, 10, [
+        new Drawing.Line(start, end, thickness, {
+          role: "beam",
+          stroke: "red",
+          source: { trackId: 1 },
+          classList: ["selected"],
+        }),
+      ]),
+    ]);
+    const svg = drawing.toSVG();
+    const beam = svg.querySelector<SVGRectElement>('rect[type="beam"]')!;
+    expect(beam).not.toBeNull();
+    expect(
+      svg.querySelector('line[type="beam"], path[type="beam"]'),
+    ).toBeNull();
+    expect(beam.getAttribute("fill")).toBe("red");
+    expect(beam.getAttribute("stroke")).toBe("none");
+    expect(beam.dataset.trackId).toBe("1");
+    expect(beam.getAttribute("class")).toBe("selected");
+    const x = Number(beam.getAttribute("x"));
+    const y = Number(beam.getAttribute("y"));
+    const width = Number(beam.getAttribute("width"));
+    const height = Number(beam.getAttribute("height"));
+    const matrix = beam
+      .getAttribute("transform")!
+      .slice(7, -1)
+      .split(" ")
+      .map(Number);
+    const [scaleX, shearY, shearX, scaleY, translateX, translateY] = matrix;
+    expect(matrix.every(Number.isFinite)).toBe(true);
+    const transform = (px: number, py: number) => ({
+      x: scaleX * px + shearX * py + translateX,
+      y: shearY * px + scaleY * py + translateY,
+    });
+    const left = start.x <= end.x ? start : end;
+    const right = start.x <= end.x ? end : start;
+    for (const py of [y, y + height]) {
+      expect(transform(x, py).x).toBe(left.x);
+      expect(transform(x + width, py).x).toBe(right.x);
+    }
+    expect(transform(x, y + height / 2).y).toBeCloseTo(left.y);
+    expect(transform(x + width, y + height / 2).y).toBeCloseTo(right.y);
+    expect(height).toBe(thickness);
+  },
+);

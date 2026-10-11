@@ -2,6 +2,7 @@ import { match } from "ts-pattern";
 import { Clef, StaffDetails, Stem } from "../../../const/musicxml/4.0/musicxml";
 import * as Core from "../../core";
 import * as Sheet from "../../sheet";
+import { generateBeams } from "./generate-beams";
 
 declare module "../../core" {
   interface Score {
@@ -16,7 +17,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     voice: 1,
     chordId: undefined as number | undefined,
     rest: false,
-    beam: undefined,
+    beam: undefined as Sheet.Note["beam"],
     alter: undefined,
     staveId: match(note.track.preset.toName())
       .with("Acoustic Grand Piano", () =>
@@ -179,13 +180,15 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     }),
   );
 
+  const sheetNotes = [...notes, ...rests].toSorted((a, b) => a.start - b.start);
+  generateBeams(sheetNotes, masterbars, this.timesignatures);
   return Sheet.Score.import({
     ...this.export(),
     tracks: this.tracks.map((track) => ({
       ...track.export(),
       staffDetails: <StaffDetails>{ "staff-lines": [{ _: 5 }] },
     })),
-    notes: [...notes, ...rests].toSorted((a, b) => a.start - b.start),
+    notes: sheetNotes,
     bars,
     staves,
     masterbars,

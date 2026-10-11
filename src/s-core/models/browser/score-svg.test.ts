@@ -146,3 +146,95 @@ test.each(["up", "down"] as const)(
     controller.unmount();
   },
 );
+
+function drawingOrigin(element: SVGElement) {
+  const origin = { x: 0, y: 0 };
+  for (
+    let parent = element.parentElement;
+    parent;
+    parent = parent.parentElement
+  ) {
+    const translation = parent
+      .getAttribute("transform")
+      ?.match(/^translate\(([^,]+), ([^)]+)\)$/);
+    if (translation) {
+      origin.x += Number(translation[1]);
+      origin.y += Number(translation[2]);
+    }
+  }
+  return origin;
+}
+
+test.each([
+  { pitches: [60, 60, 60], durations: [0.25, 0.25, 0.25] },
+  { pitches: [60, 64, 62], durations: [0.25, 0.25, 0.25] },
+  { pitches: [64, 60, 62], durations: [0.25, 0.25, 0.25] },
+  { pitches: [60, 64], durations: [0.25, 0.75] },
+  { pitches: [64, 60], durations: [0.75, 0.25] },
+])(
+  "beam rectangles stay inside stems for $pitches and $durations",
+  ({ pitches, durations }) => {
+    for (const direction of ["up", "down"] as const) {
+      let start = 0;
+      const { score, controller } = prepare({
+        tracks: [
+          {
+            notes: pitches.map((pitch, index) => {
+              const note = { pitch, start, duration: durations[index] };
+              start += durations[index];
+              return note;
+            }),
+          },
+        ],
+      });
+      for (const note of score.notes)
+        if (!note.rest) note.stem = { _: direction };
+      const svg = renderSVG(controller);
+      const beams = [
+        ...svg.querySelectorAll<SVGRectElement>('rect[type="beam"]'),
+      ];
+      const stems = [
+        ...svg.querySelectorAll<SVGLineElement>('line[type="stem"]'),
+      ].map((stem) => {
+        const origin = drawingOrigin(stem);
+        return {
+          x: Number(stem.getAttribute("x2")) + origin.x,
+          y: Number(stem.getAttribute("y2")) + origin.y,
+          thickness: Number(stem.getAttribute("stroke-width")),
+        };
+      });
+      expect(beams).toHaveLength(2);
+      expect(stems).toHaveLength(pitches.length);
+      expect(
+        svg.querySelector('line[type="beam"], path[type="beam"]'),
+      ).toBeNull();
+      const first = stems[0];
+      const last = stems.at(-1)!;
+      for (const beam of beams) {
+        const origin = drawingOrigin(beam);
+        const x = Number(beam.getAttribute("x")) + origin.x;
+        const width = Number(beam.getAttribute("width"));
+        expect(width).toBeGreaterThan(0);
+        expect(x).toBeGreaterThanOrEqual(first.x - first.thickness / 2);
+        expect(x + width).toBeLessThanOrEqual(last.x + last.thickness / 2);
+        expect(beam.getAttribute("fill")).toBe("black");
+        expect(beam.getAttribute("stroke")).toBe("none");
+        expect(beam.dataset.trackId).toBe("0");
+      }
+      const primary = beams[0];
+      const origin = drawingOrigin(primary);
+      const x = Number(primary.getAttribute("x")) + origin.x;
+      const y =
+        Number(primary.getAttribute("y")) +
+        Number(primary.getAttribute("height")) / 2 +
+        origin.y;
+      const slope = Number(
+        primary.getAttribute("transform")!.slice(7, -1).split(" ")[1],
+      );
+      for (const stem of stems)
+        expect(y + slope * (stem.x - x)).toBeCloseTo(stem.y);
+      expect(svg.outerHTML).not.toMatch(/NaN|Infinity/);
+      controller.unmount();
+    }
+  },
+);

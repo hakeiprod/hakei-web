@@ -4,6 +4,7 @@ import * as Core from "../core";
 import { Beat } from "../core/units";
 
 export class Slot extends Core.Event {
+  spacing = 0;
   beat;
   previousSlot;
   score!: Sheet.Score;
@@ -11,6 +12,9 @@ export class Slot extends Core.Event {
     return this.score.chords.filter((chords) => chords.start.equal(this.beat));
   }
   get width() {
+    return this.minWidth + this.spacing;
+  }
+  get minWidth() {
     return firstBy(this.chords, [prop("width"), "desc"])?.width ?? 0;
   }
   get height() {
