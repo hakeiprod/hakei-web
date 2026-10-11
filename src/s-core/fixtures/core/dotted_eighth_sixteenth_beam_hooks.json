@@ -1,0 +1,48 @@
+{
+  "tracks": [
+    {
+      "notes": [
+        {
+          "pitch": 60,
+          "start": 0,
+          "duration": 0.75
+        },
+        {
+          "pitch": 62,
+          "start": 0.75,
+          "duration": 0.25
+        },
+        {
+          "pitch": 64,
+          "start": 1,
+          "duration": 0.25
+        },
+        {
+          "pitch": 65,
+          "start": 1.25,
+          "duration": 0.75
+        },
+        {
+          "pitch": 67,
+          "start": 2,
+          "duration": 0.5
+        },
+        {
+          "pitch": 69,
+          "start": 2.5,
+          "duration": 0.25
+        },
+        {
+          "pitch": 71,
+          "start": 2.75,
+          "duration": 0.25
+        },
+        {
+          "pitch": 72,
+          "start": 3,
+          "duration": 1
+        }
+      ]
+    }
+  ]
+}
