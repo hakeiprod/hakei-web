@@ -5,7 +5,8 @@ import { Importer } from "../../../browser/importer";
 import { Score } from "../../../sheet";
 
 const directory = "src/s-core/fixtures/files/musicxml";
-const fixtures = (await readdir(directory))
+const entries = await readdir(directory);
+const fixtures = entries
   .filter((name) => name.endsWith(".mxl"))
   .toSorted();
 
