@@ -8,7 +8,7 @@ import * as Core from "../../core";
 import "../../core/extensions/to-sheet";
 import * as Drawing from "../../document";
 import { LayoutType } from "../../sheet";
-import * as SMUFL from "..";
+import * as Engraving from "..";
 import { toDocument } from "./to-document";
 
 const fixtures = import.meta.glob("../../../fixtures/core/*.json", {
@@ -16,12 +16,12 @@ const fixtures = import.meta.glob("../../../fixtures/core/*.json", {
   import: "default",
 }) as Record<string, Parameters<typeof Core.Score.create>[0]>;
 
-function prepare(data: Parameters<typeof Core.Score.create>[0]): SMUFL.Score {
-  const score = SMUFL.Score.import(
+function prepare(data: Parameters<typeof Core.Score.create>[0]): Engraving.Score {
+  const score = Engraving.Score.import(
     Core.Score.create(structuredClone(data)).toSheet().export(),
   );
   if (score.tracks.length > 0) {
-    const controller = new SMUFL.Controller(score, {
+    const controller = new Engraving.Controller(score, {
       scale: 12,
       layoutType: LayoutType.Horizontal,
       debug: false,
@@ -56,7 +56,7 @@ function checkGeometry(element: Drawing.Element) {
   }
 }
 
-describe("SMUFL to Document", () => {
+describe("Engraving to Document", () => {
   test.each(Object.entries(fixtures))(
     "converts %s without a browser and produces finite geometry",
     (_name, data) => {
@@ -151,7 +151,7 @@ describe("SMUFL to Document", () => {
     });
     for (const [id, bar] of score.masterbars.entries()) bar.rowId = id;
     score.rows = score.masterbars.map((bar, id) => {
-      const row = new SMUFL.Row({ id });
+      const row = new Engraving.Row({ id });
       row.score = score;
       return row;
     });
@@ -176,8 +176,8 @@ describe("SMUFL to Document", () => {
       const sheet = await new Importer().import(
         new File([new Uint8Array(data)], "beat_8th.mxl"),
       );
-      const score = SMUFL.Score.import(sheet.export());
-      const controller = new SMUFL.Controller(score, {
+      const score = Engraving.Score.import(sheet.export());
+      const controller = new Engraving.Controller(score, {
         scale: 12,
         layoutType: LayoutType.Horizontal,
         debug: false,
@@ -210,7 +210,7 @@ describe("SMUFL to Document", () => {
   });
 
   test("rejects scores whose layout has not been initialized", () => {
-    const score = SMUFL.Score.import(
+    const score = Engraving.Score.import(
       Core.Score.create({
         tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
       })
@@ -221,7 +221,7 @@ describe("SMUFL to Document", () => {
   });
 });
 
-function drawingLines(score: SMUFL.Score) {
+function drawingLines(score: Engraving.Score) {
   const lines: {
     line: Drawing.Line;
     start: Drawing.Point;
@@ -276,8 +276,8 @@ function beamedScore(direction: "up" | "down", levels: number) {
     note.beam =
       levels === 1 ? [beam(value, 1)] : [beam(value, 1), beam(value, 2)];
   }
-  const score = SMUFL.Score.import(data);
-  const controller = new SMUFL.Controller(score, {
+  const score = Engraving.Score.import(data);
+  const controller = new Engraving.Controller(score, {
     scale: 12,
     layoutType: LayoutType.Horizontal,
     debug: false,
@@ -288,7 +288,7 @@ function beamedScore(direction: "up" | "down", levels: number) {
   return score;
 }
 
-describe("SMUFL anchor geometry", () => {
+describe("Engraving anchor geometry", () => {
   test.each(["up", "down"] as const)(
     "attaches %s stems using the glyph anchor and stroke width",
     (direction) => {
@@ -345,7 +345,7 @@ describe("SMUFL anchor geometry", () => {
     const original = score.notes[0].glyph;
     const anchor = vi
       .spyOn(original, "getAnchor")
-      .mockImplementation(vi.fn<SMUFL.Glyph["getAnchor"]>());
+      .mockImplementation(vi.fn<Engraving.Glyph["getAnchor"]>());
     try {
       const stem = flatten(score.toDocument().pages[0].elements).find(
         (element) => element.role === "stem",
@@ -496,8 +496,8 @@ test("renders forward and backward beam hooks on the anchored primary beam slope
   const notes = data.notes.filter((note) => !note.rest);
   notes[0].beam = [beam("begin", 1), beam("forward hook", 2)];
   notes[2].beam = [beam("end", 1), beam("backward hook", 2)];
-  const score = SMUFL.Score.import(data);
-  const controller = new SMUFL.Controller(score, {
+  const score = Engraving.Score.import(data);
+  const controller = new Engraving.Controller(score, {
     scale: 12,
     layoutType: LayoutType.Horizontal,
     debug: false,

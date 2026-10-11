@@ -4,10 +4,10 @@ import * as Core from "../core";
 import "../core/extensions/to-sheet";
 import * as Drawing from "../document";
 import { LayoutType } from "../sheet";
-import * as SMUFL from ".";
+import * as Engraving from ".";
 
 function prepare(layoutType: LayoutType, noteCount = 64) {
-  const score: SMUFL.Score = SMUFL.Score.import(
+  const score: Engraving.Score = Engraving.Score.import(
     Core.Score.create({
       tracks:
         noteCount === 0
@@ -25,7 +25,7 @@ function prepare(layoutType: LayoutType, noteCount = 64) {
       .toSheet()
       .export(),
   );
-  const controller = new SMUFL.Controller(score, {
+  const controller = new Engraving.Controller(score, {
     layoutType,
     scale: 12,
     advanced: true,

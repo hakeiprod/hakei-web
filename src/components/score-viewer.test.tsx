@@ -5,7 +5,7 @@ import { afterEach, describe, expect, test, vi } from "vitest";
 import * as Core from "@/s-core/models/core";
 import { Document } from "@/s-core/models/document";
 import { LayoutType } from "@/s-core/models/sheet";
-import * as SMUFL from "@/s-core/models/smufl";
+import * as Engraving from "@/s-core/models/engraving";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
 import { ScoreViewer } from "./score-viewer";
@@ -74,7 +74,7 @@ afterEach(() => {
 });
 
 function prepare(layoutType = LayoutType.Horizontal, noteCount = 1) {
-  const score = SMUFL.Score.import(
+  const score = Engraving.Score.import(
     Core.Score.create({
       tracks: [
         {
@@ -214,7 +214,7 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
     expect(next.disabled).toBe(false);
     const original = container.querySelector("svg")!;
     const firstNoteCount = original.querySelectorAll('[type="note"]').length;
-    const build = vi.spyOn(SMUFL.Controller.prototype, "toDocument");
+    const build = vi.spyOn(Engraving.Controller.prototype, "toDocument");
     fireEvent.click(next);
     const second = container.querySelector("svg")!;
     expect(second.dataset.pageIndex).toBe("1");
@@ -344,7 +344,7 @@ describe("ScoreViewer Document rendering used by ShowScore", () => {
   });
 });
 
-test("renders fixture gallery scores through Document after removing SMUFL SVG rendering", () => {
+test("renders fixture gallery scores through Document after removing Engraving SVG rendering", () => {
   const documentSVG = vi.spyOn(Document.prototype, "toSVG");
   const { container, getByText } = render(
     <ScoreFixtureGallery
