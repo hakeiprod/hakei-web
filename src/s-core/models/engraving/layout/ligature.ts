@@ -9,11 +9,11 @@ import {
   piped,
   reduce,
 } from "remeda";
-import * as Sheet from "..";
+import type { LayoutGlyph } from "./glyph";
 import { Table } from "./table";
 
 export class Ligature<
-  Glyph extends Sheet.Glyph = Sheet.Glyph,
+  Glyph extends LayoutGlyph = LayoutGlyph,
 > extends Table<Glyph> {
   constructor(public glyphLists: Glyph[][] = []) {
     super();

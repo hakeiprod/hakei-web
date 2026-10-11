@@ -1,4 +1,3 @@
-import { times } from "remeda";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
 import {
@@ -16,16 +15,10 @@ export class Note extends Core.Note {
   rest;
   voice;
   beam;
-  glyph!: Sheet.Glyph;
-  dotLigature!: Sheet.Ligature;
-  accidentalGlyph?: Sheet.Glyph;
   score!: Sheet.Score;
-  get width() {
-    return (
-      this.glyph.width +
-      (this.accidentalGlyph?.width ?? 0) +
-      this.dotLigature.width
-    );
+  /** Glyph dimensions are supplied by the engraving model. */
+  get width(): number {
+    throw new Error("Note width requires an engraving model.");
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
@@ -116,22 +109,6 @@ export class Note extends Core.Note {
     this.rest = rest;
     this.voice = voice;
     this.beam = beam;
-  }
-  draw() {
-    // if (isNonNull(this.accidental))
-    //   this.accidentalGlyph = new Sheet.Glyph(
-    //     Sheet.ElementType.Accidental,
-    //     this.line,
-    //   );
-    this.glyph = new Sheet.Glyph(
-      this.rest ? Sheet.ElementType.Rest : Sheet.ElementType.Notehead,
-      this.line,
-    );
-    this.dotLigature = new Sheet.Ligature(
-      times(this.dot, () => [
-        new Sheet.Glyph(Sheet.ElementType.Dot, this.line),
-      ]),
-    );
   }
   serialize() {
     return {

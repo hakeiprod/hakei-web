@@ -1,7 +1,8 @@
+import type { LayoutGlyph } from "../layout/glyph";
 import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
 import * as Drawing from "../../document";
 import * as Sheet from "../../sheet";
-import * as SMUFL from "..";
+import * as Engraving from "..";
 import type { PageLayout } from "../../sheet/page";
 import { rowSpacing } from "../../sheet/row";
 
@@ -22,12 +23,14 @@ function group(
 }
 
 function glyphToDocument(
-  glyph: Sheet.Glyph,
+  glyph: LayoutGlyph,
   source: Drawing.Source,
   includeSpace = true,
 ) {
-  if (!(glyph instanceof SMUFL.Glyph))
-    throw new Error("toDocument requires SMUFL glyphs; draw the score first.");
+  if (!(glyph instanceof Engraving.Glyph))
+    throw new Error(
+      "toDocument requires Engraving glyphs; draw the score first.",
+    );
   const position = {
     x: glyph.x + (includeSpace ? glyph.spaceLeft : 0),
     y: 5 - glyph.line,
@@ -36,7 +39,7 @@ function glyphToDocument(
 }
 
 function glyphAtPosition(
-  glyph: SMUFL.Glyph,
+  glyph: Engraving.Glyph,
   position: Drawing.Point,
   source: Drawing.Source,
   role = "glyph",
@@ -60,7 +63,10 @@ function glyphAtPosition(
   );
 }
 
-function ligatureToDocument(ligature: Sheet.Ligature, source: Drawing.Source) {
+function ligatureToDocument(
+  ligature: Engraving.Ligature,
+  source: Drawing.Source,
+) {
   return group(
     "ligature",
     ligature.glyphLists
@@ -95,10 +101,10 @@ interface StemGeometry {
   direction: "up" | "down";
   start: Drawing.Point;
   end: Drawing.Point;
-  flag?: { glyph: SMUFL.Glyph; position: Drawing.Point };
+  flag?: { glyph: Engraving.Glyph; position: Drawing.Point };
 }
 
-function chordStem(chord: SMUFL.Chord): StemGeometry | undefined {
+function chordStem(chord: Engraving.Chord): StemGeometry | undefined {
   const direction = chord.stem?._ ?? "none";
   const notes = chord.notes.filter((note) => !note.rest);
   if (direction === "none" || notes.length === 0) return;
@@ -126,9 +132,9 @@ function chordStem(chord: SMUFL.Chord): StemGeometry | undefined {
   const noteheadY = notes.map((note) => 5 - note.glyph.line);
   // Span the whole chord, then extend from the outer notehead by the nominal length.
   const flagName =
-    !chord.beamGroup && SMUFL.Glyph.findFlag(notes[0].type, direction);
+    !chord.beamGroup && Engraving.Glyph.findFlag(notes[0].type, direction);
   const flag = flagName
-    ? new SMUFL.Glyph(flagName, Sheet.ElementType.Flag, 0)
+    ? new Engraving.Glyph(flagName, Sheet.ElementType.Flag, 0)
     : undefined;
   // SMuFL flags are registered at a nominal stem length of 3.5 staff spaces.
   const length = flag ? 3.5 : 3;
@@ -155,9 +161,9 @@ function chordStem(chord: SMUFL.Chord): StemGeometry | undefined {
   return geometry;
 }
 
-function staveStems(stave: SMUFL.Stave) {
+function staveStems(stave: Engraving.Stave) {
   const stems = new Map<number, StemGeometry>();
-  for (const chord of stave.chords as SMUFL.Chord[]) {
+  for (const chord of stave.chords as Engraving.Chord[]) {
     const stem = chordStem(chord);
     if (stem) stems.set(chord.id, stem);
   }
@@ -182,7 +188,7 @@ function staveStems(stave: SMUFL.Stave) {
 }
 
 function chordToDocument(
-  chord: SMUFL.Chord,
+  chord: Engraving.Chord,
   source: Drawing.Source,
   debug: boolean,
   stem?: StemGeometry,
@@ -238,8 +244,8 @@ function chordToDocument(
 }
 
 function barlinesToDocument(
-  bar: SMUFL.Bar,
-  masterbar: SMUFL.Masterbar,
+  bar: Engraving.Bar,
+  masterbar: Engraving.Masterbar,
   source: Drawing.Source,
 ) {
   const thin = engraving.thinBarlineThickness;
@@ -261,7 +267,7 @@ function barlinesToDocument(
 }
 
 function beamsToDocument(
-  stave: SMUFL.Stave,
+  stave: Engraving.Stave,
   source: Drawing.Source,
   stems: Map<number, StemGeometry>,
 ) {
@@ -313,9 +319,41 @@ function beamsToDocument(
   });
 }
 
+function slotToDocument(
+  slot: Engraving.Slot,
+  stave: Engraving.Stave,
+  source: Drawing.Source,
+  debug: boolean,
+  stems: Map<number, StemGeometry>,
+) {
+  const children: Drawing.Element[] = [];
+  if (debug)
+    children.push(
+      debugBounds(
+        { x: 0, y: 0, width: slot.width, height: slot.height },
+        source,
+        "green",
+        slot.export(),
+      ),
+    );
+  children.push(
+    ...slot
+      .getTrackStaveChords(stave.trackId, stave.id)
+      .map((chord) =>
+        chordToDocument(
+          chord,
+          { ...source, chordId: chord.id },
+          debug,
+          stems.get(chord.id),
+        ),
+      ),
+  );
+  return group("slot", children, source, { x: slot.x, y: 0 });
+}
+
 function staveToDocument(
-  stave: SMUFL.Stave,
-  masterbar: SMUFL.Masterbar,
+  stave: Engraving.Stave,
+  masterbar: Engraving.Masterbar,
   source: Drawing.Source,
   debug: boolean,
 ) {
@@ -325,7 +363,7 @@ function staveToDocument(
     stave.word.glyphOrLigatureLists
       .flat()
       .map((element) =>
-        element instanceof Sheet.Ligature
+        element instanceof Engraving.Ligature
           ? ligatureToDocument(element, source)
           : glyphToDocument(element, source),
       ),
@@ -340,31 +378,9 @@ function staveToDocument(
   });
   const slots = group(
     "slots",
-    uniqueSlots.map((slot) => {
-      const children: Drawing.Element[] = [];
-      if (debug)
-        children.push(
-          debugBounds(
-            { x: 0, y: 0, width: slot.width, height: slot.height },
-            source,
-            "green",
-            slot.export(),
-          ),
-        );
-      children.push(
-        ...slot
-          .getTrackStaveChords(stave.trackId, stave.id)
-          .map((chord) =>
-            chordToDocument(
-              chord,
-              { ...source, chordId: chord.id },
-              debug,
-              stems.get(chord.id),
-            ),
-          ),
-      );
-      return group("slot", children, source, { x: slot.x, y: 0 });
-    }),
+    uniqueSlots.map((slot) =>
+      slotToDocument(slot, stave, source, debug, stems),
+    ),
     source,
     { x: stave.word.width, y: 0 },
   );
@@ -386,9 +402,104 @@ function staveToDocument(
   );
 }
 
+function masterbarToDocument(
+  masterbar: Engraving.Masterbar,
+  row: Engraving.Row,
+  score: Engraving.Score,
+  debug: boolean,
+) {
+  const source = { rowId: row.id, barId: masterbar.id };
+  const children: Drawing.Element[] = [];
+  if (debug)
+    children.push(
+      debugBounds(
+        { x: 0, y: 0, width: masterbar.width, height: masterbar.height },
+        source,
+        "red",
+        masterbar.export(),
+      ),
+    );
+  for (const track of score.tracks) {
+    const trackSource = { ...source, trackId: track.id };
+    const bars = track
+      .getMasterbarBars(masterbar.id)
+      .map((bar) =>
+        group(
+          "bar",
+          [
+            barlinesToDocument(bar, masterbar, trackSource),
+            ...bar.staves.map((stave) =>
+              staveToDocument(
+                stave,
+                masterbar,
+                { ...trackSource, staveId: stave.id },
+                debug,
+              ),
+            ),
+          ],
+          trackSource,
+        ),
+      );
+    children.push(group("track", bars, trackSource, { x: 0, y: track.y }));
+  }
+  return group("masterbar", children, source, { x: masterbar.x, y: 0 });
+}
+
+function rowToDocument(
+  row: Engraving.Row,
+  score: Engraving.Score,
+  debug: boolean,
+) {
+  return group(
+    "row",
+    row.masterbars.map((masterbar) =>
+      masterbarToDocument(masterbar, row, score, debug),
+    ),
+    { rowId: row.id },
+    { x: 0, y: row.y },
+  );
+}
+
+function paginateRows(
+  rows: Drawing.Group[],
+  systems: readonly Sheet.Row[],
+  { width, height, margin }: PageLayout,
+) {
+  const pages: Drawing.Page[] = [];
+  let elements: Drawing.Element[] = [];
+  let y = margin;
+  let pageWidth = width;
+  let pageHeight = height;
+  const finishPage = () => {
+    pages.push(new Drawing.Page(pageWidth, pageHeight, elements));
+    elements = [];
+    y = margin;
+    pageWidth = width;
+    pageHeight = height;
+  };
+  for (const [index, row] of rows.entries()) {
+    const system = systems[index];
+    if (elements.length > 0 && y + system.height > height - margin)
+      finishPage();
+    elements.push(
+      new Drawing.Group(row.children, {
+        role: row.role,
+        source: row.source,
+        position: { x: margin, y },
+      }),
+    );
+    // Keep a single oversized system visible rather than cropping it.
+    pageWidth = Math.max(pageWidth, system.width + margin * 2);
+    pageHeight = Math.max(pageHeight, y + system.height + margin);
+    y += system.height + rowSpacing;
+  }
+  if (elements.length > 0 || pages.length === 0) finishPage();
+  return pages;
+}
+
 /** Does not mount, redraw, mutate the score, or access browser APIs. */
 export function toDocument(
-  score: SMUFL.Score,
+  score: Engraving.Score,
   options: ToDocumentOptions = {},
 ) {
   if (score.tracks.length === 0 && score.notes.length === 0)
@@ -409,84 +520,12 @@ export function toDocument(
   if (score.notes.some((note) => !note.glyph))
     throw new Error("toDocument requires a drawn score; draw its notes first.");
   const rows = score.rows.map((row) =>
-    group(
-      "row",
-      row.masterbars.map((masterbar) => {
-        const source = { rowId: row.id, barId: masterbar.id };
-        const children: Drawing.Element[] = [];
-        if (options.debug)
-          children.push(
-            debugBounds(
-              { x: 0, y: 0, width: masterbar.width, height: masterbar.height },
-              source,
-              "red",
-              masterbar.export(),
-            ),
-          );
-        for (const track of score.tracks) {
-          const trackSource = { ...source, trackId: track.id };
-          const bars = track
-            .getMasterbarBars(masterbar.id)
-            .map((bar) =>
-              group(
-                "bar",
-                [
-                  barlinesToDocument(bar, masterbar, trackSource),
-                  ...bar.staves.map((stave) =>
-                    staveToDocument(
-                      stave,
-                      masterbar,
-                      { ...trackSource, staveId: stave.id },
-                      options.debug ?? false,
-                    ),
-                  ),
-                ],
-                trackSource,
-              ),
-            );
-          children.push(
-            group("track", bars, trackSource, { x: 0, y: track.y }),
-          );
-        }
-        return group("masterbar", children, source, { x: masterbar.x, y: 0 });
-      }),
-      { rowId: row.id },
-      { x: 0, y: row.y },
-    ),
+    rowToDocument(row, score, options.debug ?? false),
   );
-  if (options.pageLayout) {
-    const { width, height, margin } = options.pageLayout;
-    const pages: Drawing.Page[] = [];
-    let elements: Drawing.Element[] = [];
-    let y = margin;
-    let pageWidth = width;
-    let pageHeight = height;
-    const finishPage = () => {
-      pages.push(new Drawing.Page(pageWidth, pageHeight, elements));
-      elements = [];
-      y = margin;
-      pageWidth = width;
-      pageHeight = height;
-    };
-    for (const [index, row] of rows.entries()) {
-      const system = score.rows[index];
-      if (elements.length > 0 && y + system.height > height - margin)
-        finishPage();
-      elements.push(
-        new Drawing.Group(row.children, {
-          role: row.role,
-          source: row.source,
-          position: { x: margin, y },
-        }),
-      );
-      // Keep a single oversized system visible rather than cropping it.
-      pageWidth = Math.max(pageWidth, system.width + margin * 2);
-      pageHeight = Math.max(pageHeight, y + system.height + margin);
-      y += system.height + rowSpacing;
-    }
-    if (elements.length > 0 || pages.length === 0) finishPage();
-    return new Drawing.Document(pages);
-  }
+  if (options.pageLayout)
+    return new Drawing.Document(
+      paginateRows(rows, score.rows, options.pageLayout),
+    );
   return new Drawing.Document([
     new Drawing.Page(score.width, score.height, rows),
   ]);

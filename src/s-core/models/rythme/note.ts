@@ -1,7 +1,7 @@
 import { isNullish } from "remeda";
 import { Seconds } from "../files/soundfont2/units/seconds";
 import * as Sheet from "../sheet";
-import * as SMUFL from "../smufl";
+import * as Engraving from "../engraving";
 import { JudgeType } from "./enums/judge";
 export class Note extends Sheet.Note {
   hitSeconds: Seconds | null = null;
@@ -25,8 +25,8 @@ export class Note extends Sheet.Note {
     );
   }
   get noteheadGlyph() {
-    return new SMUFL.Glyph(
-      SMUFL.Glyph.findNotehead(this.type),
+    return new Engraving.Glyph(
+      Engraving.Glyph.findNotehead(this.type),
       Sheet.ElementType.Notehead,
     );
   }

@@ -4,14 +4,16 @@ import * as Core from "../core";
 import "../core/extensions/to-sheet";
 import * as Drawing from "../document";
 import { LayoutType } from "../sheet";
-import * as SMUFL from ".";
+import * as Engraving from ".";
 
 function prepare(
   data: Parameters<typeof Core.Score.create>[0],
   layoutType = LayoutType.Horizontal,
 ) {
-  const score = SMUFL.Score.import(Core.Score.create(data).toSheet().export());
-  const controller = new SMUFL.Controller(score, {
+  const score = Engraving.Score.import(
+    Core.Score.create(data).toSheet().export(),
+  );
+  const controller = new Engraving.Controller(score, {
     layoutType,
     scale: 12,
     debug: false,

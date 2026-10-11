@@ -3,7 +3,7 @@ import { describe, expect, test } from "vitest";
 import * as Core from "../core";
 import "../core/extensions/to-sheet";
 import { LayoutType } from "../sheet";
-import * as SMUFL from "../smufl";
+import * as Engraving from "../engraving";
 import "../document/extensions/to-svg";
 import { bindNoteHighlights } from "./bind-note-highlights";
 
@@ -12,10 +12,10 @@ const fixtures = import.meta.glob("../../fixtures/core/*.json", {
   import: "default",
 }) as Record<string, Parameters<typeof Core.Score.create>[0]>;
 function prepare(data: Parameters<typeof Core.Score.create>[0]) {
-  const score: SMUFL.Score = SMUFL.Score.import(
+  const score: Engraving.Score = Engraving.Score.import(
     Core.Score.create(structuredClone(data)).toSheet().export(),
   );
-  const controller = new SMUFL.Controller(score, {
+  const controller = new Engraving.Controller(score, {
     scale: 12,
     layoutType: LayoutType.Horizontal,
     debug: false,
@@ -25,7 +25,7 @@ function prepare(data: Parameters<typeof Core.Score.create>[0]) {
   return { score, controller };
 }
 
-function renderSVG(controller: SMUFL.Controller) {
+function renderSVG(controller: Engraving.Controller) {
   const drawing = controller.toDocument();
   const svg = drawing.toSVG({
     scale: controller.options.scale,
@@ -41,11 +41,11 @@ function glyph(svg: SVGSVGElement, trackId: number) {
   )!;
 }
 
-describe("SMUFL through Document to SVG", () => {
-  test("exposes SVG rendering on Document while SMUFL produces only Document", () => {
-    expect("toSVG" in SMUFL.Score.prototype).toBe(false);
-    expect("render" in SMUFL.Controller.prototype).toBe(false);
-    expect(typeof SMUFL.Score.prototype.toDocument).toBe("function");
+describe("Engraving through Document to SVG", () => {
+  test("exposes SVG rendering on Document while Engraving produces only Document", () => {
+    expect("toSVG" in Engraving.Score.prototype).toBe(false);
+    expect("render" in Engraving.Controller.prototype).toBe(false);
+    expect(typeof Engraving.Score.prototype.toDocument).toBe("function");
   });
   test.each(Object.entries(fixtures))(
     "renders fixture %s through Document",

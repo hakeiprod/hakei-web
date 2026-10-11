@@ -36,7 +36,9 @@ vi.mock("@/s-core/models/sheet", () => ({
   Score: { import: () => ({ toAudio: () => ({ keyRange: [] }) }) },
 }));
 vi.mock("@/s-core/models/sheet/extensions/to-audio", () => ({}));
-vi.mock("@/s-core/models/smufl", () => ({ Score: { import: () => ({}) } }));
+vi.mock("@/s-core/models/engraving", () => ({
+  Score: { import: () => ({}) },
+}));
 vi.mock("@/s-core/models/files/soundfont2", () => ({
   default: { create: () => ({}) },
 }));

@@ -1,7 +1,7 @@
 "use client";
 import { debugAtom } from "@/store/debug";
 import { LayoutType } from "@/s-core/models/sheet";
-import * as SMUFL from "@/s-core/models/smufl";
+import * as Engraving from "@/s-core/models/engraving";
 import type { Document } from "@/s-core/models/document";
 import "@/s-core/models/document/extensions/to-svg";
 import { bindNoteHighlights } from "@/s-core/models/browser/bind-note-highlights";
@@ -23,7 +23,7 @@ const layouts = [
   { type: LayoutType.Page, label: "ページ" },
 ];
 
-export function ScoreViewer({ score }: { score: SMUFL.Score }) {
+export function ScoreViewer({ score }: { score: Engraving.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
   const [advanced, setAdvanced] = useState(true);
@@ -31,7 +31,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   const [pagination, setPagination] = useState({ index: 0, total: 1 });
   const reference = useRef<HTMLDivElement | null>(null);
   const navigationReference = useRef<HTMLElement | null>(null);
-  const controllerReference = useRef<SMUFL.Controller | null>(null);
+  const controllerReference = useRef<Engraving.Controller | null>(null);
   const documentReference = useRef<Document | null>(null);
   const pageIndexReference = useRef(0);
   const unbindHighlightsReference = useRef<(() => void) | null>(null);
@@ -109,7 +109,7 @@ export function ScoreViewer({ score }: { score: SMUFL.Score }) {
   }
   useEffect(() => {
     if (!controllerReference.current) {
-      controllerReference.current = new SMUFL.Controller(score, {
+      controllerReference.current = new Engraving.Controller(score, {
         scale,
         layoutType,
         debug,

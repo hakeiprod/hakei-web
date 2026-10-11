@@ -8,7 +8,6 @@ export class Stave {
   barId;
   trackId;
   clefs;
-  word = new Sheet.Word();
   score!: Sheet.Score;
   get bar() {
     return this.score.bars.find(
@@ -41,18 +40,13 @@ export class Stave {
     return -1;
   }
   get width() {
-    return (
-      this.slots.reduce(
-        (accumulator, current) => accumulator + current.width,
-        0,
-      ) + this.word.width
+    return this.slots.reduce(
+      (accumulator, current) => accumulator + current.width,
+      0,
     );
   }
   get minWidth() {
-    return (
-      this.slots.reduce((width, slot) => width + slot.minWidth, 0) +
-      this.word.width
-    );
+    return this.slots.reduce((width, slot) => width + slot.minWidth, 0);
   }
   get y() {
     return this.id * this.height + this.id * 6.5;
@@ -89,30 +83,6 @@ export class Stave {
   }
   static import(data: ReturnType<Stave["export"]>) {
     return new Stave(data);
-  }
-  draw() {
-    if (this.bar.masterbar.isRowFirst)
-      this.word.append([
-        new Sheet.Glyph(
-          Sheet.ElementType.Clef,
-          this.resolveClefs()[0]?.line?.[0]?._ ?? 0,
-        ),
-      ]);
-    if (this.bar.masterbar.isFirst) {
-      const keysignatureLigature = new Sheet.Ligature(
-        this.bar.keysignature.ligature.glyphLists,
-      );
-      this.word.append([keysignatureLigature]);
-    }
-    const previous = this.bar.prev?.timesignature;
-    const current = this.bar.timesignature;
-    if (
-      !previous ||
-      previous.numerator !== current.numerator ||
-      previous.denominator !== current.denominator
-    ) {
-      this.word.append([new Sheet.Ligature(current.ligature.glyphLists)]);
-    }
   }
   resolveClefs(): Clef[] {
     return this.clefs ?? this.prev!.resolveClefs();

@@ -4,10 +4,10 @@ import * as Core from "../core";
 import "../core/extensions/to-sheet";
 import * as Drawing from "../document";
 import { LayoutType } from "../sheet";
-import * as SMUFL from ".";
+import * as Engraving from ".";
 
 function prepare(layoutType: LayoutType, noteCount = 64) {
-  const score: SMUFL.Score = SMUFL.Score.import(
+  const score: Engraving.Score = Engraving.Score.import(
     Core.Score.create({
       tracks:
         noteCount === 0
@@ -25,7 +25,7 @@ function prepare(layoutType: LayoutType, noteCount = 64) {
       .toSheet()
       .export(),
   );
-  const controller = new SMUFL.Controller(score, {
+  const controller = new Engraving.Controller(score, {
     layoutType,
     scale: 12,
     advanced: true,
@@ -45,6 +45,13 @@ function flatten(elements: readonly Drawing.Element[]): Drawing.Element[] {
 }
 
 describe("score drawing layouts", () => {
+  test("remounting rebuilds the same engraving geometry", () => {
+    const { controller } = prepare(LayoutType.Page);
+    const first = controller.toDocument();
+    controller.unmount();
+    controller.mount();
+    expect(controller.toDocument()).toEqual(first);
+  });
   test("horizontal scrolling keeps all bars in a single system and page", () => {
     const { score, controller } = prepare(LayoutType.Horizontal);
     const drawing = controller.toDocument();
@@ -216,7 +223,7 @@ test("page spacing keeps simultaneous notes aligned across tracks and piano stav
     start,
     duration: 1,
   }));
-  const score: SMUFL.Score = SMUFL.Score.import(
+  const score: Engraving.Score = Engraving.Score.import(
     Core.Score.create({
       tracks: [
         { preset: 40, notes },
@@ -226,7 +233,7 @@ test("page spacing keeps simultaneous notes aligned across tracks and piano stav
       .toSheet()
       .export(),
   );
-  const controller = new SMUFL.Controller(score, {
+  const controller = new Engraving.Controller(score, {
     layoutType: LayoutType.Page,
     scale: 12,
     advanced: true,

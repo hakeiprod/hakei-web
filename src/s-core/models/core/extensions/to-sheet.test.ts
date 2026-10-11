@@ -15,10 +15,10 @@ describe("Core.Score.toSheet", () => {
       const score = Core.Score.create(fixture).toSheet();
 
       for (const note of score.notes) {
-        note.draw();
         expect(Number.isFinite(note.line)).toBe(true);
       }
-      for (const chord of score.chords) chord.draw();
+      for (const chord of score.chords)
+        expect(Number.isFinite(chord.line)).toBe(true);
     },
   );
 });

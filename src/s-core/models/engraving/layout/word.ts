@@ -1,10 +1,10 @@
 import { firstBy, prop, reduce } from "remeda";
-import * as Sheet from "..";
+import type { LayoutGlyph } from "./glyph";
 import { BoundingBox } from "../../boundingbox";
 import { Element } from "./element";
 import { Ligature } from "./ligature";
 
-export class Word<Glyph extends Sheet.Glyph = Sheet.Glyph> extends Element {
+export class Word<Glyph extends LayoutGlyph = LayoutGlyph> extends Element {
   public glyphOrLigatureLists: (Ligature<Glyph> | Glyph)[][] = [];
   get width() {
     return this.glyphOrLigatureLists.reduce(

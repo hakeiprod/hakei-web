@@ -4,7 +4,7 @@ import { debugAtom } from "@/store/debug";
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
 import { LayoutType, type Score } from "@/s-core/models/sheet";
-import * as SMUFL from "@/s-core/models/smufl";
+import * as Engraving from "@/s-core/models/engraving";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
 import { useAtom } from "jotai";
@@ -65,7 +65,7 @@ function ScoreFixtureCard({
 
   useEffect(() => {
     const containerElement = container.current;
-    let controller: SMUFL.Controller | undefined;
+    let controller: Engraving.Controller | undefined;
     try {
       if ("error" in fixture) throw new Error(fixture.error);
       const data =
@@ -78,8 +78,8 @@ function ScoreFixtureCard({
             )
               .toSheet()
               .export();
-      const score = SMUFL.Score.import(data);
-      controller = new SMUFL.Controller(score, {
+      const score = Engraving.Score.import(data);
+      controller = new Engraving.Controller(score, {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
         debug,

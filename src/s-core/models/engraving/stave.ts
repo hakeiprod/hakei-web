@@ -1,38 +1,67 @@
+import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
 import * as Sheet from "../sheet";
-import * as SMUFL from "../smufl";
+import * as Engraving from "./";
 
 export class Stave extends Sheet.Stave {
-  declare score: SMUFL.Score;
-  declare word: Sheet.Word<SMUFL.Glyph>;
+  declare score: Engraving.Score;
+  word = new Engraving.Word();
+  override get width() {
+    return super.width + this.word.width;
+  }
+  override get minWidth() {
+    return super.minWidth + this.word.width;
+  }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
   }
   override get bar() {
-    return super.bar as SMUFL.Bar;
+    return super.bar as Engraving.Bar;
   }
   override get notes() {
-    return super.notes as SMUFL.Note[];
+    return super.notes as Engraving.Note[];
   }
   override get height() {
     return (this.track.staffDetails["staff-lines"]?.[0]._ ?? 0) - 1;
   }
   override get slots() {
-    return super.slots as SMUFL.Slot[];
+    return super.slots as Engraving.Slot[];
   }
   draw() {
-    super.draw();
+    if (this.bar.masterbar.isRowFirst)
+      this.word.append([
+        new LayoutGlyph(
+          Sheet.ElementType.Clef,
+          this.resolveClefs()[0]?.line?.[0]?._ ?? 0,
+        ),
+      ]);
+    if (this.bar.masterbar.isFirst) {
+      const keysignatureLigature = new Engraving.Ligature(
+        (this.bar.keysignature as Engraving.Keysignature).ligature.glyphLists,
+      );
+      this.word.append([keysignatureLigature]);
+    }
+    const previous = this.bar.prev?.timesignature;
+    const current = this.bar.timesignature as Engraving.Timesignature;
+    if (
+      !previous ||
+      previous.numerator !== current.numerator ||
+      previous.denominator !== current.denominator
+    ) {
+      this.word.append([new Engraving.Ligature(current.ligature.glyphLists)]);
+    }
+
     this.word.glyphOrLigatureLists = this.word.glyphOrLigatureLists.map(
       (glyphOrLigatureList) =>
         glyphOrLigatureList.map((glyphOrLigature) =>
           match(glyphOrLigature)
-            .with(P.instanceOf(Sheet.Glyph), (glyph) =>
+            .with(P.instanceOf(LayoutGlyph), (glyph) =>
               match(glyph.type)
                 .with(
                   Sheet.ElementType.Clef,
                   () =>
-                    new SMUFL.Glyph(
-                      SMUFL.Glyph.findClef(this.resolveClefs()[0]!)!,
+                    new Engraving.Glyph(
+                      Engraving.Glyph.findClef(this.resolveClefs()[0]!)!,
                       glyph.type,
                       glyph.line,
                     ),
@@ -42,7 +71,7 @@ export class Stave extends Sheet.Stave {
                 )
                 .otherwise(() => glyph),
             )
-            .with(P.instanceOf(Sheet.Ligature), (ligature) => {
+            .with(P.instanceOf(Engraving.Ligature), (ligature) => {
               ligature.glyphLists = ligature.glyphLists.map((glyphList) =>
                 glyphList.map((glyph) =>
                   match(glyph.type)
@@ -59,7 +88,7 @@ export class Stave extends Sheet.Stave {
     );
   }
   private keyAccidental(line: number) {
-    const glyph = new SMUFL.Glyph(
+    const glyph = new Engraving.Glyph(
       this.bar.keysignature.accidental > 0
         ? "accidentalSharp"
         : "accidentalFlat",

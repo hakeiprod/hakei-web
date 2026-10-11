@@ -1,3 +1,5 @@
+import { LayoutGlyph } from "./layout/glyph";
+import { Ligature } from "./layout/ligature";
 import { match } from "ts-pattern";
 import * as Sheet from "../sheet";
 import { Glyph } from "./glyph";
@@ -5,8 +7,13 @@ export class Timesignature extends Sheet.Timesignature {
   static import(data: ReturnType<Timesignature["export"]>) {
     return new Timesignature(super.import(data));
   }
+  ligature = new Ligature();
   draw() {
-    super.draw();
+    this.ligature = new Ligature();
+    this.ligature.append([
+      new LayoutGlyph(Sheet.ElementType.Numerator, 4),
+      new LayoutGlyph(Sheet.ElementType.Denominator, 2),
+    ]);
     this.ligature.glyphLists = this.ligature.glyphLists.map((glyphs) =>
       glyphs.map(
         (glyph) =>

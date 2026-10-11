@@ -1,12 +1,17 @@
+import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
-import * as SMUFL from ".";
-import { Barline, Clef, NormalType } from "../../const/musicxml/4.0/musicxml";
+import * as SMUFL from "../smufl/metadata";
+import {
+  Barline,
+  Clef,
+  NormalType,
+} from "../../const/musicxml/4.0/musicxml";
 import { BoundingBox } from "../boundingbox";
 import * as Sheet from "../sheet";
 
 export class Glyph<
   T extends keyof SMUFL.Glyphnames = keyof SMUFL.Glyphnames,
-> extends Sheet.Glyph {
+> extends LayoutGlyph {
   glyphName;
   glyphBBox;
   glyphAdvanceWidth;
@@ -25,7 +30,7 @@ export class Glyph<
   }
   constructor(
     glyphName: T,
-    ...parameters: ConstructorParameters<typeof Sheet.Glyph>
+    ...parameters: ConstructorParameters<typeof LayoutGlyph>
   ) {
     super(...parameters);
     const { bBoxNE, bBoxSW } = SMUFL.getGlyphBBox(glyphName);
