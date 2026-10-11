@@ -1,23 +1,10 @@
-import {
-  filter,
-  firstBy,
-  flat,
-  isIncludedIn,
-  isTruthy,
-  map,
-  pipe,
-  prop,
-  times,
-} from "remeda";
+import { filter, firstBy, isIncludedIn, pipe, prop, times } from "remeda";
 import { match, P } from "ts-pattern";
 import * as Sheet from ".";
 import * as Core from "../core";
 export class Chord extends Core.Event<{ id: number }> {
   readonly id;
   score!: Sheet.Score;
-  word = new Sheet.Word();
-  noteheadsLigature = new Sheet.Ligature();
-  legerlinesLigature = new Sheet.Ligature();
   get notes() {
     return this.score.getNotesByChordId(this.id);
   }
@@ -62,36 +49,23 @@ export class Chord extends Core.Event<{ id: number }> {
     return this.notes[0].voice;
   }
   get stem() {
-    if (this.notes.every((note) => note.rest)) return undefined;
+    if (this.notes.every((note) => note.rest)) return;
     return this.notes[0].stem;
   }
   get beam() {
     return this.notes[0].beam;
   }
-  get height() {
-    return pipe(
-      this.notes,
-      flat(),
-      map((note) => ({
-        top: note.line,
-        bottom: note.line + note.glyph.height,
-      })),
-      (bounds) => {
-        if (bounds.length === 0) return 0;
-        const minY = Math.min(...bounds.map((b) => b.top));
-        const maxY = Math.max(...bounds.map((b) => b.bottom));
-        return maxY - minY;
-      },
-    );
+  get height(): number {
+    throw new Error("Chord height requires an engraving model.");
+  }
+  get right(): number {
+    throw new Error("Chord bounds require an engraving model.");
+  }
+  get left(): number {
+    throw new Error("Chord bounds require an engraving model.");
   }
   get width() {
     return firstBy(this.notes, prop("width"))?.width ?? 0;
-  }
-  get right() {
-    return firstBy(this.notes, [prop("glyph", "right"), "desc"])!.glyph.right;
-  }
-  get left() {
-    return firstBy(this.notes, [prop("glyph", "left"), "desc"])!.glyph.left;
   }
   get line() {
     return firstBy(this.notes, [prop("line"), "desc"])?.line ?? 0;
@@ -151,21 +125,5 @@ export class Chord extends Core.Event<{ id: number }> {
   }
   static import(data: ReturnType<Chord["export"]>) {
     return new Chord(data);
-  }
-  draw() {
-    this.word = new Sheet.Word();
-    this.noteheadsLigature = new Sheet.Ligature();
-    this.legerlinesLigature = new Sheet.Ligature();
-    this.noteheadsLigature.append(this.notes.map(prop("glyph")));
-    this.word.append(
-      pipe(this.notes, map(prop("accidentalGlyph")), filter(isTruthy)),
-      [this.noteheadsLigature],
-      this.notes.map(prop("dotLigature")),
-    );
-    this.legerlinesLigature.append(
-      this.legerlines.map(
-        (legerline) => new Sheet.Glyph(Sheet.ElementType.LegerLine, legerline),
-      ),
-    );
   }
 }

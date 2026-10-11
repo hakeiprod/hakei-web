@@ -8,7 +8,6 @@ export class Stave {
   barId;
   trackId;
   clefs;
-  word = new Sheet.Word();
   score!: Sheet.Score;
   get bar() {
     return this.score.bars.find(
@@ -41,11 +40,9 @@ export class Stave {
     return -1;
   }
   get width() {
-    return (
-      this.slots.reduce(
-        (accumulator, current) => accumulator + current.width,
-        0,
-      ) + this.word.width
+    return this.slots.reduce(
+      (accumulator, current) => accumulator + current.width,
+      0,
     );
   }
   get y() {
@@ -83,34 +80,6 @@ export class Stave {
   }
   static import(data: ReturnType<Stave["export"]>) {
     return new Stave(data);
-  }
-  draw() {
-    if (this.bar.masterbar.isRowFirst)
-      this.word.append([
-        new Sheet.Glyph(
-          Sheet.ElementType.Clef,
-          this.resolveClefs()[0]?.line?.[0]?._ ?? 0,
-        ),
-      ]);
-    if (this.bar.masterbar.isFirst) {
-      const keysignatureLigature = new Sheet.Ligature(
-        (this.bar.keysignature.ligature.line = match(
-          this.resolveClefs()[0]?.sign![0]._,
-        )
-          .with("G", () => 0.5)
-          .with("F", () => -0.5)
-          .with(P.union("C", "TAB", "jianpu", "none", "percussion"), () => {
-            throw new Error("wip");
-          })
-          .exhaustive()),
-      );
-      keysignatureLigature.glyphLists =
-        this.bar.keysignature.ligature.glyphLists;
-      this.word.append(
-        [keysignatureLigature],
-        [this.bar.timesignature.ligature],
-      );
-    }
   }
   resolveClefs(): Clef[] {
     return this.clefs ?? this.prev!.resolveClefs();

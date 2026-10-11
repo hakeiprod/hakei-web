@@ -1,7 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest";
 import type { Controller } from "../browser/audio";
 import { Beat, Tempo } from "../core/units";
-import * as Sheet from "../sheet";
+import * as Engraving from "../document/engraving";
 import { NoteHighlighter } from "./note-highlighter";
 
 afterEach(() => vi.unstubAllGlobals());
@@ -21,10 +21,10 @@ test("restarting and stopping highlights cancel the previous animation and clear
     glyph: { setClassName },
   };
   const highlighter = new NoteHighlighter(
-    Object.assign(Object.create(Sheet.Score.prototype), {
+    Object.assign(Object.create(Engraving.Score.prototype), {
       notes: [note],
       tempos: [],
-    }) as Sheet.Score,
+    }) as Engraving.Score,
     { timer: { elapsedSeconds: { value: 1 } } } as Controller,
   );
   highlighter.highlight();

@@ -1,7 +1,7 @@
-import { ElementType } from "..";
+import { ElementType } from "../../../sheet";
 import { Element } from "./element";
 
-export class Glyph extends Element {
+export class LayoutGlyph extends Element {
   get width(): number {
     throw new Error("unset");
   }

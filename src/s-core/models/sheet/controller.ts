@@ -1,6 +1,6 @@
 import { entries, flatMap, groupBy, length, pipe, prop } from "remeda";
 import { match } from "ts-pattern";
-import { LayoutType, Ligature, Score, Word } from "./";
+import { LayoutType, Score } from "./";
 import { Row } from "./row";
 import type { PageLayout } from "./page";
 
@@ -36,26 +36,20 @@ export class Controller {
     },
   ) {}
   mount() {
-    // Layout uses chord widths, which in turn use note glyph widths. Initialize
-    // those drawing objects before calculating the layout.
-    for (const note of this.score.notes) note.draw();
-    for (const chord of this.score.chords) chord.draw();
+    // Engraving subclasses prepare dimensions before calculating the layout.
+    this.prepareNotes();
     this.setRows();
-    this.draw();
+    this.prepareScore();
     this.layout();
   }
-  unmount() {
-    for (const data of [
-      // ...this.score.notes,
-      ...this.score.timesignatures,
-      ...this.score.keysignatures,
-    ])
-      data.ligature = new Ligature();
-    for (const data of this.score.chords)
-      data.noteheadsLigature = new Ligature();
-    for (const data of [...this.score.chords, ...this.score.staves])
-      data.word = new Word();
+  protected prepareNotes() {}
+  protected prepareScore() {}
+  protected prepareStaves(staves: import("./stave").Stave[]) {
+    // Base sheet models have no engraving state to prepare.
+    if (staves.length === 0) return;
   }
+  unmount() {}
+  order() {}
   private setRows() {
     for (const masterbar of this.score.masterbars) masterbar.rowId = 0;
     const row = new Row({ id: 0 });
@@ -88,14 +82,9 @@ export class Controller {
     let width = 0;
     for (const masterbar of this.score.masterbars) {
       masterbar.rowId = row.id;
-      const drawStaves = () => {
-        for (const bar of masterbar.bars)
-          for (const stave of bar.staves) {
-            stave.word = new Word();
-            stave.draw();
-          }
-      };
-      drawStaves();
+      const prepareStaves = () =>
+        this.prepareStaves(masterbar.bars.flatMap((bar) => bar.staves));
+      prepareStaves();
       if (
         this.options.layoutType !== LayoutType.Horizontal &&
         width > 0 &&
@@ -106,25 +95,11 @@ export class Controller {
         this.score.rows.push(row);
         masterbar.rowId = row.id;
         // A new system repeats its clef; include that width when wrapping.
-        drawStaves();
+        prepareStaves();
         width = 0;
       }
       width += masterbar.minWidth;
     }
-  }
-  draw() {
-    for (const data of [
-      ...this.score.notes,
-      ...this.score.chords,
-      ...this.score.timesignatures,
-      ...this.score.keysignatures,
-      ...this.score.staves,
-    ])
-      data.draw();
-  }
-  order() {
-    this.score.staves.map((stave) => stave.word?.order());
-    this.score.chords.map((chord) => chord.word.order());
   }
   space(width: number) {
     for (const row of this.score.rows) {

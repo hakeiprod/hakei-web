@@ -7,7 +7,7 @@ import { Keyboard } from "@/s-core/models/browser/keyboard";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
 import * as Sheet from "@/s-core/models/sheet";
 import "@/s-core/models/sheet/extensions/to-audio";
-import * as SMUFL from "@/s-core/models/smufl";
+import * as Engraving from "@/s-core/models/document/engraving";
 import { masterVolumeAtom } from "@/store/master-volume";
 import { getDefaultStore } from "jotai";
 import { useEffect, useMemo, useState } from "react";
@@ -28,7 +28,7 @@ export function ShowScore(properties: {
     [scoreData],
   );
   const keyboard = useMemo(() => new Keyboard(audio.keyRange), [audio]);
-  const smufl = useMemo(() => SMUFL.Score.import(scoreData), [scoreData]);
+  const smufl = useMemo(() => Engraving.Score.import(scoreData), [scoreData]);
   const [controller, setController] = useState<BrowserAudio.Controller>();
   useEffect(() => {
     if (!soundfont2) return;

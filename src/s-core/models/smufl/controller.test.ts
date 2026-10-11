@@ -45,6 +45,13 @@ function flatten(elements: readonly Drawing.Element[]): Drawing.Element[] {
 }
 
 describe("score drawing layouts", () => {
+  test("remounting rebuilds the same engraving geometry", () => {
+    const { controller } = prepare(LayoutType.Page);
+    const first = controller.toDocument();
+    controller.unmount();
+    controller.mount();
+    expect(controller.toDocument()).toEqual(first);
+  });
   test("horizontal scrolling keeps all bars in a single system and page", () => {
     const { score, controller } = prepare(LayoutType.Horizontal);
     const drawing = controller.toDocument();

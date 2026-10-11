@@ -1,13 +1,13 @@
 "use client";
 import * as Browser from "@/s-core/models/browser";
 import * as Sheet from "@/s-core/models/sheet";
-import * as SMUFL from "@/s-core/models/smufl";
+import * as Engraving from "@/s-core/models/document/engraving";
 import { Button, Form, FormProps, Input } from "@heroui/react";
 import { Suspense, useState } from "react";
 import { ScoreViewer } from "./score-viewer";
 
 export function FormCreateScore(properties: FormProps) {
-  const [score, setScore] = useState<SMUFL.Score>();
+  const [score, setScore] = useState<Engraving.Score>();
   return (
     <Form {...properties}>
       <Input
@@ -21,7 +21,7 @@ export function FormCreateScore(properties: FormProps) {
             const sheet = (await new Browser.Importer().import(
               file,
             )) as Sheet.Score;
-            const score = SMUFL.Score.import(sheet.export());
+            const score = Engraving.Score.import(sheet.export());
             setScore(score);
             console.log({ sheet });
             console.log({ smufl: score });

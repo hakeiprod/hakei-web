@@ -3,7 +3,7 @@
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
 import { LayoutType } from "@/s-core/models/sheet";
-import * as SMUFL from "@/s-core/models/smufl";
+import * as Engraving from "@/s-core/models/document/engraving";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
 import { useEffect, useRef, useState } from "react";
@@ -41,13 +41,13 @@ function ScoreFixtureCard({ fixture }: { fixture: Fixture }) {
 
   useEffect(() => {
     const containerElement = container.current;
-    let controller: SMUFL.Controller | undefined;
+    let controller: Engraving.Controller | undefined;
     try {
       const sheet = Core.Score.create(
         fixture.data as unknown as Parameters<typeof Core.Score.create>[0],
       ).toSheet();
-      const score = SMUFL.Score.import(sheet.export());
-      controller = new SMUFL.Controller(score, {
+      const score = Engraving.Score.import(sheet.export());
+      controller = new Engraving.Controller(score, {
         scale: fixtureScale,
         layoutType: LayoutType.Horizontal,
         debug: true,

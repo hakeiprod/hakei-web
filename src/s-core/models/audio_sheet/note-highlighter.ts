@@ -1,16 +1,16 @@
 import { Controller } from "../browser/audio";
-import * as Sheet from "../sheet";
+import * as Engraving from "../document/engraving";
 export class NoteHighlighter {
   private frameId?: number;
-  activeNotes = new Set<Sheet.Note>();
+  activeNotes = new Set<Engraving.Note>();
   constructor(
-    public sheet: Sheet.Score,
+    public sheet: Engraving.Score,
     public controller: Controller,
   ) {}
   highlight() {
     this.stop();
     const loop = () => {
-      const nextNotes = new Set<Sheet.Note>();
+      const nextNotes = new Set<Engraving.Note>();
       for (const note of this.sheet.notes)
         if (
           this.controller.timer.elapsedSeconds.value >=
