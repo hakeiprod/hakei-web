@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { render, waitFor } from "@testing-library/react";
+import { fireEvent, render, waitFor } from "@testing-library/react";
 import { afterEach, expect, test, vi } from "vitest";
 import { ShowScore } from "./show-score";
 
@@ -17,6 +17,7 @@ vi.mock("@/s-core/models/browser/audio", () => ({
   Controller: class {
     mount = vi.fn();
     unmount = vi.fn();
+    stop = vi.fn();
     constructor() {
       resources.controllers.push(this);
     }
@@ -37,7 +38,7 @@ vi.mock("@/s-core/models/sheet", () => ({
 }));
 vi.mock("@/s-core/models/sheet/extensions/to-audio", () => ({}));
 vi.mock("@/s-core/models/engraving", () => ({
-  Score: { import: () => ({}) },
+  Score: { import: () => ({ notes: [] }) },
 }));
 vi.mock("@/s-core/models/files/soundfont2", () => ({
   default: { create: () => ({}) },
@@ -98,4 +99,20 @@ test("unmount aborts a pending SoundFont request without creating a controller",
   view.unmount();
   expect(signal!.aborted).toBe(true);
   expect(resources.controllers).toHaveLength(0);
+});
+
+test("practice mode stops playback highlighting and restores it when disabled", async () => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => ({ arrayBuffer: async () => new ArrayBuffer(0) })),
+  );
+  const view = render(<ShowScore score={score(1)} />);
+  await waitFor(() => expect(resources.highlighters.length).toBeGreaterThan(0));
+  const first = resources.highlighters.at(-1)!;
+  fireEvent.click(view.getByLabelText("練習モード"));
+  expect(first.stop).toHaveBeenCalledOnce();
+  expect(view.getByRole("status").textContent).toContain("練習完了");
+  fireEvent.click(view.getByLabelText("練習モード"));
+  await waitFor(() => expect(resources.highlighters.length).toBe(2));
+  view.unmount();
 });

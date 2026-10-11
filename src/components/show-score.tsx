@@ -3,6 +3,7 @@ import { prisma } from "@/prisma";
 import * as Audio from "@/s-core/models/audio";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
+import { PracticeSession } from "@/s-core/models/browser/practice-session";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
 import * as Sheet from "@/s-core/models/sheet";
@@ -19,6 +20,8 @@ import { VirtualKeyboard } from "./virtual-keyboard";
 export function ShowScore(properties: {
   score: NonNullable<Awaited<ReturnType<typeof prisma.score.findUnique>>>;
 }) {
+  const [practice, setPractice] = useState(false);
+  const [progress, setProgress] = useState({ completed: 0, total: 0 });
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
   const scoreData = properties.score.data as unknown as ReturnType<
     Sheet.Score["export"]
@@ -44,11 +47,20 @@ export function ShowScore(properties: {
     return () => next.unmount();
   }, [audio, soundfont2]);
   useEffect(() => {
-    if (!controller) return;
+    if (!controller || practice) return;
     const highlighter = new NoteHighlighter(smufl, controller);
     highlighter.highlight();
     return () => highlighter.stop();
-  }, [controller, smufl]);
+  }, [controller, smufl, practice]);
+  useEffect(() => {
+    if (!practice) return;
+    controller?.stop();
+    const session = new PracticeSession(smufl.notes);
+    session.onProgress = (completed, total) =>
+      setProgress({ completed, total });
+    session.reset();
+    return session.bind(keyboard);
+  }, [practice, smufl, keyboard, controller]);
   useEffect(() => {
     const abort = new AbortController();
     fetch("/A320U.sf2", { signal: abort.signal })
@@ -63,8 +75,26 @@ export function ShowScore(properties: {
   }, []);
   return (
     <>
+      <label>
+        <input
+          type="checkbox"
+          checked={practice}
+          onChange={(event) => setPractice(event.target.checked)}
+        />
+        練習モード
+      </label>
+      {practice && (
+        <p role="status">
+          {progress.completed === progress.total
+            ? "練習完了"
+            : "楽譜の順に入力してください"}
+          （{progress.completed} / {progress.total}）
+        </p>
+      )}
       <ScoreViewer score={smufl} />
-      {controller && <ScorePlayer score={audio} controller={controller} />}
+      {controller && !practice && (
+        <ScorePlayer score={audio} controller={controller} />
+      )}
       <ScoreMixier score={audio} />
       <VirtualKeyboard keyboard={keyboard} />
     </>
