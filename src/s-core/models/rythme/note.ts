@@ -1,7 +1,7 @@
 import { isNullish } from "remeda";
 import { Seconds } from "../files/soundfont2/units/seconds";
 import * as Sheet from "../sheet";
-import * as Engraving from "../document/engraving";
+import * as Engraving from "../engraving";
 import { JudgeType } from "./enums/judge";
 export class Note extends Sheet.Note {
   hitSeconds: Seconds | null = null;

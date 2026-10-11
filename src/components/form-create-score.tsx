@@ -1,7 +1,7 @@
 "use client";
 import * as Browser from "@/s-core/models/browser";
 import * as Sheet from "@/s-core/models/sheet";
-import * as Engraving from "@/s-core/models/document/engraving";
+import * as Engraving from "@/s-core/models/engraving";
 import { Button, Form, FormProps, Input } from "@heroui/react";
 import { Suspense, useState } from "react";
 import { ScoreViewer } from "./score-viewer";

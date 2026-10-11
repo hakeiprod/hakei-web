@@ -12,5 +12,5 @@ export * from "./timesignature";
 export * from "./track";
 export * from "./glyph";
 export * from "./metadata";
-export * from "../document/engraving/layout/word";
-export * from "../document/engraving/layout/ligature";
+export * from "../engraving/layout/word";
+export * from "../engraving/layout/ligature";

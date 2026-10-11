@@ -1,4 +1,4 @@
-import type { Score } from "../document/engraving/score";
+import type { Score } from "../engraving/score";
 
 /** Connect playback class changes to the latest SVG without coupling Document to Engraving. */
 export function bindNoteHighlights(score: Score, svg: SVGSVGElement) {

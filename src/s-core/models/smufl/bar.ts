@@ -1,2 +1,2 @@
-/** @deprecated Use document/engraving; SMUFL provides glyph metrics only. */
-export * from "../document/engraving/bar";
+/** @deprecated Use engraving; SMUFL provides glyph metrics only. */
+export * from "../engraving/bar";

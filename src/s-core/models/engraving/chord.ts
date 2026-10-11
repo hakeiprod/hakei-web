@@ -1,6 +1,6 @@
 import { filter, firstBy, flat, isTruthy, map, pipe, prop } from "remeda";
-import * as Engraving from ".";
-import * as Sheet from "../../sheet";
+import * as Engraving from "./";
+import * as Sheet from "../sheet";
 export class Chord extends Sheet.Chord {
   word = new Engraving.Word();
   noteheadsLigature = new Engraving.Ligature();

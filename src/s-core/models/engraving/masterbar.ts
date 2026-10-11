@@ -1,5 +1,5 @@
-import * as Engraving from ".";
-import * as Sheet from "../../sheet";
+import * as Engraving from "./";
+import * as Sheet from "../sheet";
 
 export class Masterbar extends Sheet.Masterbar {
   declare score: Engraving.Score;

@@ -1,5 +1,5 @@
 import { Controller } from "../browser/audio";
-import * as Engraving from "../document/engraving";
+import * as Engraving from "../engraving";
 export class NoteHighlighter {
   private frameId?: number;
   activeNotes = new Set<Engraving.Note>();

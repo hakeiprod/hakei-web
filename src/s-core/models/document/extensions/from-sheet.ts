@@ -1,5 +1,5 @@
 import * as Sheet from "../../sheet";
-import { Controller, Score } from "../engraving";
+import { Controller, Score } from "../../engraving";
 
 export type ToDocumentOptions = Partial<
   ConstructorParameters<typeof Controller>[1]

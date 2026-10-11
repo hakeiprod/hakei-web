@@ -1,5 +1,5 @@
-import * as Engraving from ".";
-import * as Sheet from "../../sheet";
+import * as Engraving from "./";
+import * as Sheet from "../sheet";
 
 export class Track extends Sheet.Track {
   declare score: Engraving.Score;

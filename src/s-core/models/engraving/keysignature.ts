@@ -1,10 +1,10 @@
-import * as Sheet from "../../sheet";
+import * as Sheet from "../sheet";
 import { pipe } from "remeda";
 import { match } from "ts-pattern";
-import { ElementType } from "../../sheet";
-import musicTheory from "../../../const/music-theory.json";
-import * as Core from "../../core";
-import { PitchClassName } from "../../core/units";
+import { ElementType } from "../sheet";
+import musicTheory from "../../const/music-theory.json";
+import * as Core from "../core";
+import { PitchClassName } from "../core/units";
 import { LayoutGlyph as Glyph } from "./layout/glyph";
 import { Ligature } from "./layout/ligature";
 

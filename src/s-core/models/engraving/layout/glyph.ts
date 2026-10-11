@@ -1,4 +1,4 @@
-import { ElementType } from "../../../sheet";
+import { ElementType } from "../../sheet";
 import { Element } from "./element";
 
 export class LayoutGlyph extends Element {

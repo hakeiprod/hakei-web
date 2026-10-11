@@ -1,6 +1,6 @@
-import * as Engraving from ".";
-import * as Sheet from "../../sheet";
-import type { Document } from "..";
+import * as Engraving from "./";
+import * as Sheet from "../sheet";
+import type { Document } from "../document";
 import { toDocument, type ToDocumentOptions } from "./extensions/to-document";
 
 export class Score<

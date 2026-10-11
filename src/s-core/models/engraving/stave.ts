@@ -1,8 +1,8 @@
 import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
-import * as Core from "../../core";
-import * as Sheet from "../../sheet";
-import * as Engraving from ".";
+import * as Core from "../core";
+import * as Sheet from "../sheet";
+import * as Engraving from "./";
 
 export class Stave extends Sheet.Stave {
   declare score: Engraving.Score;

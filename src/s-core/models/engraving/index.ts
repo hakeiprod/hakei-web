@@ -13,4 +13,4 @@ export * from "./track";
 export * from "./glyph";
 export * from "./layout/word";
 export * from "./layout/ligature";
-export { Glyphnames, Ranges } from "../../smufl/metadata";
+export { Glyphnames, Ranges } from "../smufl/metadata";

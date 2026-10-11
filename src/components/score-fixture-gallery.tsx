@@ -3,7 +3,7 @@
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
 import { LayoutType } from "@/s-core/models/sheet";
-import * as Engraving from "@/s-core/models/document/engraving";
+import * as Engraving from "@/s-core/models/engraving";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
 import { useEffect, useRef, useState } from "react";

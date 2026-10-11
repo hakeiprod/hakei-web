@@ -1,5 +1,5 @@
 import * as Sheet from "@/s-core/models/sheet";
-import * as Engraving from ".";
+import * as Engraving from "./";
 export class Controller extends Sheet.Controller {
   declare public score: Engraving.Score;
   constructor(

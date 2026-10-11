@@ -7,7 +7,7 @@ import { Keyboard } from "@/s-core/models/browser/keyboard";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
 import * as Sheet from "@/s-core/models/sheet";
 import "@/s-core/models/sheet/extensions/to-audio";
-import * as Engraving from "@/s-core/models/document/engraving";
+import * as Engraving from "@/s-core/models/engraving";
 import { masterVolumeAtom } from "@/store/master-volume";
 import { getDefaultStore } from "jotai";
 import { useEffect, useMemo, useState } from "react";

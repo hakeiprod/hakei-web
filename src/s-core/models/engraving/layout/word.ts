@@ -1,6 +1,6 @@
 import { firstBy, prop, reduce } from "remeda";
 import type { LayoutGlyph } from "./glyph";
-import { BoundingBox } from "../../../boundingbox";
+import { BoundingBox } from "../../boundingbox";
 import { Element } from "./element";
 import { Ligature } from "./ligature";
 

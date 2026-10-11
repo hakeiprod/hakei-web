@@ -1,10 +1,10 @@
 import type { LayoutGlyph } from "../layout/glyph";
-import BravuraMetadata from "../../../../const/bravura/bravura_metadata.json";
-import * as Drawing from "../..";
-import * as Sheet from "../../../sheet";
+import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
+import * as Drawing from "../../document";
+import * as Sheet from "../../sheet";
 import * as Engraving from "..";
-import type { PageLayout } from "../../../sheet/page";
-import { rowSpacing } from "../../../sheet/row";
+import type { PageLayout } from "../../sheet/page";
+import { rowSpacing } from "../../sheet/row";
 
 export interface ToDocumentOptions {
   debug?: boolean;

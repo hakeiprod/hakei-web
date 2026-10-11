@@ -1,6 +1,6 @@
 import { times } from "remeda";
-import * as Engraving from ".";
-import * as Sheet from "../../sheet";
+import * as Engraving from "./";
+import * as Sheet from "../sheet";
 
 export class Note extends Sheet.Note {
   declare score: Engraving.Score;

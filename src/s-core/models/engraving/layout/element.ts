@@ -1,5 +1,5 @@
-import { BoundingBox } from "../../../boundingbox";
-import { Edge } from "../../../edge";
+import { BoundingBox } from "../../boundingbox";
+import { Edge } from "../../edge";
 
 export abstract class Element implements BoundingBox, Edge {
   x = 0;

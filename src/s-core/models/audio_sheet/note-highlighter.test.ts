@@ -1,7 +1,7 @@
 import { afterEach, expect, test, vi } from "vitest";
 import type { Controller } from "../browser/audio";
 import { Beat, Tempo } from "../core/units";
-import * as Engraving from "../document/engraving";
+import * as Engraving from "../engraving";
 import { NoteHighlighter } from "./note-highlighter";
 
 afterEach(() => vi.unstubAllGlobals());

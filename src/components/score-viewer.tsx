@@ -1,6 +1,6 @@
 "use client";
 import { LayoutType } from "@/s-core/models/sheet";
-import * as Engraving from "@/s-core/models/document/engraving";
+import * as Engraving from "@/s-core/models/engraving";
 import type { Document } from "@/s-core/models/document";
 import "@/s-core/models/document/extensions/to-svg";
 import { bindNoteHighlights } from "@/s-core/models/browser/bind-note-highlights";

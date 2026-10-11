@@ -1,5 +1,5 @@
 import * as Audio from "@/s-core/models/audio";
-import * as Engraving from "@/s-core/models/document/engraving";
+import * as Engraving from "@/s-core/models/engraving";
 export class ScoreScroller {
   constructor(
     public smufl: Engraving.Score,

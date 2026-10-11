@@ -1,7 +1,7 @@
 import { LayoutGlyph } from "./layout/glyph";
 import { Ligature } from "./layout/ligature";
 import { match } from "ts-pattern";
-import * as Sheet from "../../sheet";
+import * as Sheet from "../sheet";
 import { Glyph } from "./glyph";
 export class Timesignature extends Sheet.Timesignature {
   static import(data: ReturnType<Timesignature["export"]>) {
