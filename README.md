@@ -35,3 +35,25 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 # hakei-web
+
+## Spec Kit（Codex）
+
+Spec Kit v1.1.3 を導入しています。`.specify/` にテンプレートとワークフロー、`.agents/skills/` にCodex用スキルがあります。Dev Containerの作成時にCLIもインストールされます。
+
+Codexで新しいセッションを開き、次の順に依頼してください。
+
+1. `$speckit-constitution` — プロジェクトの開発原則を定義
+2. `$speckit-specify` — 作りたい機能の仕様を作成
+3. `$speckit-plan` — 実装計画を作成
+4. `$speckit-tasks` — タスクに分解
+5. `$speckit-implement` — 実装
+
+CLIの確認: `specify version`
+
+CLIを手動でインストールする場合（Python 3.11以上とuvが必要）:
+
+```bash
+uv tool install specify-cli --from git+https://github.com/github/spec-kit.git@v1.1.3
+```
+
+公式ドキュメント: https://github.github.com/spec-kit/
