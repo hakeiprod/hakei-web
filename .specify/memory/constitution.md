@@ -1,50 +1,102 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+# hakei-web Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. 音楽データの正確性と互換性
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+楽譜の変換・表示・再生を変更する際は、対応対象の音高、開始位置、音価、休符、
+テンポ、拍子、調号、トラック構成を保持する。
+拍、秒、MIDI音高、音量などの異なる単位は、既存の値オブジェクトと明示的な変換を用いて扱う。
+対応していない形式や表現は、制限またはエラーとして説明し、黙って別の音楽情報に置き換えない。
+保存済みの楽譜やインポート結果との互換性を変える場合は、影響と移行方法を仕様に記載する。
+表示上の都合によって音楽情報が変わることを防ぐための原則である。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. モデルと実行環境の責務分離
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+音楽データ、楽譜レイアウト、描画用ドキュメント、音声、ファイル解析の処理は、
+`src/s-core/models/`内の対応する責務に配置する。
+環境に依存しないモデルへReact、Next.js、DOM、Web Audio、Prismaへの新たな依存を持ち込まない。
+ブラウザーAPIとの接続はブラウザー用モデル、UI操作はコンポーネント、
+データベースアクセスはサーバー側で扱う。
+表示・描画への変換は元の楽譜を変更しない。編集操作は明示的な変更経路として実装する。
+同じ楽譜を表示、再生、保存で利用でき、変換結果を独立して検証できる構造を保つ。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. 外部入力と永続データの検証
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+ファイル、JSON、URLパラメーター、サーバーへの入力は、利用する境界で形式と値域を検証する。
+既存のZodスキーマ、値オブジェクト、形式別パーサーを再利用し、
+型アサーションだけで外部入力の妥当性を保証しない。
+不正な入力は呼び出し元が判断できるエラーとして返し、失敗した処理で保存データを部分更新しない。
+認証やアクセス制限が必要な操作はサーバー側で確認する。
+秘密情報、認証トークン、接続文字列はクライアントコード、ログ、コミットに含めない。
+DBスキーマを変更する場合はPrismaマイグレーションと既存データへの影響を記録し、
+生成コードを直接編集しない。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. 再現可能な回帰検証
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+音楽データの計算、変換、描画、再生制御、入力イベントの動作を変更する際は、
+変更された挙動を検証するテストを追加または更新する。
+不具合修正では、原因となった入力と期待結果を再現できる回帰テストを用意する。
+既存の`src/s-core/fixtures/`を活用し、新しい境界条件は最小限のフィクスチャで表現する。
+変換テストは出力の意味と入力の保持を確認し、実装内部の呼び出し順だけを検証しない。
+ブラウザーの音声や時刻に依存する処理は、制御可能なテスト用代替を使用する。
+文書のみの変更にはアプリケーションテストを追加せず、リンク、構文、内容の整合性を確認する。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. 目的に必要な範囲で変更する
+
+変更は、説明可能な利用者の目的または開発上の問題に結び付ける。
+既存のモデル、変換処理、UI部品を優先して再利用し、
+新しい依存関係や抽象化を追加する場合は既存手段では不足する理由を計画またはPRに記載する。
+無関係なリファクタリングや技術移行は別の変更として扱う。
+新しい長時間処理には、処理中、成功、失敗を利用者が判断できる状態を用意する。
+イベント購読、タイマー、音声ノードなどのリソースは、所有する処理の終了時に解放する。
+変更範囲とリソースの寿命を明確にして、レビューと不具合の切り分けを可能にする。
+
+## 技術・実行環境の制約
+
+- 基盤はTypeScriptのstrict設定、Next.js App Router、Reactを使用する。
+  技術基盤を変更する場合は、互換性、運用、検証への影響を計画に記載する。
+- 永続化は既存のPrismaとPostgreSQL構成を前提とし、DBや認証の処理をクライアントへ公開しない。
+- 依存関係の追加・更新には`package.json`と`package-lock.json`を使用し、
+  再現可能なインストールを維持する。
+- Node.jsなどの実行環境条件を変更する場合は、Dev ContainerとCIの両方への影響を確認する。
+- MusicXML、MIDI、SoundFont、SMuFLなどの形式を扱う変更では、
+  対象形式・バージョン・対応範囲を明記する。生成物は対応する生成手順から更新する。
+- 性能改善の目標は対象楽譜、実行環境、計測方法とともに定義し、
+  比較可能な結果で確認する。根拠のない一律の性能閾値を導入しない。
+
+## 開発フローとレビュー
+
+1. 新機能や複数モデルに及ぶ変更は、利用者の操作、期待結果、対象外、互換性への影響を仕様に記載する。
+   Spec Kitを使う場合はspecify、plan、tasks、implementの順に進め、
+   planで本憲章への適合を確認する。小規模な修正は同等の情報をPR本文に記載できる。
+2. 実装前に変更箇所と検証方法を定め、実装後は関連するテストを実行する。
+   アプリケーションの変更を統合する前に、CIと同じ`npm test -- --run`で回帰を確認する。
+3. TypeScriptやUIの変更は型検査と変更箇所のlintを確認する。
+   ルート、依存関係、ビルド設定の変更は`npm run build`で確認する。
+   既存エラーや環境条件により確認できない場合は、その内容と影響をPRに記載する。
+4. PRには問題、変更後の動作、検証結果、残る制限を記載する。
+   レビューでは音楽情報の保持、責務の境界、入力検証、回帰検証、変更範囲を確認する。
+   見た目や操作を変更する場合は、対象画面または操作の確認結果も示す。
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+本憲章を仕様、計画、実装、レビューにおけるプロジェクト共通の基準とする。
+既存実装が原則を満たさない場合は、関連する変更で影響範囲を明記し、
+無関係な実装の全面修正を必須としない。
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+改定は理由、変更する原則、既存仕様・実装への影響、必要な移行作業を記載したPRで行い、
+リポジトリの通常のレビューとマージ手順で採択する。
+例外が必要な変更は、理由、影響範囲、代替の検証、解消条件を計画またはPRに記載し、
+レビュー対象とする。例外を他の変更への暗黙の許可として扱わない。
+
+バージョンはセマンティックバージョニングに従う。
+原則の削除や互換性のない再定義はMAJOR、新しい原則・節や実質的な要件追加はMINOR、
+意味を変えない表現の修正はPATCHを更新する。
+Ratifiedは初回制定日を保持し、改定時にLast Amendedを更新する。
+
+各PRの作成者とレビュアーは本憲章への適合と記録された例外を確認する。
+Spec Kitのテンプレートとスキルは実行時に本憲章を参照するため、
+憲章改定だけを理由にテンプレートやアプリケーションコードを変更しない。
+
+**Version**: 1.0.0 | **Ratified**: 2026-10-13 | **Last Amended**: 2026-10-13
