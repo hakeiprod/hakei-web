@@ -26,39 +26,39 @@ export function create(arrayBuffer: ArrayBuffer) {
       .parse(presetHeaderChunk.data)
       .data.map(
         (c: ConstructorParameters<typeof PresetHeader>[0]) =>
-          new PresetHeader(c)
+          new PresetHeader(c),
       ),
     parseBag(Metadata.id[1]).data.map(
-      (c: ConstructorParameters<typeof Bag>[0]) => new Bag(c)
+      (c: ConstructorParameters<typeof Bag>[0]) => new Bag(c),
     ),
     parseModulator(Metadata.id[2]).data.map(
-      (c: ConstructorParameters<typeof Modulator>[0]) => new Modulator(c)
+      (c: ConstructorParameters<typeof Modulator>[0]) => new Modulator(c),
     ),
     parseGenerator(Metadata.id[3]).data.map(
-      (c: ConstructorParameters<typeof Generator>[0]) => new Generator(c)
+      (c: ConstructorParameters<typeof Generator>[0]) => new Generator(c),
     ),
     instrumentParser(instrumentHeaderChunk.length)
       .parse(instrumentHeaderChunk.data)
       .data.map(
         (c: ConstructorParameters<typeof InstrumentHeader>[0]) =>
-          new InstrumentHeader(c)
+          new InstrumentHeader(c),
       ),
     parseBag(Metadata.id[5]).data.map(
-      (c: ConstructorParameters<typeof Bag>[0]) => new Bag(c)
+      (c: ConstructorParameters<typeof Bag>[0]) => new Bag(c),
     ),
     parseModulator(Metadata.id[6]).data.map(
-      (c: ConstructorParameters<typeof Modulator>[0]) => new Modulator(c)
+      (c: ConstructorParameters<typeof Modulator>[0]) => new Modulator(c),
     ),
     parseGenerator(Metadata.id[7]).data.map(
-      (c: ConstructorParameters<typeof Generator>[0]) => new Generator(c)
+      (c: ConstructorParameters<typeof Generator>[0]) => new Generator(c),
     ),
     sampleHeaderParser(sampleHeaderChunk.length)
       .parse(sampleHeaderChunk.data)
       .data.map(
         (c: ConstructorParameters<typeof SampleHeader>[0]) =>
-          new SampleHeader(c)
+          new SampleHeader(c),
       ),
-    riff.getChunk(Metadata.id[9])!.data
+    riff.getChunk(Metadata.id[9])!.data,
   );
   function parseBag(id: Metadata["bag"][number]) {
     const chunk = riff.getChunk(id)!;

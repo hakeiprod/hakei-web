@@ -9,7 +9,7 @@ export class Timesignature extends Core.Event {
     timesignature: {
       denominator: number;
       numerator: number;
-    } & ConstructorParameters<typeof Core.Event>[0]
+    } & ConstructorParameters<typeof Core.Event>[0],
   ) {
     const { denominator, numerator } = timesignature;
     super(timesignature);

@@ -15,6 +15,9 @@ export class Note extends Core.Note {
   rest;
   voice;
   beam;
+  notatedType;
+  notatedDots;
+  ties;
   score!: Sheet.Score;
   /** Glyph dimensions are supplied by the engraving model. */
   get width(): number {
@@ -60,8 +63,18 @@ export class Note extends Core.Note {
     );
   }
   get type() {
+    if (this.notatedType) return this.notatedType;
+    const tripletBase = this.duration.value * 1.5;
+    const power = Math.log2(tripletBase);
+    const base =
+      Math.abs(power - Math.round(power)) <= 1e-9
+        ? Math.pow(2, Math.round(power))
+        : Math.pow(2, Math.floor(Math.log2(this.duration.value)));
     return <NormalType>{
-      _: match(Math.pow(2, Math.floor(Math.log2(this.duration.value))))
+      _: match(base)
+        .with(32, () => "maxima")
+        .with(16, () => "long")
+        .with(8, () => "breve")
         .with(4, () => "whole")
         .with(2, () => "half")
         .with(1, () => "quarter")
@@ -77,19 +90,21 @@ export class Note extends Core.Note {
     };
   }
   get dot() {
-    let duration = this.duration.value;
-    let dot = 0;
-    while (
-      duration % Math.pow(2, Math.floor(Math.log2(this.duration.value))) !==
-      0
-    ) {
-      duration *= 2;
-      dot += 1;
+    if (this.notatedDots !== undefined) return this.notatedDots;
+    const base = Math.pow(2, Math.floor(Math.log2(this.duration.value)));
+    for (let count = 0; count <= 4; count++) {
+      if (
+        Math.abs(this.duration.value - base * (2 - Math.pow(2, -count))) <= 1e-9
+      )
+        return count;
     }
-    return dot;
+    return 0;
   }
   constructor(
     note: {
+      ties?: ("start" | "stop")[];
+      notatedType?: NormalType;
+      notatedDots?: number;
       id: number;
       staveId: number;
       chordId?: number;
@@ -100,7 +115,18 @@ export class Note extends Core.Note {
       voice: number;
     } & ConstructorParameters<typeof Core.Note>[0],
   ) {
-    const { id, staveId, rest = false, chordId, stem, voice, beam } = note;
+    const {
+      id,
+      staveId,
+      rest = false,
+      chordId,
+      stem,
+      voice,
+      beam,
+      notatedType,
+      notatedDots,
+      ties,
+    } = note;
     super(note);
     this.id = id;
     this.staveId = staveId;
@@ -109,6 +135,9 @@ export class Note extends Core.Note {
     this.rest = rest;
     this.voice = voice;
     this.beam = beam;
+    this.notatedType = notatedType;
+    this.notatedDots = notatedDots;
+    this.ties = ties;
   }
   serialize() {
     return {
@@ -119,6 +148,11 @@ export class Note extends Core.Note {
       rest: this.rest,
       voice: this.voice,
       beam: this.beam,
+      ...(this.ties ? { ties: this.ties } : {}),
+      ...(this.notatedType ? { notatedType: this.notatedType } : {}),
+      ...(this.notatedDots === undefined
+        ? {}
+        : { notatedDots: this.notatedDots }),
     };
   }
   export() {

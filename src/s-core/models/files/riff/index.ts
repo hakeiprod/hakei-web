@@ -15,7 +15,7 @@ export default class Riff {
   static ID = Metadata["id"];
   static create(arrayBuffer: ArrayBuffer) {
     return new Riff(
-      (Parser.parse(new Uint8Array(arrayBuffer)) as { chunks: Chunk[] }).chunks
+      (Parser.parse(new Uint8Array(arrayBuffer)) as { chunks: Chunk[] }).chunks,
     );
   }
 }

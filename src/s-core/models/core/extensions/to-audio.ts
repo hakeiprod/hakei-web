@@ -24,18 +24,18 @@ Core.Score.prototype.toAudio = function (this) {
               };
               accumulator.start += current.numerator;
               return event;
-            }
-          )
+            },
+          ),
         );
         return accumulator;
       },
       {
         start: 0,
         events: [] as { start: number; duration: number; end: number }[],
-      }
+      },
     ),
     prop("events"),
-    map((event, id) => Audio.Masterbar.import({ id, ...event }))
+    map((event, id) => Audio.Masterbar.import({ id, ...event })),
   );
   return Audio.Score.import({
     ...this.export(),

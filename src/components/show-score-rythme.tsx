@@ -1,5 +1,4 @@
 "use client";
-import { prisma } from "@/prisma";
 import * as Audio from "@/s-core/models/audio";
 import { RythmeGame } from "@/s-core/models/browser/rythme-game";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
@@ -16,9 +15,7 @@ import { isNullish } from "remeda";
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
-export function ShowScoreRythme(properties: {
-  score: NonNullable<Awaited<ReturnType<typeof prisma.score.findUnique>>>;
-}) {
+export function ShowScoreRythme(properties: { score: { data: unknown } }) {
   const [started, setStarted] = useState(false);
   const [masterVolume] = useAtom(masterVolumeAtom);
   const [trackIds, setTrackIds] = useState<number[]>([]);

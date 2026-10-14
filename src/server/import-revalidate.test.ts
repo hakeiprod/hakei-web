@@ -1,0 +1,73 @@
+import { expect, it } from "vitest";
+import { readFile } from "node:fs/promises";
+import { convertScore } from "@/s-core/models/import/convert";
+import { signPreview, verifyPreview } from "./import-preview-token";
+import { revalidateImport } from "./import-revalidate";
+const secret = "test-secret-at-least-32-characters-long";
+it("repairs a missing duration without original bytes and keeps the original expiry", async () => {
+  const original = await convertScore({
+    bytes: await readFile(
+      "src/s-core/fixtures/import/missing-duration.musicxml",
+    ),
+    sourceName: "score.musicxml",
+    options: { mode: "PRESERVE" },
+  });
+  const payload = {
+    candidate: original.candidate,
+    issues: original.issues,
+    metadata: original.metadata,
+  };
+  const previewToken = signPreview("alice", payload, secret, 1000);
+  const result = revalidateImport(
+    "alice",
+    {
+      originalCandidate: payload.candidate,
+      originalIssues: payload.issues,
+      metadata: payload.metadata,
+      previewToken,
+      corrections: [{ kind: "NOTE", index: 0, duration: 1 }],
+    },
+    secret,
+    2000,
+  );
+  expect(result.validation.canPractice).toBe(true);
+  expect(
+    verifyPreview(result.previewToken, "alice", result, secret, 2001).expiresAt,
+  ).toBe(1_801_000);
+});
+it("rejects deletion of signed diagnostics and unsupported correction fields", async () => {
+  const original = await convertScore({
+    bytes: await readFile("src/s-core/fixtures/import/repeat.musicxml"),
+    sourceName: "score.musicxml",
+    options: { mode: "PRESERVE" },
+  });
+  const payload = {
+    candidate: original.candidate,
+    issues: original.issues,
+    metadata: original.metadata,
+  };
+  const input = {
+    originalCandidate: payload.candidate,
+    originalIssues: payload.issues,
+    metadata: payload.metadata,
+    previewToken: signPreview("alice", payload, secret, 1000),
+    corrections: [{ kind: "NOTE", index: 0, pitch: 62 }],
+  };
+  expect(() =>
+    revalidateImport("alice", { ...input, originalIssues: [] }, secret, 2000),
+  ).toThrow("INVALID_PREVIEW_TOKEN");
+  expect(() =>
+    revalidateImport(
+      "alice",
+      {
+        ...input,
+        corrections: [{ kind: "NOTE", index: 0, canPractice: true }],
+      },
+      secret,
+      2000,
+    ),
+  ).toThrow();
+  expect(
+    revalidateImport("alice", input, secret, 2000).validation.canPractice,
+  ).toBe(false);
+});

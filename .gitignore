@@ -42,3 +42,9 @@ next-env.d.ts
 
 /src/generated/prisma
 /src/generated/zod
+
+# Local score repositories and temporary files
+/var/
+/dist/
+*.log
+*.tmp

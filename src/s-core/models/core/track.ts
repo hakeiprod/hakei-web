@@ -5,6 +5,7 @@ export class Track extends Core.Event {
   readonly id;
   name;
   preset;
+  sourceTrack;
   score!: Core.Score;
   get notes() {
     return this.score.notes.filter((note) => note.trackId === this.id);
@@ -19,16 +20,20 @@ export class Track extends Core.Event {
     id,
     name = "",
     preset,
-    ...event
+    sourceTrack,
   }: {
     id: number;
     name?: string;
     preset: Core.Units.Preset;
+    sourceTrack?: number;
   }) {
-    super(event);
+    // Track bounds are derived from its notes. Serialized numbers must not be
+    // passed into Event, whose constructor expects Beat value objects.
+    super({});
     this.id = id;
     this.name = name;
     this.preset = preset;
+    this.sourceTrack = sourceTrack;
   }
   serialize() {
     return {
@@ -36,6 +41,9 @@ export class Track extends Core.Event {
       id: this.id,
       name: this.name,
       preset: this.preset.value,
+      ...(this.sourceTrack === undefined
+        ? {}
+        : { sourceTrack: this.sourceTrack }),
     };
   }
   export() {

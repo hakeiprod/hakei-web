@@ -3,7 +3,7 @@ import { firstBy, prop } from "remeda";
 import * as Audio from ".";
 import * as Core from "../core";
 import { MidiNoteNumber } from "../core/units";
-import { PositiveIntSchema } from "../validator";
+import { NonNegativeIntSchema } from "../validator";
 
 type Events = {
   changeGain: Audio.Units.Gain;
@@ -21,7 +21,7 @@ export class Track extends Core.Track {
       (sort) =>
         firstBy(
           this.notes.filter(
-            (note) => PositiveIntSchema.safeParse(note.pitch.value).success,
+            (note) => NonNegativeIntSchema.safeParse(note.pitch.value).success,
           ),
           [prop("pitch", "value"), sort],
         )!.pitch,

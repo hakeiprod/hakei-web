@@ -6,9 +6,7 @@ import { Score } from "../../../sheet";
 
 const directory = "src/s-core/fixtures/files/musicxml";
 const entries = await readdir(directory);
-const fixtures = entries
-  .filter((name) => name.endsWith(".mxl"))
-  .toSorted();
+const fixtures = entries.filter((name) => name.endsWith(".mxl")).toSorted();
 
 beforeEach(() => vi.spyOn(console, "log").mockImplementation(() => {}));
 afterEach(() => vi.restoreAllMocks());

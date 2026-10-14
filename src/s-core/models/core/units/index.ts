@@ -5,3 +5,6 @@ export * from "./pitch-class-name";
 export * from "./preset";
 export * from "./scientific-pitch-notation";
 export * from "./tempo";
+
+export * from "./microseconds";
+export * from "./time-offset";

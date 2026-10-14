@@ -18,7 +18,7 @@ export default class Soundfont2 {
     public imod: Modulator[],
     public igen: Generator[],
     public shdr: SampleHeader[],
-    public smpl: Uint8Array
+    public smpl: Uint8Array,
   ) {}
   getPreset(preset: number) {
     return Preset.create(this, preset);

@@ -9,10 +9,15 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
-    "generate:mxl": "npx tsx src/s-core/models/files/xsd/extensions/to-json-schema.ts"
+    "generate:mxl": "npx tsx src/s-core/models/files/xsd/extensions/to-json-schema.ts",
+    "test:integration": "vitest run --config vitest.integration.config.mts",
+    "build:import-worker": "node scripts/build-import-worker.mjs",
+    "prebuild": "npm run build:import-worker",
+    "predev": "npm run build:import-worker",
+    "pretest:integration": "npm run build:import-worker"
   },
   "dependencies": {
-    "@auth/prisma-adapter": "^2.11.1",
+    "@auth/prisma-adapter": "2.11.3",
     "@heroui/autocomplete": "^2.3.29",
     "@heroui/button": "^2.2.27",
     "@heroui/card": "^2.2.25",
@@ -39,9 +44,10 @@
     "jotai": "^2.15.1",
     "jszip": "^3.10.1",
     "lucide-react": "^0.548.0",
+    "midi-file": "1.2.4",
     "mitt": "^3.0.1",
-    "next": "16.0.1",
-    "next-auth": "^5.0.0-beta.30",
+    "next": "16.4.0",
+    "next-auth": "5.0.0-beta.32",
     "nuqs": "^2.7.2",
     "pixi.js": "^8.14.3",
     "react": "19.2.0",
@@ -66,8 +72,9 @@
     "@types/react-dom": "^19",
     "@types/xml2js": "^0.4.14",
     "@vitejs/plugin-react": "^5.1.0",
+    "esbuild": "0.28.2",
     "eslint": "^9.39.0",
-    "eslint-config-next": "16.0.1",
+    "eslint-config-next": "16.4.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-unicorn": "^62.0.0",
     "jsdom": "^27.1.0",
@@ -81,5 +88,8 @@
     "typescript": "^5",
     "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^4.0.6"
+  },
+  "engines": {
+    "node": ">=22 <23"
   }
 }

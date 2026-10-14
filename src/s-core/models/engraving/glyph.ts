@@ -1,11 +1,7 @@
 import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
 import * as SMUFL from "../smufl/metadata";
-import {
-  Barline,
-  Clef,
-  NormalType,
-} from "../../const/musicxml/4.0/musicxml";
+import { Barline, Clef, NormalType } from "../../const/musicxml/4.0/musicxml";
 import { BoundingBox } from "../boundingbox";
 import * as Sheet from "../sheet";
 

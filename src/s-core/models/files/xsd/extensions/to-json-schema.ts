@@ -1,7 +1,6 @@
 import { JSONSchema, compile } from "json-schema-to-typescript";
 import fs from "node:fs";
 import * as R from "remeda";
-import { isNonNullish, isNullish } from "remeda";
 import { SetRequired } from "type-fest";
 import * as xml2js from "xml2js";
 
@@ -391,7 +390,10 @@ function handleSequence(
           groups ?? [],
           R.map((group) => handleGroup(group, preserveChildrenOrder)),
         ),
-        ...R.pipe(choices ?? [], R.map(handleChoice)),
+        ...R.pipe(
+          choices ?? [],
+          R.map((choice) => handleChoice(choice)),
+        ),
         ...R.pipe(
           sequence ?? [],
           R.map((sequence) => handleSequence(sequence, preserveChildrenOrder)),
@@ -463,13 +465,17 @@ function handleChoice(
       ...(elements && {
         oneOf: R.pipe(
           elements ?? [],
-          R.map(
-            (element) =>
-              handleElement({
-                ...element,
-                $: { ...element.$, minOccurs, maxOccurs },
-              }).items,
-          ),
+          R.flatMap((element) => {
+            const items = handleElement({
+              ...element,
+              $: { ...element.$, minOccurs, maxOccurs },
+            }).items;
+            return items === undefined
+              ? []
+              : Array.isArray(items)
+                ? items
+                : [items];
+          }),
         ),
       }),
     };
@@ -485,12 +491,18 @@ function handleChoice(
         ),
         R.map(({ title, ...other }) => ({ properties: { [title]: other } })),
       ),
-      ...R.pipe(groups ?? [], R.map(handleGroup)),
+      ...R.pipe(
+        groups ?? [],
+        R.map((group) => handleGroup(group)),
+      ),
       ...R.pipe(
         sequence ?? [],
         R.map((sequence) => handleSequence(sequence, false)),
       ),
-      ...R.pipe(choices ?? [], R.map(handleChoice)),
+      ...R.pipe(
+        choices ?? [],
+        R.map((choice) => handleChoice(choice)),
+      ),
     ],
   };
 }

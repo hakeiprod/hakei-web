@@ -12,7 +12,7 @@ export default class Preset {
     public header: Header,
     public bags: Bag[],
     public globalGenerators: Generator[],
-    public instruments: Instrument[]
+    public instruments: Instrument[],
   ) {}
   static create = create;
 }

@@ -16,7 +16,7 @@ import {
 import { match } from "ts-pattern";
 import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import * as Core from "../core";
-import { PositiveIntSchema } from "../validator";
+import { NonNegativeIntSchema } from "../validator";
 import { Beat, MidiNoteNumber } from "./units";
 export class Score<
   Note extends Core.Note = Core.Note,
@@ -36,7 +36,9 @@ export class Score<
       (sort) =>
         firstBy(
           this.notes.filter(
-            (note) => PositiveIntSchema.safeParse(note.pitch.value).success,
+            (note) =>
+              NonNegativeIntSchema.safeParse(note.pitch.value).success &&
+              !("rest" in note && note.rest === true),
           ),
           [prop("pitch", "value"), sort],
         )!.pitch,

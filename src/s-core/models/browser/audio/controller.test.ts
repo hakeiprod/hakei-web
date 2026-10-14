@@ -1,6 +1,8 @@
 import mitt from "mitt";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import * as Audio from "../../audio";
+import { Seconds } from "../../files/soundfont2/units/seconds";
+import { MidiNoteNumber } from "../../core/units";
 import type Soundfont2 from "../../files/soundfont2";
 
 // Keep the Web Audio mock inside the hoisted setup so it exists before imports.
@@ -33,6 +35,8 @@ vi.mock("./synth", () => ({
     gain = { connect: vi.fn(), disconnect: vi.fn() };
     clearAllScheduled = vi.fn();
     dispose = vi.fn();
+    noteOn = vi.fn();
+    noteOff = vi.fn();
     constructor(public options: { track: Audio.Track }) {}
     get track() {
       return this.options.track;
@@ -46,7 +50,16 @@ function setup() {
   const track = {
     id: 0,
     preset: { value: 0 },
-    notes: [],
+    notes: [
+      {
+        pitch: new MidiNoteNumber(60),
+        start: { toSeconds: () => new Seconds(0) },
+        end: { toSeconds: () => new Seconds(0.5) },
+        tempo: { value: 120 },
+        emitter: mitt(),
+        isLast: true,
+      },
+    ],
     isMute: false,
     gain: new Audio.Units.Gain(0.4),
     emitter: mitt<{ changeGain: Audio.Units.Gain; changeMute: boolean }>(),
@@ -121,4 +134,60 @@ describe("playback lifetime", () => {
     expect(controller.timer.elapsedSeconds.value).toBe(0);
     controller.unmount();
   });
+});
+
+test("schedules the shared microsecond timeline and does not retrigger a merged tie", () => {
+  const { controller } = setup();
+  controller.playTimeline(
+    {
+      bars: [{ barNumber: 1, startUs: 0, endUs: 2_000_000 }],
+      durationUs: 2_000_000,
+      rangeStartBeat: 0,
+      rangeEndBeat: 4,
+      notes: [
+        {
+          noteId: "lead",
+          trackId: 0,
+          barNumber: 1,
+          pitch: 60,
+          onsetUs: 250_000,
+          durationUs: 1_500_000,
+        },
+      ],
+      continuations: [
+        {
+          noteId: "tie",
+          continuedFrom: "lead",
+          trackId: 0,
+          pitch: 60,
+          onsetUs: 1_000_000,
+          durationUs: 500_000,
+        },
+        {
+          noteId: "sustain",
+          trackId: 0,
+          pitch: 62,
+          onsetUs: 0,
+          durationUs: 500_000,
+        },
+      ],
+    },
+    10,
+  );
+  const synth = controller.synths[0];
+  expect(synth.noteOn).toHaveBeenCalledTimes(2);
+  expect(synth.noteOn).toHaveBeenNthCalledWith(
+    1,
+    new MidiNoteNumber(60),
+    10.25,
+  );
+  expect(synth.noteOff).toHaveBeenNthCalledWith(
+    1,
+    new MidiNoteNumber(60),
+    11.75,
+  );
+  expect(synth.noteOn).toHaveBeenNthCalledWith(2, new MidiNoteNumber(62), 10);
+  controller.unmount();
+  expect(synth.clearAllScheduled).toHaveBeenCalled();
+  expect(controller.audioContext.close).toHaveBeenCalledOnce();
 });

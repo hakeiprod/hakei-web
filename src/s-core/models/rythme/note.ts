@@ -28,6 +28,7 @@ export class Note extends Sheet.Note {
     return new Engraving.Glyph(
       Engraving.Glyph.findNotehead(this.type),
       Sheet.ElementType.Notehead,
+      0,
     );
   }
   static import(data: ReturnType<Note["export"]>) {
