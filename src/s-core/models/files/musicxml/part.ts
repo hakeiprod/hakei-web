@@ -35,8 +35,7 @@ export class Part {
     let measureStart = 0;
     let nominalDuration: number | undefined;
     for (const measure of this.measures) {
-      nominalDuration =
-        measure.declaredNominalDuration ?? nominalDuration;
+      nominalDuration = measure.declaredNominalDuration ?? nominalDuration;
       measure.setTimeline(measureStart, nominalDuration);
       measureStart = measure.end;
     }

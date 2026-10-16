@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "fixtures": [
+    {
+      "path": "quarter.musicxml",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [
+          60,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "path": "quarter.mxl",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [
+          60,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "path": "quarter.mid",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [
+          60,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "path": "quarter-format1.mid",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [
+          60,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "path": "quarter-core.json",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [
+          60,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "path": "quarter-sheet.json",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [
+          60,
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "path": "unsupported-version.musicxml",
+      "outcome": "FATAL",
+      "error": "UNSUPPORTED_FORMAT"
+    },
+    {
+      "path": "truncated.mid",
+      "outcome": "FATAL",
+      "error": "INVALID_MIDI"
+    },
+    {
+      "path": "repeat.musicxml",
+      "outcome": "BLOCKING",
+      "code": "UNSUPPORTED_REPEAT"
+    },
+    {
+      "path": "missing-duration.musicxml",
+      "outcome": "PARTIAL",
+      "code": "MISSING_DURATION"
+    },
+    {
+      "path": "overlap.mid",
+      "outcome": "BLOCKING",
+      "code": "MIDI_OVERLAPPING_SAME_PITCH"
+    },
+    {
+      "path": "quantize-boundary.mid",
+      "outcome": "PLAYABLE",
+      "options": {
+        "mode": "QUANTIZE",
+        "grid": "1/2"
+      },
+      "notes": [
+        [
+          60,
+          0,
+          0.5
+        ]
+      ]
+    }
+  ]
+}

@@ -6,6 +6,8 @@ declare global {
     getCurrentSeconds: () => Seconds;
   }
 }
-AudioContext.prototype.getCurrentSeconds = function () {
-  return new Seconds(this.currentTime);
-};
+if (typeof AudioContext !== "undefined") {
+  AudioContext.prototype.getCurrentSeconds = function () {
+    return new Seconds(this.currentTime);
+  };
+}

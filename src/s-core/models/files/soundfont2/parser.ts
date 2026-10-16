@@ -55,7 +55,7 @@ const rangesParser = BinaryParser.start().int8("lo").int8("hi");
 const shAmountParser = BinaryParser.start().int16le("amount");
 const wAmountParser = BinaryParser.start().uint16le("amount");
 const findGenerator = (
-  name: NonNullable<Metadata["generators"][number]>["name"]
+  name: NonNullable<Metadata["generators"][number]>["name"],
 ) => Metadata["generators"].findIndex((generator) => generator?.name === name);
 export const generatorParser = (lengthInBytes: number) =>
   new BinaryParser().array("data", {

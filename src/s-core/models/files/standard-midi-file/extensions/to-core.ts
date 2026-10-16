@@ -1,80 +1,94 @@
-import { isEmpty, isNonNullish, omit, reduce } from "remeda";
 import * as Midi from "..";
 import * as Core from "../../../core";
-
-export const toCore = (data: Midi.IMidi) => {
-  if (process.env.NODE_ENV === "development") console.log({ midi: data });
-  const parameters = reduce(
-    data.mtrks,
-    (trackAccumulator, trackCurrent) => {
-      const { notes, name } = reduce(
-        trackCurrent.events,
-        (accumulator, current) => {
-          accumulator.time += Midi.calcDuration(
-            current.deltaTime,
-            data.mthd.resolution
-          );
-          if (Midi.isMetaEvent(current)) {
-            if (isNonNullish(current.event.timeSignature))
-              trackAccumulator.timesignatures?.push({
-                ...omit(current.event.timeSignature, ["clock", "bb"]),
-                start: accumulator.time,
-              });
-            if (isNonNullish(current.event.tempo))
-              trackAccumulator.tempos?.push({
-                value: new Midi.Unit.MidiTempo(current.event.tempo).toTempo()
-                  .value,
-                start: accumulator.time,
-              });
-            if (isNonNullish(current.event.keySignature))
-              trackAccumulator.keysignatures?.push({
-                tonality:
-                  current.event.keySignature.mi === 0
-                    ? Core.Enums.Tonality.Major
-                    : Core.Enums.Tonality.Minor,
-                accidental: current.event.keySignature.sf,
-                start: accumulator.time,
-              });
-            if (
-              isNonNullish(current.event.trackName) &&
-              current.event.trackName
-            )
-              accumulator.name = current.event.trackName;
-          }
-          if (Midi.isNoteOffEvent(current)) {
-            const note = accumulator.notes.findLast(
-              (note) => note.pitch === current.event.pitch
-            );
-            if (note) note.end = accumulator.time;
-          } else if (Midi.isNoteOnEvent(current))
-            accumulator.notes.push({
-              velocity: current.event.velocity,
-              pitch: current.event.pitch,
-              start: accumulator.time,
-            });
-          return accumulator;
-        },
-        { notes: [], time: 0 } as {
-          notes: Parameters<
-            typeof Core.Score.create
-          >[0]["tracks"][number]["notes"];
-          time: number;
-          name?: string;
-        }
-      );
-      if (isEmpty(notes)) return trackAccumulator;
-      trackAccumulator.tracks.push({ notes, name });
-
-      return trackAccumulator;
-    },
-    {
-      tracks: [],
-      keysignatures: [],
-      timesignatures: [],
-      tempos: [],
-      name: undefined,
-    } as Parameters<typeof Core.Score.create>[0]
+import { keyAccidentalSchema } from "../../../core/key-accidental";
+function normalized<T extends { start?: number }>(items: T[] | undefined) {
+  const byTime = new Map<number, T>();
+  for (const item of items ?? []) byTime.set(item.start ?? 0, item);
+  return [...byTime.values()].toSorted(
+    (a, b) => (a.start ?? 0) - (b.start ?? 0),
   );
-
+}
+/** Extract in absolute ticks. Open notes are paired by track/channel/pitch, in onset order. */
+export const toCore = (data: Midi.IMidi) => {
+  const parameters: Parameters<typeof Core.Score.create>[0] = {
+    tracks: [],
+    keysignatures: [],
+    timesignatures: [],
+    tempos: [],
+  };
+  for (const [sourceTrack, track] of data.mtrks.entries()) {
+    let ticks = 0,
+      name = "",
+      preset = 0;
+    const notes: Parameters<
+      typeof Core.Score.create
+    >[0]["tracks"][number]["notes"] = [];
+    const open = new Map<string, typeof notes>();
+    for (const current of track.events) {
+      ticks += current.deltaTime;
+      if (!Number.isSafeInteger(ticks)) throw new Error("INVALID_MIDI_TIME");
+      const time = ticks / data.mthd.resolution;
+      if (Midi.isMetaEvent(current)) {
+        if (current.event.timeSignature)
+          parameters.timesignatures!.push({
+            start: time,
+            numerator: current.event.timeSignature.numerator,
+            denominator: current.event.timeSignature.denominator,
+          });
+        if (current.event.tempo !== undefined)
+          parameters.tempos!.push({
+            start: time,
+            value: new Midi.Unit.MidiTempo(current.event.tempo).toTempo().value,
+          });
+        if (current.event.keySignature)
+          parameters.keysignatures!.push({
+            start: time,
+            accidental: keyAccidentalSchema.parse(
+              current.event.keySignature.sf,
+            ),
+            tonality:
+              current.event.keySignature.mi === 0
+                ? Core.Enums.Tonality.Major
+                : Core.Enums.Tonality.Minor,
+          });
+        if (current.event.trackName) name = current.event.trackName;
+      } else if (
+        current.statusByte.type === 12 &&
+        "program" in current.event &&
+        current.event.program !== undefined &&
+        notes.length === 0
+      )
+        preset = current.event.program;
+      if (Midi.isNoteOffEvent(current)) {
+        const key = `${current.statusByte.channel}:${current.event.pitch}`;
+        const pending = open.get(key);
+        const note = pending?.shift();
+        if (!note) throw new Error("MIDI_UNMATCHED_NOTE_OFF");
+        if (time <= note.start!) throw new Error("MIDI_NONPOSITIVE_DURATION");
+        note.end = time;
+        note.duration = time - note.start!;
+      } else if (Midi.isNoteOnEvent(current)) {
+        const key = `${current.statusByte.channel}:${current.event.pitch}`;
+        const note = {
+          id: notes.length,
+          pitch: current.event.pitch,
+          velocity: current.event.velocity,
+          start: time,
+          channel: current.statusByte.channel,
+        };
+        notes.push(note);
+        const pending = open.get(key) ?? [];
+        pending.push(note);
+        open.set(key, pending);
+      }
+    }
+    if ([...open.values()].some((pending) => pending.length > 0))
+      throw new Error("MIDI_UNCLOSED_NOTE");
+    if (notes.length > 0)
+      parameters.tracks.push({ name, preset, sourceTrack, notes });
+  }
+  parameters.tempos = normalized(parameters.tempos);
+  parameters.timesignatures = normalized(parameters.timesignatures);
+  parameters.keysignatures = normalized(parameters.keysignatures);
   return Core.Score.create(parameters);
 };

@@ -1,0 +1,142 @@
+{
+  "notes": [
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "id": 0,
+      "trackId": 0,
+      "staveId": 0,
+      "chordId": 0,
+      "pitch": 60,
+      "velocity": 90,
+      "rest": false,
+      "voice": 1,
+      "stem": {
+        "_": "up"
+      }
+    },
+    {
+      "start": 1,
+      "duration": 3,
+      "end": 4,
+      "id": 1,
+      "trackId": 0,
+      "staveId": 0,
+      "chordId": 1,
+      "pitch": 0,
+      "velocity": 0,
+      "rest": true,
+      "voice": 1
+    }
+  ],
+  "tracks": [
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "id": 0,
+      "name": "Piano",
+      "preset": 0,
+      "staffDetails": {
+        "staff-lines": [
+          {
+            "_": 5
+          }
+        ]
+      }
+    }
+  ],
+  "timesignatures": [
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "numerator": 4,
+      "denominator": 4
+    }
+  ],
+  "keysignatures": [
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "accidental": 0,
+      "tonality": 0
+    }
+  ],
+  "tempos": [
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "value": 120
+    }
+  ],
+  "bars": [
+    {
+      "id": 0,
+      "trackId": 0
+    }
+  ],
+  "masterbars": [
+    {
+      "start": 0,
+      "duration": 4,
+      "end": 4,
+      "id": 0,
+      "barline": {}
+    }
+  ],
+  "staves": [
+    {
+      "id": 0,
+      "trackId": 0,
+      "barId": 0,
+      "clefs": [
+        {
+          "sign": [
+            {
+              "_": "G"
+            }
+          ],
+          "line": [
+            {
+              "_": 2
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "chords": [
+    {
+      "id": 0
+    },
+    {
+      "id": 1
+    }
+  ],
+  "slots": [
+    {
+      "start": 0,
+      "duration": 0,
+      "end": 0,
+      "beat": {
+        "value": 0
+      }
+    },
+    {
+      "start": 1,
+      "duration": 0,
+      "end": 1,
+      "beat": {
+        "value": 1
+      }
+    }
+  ],
+  "rows": [],
+  "start": 0,
+  "end": 4,
+  "name": ""
+}

@@ -21,7 +21,6 @@ export default class MusicXML {
       ["score-partwise"]: MXLScorePartwise[0];
     },
   ) {
-    console.log(this.data);
     this.scorePartwise = new ScorePartwise(data["score-partwise"], this);
   }
   toSheet = toSheet;

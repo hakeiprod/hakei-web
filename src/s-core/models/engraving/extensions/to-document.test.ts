@@ -16,7 +16,9 @@ const fixtures = import.meta.glob("../../../fixtures/core/*.json", {
   import: "default",
 }) as Record<string, Parameters<typeof Core.Score.create>[0]>;
 
-function prepare(data: Parameters<typeof Core.Score.create>[0]): Engraving.Score {
+function prepare(
+  data: Parameters<typeof Core.Score.create>[0],
+): Engraving.Score {
   const score = Engraving.Score.import(
     Core.Score.create(structuredClone(data)).toSheet().export(),
   );

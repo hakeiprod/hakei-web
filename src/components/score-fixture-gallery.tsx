@@ -95,6 +95,8 @@ function ScoreFixtureCard({
       if (!svg) throw new Error("Renderer returned no SVG");
 
       containerElement?.replaceChildren(svg);
+      // Report the outcome of synchronizing the external SVG renderer with the DOM.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setRenderState({ status: "ready" });
     } catch (error) {
       setRenderState({

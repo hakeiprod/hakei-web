@@ -5,7 +5,7 @@ export class Tempo extends Core.Event {
   constructor(
     tempo: { value: Core.Units.Tempo } & ConstructorParameters<
       typeof Core.Event
-    >[0]
+    >[0],
   ) {
     super(tempo);
     this.value = tempo.value;

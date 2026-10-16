@@ -59,10 +59,20 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  serviceRole   String @default("USER")
+  authVersion Int @default(0)
+  emailIdentity EmailIdentity?
+  passwordCredential PasswordCredential?
+  authSessionRecords AuthSessionRecord[]
+  reauthIntents ReauthIntent[]
+  authChangeEvents AuthChangeEvent[]
+  oauthCreationReceipts OAuthCreationReceipt[]
   accounts      Account[]
   sessions      Session[]
  
   @@map("users")
+ practiceSessions PracticeSession[]
+ achievements Achievement[]
 }
  
 model VerificationToken {
@@ -120,5 +130,423 @@ enum ResourceUnionType {
 
 model Score {
   id        Int      @id @default(autoincrement())
-  data      Json
+  data      Json?
+  repositoryId String?
+  currentRevisionId String?
+  archivedAt DateTime?
+  @@index([repositoryId])
+}
+model ScoreRepository {
+ id String @id @default(cuid())
+ name String
+ ownerId String?
+ visibility String @default("PRIVATE")
+ editScope String @default("INVITED")
+ accessVersion Int @default(0)
+ gitStorageKey String @unique
+ acceptedCommitOid String?
+ acceptedGeneration Int @default(0)
+ syncState String @default("READY")
+ archivedAt DateTime?
+ createdAt DateTime @default(now())
+}
+model RepositoryMember {
+ repositoryId String
+ userId String
+ role String
+ canMerge Boolean @default(false)
+ @@id([repositoryId,userId])
+}
+model ScoreRevision {
+ id String @id @default(cuid())
+ scoreId Int
+ number Int
+ repositoryId String
+ commitOid String
+ path String
+ dataHash String
+ dataFormatVersion String
+ authorId String?
+ proposalId String?
+ createdAt DateTime @default(now())
+ @@unique([scoreId,number])
+ @@index([repositoryId,commitOid])
+ importMetadata ImportMetadata?
+ revisionValidation RevisionValidation?
+ conversionIssues ConversionIssue[]
+ practiceSessions PracticeSession[]
+}
+model MutationReceipt {
+ id String @id @default(cuid())
+ actorId String
+ operation String
+ key String
+ payloadHash String
+ repositoryId String?
+ scoreId Int?
+ proposalId String?
+ expectedRepositoryOid String?
+ expectedRevisionId String?
+ preparedCommitOid String?
+ preparedRef String?
+ stage String @default("CLAIMED")
+ status String @default("PREPARING")
+ result Json?
+ leaseOwner String?
+ leaseUntil DateTime?
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@unique([actorId,operation,key])
+}
+model GitPublicationJob {
+ id String @id @default(cuid())
+ operationId String @unique
+ repositoryId String
+ expectedOldOid String?
+ targetOid String
+ generation Int
+ status String @default("PENDING")
+ attempts Int @default(0)
+ lastError String?
+ createdAt DateTime @default(now())
+}
+model AuditEvent {
+ id String @id @default(cuid())
+ actorId String
+ entityType String
+ entityId String
+ action String
+ before Json?
+ after Json?
+ reason String
+ createdAt DateTime @default(now())
+}
+
+model EditProposal {
+ id String @id @default(cuid())
+ scoreId Int
+ baseRevisionId String
+ baseRepositoryCommitOid String
+ proposalCommitOid String
+ proposalRef String
+ authorId String
+ summary String
+ status String @default("DRAFT")
+ version Int @default(0)
+ createdAt DateTime @default(now())
+ updatedAt DateTime @updatedAt
+ @@index([scoreId,status])
+}
+model MergeRecord {
+ id String @id @default(cuid())
+ proposalId String @unique
+ revisionId String @unique
+ actorId String
+ occurredAt DateTime @default(now())
+ authorizationKind String
+ trustScore Float?
+ threshold Float?
+ ruleVersion Int?
+ accessVersion Int
+}
+model TrustRuleVersion {
+ id String @id @default(cuid())
+ version Int @unique
+ initialScore Float
+ wAdmin Float
+ wOutcome Float
+ wReview Float
+ acceptedDelta Float
+ rejectedDelta Float
+ reviewFactor Float
+ minReview Float
+ maxReview Float
+ minScore Float
+ maxScore Float
+ mergeThreshold Float
+ status String @default("DRAFT")
+ operatorId String
+ reason String
+ createdAt DateTime @default(now())
+}
+model TrustPolicyState {
+ singletonId String @id
+ activeRuleId String?
+ version Int @default(0)
+}
+model TrustEvent {
+ id String @id @default(cuid())
+ userId String
+ type String
+ sourceId String @unique
+ actorId String
+ value Float
+ reason String
+ createdAt DateTime @default(now())
+ @@index([userId,type])
+}
+model UserTrustReview {
+ id String @id @default(cuid())
+ reviewerId String
+ targetId String
+ value Float
+ version Int @default(0)
+ updatedAt DateTime @updatedAt
+ @@unique([reviewerId,targetId])
+ @@index([targetId])
+}
+model UserTrustState {
+ userId String @id
+ inputVersion Int @default(0)
+}
+model TrustSnapshot {
+ userId String @id
+ ruleId String
+ inputVersion Int
+ score Float
+ calculatedAt DateTime @default(now())
+}
+
+// Projections of immutable settings/diagnostics/validation files in a score Git revision.
+model ImportMetadata {
+  revisionId String @id
+  format String
+  formatVersion String
+  converterVersion String
+  mode String
+  grid String?
+  sourceName String?
+  warningAcknowledgedAt DateTime?
+ revision ScoreRevision @relation(fields: [revisionId], references: [id], onDelete: Cascade)
+}
+model ConversionIssue {
+  id String @id @default(cuid())
+  revisionId String
+  issueId String
+  code String
+  severity String
+  fieldPath String?
+  bar Int?
+  track Int?
+  message String
+  status String
+  @@unique([revisionId, issueId])
+  @@index([revisionId, severity, status])
+ revision ScoreRevision @relation(fields: [revisionId], references: [id], onDelete: Cascade)
+}
+model RevisionValidation {
+  revisionId String @id
+  validatorVersion String
+  canPractice Boolean
+  canGame Boolean
+  unresolvedIssueIds String[]
+ revision ScoreRevision @relation(fields: [revisionId], references: [id], onDelete: Cascade)
+}
+
+// Shared admission lease: metadata only, never original upload bytes.
+model ImportConversionLease {
+  userId String @id
+  leaseId String @unique
+  expiresAt DateTime
+  @@index([expiresAt])
+}
+
+model EvaluationRuleVersion {
+ id String @id
+ version Int @unique
+ practiceWindowUs Int
+ perfectWindowUs Int
+ goodWindowUs Int
+ weights Json
+ extraPenalty Float
+ status String
+ createdAt DateTime @default(now())
+ sessions PracticeSession[]
+}
+model PracticeSession {
+ id String @id @default(cuid())
+ userId String
+ clientSessionId String
+ scoreRevisionId String
+ trackId Int
+ rangeStartBar Int
+ rangeEndBar Int
+ tempoScale Float
+ calibrationUs Int
+ mode String
+ status String @default("CREATED")
+ ruleId String
+ startedAt DateTime @default(now())
+ endedAt DateTime?
+ endedUs Int?
+ deviceLabel String?
+ comparisonKey String
+ submissionHash String?
+ createdAt DateTime @default(now())
+ user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+ scoreRevision ScoreRevision @relation(fields:[scoreRevisionId],references:[id],onDelete:Restrict)
+ rule EvaluationRuleVersion @relation(fields:[ruleId],references:[id],onDelete:Restrict)
+ eventBatches PerformanceEventBatch[]
+ evaluation EvaluationResult?
+ achievements Achievement[]
+ @@unique([userId,clientSessionId])
+ @@index([userId,comparisonKey,status,startedAt])
+}
+model PerformanceEventBatch {
+ id String @id @default(cuid())
+ sessionId String
+ batchIndex Int
+ events Json
+ checksum String
+ session PracticeSession @relation(fields:[sessionId],references:[id],onDelete:Cascade)
+ @@unique([sessionId,batchIndex])
+}
+model EvaluationResult {
+ sessionId String @id
+ algorithmVersion String
+ summary Json
+ perNote Json
+ perBar Json
+ score Float?
+ meanAbsTimingUs Float?
+ computedAt DateTime @default(now())
+ session PracticeSession @relation(fields:[sessionId],references:[id],onDelete:Cascade)
+}
+
+model Achievement {
+ id String @id @default(cuid())
+ userId String
+ type String
+ comparisonKey String
+ sessionId String
+ user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+ session PracticeSession @relation(fields:[sessionId],references:[id],onDelete:Cascade)
+ @@unique([sessionId,type])
+ @@index([userId,comparisonKey])
+}
+
+
+model EmailIdentity {
+  id String @id @default(cuid())
+  normalizedEmail String @unique
+  userId String? @unique
+  state String @default("PENDING")
+  createdAt DateTime @default(now())
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+  heads AuthChallengeHead[]
+}
+model PasswordCredential {
+  userId String @id
+  passwordHash String @db.Text
+  version Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+model AuthChallengeHead {
+  id String @id @default(cuid())
+  identityId String
+  purpose String
+  generation Int @default(0)
+  identity EmailIdentity @relation(fields: [identityId], references: [id], onDelete: Cascade)
+  challenges AuthChallenge[]
+  @@unique([identityId, purpose])
+}
+model AuthChallenge {
+  id String @id @default(cuid())
+  headId String
+  generation Int
+  tokenDigest String @unique
+  userId String?
+  emailSnapshot String
+  authVersion Int?
+  issuerSid String?
+  reauthIntentId String?
+  expiresAt DateTime
+  consumedAt DateTime?
+  revokedAt DateTime?
+  sendStatus String @default("PENDING")
+  createdAt DateTime @default(now())
+  head AuthChallengeHead @relation(fields: [headId], references: [id], onDelete: Cascade)
+  @@index([userId])
+  @@index([expiresAt])
+}
+model AuthSessionRecord {
+  sid String @id
+  userId String
+  authVersion Int
+  method String
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  revokedAt DateTime?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, authVersion])
+  @@index([expiresAt])
+}
+model ReauthIntent {
+  id String @id @default(cuid())
+  userId String
+  originSid String
+  currentSid String
+  authVersion Int
+  providerAccountId String
+  requestedAt DateTime @default(now())
+  completedAt DateTime?
+  expiresAt DateTime
+  consumedAt DateTime?
+  revokedAt DateTime?
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([userId, currentSid])
+  @@index([expiresAt])
+}
+model AuthRateWindow {
+  id String @id @default(cuid())
+  kind String
+  keyDigest String
+  windowStart DateTime
+  windowEnd DateTime
+  limitSnapshot Int
+  count Int @default(0)
+  mailboxAttempts AuthAttempt[] @relation("MailboxWindow")
+  sourceAttempts AuthAttempt[] @relation("SourceWindow")
+  @@unique([kind, keyDigest, windowStart])
+  @@index([windowEnd])
+}
+model AuthAttempt {
+  id String @id @default(cuid())
+  mailboxWindowId String
+  sourceWindowId String
+  status String @default("PENDING")
+  deadline DateTime
+  mailboxWindow AuthRateWindow @relation("MailboxWindow", fields: [mailboxWindowId], references: [id], onDelete: Cascade)
+  sourceWindow AuthRateWindow @relation("SourceWindow", fields: [sourceWindowId], references: [id], onDelete: Cascade)
+  @@index([status, deadline])
+}
+model AuthChangeEvent {
+  id String @id @default(cuid())
+  userId String
+  type String
+  occurredAt DateTime @default(now())
+  requestId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  notice AuthNotice?
+}
+model AuthNotice {
+  eventId String @id
+  recipientSnapshot String
+  status String @default("PENDING")
+  attempts Int @default(0)
+  nextAttemptAt DateTime @default(now())
+  event AuthChangeEvent @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  @@index([status, nextAttemptAt])
+}
+model OAuthCreationReceipt {
+  provider String
+  providerAccountId String
+  userId String
+  status String @default("PENDING")
+  createdAt DateTime @default(now())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@id([provider, providerAccountId])
+  @@index([userId])
 }
