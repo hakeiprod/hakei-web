@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
@@ -52,6 +53,7 @@ export async function saveDraft(
   const summary = z.string().trim().min(1).max(2000).parse(input.summary);
   const operation = input.proposalId ? "UPDATE_DRAFT" : "CREATE_DRAFT";
   const preparation = await database.$transaction(async (transaction) => {
+    await verifyTransactionActor(transaction, input.actorId);
     const { score, access } = await editableScore(
       transaction,
       input.scoreId,
@@ -188,6 +190,7 @@ export async function saveDraft(
     });
     return await database.$transaction(
       async (transaction) => {
+        await verifyTransactionActor(transaction, input.actorId);
         const current = await editableScore(
           transaction,
           input.scoreId,
@@ -253,6 +256,7 @@ export async function submitProposal(
 ) {
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const proposal = await transaction.editProposal.findUniqueOrThrow({
         where: { id: input.proposalId },
       });
@@ -326,6 +330,7 @@ export async function closeProposal(
   if (!input.reason.trim()) throw new Error("REASON_REQUIRED");
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const proposal = await transaction.editProposal.findUniqueOrThrow({
         where: { id: input.proposalId },
       });

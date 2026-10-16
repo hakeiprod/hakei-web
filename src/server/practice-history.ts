@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import { z } from "zod";
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
@@ -239,6 +240,7 @@ export async function deletePractice(
   const hash = payloadHash({ sessionId: input.sessionId });
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, actorId);
       const receipt = await transaction.mutationReceipt.findUnique({
         where: {
           actorId_operation_key: {

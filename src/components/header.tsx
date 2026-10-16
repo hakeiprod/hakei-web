@@ -21,7 +21,10 @@ export function Header() {
           <Link href="/repositories">リポジトリ</Link>
           <Link href="/trust">信頼度</Link>
           {status === "authenticated" && (
-            <Link href="/practice/history">演奏履歴</Link>
+            <>
+              <Link href="/practice/history">演奏履歴</Link>
+              <Link href="/account/security">認証設定</Link>
+            </>
           )}
         </NavbarContent>
         <NavbarContent justify="end">
@@ -34,14 +37,18 @@ export function Header() {
               ログアウト
             </Button>
           ) : (
-            <Button
-              isDisabled={status === "loading"}
-              onPress={() => {
-                signIn();
-              }}
-            >
-              ログイン
-            </Button>
+            <>
+              <Link href="/auth/register">メールで登録</Link>
+              <Link href="/auth/reset">パスワードを再設定</Link>
+              <Button
+                isDisabled={status === "loading"}
+                onPress={() => {
+                  signIn();
+                }}
+              >
+                ログイン
+              </Button>
+            </>
           )}
         </NavbarContent>
       </Navbar>

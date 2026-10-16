@@ -6,7 +6,6 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
-import { File as NodeFile } from "node:buffer";
 import sheet from "@/s-core/fixtures/import/quarter-sheet.json";
 const { save, push } = vi.hoisted(() => ({ save: vi.fn(), push: vi.fn() }));
 vi.mock("next/navigation", () => ({
@@ -101,7 +100,6 @@ it("retains converted edits and mutation key after failed saves and releases the
   ).toBeNull();
 });
 it("reconverts the original file on option changes and aborts pending work on unmount", async () => {
-  vi.stubGlobal("File", NodeFile);
   const requests: { file: FormDataEntryValue | null; signal: AbortSignal }[] =
     [];
   const fetcher = vi.fn(async (_url: string, init: RequestInit) => {

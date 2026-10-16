@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
 import {
@@ -123,6 +124,7 @@ export async function publishTrustRule(
   if (!input.reason.trim()) throw new Error("REASON_REQUIRED");
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const actor = await transaction.user.findUniqueOrThrow({
         where: { id: input.actorId },
       });
@@ -196,6 +198,7 @@ export async function adjustTrust(
   if (!input.reason.trim()) throw new Error("REASON_REQUIRED");
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const actor = await transaction.user.findUniqueOrThrow({
         where: { id: input.actorId },
       });
@@ -262,6 +265,7 @@ export async function reviewUser(
     throw new Error("SELF_REVIEW_FORBIDDEN");
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       await transaction.user.findUniqueOrThrow({
         where: { id: input.actorId },
       });

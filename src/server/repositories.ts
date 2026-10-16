@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
@@ -27,6 +28,7 @@ export async function createRepository(
   const name = z.string().trim().min(1).max(200).parse(input.name);
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       await transaction.user.findUniqueOrThrow({
         where: { id: input.actorId },
       });
@@ -87,6 +89,7 @@ export async function updateRepository(
   const values = scopes.parse(input);
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const access = await repositoryAccess(
         transaction,
         input.repositoryId,
@@ -134,6 +137,7 @@ export async function setMember(
   z.enum(["ADMIN", "EDITOR", "VIEWER", "REMOVE"]).parse(input.role);
   return database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const access = await repositoryAccess(
         transaction,
         input.repositoryId,

@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import { z } from "zod";
 import type { Prisma, PrismaClient } from "@/generated/prisma/client";
@@ -73,6 +74,7 @@ async function authorize(
   repositoryId: string,
   scoreId: number,
 ) {
+  await verifyTransactionActor(transaction, actorId);
   await repositoryAccess(transaction, repositoryId, actorId);
   const score = await transaction.score.findUnique({ where: { id: scoreId } });
   if (!score || score.archivedAt || score.repositoryId !== repositoryId)

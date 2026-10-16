@@ -14,7 +14,7 @@
 | AuthRateWindow     | kind,keyDigest,windowStart,windowEnd,limitSnapshot,count                                                                                        | 複合一意、HMACキー。keyのkindはmailbox/source、用途login/send。全プロセス共通                  |
 | AuthAttempt        | id,mailboxWindow,sourceWindow,status PENDING/FAILED/SUCCEEDED,deadline                                                                          | failure+pendingで制限。最大10秒後、未確定は失敗扱い。成功は予約を解放                          |
 | AuthChangeEvent    | id,userId,type,occurredAt,requestId                                                                                                             | password/token/IP/mail本文なし。秘密以外の変更根拠を記録                                       |
-| AuthNotice         | eventId unique,userId,recipientSnapshot,status,attempts,nextAttemptAt                                                                           | 変更通知専用、リンク/秘密なし。変更確定と同じTXで作成しSMTPはTX外                              |
+| AuthNotice         | eventId unique,event.userId参照,recipientSnapshot,status,attempts,nextAttemptAt                                                                 | 変更通知専用、リンク/秘密なし。変更確定と同じTXで作成しSMTPはTX外                              |
 
 ## OAuth初回作成の回復記録
 
@@ -58,5 +58,19 @@ SMTP、OAuthネットワーク、Argon2処理はDB TXに入れない。各書き
 adapterのすべてのメール検索・新規作成を同じ索引へ切替え、EmailIdentityなしの既存利用者を無断で再作成しない。
 User数/ID/role・所有件数を移行前後で比較し、旧Sessionは切替時に失効する。VerificationTokenの標準用途を変更しない。
 期限を過ぎた未確定identity/challenge/attemptは定期cleanupする。期限切れ自体で同じ秘密を再利用可能にしない。
-初期保持: challengeは失効/消費/期限から7日、attempt/windowは期間終了から24h、sidは期限/失効から7日。
+初期保持: challenge/proofは失効/消費/期限から7日、attempt/windowは期間終了から24h、sidは期限/失効から7日。
 認証変更記録・通知は初期90日。User削除時の関連削除と、バックアップのアクセス制限・復元後の秘密更新を運用へ記載する。
+
+## 期限と入力境界の確定
+
+ReauthIntent.expiresAtは開始時requestedAt+15分、初回OAuth成功時にcompletedAt+15分へ更新する。開始期限超過のcallbackは拒否し、再callbackでは期限を延長しない。DB時刻が期限と等しい場合は拒否する。
+
+ドメインのメール/password/token操作は専用Route Handlerで本文16KiBを解析前に実測制限する。既存Server Actionsを通る秘密操作は公開しない。
+
+## ProviderAvailability（非永続・起動時設定）
+
+- server-onlyで必須のGitHub ID/secretを解決し、すべて非空・形式を満たすときgithub=true。それ以外はfalse。設定の秘密をDTOやDBへ複製しない。
+- 公開する値はgithub:booleanのみ。メール方式のflag/設定は独立して扱う。AuthSessionRecord.methodは実際の認証方式を記録し、clientから採用しない。
+- 無効時はGitHubのUser/Account/Receipt/Intent/credentialを削除・移行しない。通常session/logoutと期限・世代の検証は継続。メール資格情報を持つ利用者は同じUserでメールlogin可能。GitHub-only利用者はメール一致/RESETで資格情報を増やせない。
+- GitHub signup・receipt回復・Intent作成/完成・ADD発行/消費はgithub=trueのときだけ開始し、確定前も現在のサーバー設定を確認する。falseでの要求は既存案内やproofを消費せず拒否する。
+- 設定追加/除去/復旧をUser/role/所有/履歴の変更イベントとして扱わない。新しいDBマイグレーションは従来のメールモデル分のみ。

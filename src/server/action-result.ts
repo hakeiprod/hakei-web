@@ -2,6 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import { z } from "zod";
 import { configuredWriteLease } from "./maintenance-gate";
+import { withActorAuthorization } from "./authentication/authorize";
 import { requireActor } from "./auth";
 export type ActionResult<T> =
   | { ok: true; data: T; requestId: string }
@@ -39,9 +40,10 @@ export async function runAction<T>(
   try {
     return {
       ok: true,
-      data: await configuredWriteLease(async () =>
-        operation(await requireActor()),
-      ),
+      data: await configuredWriteLease(async () => {
+        const actor = await requireActor();
+        return withActorAuthorization(actor, () => operation(actor));
+      }),
       requestId,
     };
   } catch (error) {

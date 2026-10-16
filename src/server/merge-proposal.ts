@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import type { PrismaClient } from "@/generated/prisma/client";
 import { GitStore } from "./git-store";
@@ -75,6 +76,7 @@ export async function mergeProposal(
       },
       {
         authorize: async (transaction) => {
+          await verifyTransactionActor(transaction, input.actorId);
           proof = await mergeAuthorization(
             transaction,
             score.repositoryId!,

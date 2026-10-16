@@ -130,3 +130,6 @@ It measures 30 runs of 10,000 expected notes / 50,000 inputs, a 50-row private h
 678-byte one-note MusicXML conversion, and checks the 5MiB input limit. Output includes p95, maxima,
 CPU availability and the process high-water RSS. The small conversion sample does not establish
 worst-case conversion throughput or the combined memory of concurrent workers.
+
+Email/password authentication cutover, recovery, retention and worker commands are documented in
+[email-password-auth.md](email-password-auth.md). Local SDK/SMTP fixtures do not replace delivery or real OAuth acceptance.

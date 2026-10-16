@@ -8,7 +8,7 @@ Credentials.authorizeはemail/passwordだけを受ける。ID/role/authVersion/s
 標準decode後のsid/世代照合はsession読取・OAuth callback・logoutを含む全経路に適用する。
 初回jwt callbackでsidを登録し、通常refreshは同じsidを使う。署名済みでもDB照合不能なら受理しない。
 
-## Domain Operations (Server Actions)
+## Domain Operations (Bounded Route Handlers)
 
 | Operation               | Input                       | Preconditions / result                                                   |
 | ----------------------- | --------------------------- | ------------------------------------------------------------------------ |
@@ -64,3 +64,29 @@ decodeは標準暗号検証後にsid/User/世代/期限/失効を確認する。
 前景onlineは15秒pollとfocus確認、background/BFcache復帰は確認前に表示を隠す。ネットワーク不能時も本人表示を継続しない。
 
 標準callbacks.signInが検証済みAccountを要求スコープへ記録し、OAuth初回作成receiptの回復を同じproviderAccountIdに限定する。既存利用者への連携許可には使わない。
+
+## 解析前の本文制限
+
+メール/password/tokenを扱うドメイン操作は `/api/account-auth/[operation]` の専用Route Handlerに集約し、request.bodyを16KiBまで読み取ってからJSONを解析する。Content-Lengthが欠落・偽装されたストリームも実測で拒否する。既存の楽譜操作に必要なServer Actionsの25MB上限は維持し、秘密を受ける公開Server Actionは追加しない。
+
+Auth.jsのCredentials向けPOSTも標準handlerへ渡す前に16KiBの実測制限を適用する。標準OAuth GETや標準CSRF処理は変更しない。ドメインPOSTは固定AUTH_PUBLIC_ORIGINとOriginの一致、JSONのContent-Typeを境界で確認し、本人操作は標準authでsidを検証する。これは既存importと同じorigin境界で、独自のCSRF tokenやCookieを実装しない。
+
+要求上限ちょうど/1byte超過・Content-Length欠落/偽装・chunked入力をテストする。各ドメイン操作に対応するAPI以外を使って同じ秘密処理を公開しない。
+
+## 再認証の期限の起点
+
+開始時はexpiresAt = requestedAt + 15分。OAuth callbackでDB時刻がこの期限未満の場合だけ完成し、completedAtを記録してexpiresAt = completedAt + 15分へ更新する。ADD発行/確定は完成済みproofのexpiresAt未満を要求する。開始期限もproof期限も等号は期限切れ。同じIntentの再callbackでcompletedAtや期限を延長しない。
+
+## GitHub設定と公開利用可否
+
+サーバーの共通判定でAUTH_GITHUB_IDとAUTH_GITHUB_SECRETが両方存在し、それぞれ空文字・空白だけではない場合だけproviderにGitHubを登録する。公開利用可否は `{github:boolean}` のみ。ログイン画面・security・標準 `/api/auth/providers` のGitHub提供状態が一致する。メールの提供状態をGitHubで決めない。
+
+| 状態               | GitHub登録/表示 | GitHub signin/callback/再認証/追加 | メール操作 |
+| ------------------ | --------------- | ---------------------------------- | ---------- |
+| 未設定（両方空）   | なし            | 拒否・書込なし                     | 利用可能   |
+| 一部設定・空白のみ | なし            | 拒否・書込なし                     | 利用可能   |
+| 全必須設定あり     | あり            | 標準Auth.jsと既存本人確認を通す    | 利用可能   |
+
+無効時の `/api/auth/signin/github` と `/api/auth/callback/github` はGET/POSTとも標準handlerに委譲する前に404と固定の利用不可案内を返す。beginGithubReauth/requestPasswordAddition/confirmPasswordAdditionはAUTH_METHOD_UNAVAILABLEという秘密のないドメイン結果を返す。code/state/ID/secretを返さず、User/Account/Session/Intent/案内の作成・更新・消費と外部OAuth要求は0件。無効なcallbackからメール方式へ自動loginさせない。
+
+設定済みの誤った資格情報や外部障害は標準OAuth失敗として秘密なしで扱い、メール方式を停止しない。設定変更は再起動/再配置後に反映。GitHub無効化だけでは既存有効sidを削除しないが、通常の世代/期限/失効の照合は常に行う。GitHub-only利用者へRESETやメール一致でpasswordを追加しない。

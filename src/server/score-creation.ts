@@ -1,3 +1,4 @@
+import { verifyTransactionActor } from "./authentication/authorize";
 import "server-only";
 import type { PrismaClient } from "@/generated/prisma/client";
 import { z } from "zod";
@@ -25,6 +26,7 @@ export async function createScore(
     : null;
   const receipt = await database.$transaction(
     async (transaction) => {
+      await verifyTransactionActor(transaction, input.actorId);
       const access = await repositoryAccess(
         transaction,
         input.repositoryId,
@@ -85,6 +87,7 @@ export async function createScore(
     },
     {
       authorize: async (transaction) => {
+        await verifyTransactionActor(transaction, input.actorId);
         const access = await repositoryAccess(
           transaction,
           input.repositoryId,

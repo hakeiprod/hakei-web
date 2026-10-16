@@ -1,15 +1,16 @@
 import "server-only";
 import { auth } from "@/auth";
 import { prisma } from "@/prisma";
+import { validateSession } from "./authentication/sessions";
 
 export async function currentActor() {
   const session = await auth();
   if (!session?.user?.id) return null;
-  const user = await prisma.user.findUnique({
-    where: { id: session.user.id },
-    select: { id: true, serviceRole: true },
+  return validateSession(prisma, {
+    sub: session.user.id,
+    sid: session.sid,
+    authVersion: session.authVersion,
   });
-  return user;
 }
 export async function requireActor() {
   const user = await currentActor();

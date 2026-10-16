@@ -1,6 +1,6 @@
 # Research: メール＋パスワード認証
 
-**Date**: 2026-10-15。設計調査のみ。現行package.json/lockfileは変更していない。
+**Date**: 2026-10-15（設計）、2026-10-16（実装検証更新）。設計判断の記録。T001〜T053の実装・自動検証を完了。auditは既存high10件を利用経路と期限付き基準で受け入れ、実配送・実OAuthは未確認。根拠と測定値は[validation.md](validation.md)を参照。
 
 ## R1: Credentialsと既存セッション
 
@@ -53,3 +53,22 @@ Nodemailer公式GHSA-4ffr-jq9g-5ffxは10.0.12以前を対象、10.0.13を修正�
 **Rationale**: 通常ログインのprovider名や時刻では、現在の本人が明示的に再認証したことを証明できない。標準state/PKCEを維持し、追加確定のTXでメールと証明を再検証する。
 **Alternatives**: URL nonceだけ、クライアント入力の時刻、メール一致、通常session更新を再認証と扱う設計を採用しない。
 **Sources**: ローカルAuth.jsのhandle-login/callback経路、[公式callbacks](https://authjs.dev/reference/core)。これは標準拡張点での業務証明でありOAuth機構の自作ではない。
+
+## R8: GitHubの設定と利用可否
+
+**Decision**: server-onlyのprovider設定解決処理を設け、AUTH_GITHUB_ID/AUTH_GITHUB_SECRETの両方が存在し、それぞれ空文字・空白だけではない場合だけGitHubを登録する。余計なGitHub ON/OFF flagは追加しない。検査にtrimを使っても非空の秘密値を無断で変換しない。公開情報はgithub:booleanだけとし、画面・標準provider一覧・直接要求guardが同じ設定状態を使う。
+**Rationale**: 変更前のsrc/auth.tsはGitHubを無条件登録していた。インストール済み@auth/core/lib/utils/env.jsは資格情報を補完するが、未設定providerを自動で除去しない。
+**Alternatives considered**: UIだけ非表示、環境推論任せ、複数の独立flagは登録/表示/実利用がずれる。外部OAuthへ起動時に問い合わせる方法は不要な起動依存を増やす。
+**Evidence**: ローカルsrc/auth.ts、src/components/header.tsx、installed Auth.js env推論と標準handler。調査エージェントでモデル境界・依存順を分担確認した。
+
+## R9: メール先行と条件付きOAuth検証
+
+**Decision**: 必須のメール・JWT失効・メンテナンス・既存保護操作を先に実装し、外部GitHub資格情報なしで受け入れ検証する。GitHubのadapterガード・receipt・再認証proof・追加は条件付き機能として同じ共通基盤へ接続する。制御されたOAuth fixtureで標準SDKを通す自動回帰は実装の要件として維持し、外部アプリでの実接続はGitHubを実際に有効化するときの別ゲートにする。
+**Rationale**: 未登録のOAuthアプリをメール機能の導入条件にすると、FR-020とメール先行の目的を満たせない。GitHubを削除する必要はない。
+**Alternatives considered**: GitHub機能の撤去、資格情報待ちで全作業停止、自動試験を実OAuth確認として記録することは採用しない。
+
+## R10: 無効時の既存データと要求
+
+**Decision**: 無効時のsignin/callback/再認証/ADD操作を処理前に拒否し、User/Account/credential/Intentを変更しない。既存の有効sidの通常session/logoutは引き続き失効・期限を検証して扱い、provider設定除去だけでUserやログイン記録を削除しない。GitHub-only利用者へメール一致やresetでpasswordを付与しない。
+**Rationale**: 設定の除去は認証方法の利用停止であり、所有データの移行や権限変更ではない。メール資格情報がある利用者は同じUserでメールを使える。
+**Alternatives considered**: 自動統合・強制User削除・再認証の代替としてメールのみを認める方式は本人確認を弱めるため拒否。
