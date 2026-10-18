@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AuthHomeLink } from "@/components/auth-home-link";
 import { redirect } from "next/navigation";
 import { PasswordAddition } from "@/components/password-addition";
 import { providerAvailability } from "@/server/authentication/providers";
@@ -25,7 +25,7 @@ export default async function Page() {
         githubAvailable={providerAvailability().github}
         hasEmail={Boolean(user?.email)}
       />
-      <Link href="/">ホームへ戻る</Link>
+      <AuthHomeLink />
     </>
   );
 }

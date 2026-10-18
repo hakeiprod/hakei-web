@@ -1,5 +1,8 @@
 "use client";
-import Link from "next/link";
+import { Button, Input, Link } from "@heroui/react";
+import { AuthPanel } from "./auth-panel";
+import { AuthFeedback } from "./auth-feedback";
+import NextLink from "next/link";
 import { getSession } from "next-auth/react";
 import { ConfirmationLink } from "./confirmation-link";
 import {
@@ -20,6 +23,7 @@ export function AuthConfirmation() {
     source.serverSnapshot,
   );
   const token = link?.token ?? null;
+  const [attempted, setAttempted] = useState(false);
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [complete, setComplete] = useState(false);
@@ -29,6 +33,7 @@ export function AuthConfirmation() {
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!token || controller.current) return;
+    setAttempted(true);
     if (!passwordSchema.safeParse(password).success) {
       setMessage("パスワードは15〜128文字で入力してください。");
       return;
@@ -63,24 +68,37 @@ export function AuthConfirmation() {
     }
   }
   return (
-    <section>
-      <h1>メールの本人確認</h1>
+    <AuthPanel title="メールの本人確認">
       {token && !complete && (
-        <form onSubmit={submit}>
-          <label>
-            {link?.purpose === "VERIFY"
-              ? "登録するパスワード"
-              : "新しいパスワード"}
-            <input
-              type="password"
-              autoComplete="new-password"
-              required
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-          </label>
-          <p>15〜128文字で入力してください。</p>
-          <button disabled={pending} type="submit">
+        <form className="flex min-w-0 flex-col gap-6" onSubmit={submit}>
+          <Input
+            label={
+              link?.purpose === "VERIFY"
+                ? "登録するパスワード"
+                : "新しいパスワード"
+            }
+            aria-label={
+              link?.purpose === "VERIFY"
+                ? "登録するパスワード"
+                : "新しいパスワード"
+            }
+            labelPlacement="outside"
+            type="password"
+            autoComplete="new-password"
+            isRequired
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            description="15〜128文字で入力してください。"
+            isInvalid={attempted && !passwordSchema.safeParse(password).success}
+            errorMessage="パスワードは15〜128文字で入力してください。"
+          />
+
+          <Button
+            isDisabled={pending}
+            isLoading={pending}
+            type="submit"
+            color="primary"
+          >
             {pending
               ? "確認中…"
               : link?.purpose === "RESET"
@@ -88,19 +106,24 @@ export function AuthConfirmation() {
                 : link?.purpose === "ADD_PASSWORD"
                   ? "追加を確定"
                   : "登録を確定"}
-          </button>
+          </Button>
         </form>
       )}
-      {(message || (link && !token && !complete)) && (
-        <p role="status">
-          {message ||
-            "確認リンクを利用できません。メールを開き直すか、確認メールを再要求してください。"}
-        </p>
-      )}
+      <AuthFeedback
+        message={
+          message ||
+          (link && !token && !complete
+            ? "確認リンクを利用できません。メールを開き直すか、確認メールを再要求してください。"
+            : "")
+        }
+      />
       {complete ? (
-        <Link href="/api/auth/signin">ログインする</Link>
+        <Link as={NextLink} href="/api/auth/signin">
+          ログインする
+        </Link>
       ) : (
         <Link
+          as={NextLink}
           href={
             link?.purpose === "ADD_PASSWORD"
               ? "/account/security"
@@ -112,6 +135,6 @@ export function AuthConfirmation() {
           確認メールを再要求する
         </Link>
       )}
-    </section>
+    </AuthPanel>
   );
 }

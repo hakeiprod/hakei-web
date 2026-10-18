@@ -1,8 +1,15 @@
 "use client";
-import Link from "next/link";
+import { Button, Input, Link } from "@heroui/react";
+import { AuthPanel } from "./auth-panel";
+import { AuthFeedback } from "./auth-feedback";
+import NextLink from "next/link";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { signIn } from "next-auth/react";
-import { credentialsSchema, emailSchema } from "@/server/authentication/input";
+import {
+  credentialsSchema,
+  emailSchema,
+  passwordSchema,
+} from "@/server/authentication/input";
 import { authOperation } from "./auth-operation";
 
 export function EmailRegistration({
@@ -10,6 +17,8 @@ export function EmailRegistration({
 }: {
   githubAvailable?: boolean;
 }) {
+  const [emailAttempted, setEmailAttempted] = useState(false);
+  const [passwordAttempted, setPasswordAttempted] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -19,6 +28,8 @@ export function EmailRegistration({
   useEffect(() => () => controller.current?.abort(), []);
   async function submit(resend: boolean) {
     if (controller.current) return;
+    setEmailAttempted(true);
+    setPasswordAttempted(!resend);
     const parsed = resend
       ? emailSchema.safeParse(email)
       : credentialsSchema.safeParse({ email, password });
@@ -39,6 +50,8 @@ export function EmailRegistration({
       setMessage(result.ok ? result.data.message : result.error.message);
       if (result.ok) {
         setSent(true);
+        setEmailAttempted(false);
+        setPasswordAttempted(false);
         setPassword("");
       }
     } catch {
@@ -54,49 +67,77 @@ export function EmailRegistration({
     submit(false);
   }
   return (
-    <section>
-      <h1>メールアドレスで登録</h1>
-      <form onSubmit={request}>
-        <label>
-          メールアドレス
-          <input
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-        </label>
-        <label>
-          パスワード
-          <input
-            type="password"
-            autoComplete="new-password"
-            required
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-        </label>
+    <AuthPanel title="メールアドレスで登録">
+      <form className="flex min-w-0 flex-col gap-6" onSubmit={request}>
+        <Input
+          label="メールアドレス"
+          aria-label="メールアドレス"
+          labelPlacement="outside"
+          isInvalid={emailAttempted && !emailSchema.safeParse(email).success}
+          errorMessage="メールアドレスを確認してください。"
+          type="email"
+          autoComplete="email"
+          isRequired
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+        />
+        <Input
+          label="パスワード"
+          aria-label="パスワード"
+          labelPlacement="outside"
+          isInvalid={
+            passwordAttempted && !passwordSchema.safeParse(password).success
+          }
+          errorMessage="パスワードは15〜128文字で入力してください。"
+          description="15〜128文字で入力してください。"
+          type="password"
+          autoComplete="new-password"
+          isRequired
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
         <p>
           15〜128文字で入力してください。確認メールを開いた後に、登録するパスワードを最終確定します。
         </p>
-        <button disabled={pending} type="submit">
+        <Button
+          isDisabled={pending}
+          isLoading={pending}
+          type="submit"
+          color="primary"
+        >
           {pending ? "送信中…" : "確認メールを送信"}
-        </button>
+        </Button>
       </form>
-      {message && <p role="status">{message}</p>}
+      <AuthFeedback message={message} />
       {sent && (
-        <button disabled={pending} onClick={() => submit(true)}>
+        <Button
+          type="button"
+          variant="flat"
+          isDisabled={pending}
+          isLoading={pending}
+          onClick={() => submit(true)}
+        >
           確認メールを再送
-        </button>
+        </Button>
       )}
-      <p>
-        <Link href="/auth/reset">パスワードを忘れた場合</Link>
-        <Link href="/api/auth/signin">登録済みの方はログイン</Link>
-      </p>
+      <div className="flex flex-col items-start gap-3">
+        <Link as={NextLink} href="/auth/reset">
+          パスワードを忘れた場合
+        </Link>
+        <Link as={NextLink} href="/api/auth/signin">
+          登録済みの方はログイン
+        </Link>
+      </div>
       {githubAvailable && (
-        <button onClick={() => signIn("github")}>GitHubでログイン</button>
+        <Button
+          type="button"
+          variant="flat"
+          isDisabled={pending}
+          onClick={() => signIn("github")}
+        >
+          GitHubでログイン
+        </Button>
       )}
-    </section>
+    </AuthPanel>
   );
 }

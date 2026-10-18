@@ -112,3 +112,32 @@ it("confirms ADD only by POST on the current browser session", async () => {
     "/api/account-auth/confirmPasswordAddition",
   );
 });
+
+for (const [purpose, destination] of [
+  ["VERIFY", "/auth/register"],
+  ["RESET", "/auth/reset"],
+  ["ADD_PASSWORD", "/account/security"],
+]) {
+  it(`preserves the ${purpose} retry destination for an invalid token and after reload`, () => {
+    history.replaceState(
+      null,
+      "",
+      `/auth/confirm#token=invalid&purpose=${purpose}`,
+    );
+    const fetcher = vi.fn<typeof fetch>();
+    vi.stubGlobal("fetch", fetcher);
+    const view = render(<AuthConfirmation />);
+    expect(
+      screen
+        .getByRole("link", { name: "確認メールを再要求する" })
+        .getAttribute("href"),
+    ).toBe(destination);
+    expect(screen.queryByLabelText("新しいパスワード")).toBeNull();
+    expect(fetcher).not.toHaveBeenCalled();
+    view.unmount();
+    render(<AuthConfirmation />);
+    expect(screen.queryByLabelText("登録するパスワード")).toBeNull();
+    expect(screen.queryByLabelText("新しいパスワード")).toBeNull();
+    expect(fetcher).not.toHaveBeenCalled();
+  });
+}

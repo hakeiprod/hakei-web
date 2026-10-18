@@ -43,18 +43,16 @@ it("explains a missing email without offering an unusable addition", () => {
 it("shows a fixed retry message when standard signIn cannot start", async () => {
   vi.stubGlobal(
     "fetch",
-    vi
-      .fn<typeof fetch>()
-      .mockResolvedValue(
-        Response.json({
-          ok: true,
-          requestId: "test",
-          data: {
-            code: "REAUTHENTICATION_STARTED",
-            message: "再認証してください。",
-          },
-        }),
-      ),
+    vi.fn<typeof fetch>().mockResolvedValue(
+      Response.json({
+        ok: true,
+        requestId: "test",
+        data: {
+          code: "REAUTHENTICATION_STARTED",
+          message: "再認証してください。",
+        },
+      }),
+    ),
   );
   signIn.mockRejectedValueOnce(new Error("simulated private provider failure"));
   render(<PasswordAddition githubAvailable />);
