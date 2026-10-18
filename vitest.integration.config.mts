@@ -12,6 +12,7 @@ export default defineConfig({
   },
   test: {
     environment: "node",
+    server: { deps: { inline: ["next-auth"] } },
     include: ["src/server/**/*.integration.test.ts"],
     fileParallelism: false,
   },

@@ -1,5 +1,4 @@
-import { AuthConfirmation } from "@/components/auth-confirmation";
-export const dynamic = "force-dynamic";
+import { redirect } from "next/navigation";
 export default function Page() {
-  return <AuthConfirmation />;
+  redirect("/api/auth/signin");
 }

@@ -1,12 +1,9 @@
 import "server-only";
 import { AsyncLocalStorage } from "node:async_hooks";
 import type { Prisma } from "../../generated/prisma/client";
-import { lockSession } from "./sessions";
 
 type Actor = {
   id: string;
-  sid: string;
-  authVersion: number;
   serviceRole: string;
 };
 type Resolver = (actorId: string) => Promise<Actor | null>;
@@ -36,9 +33,10 @@ export async function verifyTransactionActor(
   const resolver = authorization.getStore();
   const actor = resolver ? await resolver(actorId) : null;
   if (!actor || actor.id !== actorId) throw new Error("UNAUTHENTICATED");
-  return lockSession(transaction, {
-    sub: actor.id,
-    sid: actor.sid,
-    authVersion: actor.authVersion,
+  const user = await transaction.user.findUnique({
+    where: { id: actor.id },
+    select: { id: true, serviceRole: true },
   });
+  if (!user) throw new Error("UNAUTHENTICATED");
+  return user;
 }

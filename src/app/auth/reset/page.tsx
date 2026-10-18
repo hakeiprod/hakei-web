@@ -1,5 +1,4 @@
-import { PasswordReset } from "@/components/password-reset";
-export const dynamic = "force-dynamic";
+import { redirect } from "next/navigation";
 export default function Page() {
-  return <PasswordReset />;
+  redirect("/api/auth/signin");
 }

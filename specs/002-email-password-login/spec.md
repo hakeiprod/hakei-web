@@ -1,6 +1,7 @@
 # Feature Specification: メール＋パスワードのログイン追加
 
-**Feature Branch**: `chore/setup-spec-kit`（現在のブランチ。仕様の識別子は002-email-password-login）
+> 方針変更（2026-10-18）: [標準メールリンク認証への移行](../005-standard-email-auth/spec.md)へコードを移行済み。本仕様は旧方式の記録。稼働DBへの適用と実配送確認は別途必要。
+> **Feature Branch**: `chore/setup-spec-kit`（現在のブランチ。仕様の識別子は002-email-password-login）
 
 **Created**: 2026-10-14
 

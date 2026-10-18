@@ -1,5 +1,4 @@
 "use client";
-import { useAuthenticationVisibility } from "./authentication-visibility";
 import { useSession } from "next-auth/react";
 import type { ReactNode } from "react";
 export function AuthenticatedContent(properties: {
@@ -7,8 +6,7 @@ export function AuthenticatedContent(properties: {
   children: ReactNode;
 }) {
   const { data, status } = useSession();
-  const visible = useAuthenticationVisibility();
-  if (status === "loading" || visible === false)
+  if (status === "loading")
     return <p role="status">認証状態を確認しています。</p>;
   if (status !== "authenticated" || data?.user?.id !== properties.actorId)
     return (

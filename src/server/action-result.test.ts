@@ -19,8 +19,6 @@ test("authentication precedes mutation; internal errors never reach the public D
   vi.mocked(requireActor).mockResolvedValue({
     id: "user",
     serviceRole: "USER",
-    sid: "test-only-sid",
-    authVersion: 0,
   });
   const log = vi.spyOn(console, "error").mockImplementation(() => {});
   try {

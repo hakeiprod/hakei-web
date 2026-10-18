@@ -1,6 +1,4 @@
-import { EmailRegistration } from "@/components/email-registration";
-import { providerAvailability } from "@/server/authentication/providers";
-export const dynamic = "force-dynamic";
+import { redirect } from "next/navigation";
 export default function Page() {
-  return <EmailRegistration githubAvailable={providerAvailability().github} />;
+  redirect("/api/auth/signin");
 }

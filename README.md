@@ -5,7 +5,7 @@
 
 ## 開発を始める
 
-Node.js 22、PostgreSQL、Gitを用意してください。Dev ContainerはNode.js 22を使用します。
+Node.js 22、PostgreSQL、Gitを用意してください。Dev ContainerはNode.js 22と開発用Mailpitを起動します。外部メールサービスへの登録は不要です。
 [環境変数と運用手順](docs/development.md)を確認し、専用の開発DBを指定して実行します。
 
 ```bash
@@ -15,6 +15,10 @@ npx prisma migrate deploy
 npx prisma db seed
 npm run dev
 ```
+
+認証はAuth.js標準のメールリンク方式です。`EMAIL_SERVER`と`EMAIL_FROM`を設定し、`/api/auth/signin`から利用します。
+パスワードは保存しません。[設定と旧方式からの移行](docs/email-auth.md)を確認してください。
+既存環境へのmigrationは旧認証データの削除・全利用者の再ログインを伴います。適用前にバックアップと移行手順を確認してください。
 
 GitHub OAuthのcallbackは `/api/auth/callback/github` です。
 `SCORE_GIT_ROOT`にはアプリの置換で消えない絶対パスの保存領域を指定します。
@@ -39,7 +43,8 @@ PDF・画像の楽譜認識、SMF 2・SMPTEは対象外です。既知情報の�
 
 ```bash
 npm test -- --run
-# TEST_DATABASE_URLは必ず末尾が_testの専用DBにする
+# TEST_DATABASE_URLは末尾が_testの専用DBにし、専用Mailpitを起動する
+# TEST_EMAIL_SERVER / TEST_MAILPIT_URLはdocs/development.mdを参照
 npm run test:integration
 npx tsc --noEmit
 npm run build

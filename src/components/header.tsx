@@ -23,7 +23,6 @@ export function Header() {
           {status === "authenticated" && (
             <>
               <Link href="/practice/history">演奏履歴</Link>
-              <Link href="/account/security">認証設定</Link>
             </>
           )}
         </NavbarContent>
@@ -38,8 +37,6 @@ export function Header() {
             </Button>
           ) : (
             <>
-              <Link href="/auth/register">メールで登録</Link>
-              <Link href="/auth/reset">パスワードを再設定</Link>
               <Button
                 isDisabled={status === "loading"}
                 onPress={() => {

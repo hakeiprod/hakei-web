@@ -1,7 +1,7 @@
 # Development
 
 Use Node.js 22 and a dedicated PostgreSQL database. Never run test migrations against production.
-Environment variables: DATABASE_URL, AUTH_SECRET, AUTH_GITHUB_ID, AUTH_GITHUB_SECRET,
+Environment variables: DATABASE_URL, AUTH_SECRET, EMAIL_SERVER, EMAIL_FROM, optional AUTH_GITHUB_ID/AUTH_GITHUB_SECRET,
 IMPORT_PREVIEW_SECRET, SCORE_GIT_ROOT (absolute persistent directory), TEST_DATABASE_URL.
 Do not commit secrets. Git score storage is separate from this application's checkout.
 
@@ -19,8 +19,10 @@ Example names (replace placeholders locally; do not commit actual values):
 DATABASE_URL=postgresql://user:password@localhost:5432/hakei
 TEST_DATABASE_URL=postgresql://user:password@localhost:5432/hakei_test
 AUTH_SECRET=<random-secret>
-AUTH_GITHUB_ID=<oauth-client-id>
-AUTH_GITHUB_SECRET=<oauth-client-secret>
+EMAIL_SERVER=smtp://localhost:1025
+EMAIL_FROM=sender@example.invalid
+# AUTH_GITHUB_ID=<oauth-client-id>
+# AUTH_GITHUB_SECRET=<oauth-client-secret>
 IMPORT_PREVIEW_SECRET=<independent-random-secret>
 SCORE_GIT_ROOT=/var/lib/hakei/scores
 ```
@@ -131,5 +133,57 @@ It measures 30 runs of 10,000 expected notes / 50,000 inputs, a 50-row private h
 CPU availability and the process high-water RSS. The small conversion sample does not establish
 worst-case conversion throughput or the combined memory of concurrent workers.
 
-Email/password authentication cutover, recovery, retention and worker commands are documented in
-[email-password-auth.md](email-password-auth.md). Local SDK/SMTP fixtures do not replace delivery or real OAuth acceptance.
+Standard email-link authentication, migration and configuration are documented in
+[email-auth.md](email-auth.md). Local SDK/delivery fixtures do not replace delivery or real OAuth acceptance.
+
+## Local Mailpit
+
+Dev Container uses node:22-bookworm and the [Mailpit Feature](https://github.com/skriptfabrik/devcontainer-features/blob/main/src/mailpit/README.md), pinned to Mailpit 1.31.6. The Feature requires Debian and starts Mailpit through its own entrypoint; no Dockerfile or Compose sidecar is needed. Rebuild with VS Code **Dev Containers: Rebuild Container**.
+
+Open the private forwarded app port at http://localhost:3000 and Mailpit at http://localhost:8025. SMTP is available inside the container at localhost:1025. Do not publish the Mailpit UI or configure external relay/forwarding. The Feature stores captured messages in its managed /var/lib/mailpit volume; messages can survive container recreation.
+
+containerEnv supplies EMAIL_SERVER=smtp://localhost:1025 and EMAIL_FROM=hakei@example.invalid for development. Next.js uses the process environment before .env/.env.local; existing secret files are not modified. Do not use these development settings in production.
+
+Run npm ci, npx prisma generate, and npm run dev after configuring the existing dedicated development DB, AUTH_SECRET and SCORE_GIT_ROOT. Visit /api/auth/signin, request a link for person@example.invalid, open it from Mailpit, visit a protected screen and log out. The callback must use the browser-reachable app origin, never the internal service name. If using a remote forward, use the reachable origin consistently and keep forwarding private.
+
+For failure/recovery checks, use the Feature's PID file inside the container:
+
+```bash
+start-stop-daemon --stop --pidfile /var/run/mailpit.pid
+/usr/local/share/mailpit-init.sh true
+```
+
+With Mailpit stopped, requests must fail without authenticating; after restarting, request a fresh link. Recreate the container and repeat the flow.
+
+### Integration SMTP prerequisites
+
+Use a dedicated Mailpit instance and dedicated _test DB. Tests must not share a production or personal inbox. Start Mailpit before tests and confirm its API responds:
+
+```bash
+# In a separate terminal, reserve a fresh directory for this test instance:
+# mailpit --database /tmp/hakei-integration-mailpit/mailpit.db --listen 127.0.0.1:18025 --smtp 127.0.0.1:11025 --disable-version-check
+# Create the directory first and stop this instance when testing is finished.
+export TEST_EMAIL_SERVER=smtp://127.0.0.1:11025
+export TEST_MAILPIT_URL=http://127.0.0.1:18025
+node -e 'fetch(process.env.TEST_MAILPIT_URL + "/api/v1/messages").then(r => { if (!r.ok) process.exit(1); }).catch(() => process.exit(1))'
+# Set TEST_DATABASE_URL separately to the dedicated _test database
+npm run test:integration
+```
+
+Use the installed local Mailpit binary for the dedicated instance above; do not point automated tests at the developer inbox on 1025/8025. Use the same fixed release; do not add a custom SMTP server. The integration test removes its captured messages. Browser, Dev Container rebuild, production TLS delivery and real GitHub OAuth remain separate acceptance checks.
+
+CI prepares a dedicated Mailpit 1.31.6 binary in the runner temporary directory, verifies the release archive SHA-256, binds SMTP/API to loopback ports 11025/18025, and waits for the API before integration tests. These test endpoints are separate from the developer inbox on 1025/8025. Changing the Mailpit release requires updating and rechecking the checksum in `.github/workflows/test.yml`.
+
+### Production build inside the development container
+
+The development container supplies plain localhost SMTP, which production configuration deliberately rejects. For a build that does not require email delivery, disable the email provider only for that command:
+
+```bash
+EMAIL_SERVER= EMAIL_FROM= npm run build
+```
+
+This does not edit `.env` or change the running development server. A production runtime that needs email login must supply its own authenticated TLS SMTP settings described in [email-auth.md](email-auth.md). Do not relax the production SMTP checks to reuse Mailpit.
+
+### GitHub environment variable names
+
+This project uses next-auth 5.0.0-beta.32. Follow the [Auth.js v5 GitHub guide](https://authjs.dev/getting-started/providers/github): AUTH_GITHUB_ID and AUTH_GITHUB_SECRET. Both must be configured to enable GitHub login. The [NextAuth.js v4 example](https://next-auth.js.org/providers/github) uses GITHUB_ID/GITHUB_SECRET and passes them explicitly; that example targets a different major version.

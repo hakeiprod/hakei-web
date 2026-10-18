@@ -22,20 +22,10 @@ const database = new PrismaClient();
 const user = await database.user.findUniqueOrThrow({
   where: { id: request.actorId },
 });
-const session = await database.authSessionRecord.findFirstOrThrow({
-  where: {
-    userId: user.id,
-    authVersion: user.authVersion,
-    revokedAt: null,
-    expiresAt: { gt: new Date() },
-  },
-});
 await withActorAuthorization(
   {
     id: user.id,
     serviceRole: user.serviceRole,
-    sid: session.sid,
-    authVersion: session.authVersion,
   },
   () =>
     mergeProposal(database, new GitStore(root), request, (stage) => {
