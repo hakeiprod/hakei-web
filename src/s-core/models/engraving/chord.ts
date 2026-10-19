@@ -63,5 +63,7 @@ export class Chord extends Sheet.Chord {
     for (const glyph of this.legerlinesLigature.glyphLists.flat()) {
       glyph.x = this.glyphAdvanceWidth;
     }
+    // Local glyph positions are needed when measuring ink before row layout.
+    this.word.order();
   }
 }
