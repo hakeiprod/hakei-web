@@ -208,3 +208,36 @@ describe("stave signatures", () => {
     },
   );
 });
+
+test.each([1, 5, -1, -3] as const)(
+  "leaves a gap between the clef and key signature (%s)",
+  (accidental) => {
+    const controller = prepare({
+      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+      keysignatures: [{ accidental, tonality: Core.Enums.Tonality.Major }],
+    });
+    const drawing = controller.toDocument();
+    const elements = flatten(drawing.pages[0].elements);
+    const word = elements.find(
+      (element) => element.role === "word",
+    ) as Drawing.Group;
+    const clef = word.children.find(
+      (element) => element instanceof Drawing.Glyph,
+    ) as Drawing.Glyph;
+    const key = word.children.find(
+      (element) =>
+        element instanceof Drawing.Group &&
+        element.children.some(
+          (glyph) =>
+            glyph instanceof Drawing.Glyph &&
+            glyph.glyphName?.startsWith("accidental"),
+        ),
+    ) as Drawing.Group;
+    const first = key.children[0] as Drawing.Glyph;
+    expect(
+      key.position.x + first.bounds.x - clef.bounds.x - clef.bounds.width,
+    ).toBeGreaterThanOrEqual(0.75);
+    expect(controller.toDocument()).toEqual(drawing);
+    controller.unmount();
+  },
+);

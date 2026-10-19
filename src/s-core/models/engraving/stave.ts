@@ -39,6 +39,8 @@ export class Stave extends Sheet.Stave {
       const keysignatureLigature = new Engraving.Ligature(
         (this.bar.keysignature as Engraving.Keysignature).ligature.glyphLists,
       );
+      if (keysignatureLigature.glyphLists.flat().length > 0)
+        keysignatureLigature.spaceLeft = 0.75;
       this.word.append([keysignatureLigature]);
     }
     const previous = this.bar.prev?.timesignature;
