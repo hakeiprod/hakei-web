@@ -1,4 +1,5 @@
 import { parseStringPromise, processors } from "xml2js";
+import { isMusicXmlVersion } from "./musicxml-support";
 import { partialScoreSchema, type ConversionIssue } from "./contracts";
 import {
   beamSchema,
@@ -38,6 +39,33 @@ const steps: Record<string, number> = {
   A: 9,
   B: 11,
 };
+function reserveVoices(
+  node: Xml,
+  ids: Map<string, number>,
+  reserved: Set<number>,
+) {
+  if (node["#name"] === "voice") {
+    const label = text(node) ?? "1";
+    if (/^(0|[1-9]\d*)$/.test(label) && Number.isSafeInteger(Number(label))) {
+      reserved.add(Number(label));
+      ids.set(label, Number(label));
+    }
+  }
+  for (const child of node.$$ ?? []) reserveVoices(child, ids, reserved);
+}
+function voiceId(
+  label: string,
+  ids: Map<string, number>,
+  reserved: Set<number>,
+) {
+  const existing = ids.get(label);
+  if (existing !== undefined) return existing;
+  let id = 0;
+  while (reserved.has(id)) id++;
+  reserved.add(id);
+  ids.set(label, id);
+  return id;
+}
 export async function convertMusicXml(bytes: Uint8Array) {
   let source: string;
   try {
@@ -48,13 +76,39 @@ export async function convertMusicXml(bytes: Uint8Array) {
   // sax/xml2js does not retrieve external resources. Reject declarations that could define entities.
   if (/<!ENTITY/i.test(source) || /<!DOCTYPE[^>]*\[/i.test(source))
     throw new Error("XML_ENTITY_FORBIDDEN");
+  let declaredRoot: string | undefined;
+  let declaredVersion: string | undefined;
   source = source.replace(
-    /<!DOCTYPE\s+score-partwise\s+(?:PUBLIC\s+"[^"]*"\s+"[^"]*"|SYSTEM\s+"[^"]*")\s*>/i,
-    "",
+    /<!DOCTYPE\s+(score-partwise|score-timewise|opus)\s+(?:PUBLIC\s+(["'])([^"']*)\2\s+(["'])([^"']*)\4|SYSTEM\s+(["'])([^"']*)\6)\s*>/i,
+    (
+      _declaration,
+      root: string,
+      _publicQuote: string,
+      publicId: string | undefined,
+    ) => {
+      declaredRoot = root;
+      if (publicId !== undefined) {
+        const match =
+          /^-\/\/Recordare\/\/DTD MusicXML (\d+\.\d+) (Partwise|Timewise|Opus)\/\/EN$/.exec(
+            publicId,
+          );
+        if (
+          !match ||
+          (`score-${match[2].toLowerCase()}` !== root &&
+            !(root === "opus" && match[2] === "Opus"))
+        )
+          throw new Error("INVALID_XML_DOCTYPE");
+        declaredVersion = match[1];
+      }
+      return "";
+    },
   );
   if (/<!DOCTYPE/i.test(source)) throw new Error("INVALID_XML_DOCTYPE");
   const document = (await parseStringPromise(source, {
-    valueProcessors: [processors.parseNumbers],
+    valueProcessors: [
+      (value: string, name: string) =>
+        name === "voice" ? value : processors.parseNumbers(value),
+    ],
     explicitArray: true,
     explicitChildren: true,
     preserveChildrenOrder: true,
@@ -62,7 +116,20 @@ export async function convertMusicXml(bytes: Uint8Array) {
     strict: true,
   })) as Record<string, Xml>;
   const root = document["score-partwise"];
-  if (!root || root.$?.version !== "4.0") throw new Error("UNSUPPORTED_FORMAT");
+  if (!root) throw new Error("UNSUPPORTED_MUSICXML_STRUCTURE");
+  const versionFromDoctype =
+    root.$?.version === undefined &&
+    declaredRoot === "score-partwise" &&
+    declaredVersion !== undefined;
+  const formatVersion =
+    root.$?.version ?? (versionFromDoctype ? declaredVersion : undefined);
+  if (!isMusicXmlVersion(formatVersion))
+    throw new Error("UNSUPPORTED_MUSICXML_VERSION");
+  if (
+    (declaredRoot !== undefined && declaredRoot !== "score-partwise") ||
+    (declaredVersion !== undefined && declaredVersion !== formatVersion)
+  )
+    throw new Error("INVALID_XML_DOCTYPE");
   const parts = children(root, "part");
   if (parts.length === 0) throw new Error("EMPTY_SCORE");
   const issues: ConversionIssue[] = [];
@@ -122,7 +189,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
   }[] = [];
   function issue(
     code: string,
-    severity: "WARNING" | "BLOCKING",
+    severity: "INFO" | "WARNING" | "BLOCKING",
     message: string,
     track?: number,
     bar?: number,
@@ -142,7 +209,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
       ...(bar === undefined ? {} : { bar }),
     });
   }
-  function scan(node: Xml, track: number) {
+  function scan(node: Xml, track: number, bar?: number) {
     const name = node["#name"];
     if (
       ["repeat", "ending", "segno", "coda"].includes(name ?? "") ||
@@ -156,16 +223,38 @@ export async function convertMusicXml(bytes: Uint8Array) {
         "BLOCKING",
         "反復・別エンディングなどの演奏順を展開できません。",
         track,
+        bar,
       );
-    if (["lyric", "ornaments", "print", "articulations"].includes(name ?? ""))
+    if (["transpose", "scordatura"].includes(name ?? ""))
+      issue(
+        "UNSUPPORTED_TRANSPOSE",
+        "BLOCKING",
+        "移調・変則調弦の演奏音高を確定できません。",
+        track,
+        bar,
+      );
+    if (
+      ["lyric", "ornaments", "print", "articulations", "harmony"].includes(
+        name ?? "",
+      )
+    )
       issue(
         "DISPLAY_INFORMATION_OMITTED",
         "WARNING",
-        "歌詞・装飾・印刷情報の一部は表示できません。",
+        "歌詞・装飾・印刷・和声記号の一部は表示できません。",
         track,
+        bar,
       );
-    for (const child of node.$$ ?? []) scan(child, track);
+    let measureIndex = 0;
+    for (const child of node.$$ ?? [])
+      scan(child, track, child["#name"] === "measure" ? measureIndex++ : bar);
   }
+  if (versionFromDoctype)
+    issue(
+      "MUSICXML_VERSION_FROM_DOCTYPE",
+      "INFO",
+      `version属性がないため、標準DOCTYPEの宣言${formatVersion}を元バージョンとして使用しました。`,
+    );
   const partNames = new Map(
     children(first(root, "part-list") ?? {}, "score-part").map((part) => [
       part.$?.id,
@@ -179,6 +268,10 @@ export async function convertMusicXml(bytes: Uint8Array) {
     let measureStart = 0;
     let staveCount = 1;
     let clefs: object[] = [];
+    const voiceIds = new Map<string, number>();
+    const reservedVoices = new Set<number>([1]);
+    reserveVoices(part, voiceIds, reservedVoices);
+    voiceIds.set("1", 1);
     const measures = children(part, "measure");
     for (const [barId, measure] of measures.entries()) {
       let cursor: number | null = 0;
@@ -216,6 +309,15 @@ export async function convertMusicXml(bytes: Uint8Array) {
               ?.split("+")
               .reduce((sum, value) => sum + Number(value), 0);
             if (
+              (beats !== undefined &&
+                (!/^\d+(?:\+\d+)*$/.test(beats) || !numerator)) ||
+              (denominator !== undefined &&
+                (!Number.isFinite(denominator) ||
+                  !Number.isInteger(denominator) ||
+                  denominator <= 0))
+            )
+              throw new Error("INVALID_XML_METER");
+            if (
               !numerator ||
               !Number.isInteger(numerator) ||
               !denominator ||
@@ -239,6 +341,20 @@ export async function convertMusicXml(bytes: Uint8Array) {
           }
           for (const key of children(child, "key")) {
             const accidental = number(first(key, "fifths"));
+            if (
+              accidental !== undefined &&
+              (!Number.isInteger(accidental) || Math.abs(accidental) > 7)
+            )
+              throw new Error("INVALID_XML_KEY");
+            const mode = text(first(key, "mode"));
+            if (mode !== undefined && !["major", "minor"].includes(mode))
+              issue(
+                "UNSUPPORTED_KEY_MODE",
+                "BLOCKING",
+                "調の種類を確定できません。",
+                trackId,
+                barId,
+              );
             if (
               accidental === undefined ||
               !Number.isInteger(accidental) ||
@@ -327,6 +443,11 @@ export async function convertMusicXml(bytes: Uint8Array) {
                 const perMinute = number(first(metronome, "per-minute"));
                 const dots = children(metronome, "beat-unit-dot").length;
                 if (
+                  perMinute !== undefined &&
+                  (!Number.isFinite(perMinute) || perMinute <= 0)
+                )
+                  throw new Error("INVALID_XML_TEMPO");
+                if (
                   unit === undefined ||
                   perMinute === undefined ||
                   !Number.isFinite(perMinute) ||
@@ -394,7 +515,11 @@ export async function convertMusicXml(bytes: Uint8Array) {
                 barId,
               );
           }
-          const voice = number(first(child, "voice")) ?? 1;
+          const voice = voiceId(
+            text(first(child, "voice")) ?? "1",
+            voiceIds,
+            reservedVoices,
+          );
           const staveId = (number(first(child, "staff")) ?? 1) - 1;
           if (
             !Number.isInteger(voice) ||
@@ -607,7 +732,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
         ]),
       ),
     });
-    return { candidate, issues };
+    return { candidate, issues, formatVersion };
   }
   const candidate = sheetScoreSchema.parse({
     name:
@@ -623,5 +748,5 @@ export async function convertMusicXml(bytes: Uint8Array) {
     slots: [],
     ...normalized,
   });
-  return { candidate, issues };
+  return { candidate, issues, formatVersion };
 }

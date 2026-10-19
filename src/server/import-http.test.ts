@@ -45,3 +45,16 @@ it("cancels a stalled body at its deadline", async () => {
   );
   expect(canceled).toHaveBeenCalledOnce();
 });
+
+it.each(["VERSION", "STRUCTURE"])(
+  "explains unsupported MusicXML %s without leaking source",
+  async (kind) => {
+    const response = importHttpError(new Error(`UNSUPPORTED_MUSICXML_${kind}`));
+    expect(response.status).toBe(415);
+    const body = await response.json();
+    expect(body.error.code).toBe(`UNSUPPORTED_MUSICXML_${kind}`);
+    expect(body.error.message).toContain(
+      kind === "VERSION" ? "2.0" : "score-partwise",
+    );
+  },
+);

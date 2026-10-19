@@ -71,3 +71,30 @@ it("rejects deletion of signed diagnostics and unsupported correction fields", a
     revalidateImport("alice", input, secret, 2000).validation.canPractice,
   ).toBe(false);
 });
+
+it("retains actual source version and first expiry through correction", async () => {
+  const original = await convertScore({
+    bytes: await readFile(
+      "src/s-core/fixtures/import/musicxml-versions/study-3.1.mxl",
+    ),
+    options: { mode: "PRESERVE" },
+  });
+  const token = signPreview("alice", original, secret, 1000);
+  const result = revalidateImport(
+    "alice",
+    {
+      originalCandidate: original.candidate,
+      originalIssues: original.issues,
+      metadata: original.metadata,
+      previewToken: token,
+      corrections: [{ kind: "NOTE", index: 2, pitch: 63 }],
+    },
+    secret,
+    2000,
+  );
+  expect(result.metadata).toEqual(original.metadata);
+  expect(result.metadata.formatVersion).toBe("3.1");
+  expect(
+    verifyPreview(result.previewToken, "alice", result, secret, 2001).expiresAt,
+  ).toBe(1_801_000);
+});

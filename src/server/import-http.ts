@@ -67,13 +67,26 @@ export function importHttpError(error: unknown) {
     ].includes(code)
   ) {
     status = 413;
-    message = "楽譜が取り込み上限を超えています。";
+    message =
+      "楽譜が取り込み上限を超えています。楽譜を分割するか、ファイルを小さくして再試行してください。";
   } else
     switch (code) {
       case "MAINTENANCE": {
         status = 503;
         message =
           "現在メンテナンス中です。しばらくしてから再試行してください。";
+        break;
+      }
+      case "UNSUPPORTED_MUSICXML_VERSION": {
+        status = 415;
+        message =
+          "MusicXMLのバージョンを確認してください。対応版は2.0・3.0・3.1・4.0です。対応版で書き出してください。";
+        break;
+      }
+      case "UNSUPPORTED_MUSICXML_STRUCTURE": {
+        status = 415;
+        message =
+          "MusicXMLの文書構造に対応していません。score-partwise形式で書き出してください。";
         break;
       }
       case "UNSUPPORTED_FORMAT": {
@@ -90,7 +103,8 @@ export function importHttpError(error: unknown) {
       }
       case "IMPORT_TIMEOUT": {
         status = 504;
-        message = "変換が制限時間を超えました。";
+        message =
+          "変換が制限時間を超えました。楽譜のサイズや内容を見直して再試行してください。";
 
         break;
       }

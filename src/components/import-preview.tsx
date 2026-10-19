@@ -1,4 +1,5 @@
 "use client";
+import { musicXmlVersions } from "@/s-core/models/import/musicxml-support";
 import { CardBody, Card, Input, Button, Checkbox } from "@heroui/react";
 
 import { useState } from "react";
@@ -69,9 +70,13 @@ export function ImportPreview(properties: {
           {preview.metadata.sourceName ?? "楽譜"}のプレビュー
         </h2>
         <p>
-          対応形式: MusicXML 4.0（XML・MXL）、MIDI（SMF
+          対応形式: MusicXML {musicXmlVersions.join("・")}
+          （XML・MXL）、MIDI（SMF
           0・1）、楽譜JSON。PDF・画像には対応していません。
         </p>
+        {preview.metadata.format === "MUSICXML" && (
+          <p>元のMusicXMLバージョン: {preview.metadata.formatVersion}</p>
+        )}
         {preview.changedNoteCount !== undefined && (
           <p>整列で変更した音符: {preview.changedNoteCount}個</p>
         )}

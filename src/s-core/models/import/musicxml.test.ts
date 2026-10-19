@@ -17,7 +17,7 @@ it("accepts the standard external DOCTYPE without fetching it", async () => {
 it("rejects entities, unsupported versions, roots and malformed XML", async () => {
   for (const text of [
     '<!DOCTYPE score-partwise [<!ENTITY secret SYSTEM "file:///etc/passwd">]><score-partwise version="4.0">&secret;</score-partwise>',
-    '<score-partwise version="3.1"/>',
+    '<score-partwise version="4.1"/>',
     '<score-timewise version="4.0"/>',
     '<score-partwise version="4.0">',
   ])
