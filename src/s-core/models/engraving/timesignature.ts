@@ -32,5 +32,12 @@ export class Timesignature extends Sheet.Timesignature {
           ),
       ),
     );
+    // Numerator and denominator share a column, including their left advance.
+    const glyphs = this.ligature.glyphLists.flat() as Glyph[];
+    const advance = Math.max(...glyphs.map((glyph) => glyph.glyphAdvanceWidth));
+    const width = Math.max(...glyphs.map((glyph) => glyph.glyphBBox.width));
+    for (const glyph of glyphs)
+      glyph.spaceLeft =
+        advance + (width - glyph.glyphBBox.width) / 2 - glyph.glyphBBox.x;
   }
 }
