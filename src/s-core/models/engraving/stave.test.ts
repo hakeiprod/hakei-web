@@ -209,11 +209,15 @@ describe("stave signatures", () => {
   );
 });
 
-test.each([1, 5, -1, -3] as const)(
-  "leaves a gap between the clef and key signature (%s)",
-  (accidental) => {
+test.each(
+  ([1, 5, -1, -3] as const).flatMap((accidental) =>
+    [60, 48].map((pitch) => ({ accidental, pitch })),
+  ),
+)(
+  "uses the SMuFL advance between the clef and key signature ($accidental, pitch $pitch)",
+  ({ accidental, pitch }) => {
     const controller = prepare({
-      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+      tracks: [{ notes: [{ pitch, start: 0, duration: 1 }] }],
       keysignatures: [{ accidental, tonality: Core.Enums.Tonality.Major }],
     });
     const drawing = controller.toDocument();
@@ -234,9 +238,12 @@ test.each([1, 5, -1, -3] as const)(
         ),
     ) as Drawing.Group;
     const first = key.children[0] as Drawing.Glyph;
+    expect(key.position.x - clef.position.x - clef.bounds.width).toBeCloseTo(
+      first.advanceWidth,
+    );
     expect(
       key.position.x + first.bounds.x - clef.bounds.x - clef.bounds.width,
-    ).toBeGreaterThanOrEqual(0.75);
+    ).toBeGreaterThan(0);
     expect(controller.toDocument()).toEqual(drawing);
     controller.unmount();
   },

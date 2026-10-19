@@ -39,8 +39,6 @@ export class Stave extends Sheet.Stave {
       const keysignatureLigature = new Engraving.Ligature(
         (this.bar.keysignature as Engraving.Keysignature).ligature.glyphLists,
       );
-      if (keysignatureLigature.glyphLists.flat().length > 0)
-        keysignatureLigature.spaceLeft = 0.75;
       this.word.append([keysignatureLigature]);
     }
     const previous = this.bar.prev?.timesignature;
@@ -83,6 +81,13 @@ export class Stave extends Sheet.Stave {
                     .otherwise(() => glyph),
                 ),
               );
+              const accidental = ligature.glyphLists
+                .flat()
+                .find((glyph) => glyph.type === Sheet.ElementType.Accidental);
+              // Apply the first accidental's SMuFL advance once before the key
+              // signature, without adding it between consecutive accidentals.
+              if (accidental instanceof Engraving.Glyph)
+                ligature.spaceLeft = accidental.glyphAdvanceWidth;
               return ligature;
             })
             .exhaustive(),
