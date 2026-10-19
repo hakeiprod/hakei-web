@@ -115,9 +115,10 @@ it("reconverts the original file on option changes and aborts pending work on un
     target: { files: [new File(["original"], "score.mid")] },
   });
   await screen.findByText("score.midのプレビュー");
-  fireEvent.change(screen.getByLabelText("MIDIの時刻"), {
-    target: { value: "QUANTIZE" },
-  });
+  fireEvent.click(screen.getByRole("button", { name: /MIDIの時刻/ }));
+  fireEvent.click(
+    await screen.findByRole("option", { name: "音符の位置を整列" }),
+  );
   await waitFor(() => expect(requests.length).toBe(2));
   expect((requests[0].file as File).name).toBe("score.mid");
   expect((requests[1].file as File).name).toBe("score.mid");
@@ -136,4 +137,48 @@ it("releases the selected file when the page enters the browser back-forward cac
   expect(
     screen.queryByRole("button", { name: "元ファイルから再変換" }),
   ).toBeNull();
+});
+
+it("shows actual MusicXML version and supported versions", () => {
+  const data = preview();
+  data.metadata = {
+    ...data.metadata,
+    format: "MUSICXML",
+    formatVersion: "3.1",
+  };
+  render(
+    <ImportPreview
+      preview={data}
+      pending={false}
+      onSave={vi.fn()}
+      onCorrect={vi.fn()}
+      onCancel={vi.fn()}
+    />,
+  );
+  expect(screen.getByText("元のMusicXMLバージョン: 3.1")).toBeDefined();
+  expect(screen.getByText(/MusicXML 2.0・3.0・3.1・4.0/)).toBeDefined();
+});
+
+it("warns about display omissions without blocking a playable preview", () => {
+  const data = preview();
+  data.issues[0] = {
+    ...data.issues[0],
+    code: "DISPLAY_INFORMATION_OMITTED",
+    message: "和声記号を表示できません。",
+    track: 0,
+    bar: 1,
+  };
+  render(
+    <ImportPreview
+      preview={data}
+      pending={false}
+      onSave={vi.fn()}
+      onCorrect={vi.fn()}
+      onCancel={vi.fn()}
+    />,
+  );
+  expect(screen.getByText(/和声記号を表示できません/)).toBeDefined();
+  expect(screen.getByText(/小節2/)).toBeDefined();
+  expect(screen.getByTestId("notation").textContent).toBe("再生可能");
+  expect(screen.queryByText(/元のMusicXMLバージョン/)).toBeNull();
 });

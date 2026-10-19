@@ -1,4 +1,14 @@
 "use client";
+import {
+  TableColumn,
+  TableHeader,
+  TableCell,
+  TableRow,
+  TableBody,
+  Table,
+  CardBody,
+  Card,
+} from "@heroui/react";
 import { partialScoreSchema } from "@/s-core/models/import/contracts";
 import { sheetScoreSchema } from "@/s-core/models/import/score-schema";
 import * as Audio from "@/s-core/models/audio";
@@ -16,40 +26,58 @@ import { ScoreMixier } from "./score-mixier";
 import { ScorePlayer } from "./score-player";
 import { ScoreViewer } from "./score-viewer";
 import { VirtualKeyboard } from "./virtual-keyboard";
-
 export function ShowScore(properties: {
-  score: { data: unknown; revisionNumber?: number };
+  score: {
+    data: unknown;
+    revisionNumber?: number;
+  };
   canPlay?: boolean;
 }) {
   const partial = partialScoreSchema.safeParse(properties.score.data);
   if (partial.success)
     return (
-      <section>
-        <p role="status">
-          不明な音高・開始位置・長さがあるため、練習・ゲームには利用できません。
-        </p>
-        <table>
-          <caption>既知の音符（先頭50個）</caption>
-          <thead>
-            <tr>
-              <th>トラック</th>
-              <th>音高</th>
-              <th>開始（拍）</th>
-              <th>長さ（拍）</th>
-            </tr>
-          </thead>
-          <tbody>
-            {partial.data.notes.slice(0, 50).map((note) => (
-              <tr key={`${note.trackId}:${note.id}`}>
-                <td>{note.trackId + 1}</td>
-                <td>{note.rest ? "休符" : (note.pitch ?? "不明")}</td>
-                <td>{note.onset ?? "不明"}</td>
-                <td>{note.duration ?? "不明"}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+      <Card
+        as="section"
+        className="min-w-0 overflow-visible border border-divider bg-content1"
+      >
+        <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+          <p
+            role="status"
+            className="empty:hidden rounded-lg bg-default-100 p-3 text-sm text-foreground"
+          >
+            不明な音高・開始位置・長さがあるため、練習・ゲームには利用できません。
+          </p>
+          <div className="min-w-0 max-w-full overflow-x-auto">
+            <Table
+              aria-label="既知の音符（先頭50個）"
+              selectionMode="none"
+              className="min-w-0"
+              topContent={
+                <p className="text-sm font-medium">既知の音符（先頭50個）</p>
+              }
+            >
+              <TableHeader>
+                <TableColumn>トラック</TableColumn>
+                <TableColumn>音高</TableColumn>
+                <TableColumn>開始（拍）</TableColumn>
+                <TableColumn>長さ（拍）</TableColumn>
+              </TableHeader>
+              <TableBody>
+                {partial.data.notes.slice(0, 50).map((note) => (
+                  <TableRow key={`${note.trackId}:${note.id}`}>
+                    <TableCell>{note.trackId + 1}</TableCell>
+                    <TableCell>
+                      {note.rest ? "休符" : (note.pitch ?? "不明")}
+                    </TableCell>
+                    <TableCell>{note.onset ?? "不明"}</TableCell>
+                    <TableCell>{note.duration ?? "不明"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardBody>
+      </Card>
     );
   const parsed = sheetScoreSchema.safeParse(properties.score.data);
   if (!parsed.success)

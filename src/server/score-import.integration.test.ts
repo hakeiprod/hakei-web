@@ -354,3 +354,174 @@ it("blocks session access to the original partial revision and allows only its c
       ),
     ).rejects.toThrow("PLAYBACK_BLOCKED");
   }));
+
+it(
+  "persists source versions and independent musical values through DB, Git, readback and proposals",
+  async () =>
+    withCollaboration(async (fixture) => {
+      const { readScore } = await import("./score-reader");
+      const { readRevisionArtifacts } = await import("./revision-validation");
+      const legacy = await readScore(
+        fixture.database,
+        fixture.git,
+        fixture.scoreId,
+        fixture.ownerId,
+      );
+      expect(legacy.id).toBe(fixture.scoreId);
+      for (const version of ["2.0", "3.0", "3.1", "4.0"]) {
+        for (const extension of ["musicxml", "mxl"]) {
+          const result = await convertScore({
+            bytes: await readFile(
+              `src/s-core/fixtures/import/musicxml-versions/study-${version}.${extension}`,
+            ),
+            sourceName: `study-${version}.${extension}`,
+            options: { mode: "PRESERVE" },
+          });
+          const input = {
+            candidate: result.candidate,
+            issues: result.issues,
+            metadata: result.metadata,
+            repositoryId: fixture.repositoryId,
+            previewToken: signPreview(fixture.ownerId, result, secret),
+            acknowledgedIssueIds: result.issues
+              .filter(
+                (index) =>
+                  index.severity !== "INFO" && index.status === "UNRESOLVED",
+              )
+              .map((index) => index.id),
+            key: `version-${version.replaceAll(".", "-")}-${extension}`,
+          };
+          const saved = (await saveImport(
+            fixture.database,
+            fixture.git,
+            fixture.ownerId,
+            input,
+            secret,
+          )) as { scoreId: number; revisionId: string; commitOid: string };
+          const dto = await readScore(
+            fixture.database,
+            fixture.git,
+            saved.scoreId,
+            fixture.ownerId,
+          );
+          expect(dto.data).toEqual(result.candidate);
+          expect(dto.artifacts?.metadata).toEqual(result.metadata);
+          expect(dto.artifacts?.validation.canPractice).toBe(true);
+          expect(
+            await fixture.database.importMetadata.findUnique({
+              where: { revisionId: saved.revisionId },
+            }),
+          ).toMatchObject({ formatVersion: version });
+          const repository =
+            await fixture.database.scoreRepository.findUniqueOrThrow({
+              where: { id: fixture.repositoryId },
+            });
+          expect(
+            await fixture.git.readJson(
+              repository.gitStorageKey,
+              saved.commitOid,
+              `scores/${saved.scoreId}/settings.json`,
+            ),
+          ).toMatchObject({ metadata: { formatVersion: version } });
+          if (version === "3.1" && extension === "mxl") {
+            const { saveDraft, submitProposal } = await import("./proposals");
+            const { mergeProposal } = await import("./merge-proposal");
+            const draft = (await saveDraft(fixture.database, fixture.git, {
+              actorId: fixture.ownerId,
+              scoreId: saved.scoreId,
+              baseRevisionId: saved.revisionId,
+              candidate: result.candidate,
+              summary: "Version retention",
+              key: "version-retention-draft",
+            })) as { proposalId: string; version: number };
+            const submitted = await submitProposal(fixture.database, {
+              actorId: fixture.ownerId,
+              proposalId: draft.proposalId,
+              expectedVersion: draft.version,
+            });
+            const merged = (await mergeProposal(fixture.database, fixture.git, {
+              actorId: fixture.ownerId,
+              proposalId: draft.proposalId,
+              expectedProposalVersion: submitted.version,
+              expectedRevisionId: saved.revisionId,
+              expectedRepositoryCommitOid: saved.commitOid,
+              key: "version-retention-merge",
+            })) as { revisionId: string };
+            const read = await readScore(
+              fixture.database,
+              fixture.git,
+              saved.scoreId,
+              fixture.ownerId,
+              merged.revisionId,
+            );
+            expect(read.artifacts?.metadata?.formatVersion).toBe(version);
+            expect(read.data).toEqual(result.candidate);
+          }
+          const old = {
+            ...result.metadata,
+            converterVersion: "score-import-v1",
+          };
+          if (version === "2.0" && extension === "musicxml") {
+            const { revisionArtifacts, artifactFiles } =
+              await import("./revision-validation");
+            for (const metadata of [old, null]) {
+              const artifacts = revisionArtifacts(
+                result.candidate,
+                metadata,
+                result.issues,
+              );
+              const legacyOid = await fixture.git.commit(
+                repository.gitStorageKey,
+                undefined,
+                {
+                  [`scores/${saved.scoreId}/score.json`]: result.candidate,
+                  ...artifactFiles(saved.scoreId, artifacts),
+                },
+                "Legacy import metadata fixture",
+              );
+              const restored = await readRevisionArtifacts(
+                fixture.git,
+                repository.gitStorageKey,
+                legacyOid,
+                saved.scoreId,
+              );
+              expect(restored?.metadata).toEqual(metadata);
+            }
+            const bareOid = await fixture.git.commit(
+              repository.gitStorageKey,
+              undefined,
+              { [`scores/${saved.scoreId}/score.json`]: result.candidate },
+              "Legacy score without artifacts",
+            );
+            expect(
+              await readRevisionArtifacts(
+                fixture.git,
+                repository.gitStorageKey,
+                bareOid,
+                saved.scoreId,
+              ),
+            ).toBeUndefined();
+          }
+
+          const { revisionArtifacts, artifactFiles } =
+            await import("./revision-validation");
+          const files = artifactFiles(
+            saved.scoreId,
+            revisionArtifacts(result.candidate, old, result.issues),
+          );
+          expect(files[`scores/${saved.scoreId}/settings.json`]).toMatchObject({
+            metadata: old,
+          });
+          expect(
+            await readRevisionArtifacts(
+              fixture.git,
+              repository.gitStorageKey,
+              saved.commitOid,
+              saved.scoreId,
+            ),
+          ).toMatchObject({ metadata: result.metadata });
+        }
+      }
+    }),
+  20_000,
+);

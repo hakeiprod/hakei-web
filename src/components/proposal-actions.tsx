@@ -1,4 +1,6 @@
 "use client";
+import { CardBody, Card, Textarea, Button } from "@heroui/react";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { closeProposal, mergeProposal } from "@/app/actions/proposals";
@@ -48,43 +50,70 @@ export function ProposalActions(properties: {
     }
   }
   return (
-    <section>
-      <p>{properties.mergeReason}</p>
-      {(properties.canWithdraw ||
-        (properties.status === "SUBMITTED" && properties.canMerge)) && (
-        <label>
-          却下・取り下げの理由
-          <textarea
-            value={reason}
-            onChange={(event) => setReason(event.target.value)}
-          />
-        </label>
-      )}
-      {properties.status === "SUBMITTED" && (
-        <>
-          <button
-            disabled={pending || !properties.canMerge}
-            onClick={() => act("MERGE")}
+    <Card
+      as="section"
+      className="min-w-0 overflow-visible border border-divider bg-content1"
+    >
+      <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+        <p>{properties.mergeReason}</p>
+        {(properties.canWithdraw ||
+          (properties.status === "SUBMITTED" && properties.canMerge)) && (
+          <div className="min-w-0">
+            <Textarea
+              value={reason}
+              onChange={(event) => setReason(event.target.value)}
+              label="却下・取り下げの理由"
+              variant="bordered"
+              labelPlacement="outside"
+            />
+          </div>
+        )}
+        {properties.status === "SUBMITTED" && (
+          <>
+            <Button
+              onClick={() => act("MERGE")}
+              isDisabled={pending || !properties.canMerge}
+              type="button"
+              color="primary"
+              variant="solid"
+              className="max-w-full whitespace-normal"
+              isLoading={pending}
+            >
+              マージ
+            </Button>
+            <Button
+              onClick={() => act("REJECTED")}
+              isDisabled={pending || !properties.canMerge || !reason.trim()}
+              type="button"
+              color="danger"
+              variant="flat"
+              className="max-w-full whitespace-normal"
+              isLoading={pending}
+            >
+              却下
+            </Button>
+          </>
+        )}
+        {properties.canWithdraw && (
+          <Button
+            onClick={() => act("WITHDRAWN")}
+            isDisabled={pending || !reason.trim()}
+            type="button"
+            color="danger"
+            variant="flat"
+            className="max-w-full whitespace-normal"
+            isLoading={pending}
           >
-            マージ
-          </button>
-          <button
-            disabled={pending || !properties.canMerge || !reason.trim()}
-            onClick={() => act("REJECTED")}
-          >
-            却下
-          </button>
-        </>
-      )}
-      {properties.canWithdraw && (
-        <button
-          disabled={pending || !reason.trim()}
-          onClick={() => act("WITHDRAWN")}
+            取り下げ
+          </Button>
+        )}
+        <p
+          role="status"
+          className="empty:hidden rounded-lg bg-default-100 p-3 text-sm text-foreground"
         >
-          取り下げ
-        </button>
-      )}
-      <p role="status">{message}</p>
-    </section>
+          {message}
+        </p>
+      </CardBody>
+    </Card>
   );
 }

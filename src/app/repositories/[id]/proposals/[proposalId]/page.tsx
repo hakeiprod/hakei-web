@@ -9,7 +9,10 @@ import { ProposalEditor } from "@/components/proposal-editor";
 import { ProposalActions } from "@/components/proposal-actions";
 import { ShowScore } from "@/components/show-score";
 export default async function Proposal(properties: {
-  params: Promise<{ id: string; proposalId: string }>;
+  params: Promise<{
+    id: string;
+    proposalId: string;
+  }>;
 }) {
   const actor = await currentActor();
   if (!actor) redirect("/api/auth/signin");
@@ -34,10 +37,17 @@ export default async function Proposal(properties: {
   };
   return (
     <AuthenticatedContent actorId={actor.id}>
-      <main>
-        <h1>編集案: {proposal.summary}</h1>
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          編集案: {proposal.summary}
+        </h1>
         <p>{states[proposal.status] ?? proposal.status}</p>
-        <Link href={`/score/${proposal.scoreId}`}>現在の楽譜へ</Link>
+        <Link
+          href={`/score/${proposal.scoreId}`}
+          className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+        >
+          現在の楽譜へ
+        </Link>
         {proposal.status === "CONFLICTED" && (
           <p>
             現在の楽譜を確認して、新しい基準版から編集案を作成してください。
@@ -55,9 +65,9 @@ export default async function Proposal(properties: {
           />
         ) : (
           <>
-            <h2>変更前</h2>
+            <h2 className="text-xl font-semibold">変更前</h2>
             <ShowScore score={{ data: proposal.base }} />
-            <h2>変更後</h2>
+            <h2 className="text-xl font-semibold">変更後</h2>
             <ShowScore score={{ data: proposal.candidate }} />
           </>
         )}

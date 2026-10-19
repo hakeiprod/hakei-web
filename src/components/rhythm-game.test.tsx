@@ -4,7 +4,6 @@ import {
   render,
   screen,
   waitFor,
-  within,
 } from "@testing-library/react";
 import { afterEach, expect, it, vi } from "vitest";
 import sheet from "@/s-core/fixtures/import/quarter-sheet.json";
@@ -83,7 +82,7 @@ it("displays the conditions before recording and cleans up MIDI on logout/unmoun
     vi.fn(() => new Promise(() => {})),
   );
   const view = render(<RhythmGame {...properties} />);
-  expect(screen.getByLabelText("対象トラック")).toBeDefined();
+  expect(screen.getByRole("button", { name: /対象トラック/ })).toBeDefined();
   expect(screen.getByLabelText("開始小節")).toBeDefined();
   expect(screen.getByText(/最高判定±30ms/)).toBeDefined();
   view.unmount();
@@ -99,12 +98,16 @@ it("keeps failed recording data and retries the same client session and event ba
   mocks.save.mockResolvedValue({ ok: false, error: { message: "保存失敗" } });
   render(<RhythmGame {...properties} />);
   fireEvent.click(screen.getByRole("button", { name: "MIDI入力を接続" }));
-  await within(screen.getByLabelText("入力機器")).findByRole("option", {
-    name: "Piano",
+  await waitFor(() =>
+    expect(
+      (screen.getByRole("button", { name: /入力機器/ }) as HTMLButtonElement)
+        .disabled,
+    ).toBe(false),
+  );
+  fireEvent.keyDown(screen.getByRole("button", { name: /入力機器/ }), {
+    key: "ArrowDown",
   });
-  fireEvent.change(screen.getByLabelText("入力機器"), {
-    target: { value: "p" },
-  });
+  fireEvent.click(await screen.findByRole("option", { name: "Piano" }));
   await waitFor(() =>
     expect(
       (screen.getByRole("button", { name: "演奏を開始" }) as HTMLButtonElement)
@@ -202,12 +205,16 @@ it.each(["COMPLETED", "INTERRUPTED"] as const)(
     });
     render(<RhythmGame {...properties} />);
     fireEvent.click(screen.getByRole("button", { name: "MIDI入力を接続" }));
-    await within(screen.getByLabelText("入力機器")).findByRole("option", {
-      name: "Piano",
+    await waitFor(() =>
+      expect(
+        (screen.getByRole("button", { name: /入力機器/ }) as HTMLButtonElement)
+          .disabled,
+      ).toBe(false),
+    );
+    fireEvent.keyDown(screen.getByRole("button", { name: /入力機器/ }), {
+      key: "ArrowDown",
     });
-    fireEvent.change(screen.getByLabelText("入力機器"), {
-      target: { value: "p" },
-    });
+    fireEvent.click(await screen.findByRole("option", { name: "Piano" }));
     await waitFor(() =>
       expect(
         (

@@ -49,3 +49,19 @@ it("does not include candidate music or original bytes in tokens", () => {
     "IMPORT_SIGNING_SECRET_REQUIRED",
   );
 });
+
+it("accepts an unchanged v1 preview but rejects source-version-only tampering", () => {
+  const payload = {
+    ...data,
+    metadata: { converterVersion: "score-import-v1", formatVersion: "3.1" },
+  };
+  const token = signPreview("alice", payload, secret, 1000);
+  expect(verifyPreview(token, "alice", payload, secret, 1001)).toBeDefined();
+  const tampered = {
+    ...payload,
+    metadata: { ...payload.metadata, formatVersion: "4.0" },
+  };
+  expect(() => verifyPreview(token, "alice", tampered, secret, 1001)).toThrow(
+    "INVALID_PREVIEW_TOKEN",
+  );
+});

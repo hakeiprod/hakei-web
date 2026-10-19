@@ -6,7 +6,13 @@ import { Score } from "../../../sheet";
 
 const directory = "src/s-core/fixtures/files/musicxml";
 const entries = await readdir(directory);
-const fixtures = entries.filter((name) => name.endsWith(".mxl")).toSorted();
+// Menuett has explicit repeat blockers; its preview/save contract is tested in import/menuett.test.ts.
+const fixtures = entries
+  .filter(
+    (name) =>
+      name.endsWith(".mxl") && name !== "Menuett_in_G-Dur_BWV_Anh._114.mxl",
+  )
+  .toSorted();
 
 beforeEach(() => vi.spyOn(console, "log").mockImplementation(() => {}));
 afterEach(() => vi.restoreAllMocks());

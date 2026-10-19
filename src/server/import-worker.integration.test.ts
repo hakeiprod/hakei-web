@@ -113,3 +113,38 @@ it("limits the total workers across actors and frees capacity on release", async
       else process.env.IMPORT_MAX_CONCURRENT_WORKERS = previous;
     }
   }));
+
+it("keeps the actual version through the real worker for all eight XML/MXL combinations", async () => {
+  for (const version of ["2.0", "3.0", "3.1", "4.0"]) {
+    for (const extension of ["musicxml", "mxl"]) {
+      const result = await runImportWorker({
+        bytes: await readFile(
+          `src/s-core/fixtures/import/musicxml-versions/study-${version}.${extension}`,
+        ),
+        sourceName: `study-${version}.${extension}`,
+        options: { mode: "PRESERVE" },
+      });
+      expect(result.metadata.formatVersion).toBe(version);
+      expect(result.validation.canPractice).toBe(true);
+      expect(result.candidate.notes).toHaveLength(7);
+    }
+  }
+}, 15_000);
+
+it("respects lower configured input limits without weakening the heap budget", async () => {
+  const old = process.env.IMPORT_MAX_INPUT_BYTES;
+  try {
+    process.env.IMPORT_MAX_INPUT_BYTES = "16";
+    const { importLimits } = await import("./import-limits");
+    expect(importLimits().workerHeapMb).toBe(128);
+    await expect(
+      runImportWorker({
+        bytes: new Uint8Array(17),
+        options: { mode: "PRESERVE" },
+      }),
+    ).rejects.toThrow("INPUT_LIMIT");
+  } finally {
+    if (old === undefined) delete process.env.IMPORT_MAX_INPUT_BYTES;
+    else process.env.IMPORT_MAX_INPUT_BYTES = old;
+  }
+});

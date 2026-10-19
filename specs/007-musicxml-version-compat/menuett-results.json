@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-19",
+  "original": "src/s-core/fixtures/files/musicxml/Menuett_in_G-Dur_BWV_Anh._114.mxl",
+  "sha256": "2a4fb54e1229faa8d7268a804ab4f8c90f9704c544f1721e171be925c1d5ae1a",
+  "rootVersion": null,
+  "doctypeVersion": "3.0",
+  "browser": "156.0.8078.4",
+  "environment": "Dedicated _test DB/Git and production server; DB session fixture",
+  "cases": [
+    {
+      "width": 360,
+      "http": 200,
+      "notes": 208,
+      "tracks": 2,
+      "sourceVersion": "3.0",
+      "versionSource": "standard PUBLIC DOCTYPE",
+      "repeatBlockers": 6,
+      "save": "PASS",
+      "reload": "PASS",
+      "gitDbReadback": "MATCH",
+      "practiceGame": "BLOCKED",
+      "scroll": 360
+    },
+    {
+      "width": 1280,
+      "http": 200,
+      "notes": 208,
+      "tracks": 2,
+      "sourceVersion": "3.0",
+      "versionSource": "standard PUBLIC DOCTYPE",
+      "repeatBlockers": 6,
+      "save": "PASS",
+      "reload": "PASS",
+      "gitDbReadback": "MATCH",
+      "practiceGame": "BLOCKED",
+      "scroll": 1280
+    }
+  ],
+  "errors": [],
+  "result": "PASS"
+}

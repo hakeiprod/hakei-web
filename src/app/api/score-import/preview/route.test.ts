@@ -82,3 +82,15 @@ it("rejects missing authentication and foreign origins before processing file by
   expect(forbidden.status).toBe(403);
   expect(convert).not.toHaveBeenCalled();
 });
+
+it.each(["VERSION", "STRUCTURE"])(
+  "preserves worker MusicXML %s rejection as a safe 415",
+  async (kind) => {
+    actor.mockResolvedValue({ id: "alice" });
+    convert.mockRejectedValueOnce(new Error(`UNSUPPORTED_MUSICXML_${kind}`));
+    const response = await POST(request());
+    expect(response.status).toBe(415);
+    const body = await response.json();
+    expect(body.error.code).toBe(`UNSUPPORTED_MUSICXML_${kind}`);
+  },
+);

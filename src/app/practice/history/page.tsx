@@ -6,7 +6,9 @@ import { AuthenticatedContent } from "@/components/authenticated-content";
 import { Header } from "@/components/header";
 import { PracticeHistory } from "@/components/practice-history";
 export default async function History(properties: {
-  searchParams: Promise<{ cursor?: string }>;
+  searchParams: Promise<{
+    cursor?: string;
+  }>;
 }) {
   const actor = await currentActor();
   if (!actor) redirect("/api/auth/signin");
@@ -20,8 +22,10 @@ export default async function History(properties: {
     <>
       <Header />
       <AuthenticatedContent actorId={actor.id}>
-        <main>
-          <h1>自分の演奏履歴</h1>
+        <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            自分の演奏履歴
+          </h1>
           <PracticeHistory history={history} />
         </main>
       </AuthenticatedContent>

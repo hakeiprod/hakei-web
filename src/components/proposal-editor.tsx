@@ -1,4 +1,15 @@
 "use client";
+import {
+  CardBody,
+  Card,
+  Textarea,
+  Input,
+  Checkbox,
+  SelectItem,
+  Select,
+  Button,
+} from "@heroui/react";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { saveDraft, submitProposal } from "@/app/actions/proposals";
@@ -53,7 +64,10 @@ export function ProposalEditor(properties: {
         setMessage(result.error.message);
         return;
       }
-      const saved = result.data as { proposalId: string; version: number };
+      const saved = result.data as {
+        proposalId: string;
+        version: number;
+      };
       if (submit) {
         const submitted = await submitProposal({
           proposalId: saved.proposalId,
@@ -77,211 +91,286 @@ export function ProposalEditor(properties: {
     }
   }
   return (
-    <section>
-      <h2>編集案</h2>
-      <p>原本は提出やマージまで変更されません。</p>
-      <label>
-        修正内容の説明
-        <textarea
-          value={summary}
-          onChange={(event) => setSummary(event.target.value)}
-          required
-          maxLength={2000}
-        />
-      </label>
-      <table>
-        <caption>音符と休符</caption>
-        <thead>
-          <tr>
-            <th>音符</th>
-            <th>音高</th>
-            <th>開始位置（拍）</th>
-            <th>長さ（拍）</th>
-            <th>休符</th>
-          </tr>
-        </thead>
-        <tbody>
-          {candidate.notes.map((note, index) => (
-            <tr key={`${note.trackId}:${note.id}`}>
-              <td>{note.id + 1}</td>
-              <td>
-                <input
-                  aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}の音高`}
+    <Card
+      as="section"
+      className="min-w-0 overflow-visible border border-divider bg-content1"
+    >
+      <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+        <h2 className="text-xl font-semibold">編集案</h2>
+        <p>原本は提出やマージまで変更されません。</p>
+        <div className="min-w-0">
+          <Textarea
+            value={summary}
+            onChange={(event) => setSummary(event.target.value)}
+            maxLength={2000}
+            isRequired
+            validationBehavior="native"
+            label="修正内容の説明"
+            variant="bordered"
+            labelPlacement="outside"
+          />
+        </div>
+        <div className="min-w-0 max-w-full overflow-x-auto">
+          <table className="w-full min-w-[40rem] border-collapse text-sm [&_td]:min-w-28 [&_th]:bg-default-100 [&_th]:p-3 [&_th]:text-left [&_td]:border-b [&_td]:border-divider [&_td]:p-3">
+            <caption className="text-left">音符と休符</caption>
+            <thead>
+              <tr>
+                <th>音符</th>
+                <th>音高</th>
+                <th>開始位置（拍）</th>
+                <th>長さ（拍）</th>
+                <th>休符</th>
+              </tr>
+            </thead>
+            <tbody>
+              {candidate.notes.map((note, index) => (
+                <tr key={`${note.trackId}:${note.id}`}>
+                  <td>{note.id + 1}</td>
+                  <td>
+                    <Input
+                      aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}の音高`}
+                      type="number"
+                      min={0}
+                      max={127}
+                      onChange={(event) =>
+                        updateNote(index, { pitch: Number(event.target.value) })
+                      }
+                      value={note.pitch == null ? "" : String(note.pitch)}
+                      variant="bordered"
+                      labelPlacement="outside"
+                      className="min-w-0"
+                    />
+                  </td>
+                  <td>
+                    <Input
+                      aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}の開始位置`}
+                      type="number"
+                      min={0}
+                      step="any"
+                      onChange={(event) =>
+                        updateNote(index, { start: Number(event.target.value) })
+                      }
+                      value={note.start == null ? "" : String(note.start)}
+                      variant="bordered"
+                      labelPlacement="outside"
+                      className="min-w-0"
+                    />
+                  </td>
+                  <td>
+                    <Input
+                      aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}の長さ`}
+                      type="number"
+                      min={0.000_001}
+                      step="any"
+                      onChange={(event) =>
+                        updateNote(index, {
+                          duration: Number(event.target.value),
+                        })
+                      }
+                      value={note.duration == null ? "" : String(note.duration)}
+                      variant="bordered"
+                      labelPlacement="outside"
+                      className="min-w-0"
+                    />
+                  </td>
+                  <td>
+                    <Checkbox
+                      aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}を休符にする`}
+                      onChange={(event) =>
+                        updateNote(index, { rest: event.target.checked })
+                      }
+                      isSelected={note.rest}
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <fieldset className="min-w-0 space-y-4 rounded-large border border-divider p-4">
+          <legend>拍子</legend>
+          {candidate.timesignatures.map((time, index) => (
+            <div key={index}>
+              <div className="min-w-0">
+                <Input
                   type="number"
-                  min={0}
-                  max={127}
-                  value={note.pitch}
+                  min={1}
                   onChange={(event) =>
-                    updateNote(index, { pitch: Number(event.target.value) })
+                    setCandidate((previous) => ({
+                      ...previous,
+                      timesignatures: previous.timesignatures.map(
+                        (item, current) =>
+                          current === index
+                            ? { ...item, numerator: Number(event.target.value) }
+                            : item,
+                      ),
+                    }))
                   }
+                  value={time.numerator == null ? "" : String(time.numerator)}
+                  label={<>拍子{index + 1}の分子</>}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  className="min-w-0"
                 />
-              </td>
-              <td>
-                <input
-                  aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}の開始位置`}
+              </div>
+              <div className="min-w-0">
+                <Input
                   type="number"
-                  min={0}
-                  step="any"
-                  value={note.start}
+                  min={1}
                   onChange={(event) =>
-                    updateNote(index, { start: Number(event.target.value) })
+                    setCandidate((previous) => ({
+                      ...previous,
+                      timesignatures: previous.timesignatures.map(
+                        (item, current) =>
+                          current === index
+                            ? {
+                                ...item,
+                                denominator: Number(event.target.value),
+                              }
+                            : item,
+                      ),
+                    }))
                   }
-                />
-              </td>
-              <td>
-                <input
-                  aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}の長さ`}
-                  type="number"
-                  min={0.000_001}
-                  step="any"
-                  value={note.duration}
-                  onChange={(event) =>
-                    updateNote(index, { duration: Number(event.target.value) })
+                  value={
+                    time.denominator == null ? "" : String(time.denominator)
                   }
+                  label="分母"
+                  variant="bordered"
+                  labelPlacement="outside"
+                  className="min-w-0"
                 />
-              </td>
-              <td>
-                <input
-                  aria-label={`トラック${note.trackId + 1}・音符${note.id + 1}を休符にする`}
-                  type="checkbox"
-                  checked={note.rest}
-                  onChange={(event) =>
-                    updateNote(index, { rest: event.target.checked })
-                  }
-                />
-              </td>
-            </tr>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
-      <fieldset>
-        <legend>拍子</legend>
-        {candidate.timesignatures.map((time, index) => (
-          <div key={index}>
-            <label>
-              拍子 {index + 1} の分子
-              <input
+        </fieldset>
+        <fieldset className="min-w-0 space-y-4 rounded-large border border-divider p-4">
+          <legend>調号</legend>
+          {candidate.keysignatures.map((key, index) => (
+            <div key={index}>
+              <div className="min-w-0">
+                <Input
+                  type="number"
+                  min={-7}
+                  max={7}
+                  onChange={(event) =>
+                    setCandidate((previous) => ({
+                      ...previous,
+                      keysignatures: previous.keysignatures.map(
+                        (item, current) =>
+                          current === index
+                            ? {
+                                ...item,
+                                accidental: Number(event.target.value),
+                              }
+                            : item,
+                      ),
+                    }))
+                  }
+                  value={key.accidental == null ? "" : String(key.accidental)}
+                  label={<>調号{index + 1}の変化数</>}
+                  variant="bordered"
+                  labelPlacement="outside"
+                  className="min-w-0"
+                />
+              </div>
+              <div className="min-w-0">
+                <Select
+                  onChange={(event) =>
+                    setCandidate((previous) => ({
+                      ...previous,
+                      keysignatures: previous.keysignatures.map(
+                        (item, current) =>
+                          current === index
+                            ? {
+                                ...item,
+                                tonality: Number(event.target.value) as 0 | 1,
+                              }
+                            : item,
+                      ),
+                    }))
+                  }
+                  label="長調・短調"
+                  variant="bordered"
+                  labelPlacement="outside"
+                  selectedKeys={
+                    String(key.tonality) === "" ? [] : [String(key.tonality)]
+                  }
+                  disallowEmptySelection
+                  className="min-w-0"
+                >
+                  <SelectItem key={String(0)}>長調</SelectItem>
+                  <SelectItem key={String(1)}>短調</SelectItem>
+                </Select>
+              </div>
+            </div>
+          ))}
+        </fieldset>
+        <fieldset className="min-w-0 space-y-4 rounded-large border border-divider p-4">
+          <legend>テンポ</legend>
+          {candidate.tempos.map((tempo, index) => (
+            <div key={index} className="min-w-0">
+              <Input
                 type="number"
                 min={1}
-                value={time.numerator}
                 onChange={(event) =>
                   setCandidate((previous) => ({
                     ...previous,
-                    timesignatures: previous.timesignatures.map(
-                      (item, current) =>
-                        current === index
-                          ? { ...item, numerator: Number(event.target.value) }
-                          : item,
+                    tempos: previous.tempos.map((item, current) =>
+                      current === index
+                        ? { ...item, value: Number(event.target.value) }
+                        : item,
                     ),
                   }))
                 }
+                value={tempo.value == null ? "" : String(tempo.value)}
+                label={<>テンポ{index + 1}（BPM）</>}
+                variant="bordered"
+                labelPlacement="outside"
+                className="min-w-0"
               />
-            </label>
-            <label>
-              分母
-              <input
-                type="number"
-                min={1}
-                value={time.denominator}
-                onChange={(event) =>
-                  setCandidate((previous) => ({
-                    ...previous,
-                    timesignatures: previous.timesignatures.map(
-                      (item, current) =>
-                        current === index
-                          ? { ...item, denominator: Number(event.target.value) }
-                          : item,
-                    ),
-                  }))
-                }
-              />
-            </label>
-          </div>
-        ))}
-      </fieldset>
-      <fieldset>
-        <legend>調号</legend>
-        {candidate.keysignatures.map((key, index) => (
-          <div key={index}>
-            <label>
-              調号 {index + 1} の変化数
-              <input
-                type="number"
-                min={-7}
-                max={7}
-                value={key.accidental}
-                onChange={(event) =>
-                  setCandidate((previous) => ({
-                    ...previous,
-                    keysignatures: previous.keysignatures.map(
-                      (item, current) =>
-                        current === index
-                          ? { ...item, accidental: Number(event.target.value) }
-                          : item,
-                    ),
-                  }))
-                }
-              />
-            </label>
-            <label>
-              長調・短調
-              <select
-                value={key.tonality}
-                onChange={(event) =>
-                  setCandidate((previous) => ({
-                    ...previous,
-                    keysignatures: previous.keysignatures.map(
-                      (item, current) =>
-                        current === index
-                          ? {
-                              ...item,
-                              tonality: Number(event.target.value) as 0 | 1,
-                            }
-                          : item,
-                    ),
-                  }))
-                }
-              >
-                <option value={0}>長調</option>
-                <option value={1}>短調</option>
-              </select>
-            </label>
-          </div>
-        ))}
-      </fieldset>
-      <fieldset>
-        <legend>テンポ</legend>
-        {candidate.tempos.map((tempo, index) => (
-          <label key={index}>
-            テンポ {index + 1}（BPM）
-            <input
-              type="number"
-              min={1}
-              value={tempo.value}
-              onChange={(event) =>
-                setCandidate((previous) => ({
-                  ...previous,
-                  tempos: previous.tempos.map((item, current) =>
-                    current === index
-                      ? { ...item, value: Number(event.target.value) }
-                      : item,
-                  ),
-                }))
-              }
-            />
-          </label>
-        ))}
-      </fieldset>
-      <h3>プレビュー</h3>
-      <ShowScore score={{ data: candidate }} />
-      <button disabled={pending || !summary.trim()} onClick={() => save(false)}>
-        下書きを保存
-      </button>
-      <button disabled={pending || !summary.trim()} onClick={() => save(true)}>
-        編集案を提出
-      </button>
-      <p role="status">{message}</p>
-      <button onClick={() => router.refresh()}>最新の状態を確認</button>
-    </section>
+            </div>
+          ))}
+        </fieldset>
+        <h3 className="text-lg font-semibold">プレビュー</h3>
+        <ShowScore score={{ data: candidate }} />
+        <Button
+          onClick={() => save(false)}
+          isDisabled={pending || !summary.trim()}
+          type="button"
+          color="primary"
+          variant="solid"
+          className="max-w-full whitespace-normal"
+          isLoading={pending}
+        >
+          下書きを保存
+        </Button>
+        <Button
+          onClick={() => save(true)}
+          isDisabled={pending || !summary.trim()}
+          type="button"
+          color="primary"
+          variant="solid"
+          className="max-w-full whitespace-normal"
+          isLoading={pending}
+        >
+          編集案を提出
+        </Button>
+        <p
+          role="status"
+          className="empty:hidden rounded-lg bg-default-100 p-3 text-sm text-foreground"
+        >
+          {message}
+        </p>
+        <Button
+          onClick={() => router.refresh()}
+          type="button"
+          color="default"
+          variant="bordered"
+          className="max-w-full whitespace-normal"
+        >
+          最新の状態を確認
+        </Button>
+      </CardBody>
+    </Card>
   );
 }

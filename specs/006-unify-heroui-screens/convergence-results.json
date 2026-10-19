@@ -1,0 +1,107 @@
+{
+  "date": "2026-10-19",
+  "tasks": ["T032", "T033"],
+  "browser": "Chromium 156.0.8078.4",
+  "buttons": {
+    "audited": 33,
+    "primary": "primary/solid",
+    "secondary": "default/bordered",
+    "cancel": "default/light",
+    "destructive": "danger; existing flat variant retained"
+  },
+  "checks": {
+    "unitFiles": 73,
+    "unitTests": 486,
+    "unit": "PASS",
+    "nextTypegen": "PASS",
+    "tsc": "PASS",
+    "eslint": "PASS",
+    "build": "PASS",
+    "normalViewportChecks": 24,
+    "permissionDeniedViewportChecks": 4,
+    "browserOperations": 31,
+    "unexpectedPageOverflow": 0,
+    "pageErrors": 0,
+    "unnamedButtons": 0
+  },
+  "permissionDenied": [
+    {
+      "width": 360,
+      "route": "/score/create?repositoryId=[id]",
+      "role": "VIEWER",
+      "expectedHeading": "楽譜を作成",
+      "expectedMessage": "このリポジトリでは楽譜を作成できません。",
+      "editingControls": 0,
+      "pageOverflow": 0,
+      "result": "PASS"
+    },
+    {
+      "width": 360,
+      "route": "/score/[id]/edit",
+      "role": "VIEWER",
+      "expectedHeading": "楽譜 [id] の編集案",
+      "expectedMessage": "編集する権限がありません。",
+      "editingControls": 0,
+      "pageOverflow": 0,
+      "result": "PASS"
+    },
+    {
+      "width": 1280,
+      "route": "/score/create?repositoryId=[id]",
+      "role": "VIEWER",
+      "expectedHeading": "楽譜を作成",
+      "expectedMessage": "このリポジトリでは楽譜を作成できません。",
+      "editingControls": 0,
+      "pageOverflow": 0,
+      "result": "PASS"
+    },
+    {
+      "width": 1280,
+      "route": "/score/[id]/edit",
+      "role": "VIEWER",
+      "expectedHeading": "楽譜 [id] の編集案",
+      "expectedMessage": "編集する権限がありません。",
+      "editingControls": 0,
+      "pageOverflow": 0,
+      "result": "PASS"
+    }
+  ],
+  "operations": [
+    "repository popup ArrowDown/select/Escape",
+    "360: required validation, real popup, FormData enum, Enter one create",
+    "360: member real role popup, unchecked absent/checked on, persisted role and permission",
+    "360: delete confirmation Space/cancel, analysis details",
+    "360 practice: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "360 rythme: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "360: decimal negative review, saved value unchanged",
+    "360: decimal rule confirmation/cancel leaves version unchanged",
+    "360: rule activation, native confirm cancel/apply, exact decimal adjusted score",
+    "360: pitch zero, draft description, keyboard save and proposal destination",
+    "360: partial null/zero/fraction/rest/fifty-row pagination and submit",
+    "360: real file chooser, same file reselection and preview",
+    "1280: required validation, real popup, FormData enum, Enter one create",
+    "1280: member real role popup, unchecked absent/checked on, persisted role and permission",
+    "1280: delete confirmation Space/cancel, analysis details",
+    "1280 practice: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "1280 rythme: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "1280: decimal negative review, saved value unchanged",
+    "1280: decimal rule confirmation/cancel leaves version unchanged",
+    "1280: rule activation, native confirm cancel/apply, exact decimal adjusted score",
+    "1280: pitch zero, draft description, keyboard save and proposal destination",
+    "1280: partial null/zero/fraction/rest/fifty-row pagination and submit",
+    "1280: real file chooser, same file reselection and preview",
+    "360: role-based merge/reject/withdraw, conflict retains description and identical retry payload/key",
+    "1280: role-based merge/reject/withdraw, conflict retains description and identical retry payload/key",
+    "authenticated VIEWER keeps read-only controls",
+    "360: create denied uses common main/heading/status, no editing controls",
+    "360: edit denied uses common main/heading/status, no editing controls",
+    "1280: create denied uses common main/heading/status, no editing controls",
+    "1280: edit denied uses common main/heading/status, no editing controls",
+    "editor/operator/anonymous UI permission boundaries"
+  ],
+  "environment": "Isolated production server and dedicated _test database/Git; fixture DB sessions and synthetic MIDI; Japanese Noto CJK font",
+  "limits": [
+    "Physical MIDI and production SMTP/OAuth remain unverified",
+    "Full backend integration suite was not repeated for this presentation-only correction; existing 49-test result remains historical"
+  ]
+}

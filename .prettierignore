@@ -7,3 +7,7 @@ coverage/
 var/
 src/generated/
 package-lock.json
+
+.env*
+
+*.log

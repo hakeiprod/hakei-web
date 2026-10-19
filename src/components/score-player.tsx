@@ -98,16 +98,19 @@ export function ScorePlayer({
     };
   }, [controller, setMasterVolume]);
   return (
-    <Navbar>
-      <ButtonGroup isDisabled={!score}>
-        <Button>
-          <Rewind color="white" />
+    <Navbar
+      height="auto"
+      classNames={{ wrapper: "h-auto min-w-0 flex-wrap gap-3 px-0 py-3" }}
+    >
+      <ButtonGroup isDisabled={!score} className="max-w-full">
+        <Button isIconOnly aria-label="巻き戻し">
+          <Rewind />
         </Button>
-        <Button>
-          <FastForward color="white" />
+        <Button isIconOnly aria-label="早送り">
+          <FastForward />
         </Button>
-        <Button onPress={handleStop}>
-          <Square color="white" />
+        <Button isIconOnly aria-label="停止" onPress={handleStop}>
+          <Square />
         </Button>
         <ButtonPlayPause
           isPlaying={state.value === "playing"}

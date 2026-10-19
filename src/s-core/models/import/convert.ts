@@ -10,7 +10,7 @@ import {
   midiConversionOptionsSchema,
   type MidiConversionOptions,
 } from "./quantize-midi";
-export const converterVersion = "score-import-v1";
+export const converterVersion = "score-import-v2";
 export interface ConversionInput {
   bytes: Uint8Array;
   sourceName?: string;
@@ -38,7 +38,7 @@ export async function convertScore(input: ConversionInput) {
       detected === "MXL" ? await extractMxl(bytes) : bytes,
     );
     format = "MUSICXML";
-    formatVersion = "4.0";
+    formatVersion = result.formatVersion;
   } else {
     const json = z
       .json()
