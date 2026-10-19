@@ -1,3 +1,4 @@
+import { barlineEndInset, chordStem, type StemGeometry } from "../geometry";
 import type { LayoutGlyph } from "../layout/glyph";
 import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
 import * as Drawing from "../../document";
@@ -97,70 +98,6 @@ function debugBounds(
   });
 }
 
-interface StemGeometry {
-  direction: "up" | "down";
-  start: Drawing.Point;
-  end: Drawing.Point;
-  flag?: { glyph: Engraving.Glyph; position: Drawing.Point };
-}
-
-function chordStem(chord: Engraving.Chord): StemGeometry | undefined {
-  const direction = chord.stem?._ ?? "none";
-  const notes = chord.notes.filter((note) => !note.rest);
-  if (direction === "none" || notes.length === 0) return;
-  if (direction === "double")
-    throw new Error("toDocument does not support double stems yet.");
-  const up = direction === "up";
-  const points = notes.map((note) => {
-    const glyph = note.glyph;
-    const anchor = glyph.getAnchor(up ? "stemUpSE" : "stemDownNW");
-    const anchorX =
-      anchor?.[0] ??
-      (up ? glyph.glyphBBox.x + glyph.glyphBBox.width : glyph.glyphBBox.x);
-    // The anchors describe a corner of the stem rectangle; SVG lines use its centre.
-    return {
-      x:
-        glyph.x +
-        glyph.spaceLeft +
-        anchorX +
-        (up ? -engraving.stemThickness / 2 : engraving.stemThickness / 2),
-      y: 5 - glyph.line - (anchor?.[1] ?? 0),
-    };
-  });
-  const x = (up ? Math.max : Math.min)(...points.map((point) => point.x));
-  const y = (up ? Math.max : Math.min)(...points.map((point) => point.y));
-  const noteheadY = notes.map((note) => 5 - note.glyph.line);
-  // Span the whole chord, then extend from the outer notehead by the nominal length.
-  const flagName =
-    !chord.beamGroup && Engraving.Glyph.findFlag(notes[0].type, direction);
-  const flag = flagName
-    ? new Engraving.Glyph(flagName, Sheet.ElementType.Flag, 0)
-    : undefined;
-  // SMuFL flags are registered at a nominal stem length of 3.5 staff spaces.
-  const length = flag ? 3.5 : 3;
-  const endY = up
-    ? Math.min(...noteheadY) - length
-    : Math.max(...noteheadY) + length;
-  const geometry: StemGeometry = {
-    direction,
-    start: { x, y },
-    end: { x, y: endY },
-  };
-  if (flag) {
-    const anchor = flag.getAnchor(up ? "stemUpNW" : "stemDownSW");
-    geometry.flag = {
-      glyph: flag,
-      position: {
-        x: x - engraving.stemThickness / 2 - (anchor?.[0] ?? 0),
-        y: endY,
-      },
-    };
-    // Extend the primitive to the flag's attachment height, leaving its baseline fixed.
-    geometry.end.y -= anchor?.[1] ?? 0;
-  }
-  return geometry;
-}
-
 function staveStems(stave: Engraving.Stave) {
   const stems = new Map<number, StemGeometry>();
   for (const chord of stave.chords as Engraving.Chord[]) {
@@ -258,11 +195,21 @@ function barlinesToDocument(
   const lines = [line(thin / 2, thin, "barline-start")];
   if (masterbar.isLast) {
     lines.push(
-      line(masterbar.width - thick * 2, thin, "barline-end-thin"),
+      line(
+        masterbar.width - barlineEndInset(true) + thin / 2,
+        thin,
+        "barline-end-thin",
+      ),
       line(masterbar.width - thick / 2, thick, "barline-end-thick"),
     );
   } else if (masterbar.isRowLast)
-    lines.push(line(masterbar.width - thin / 2, thin, "barline-end"));
+    lines.push(
+      line(
+        masterbar.width - barlineEndInset(false) + thin / 2,
+        thin,
+        "barline-end",
+      ),
+    );
   return group("barlines", lines, source);
 }
 

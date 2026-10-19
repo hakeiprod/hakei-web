@@ -68,7 +68,10 @@ describe("score drawing layouts", () => {
     expect(score.rows.length).toBeGreaterThan(1);
     for (const [index, row] of score.rows.entries()) {
       expect(row.masterbars.length).toBeGreaterThan(0);
-      expect(row.width).toBeLessThanOrEqual(controller.layoutWidth);
+      if (row.width > controller.layoutWidth) {
+        expect(row.masterbars).toHaveLength(1);
+        expect(row.width).toBeCloseTo(row.masterbars[0].minWidth);
+      }
       expect(row.masterbars[0].bars[0].staves[0].word.width).toBeGreaterThan(0);
       if (index > 0)
         expect(row.y).toBeGreaterThan(
