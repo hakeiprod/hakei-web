@@ -65,7 +65,7 @@ export class Chord extends Core.Event<{ id: number }> {
     throw new Error("Chord bounds require an engraving model.");
   }
   get width() {
-    return firstBy(this.notes, prop("width"))?.width ?? 0;
+    return firstBy(this.notes, [prop("width"), "desc"])?.width ?? 0;
   }
   get line() {
     return firstBy(this.notes, [prop("line"), "desc"])?.line ?? 0;

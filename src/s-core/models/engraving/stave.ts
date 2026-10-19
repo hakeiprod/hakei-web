@@ -6,11 +6,13 @@ import * as Engraving from "./";
 export class Stave extends Sheet.Stave {
   declare score: Engraving.Score;
   word = new Engraving.Word();
+  // Keep noteheads, ledger lines and flags clear of the following barline.
+  readonly endPadding = 1.5;
   override get width() {
-    return super.width + this.word.width;
+    return super.width + this.word.width + this.endPadding;
   }
   override get minWidth() {
-    return super.minWidth + this.word.width;
+    return super.minWidth + this.word.width + this.endPadding;
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;

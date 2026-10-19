@@ -190,7 +190,10 @@ test.each([1, 4, 17, 64])(
         const slots = stave.slots;
         expect(stave.width).toBeCloseTo(bar.width);
         expect(
-          slots.at(-1)!.x + slots.at(-1)!.width + stave.word.width,
+          slots.at(-1)!.x +
+            slots.at(-1)!.width +
+            stave.word.width +
+            stave.endPadding,
         ).toBeCloseTo(bar.width);
       }
     }
