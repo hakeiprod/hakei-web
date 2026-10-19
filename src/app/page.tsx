@@ -9,15 +9,18 @@ export default async function Home() {
   return (
     <>
       <Header />
-      <main>
-        <h1>楽譜</h1>
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">楽譜</h1>
         {scores.length === 0 ? (
           <p>閲覧できる楽譜がありません。</p>
         ) : (
           <ul>
             {scores.map((score) => (
               <li key={score.id}>
-                <Link href={`/score/${score.id}`}>
+                <Link
+                  href={`/score/${score.id}`}
+                  className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+                >
                   {score.repositoryName} · 楽譜 {score.id}
                 </Link>
               </li>

@@ -8,25 +8,50 @@ export function Header() {
   const { status } = useSession();
   return (
     <>
-      <Navbar>
+      <Navbar
+        height="auto"
+        className="border-b border-divider bg-background"
+        classNames={{ wrapper: "min-h-16 flex-wrap gap-3 py-3" }}
+      >
         <NavbarBrand>
-          <Link href="/">
+          <Link
+            className="rounded-small text-sm text-foreground outline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-focus"
+            href="/"
+          >
             <p className="font-bold text-inherit">hakei</p>
           </Link>
         </NavbarBrand>
-        <NavbarContent justify="center">
+        <NavbarContent
+          justify="center"
+          className="order-3 h-auto min-w-0 basis-full flex-wrap gap-3 sm:order-none sm:basis-auto"
+        >
           <Suspense fallback={<span>検索を読み込んでいます。</span>}>
             <InputSearch />
           </Suspense>
-          <Link href="/repositories">リポジトリ</Link>
-          <Link href="/trust">信頼度</Link>
+          <Link
+            className="rounded-small text-sm text-foreground outline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-focus"
+            href="/repositories"
+          >
+            リポジトリ
+          </Link>
+          <Link
+            className="rounded-small text-sm text-foreground outline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-focus"
+            href="/trust"
+          >
+            信頼度
+          </Link>
           {status === "authenticated" && (
             <>
-              <Link href="/practice/history">演奏履歴</Link>
+              <Link
+                className="rounded-small text-sm text-foreground outline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-focus"
+                href="/practice/history"
+              >
+                演奏履歴
+              </Link>
             </>
           )}
         </NavbarContent>
-        <NavbarContent justify="end">
+        <NavbarContent justify="end" className="grow-0">
           {status === "authenticated" ? (
             <Button
               onPress={() => {

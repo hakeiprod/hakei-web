@@ -48,3 +48,5 @@ next-env.d.ts
 /dist/
 *.log
 *.tmp
+
+*.swp

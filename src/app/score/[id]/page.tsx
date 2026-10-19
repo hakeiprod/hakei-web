@@ -1,3 +1,4 @@
+import { CardBody, Card } from "@heroui/card";
 import Link from "next/link";
 import ScoreEdit from "@/components/score-edit";
 import { Header } from "@/components/header";
@@ -42,24 +43,36 @@ export default async function Score(properties: PageProps<"/score/[id]">) {
     select: { id: true, summary: true },
   });
   const content = (
-    <main>
-      <h1>楽譜 {score.id}</h1>
+    <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+      <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+        楽譜 {score.id}
+      </h1>
       <ShowScore
         score={score}
         canPlay={score.artifacts?.validation.canPractice ?? false}
       />
-      <section aria-label="変換の確認事項">
-        {score.artifacts?.issues
-          .filter((issue) => issue.status === "UNRESOLVED")
-          .map((issue) => (
-            <p key={issue.id}>
-              {issue.severity === "BLOCKING"
-                ? "演奏に使えない箇所"
-                : "確認事項"}
-              : {issue.message}
-            </p>
-          ))}
-      </section>
+      {score.artifacts?.issues.some(
+        (issue) => issue.status === "UNRESOLVED",
+      ) && (
+        <Card
+          aria-label="変換の確認事項"
+          as="section"
+          className="min-w-0 overflow-visible border border-divider bg-content1"
+        >
+          <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+            {score.artifacts?.issues
+              .filter((issue) => issue.status === "UNRESOLVED")
+              .map((issue) => (
+                <p key={issue.id}>
+                  {issue.severity === "BLOCKING"
+                    ? "演奏に使えない箇所"
+                    : "確認事項"}
+                  : {issue.message}
+                </p>
+              ))}
+          </CardBody>
+        </Card>
+      )}
       {actor && (
         <AuthenticatedContent actorId={actor.id}>
           <ScoreEdit
@@ -74,6 +87,7 @@ export default async function Score(properties: PageProps<"/score/[id]">) {
         {score.artifacts?.validation.canPractice ? (
           <Link
             href={`/score/${score.id}/practice?revisionId=${score.revisionId}`}
+            className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
           >
             この版を練習する
           </Link>
@@ -85,37 +99,52 @@ export default async function Score(properties: PageProps<"/score/[id]">) {
         <p>
           <Link
             href={`/score/${score.id}/rythme?revisionId=${score.revisionId}`}
+            className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
           >
             この版でリズムゲームをする
           </Link>
         </p>
       )}
-      <section>
-        <h2>履歴</h2>
-        <ul>
-          {history.map((revision) => (
-            <li key={revision.id}>
-              <Link href={`/score/${score.id}?revisionId=${revision.id}`}>
-                版 {revision.number}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-      <section>
-        <h2>編集案</h2>
-        <ul>
-          {proposals.map((proposal) => (
-            <li key={proposal.id}>
-              <Link
-                href={`/repositories/${score.repositoryId}/proposals/${proposal.id}`}
-              >
-                {proposal.summary}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Card
+        as="section"
+        className="min-w-0 overflow-visible border border-divider bg-content1"
+      >
+        <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+          <h2 className="text-xl font-semibold">履歴</h2>
+          <ul>
+            {history.map((revision) => (
+              <li key={revision.id}>
+                <Link
+                  href={`/score/${score.id}?revisionId=${revision.id}`}
+                  className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+                >
+                  版 {revision.number}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </CardBody>
+      </Card>
+      <Card
+        as="section"
+        className="min-w-0 overflow-visible border border-divider bg-content1"
+      >
+        <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+          <h2 className="text-xl font-semibold">編集案</h2>
+          <ul>
+            {proposals.map((proposal) => (
+              <li key={proposal.id}>
+                <Link
+                  href={`/repositories/${score.repositoryId}/proposals/${proposal.id}`}
+                  className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+                >
+                  {proposal.summary}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </CardBody>
+      </Card>
     </main>
   );
   return (

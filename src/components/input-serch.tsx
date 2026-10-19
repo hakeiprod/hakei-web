@@ -34,6 +34,8 @@ export function InputSearch() {
       aria-label="Search"
       radius="full"
       isClearable
+      selectorButtonProps={{ "aria-label": "検索候補を開く" }}
+      clearButtonProps={{ "aria-label": "検索入力を消去" }}
       placeholder="Search..."
       defaultItems={resources}
       startContent={<Search />}

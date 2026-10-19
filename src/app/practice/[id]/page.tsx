@@ -16,7 +16,9 @@ import {
 } from "@/components/practice-history";
 import { ShowScore } from "@/components/show-score";
 export default async function PracticeResult(properties: {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 }) {
   const actor = await currentActor();
   if (!actor) redirect("/api/auth/signin");
@@ -34,9 +36,16 @@ export default async function PracticeResult(properties: {
     <>
       <Header />
       <AuthenticatedContent actorId={actor.id}>
-        <main>
-          <h1>演奏結果</h1>
-          <Link href="/practice/history">自分の演奏履歴</Link>
+        <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+            演奏結果
+          </h1>
+          <Link
+            href="/practice/history"
+            className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+          >
+            自分の演奏履歴
+          </Link>
           <PracticeConditionsLabel conditions={result.conditions} />
           <p>
             {result.status === "INTERRUPTED"

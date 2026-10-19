@@ -115,9 +115,10 @@ it("reconverts the original file on option changes and aborts pending work on un
     target: { files: [new File(["original"], "score.mid")] },
   });
   await screen.findByText("score.midのプレビュー");
-  fireEvent.change(screen.getByLabelText("MIDIの時刻"), {
-    target: { value: "QUANTIZE" },
-  });
+  fireEvent.click(screen.getByRole("button", { name: /MIDIの時刻/ }));
+  fireEvent.click(
+    await screen.findByRole("option", { name: "音符の位置を整列" }),
+  );
   await waitFor(() => expect(requests.length).toBe(2));
   expect((requests[0].file as File).name).toBe("score.mid");
   expect((requests[1].file as File).name).toBe("score.mid");

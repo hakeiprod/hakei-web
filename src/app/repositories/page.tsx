@@ -1,3 +1,4 @@
+import { CardBody, Card } from "@heroui/card";
 import Link from "next/link";
 import { AuthenticatedContent } from "@/components/authenticated-content";
 import { Header } from "@/components/header";
@@ -24,36 +25,44 @@ export default async function Repositories() {
             })
           : [];
       const content = (
-        <section>
-          <h2>{repository.name}</h2>
-          <p>
-            閲覧: {visibilityNames[repository.visibility]} · 編集:{" "}
-            {repository.canEdit ? "可能" : "不可"} · マージ:{" "}
-            {repository.editScope === "ALL_USERS"
-              ? "信頼度の基準によって判定"
-              : repository.canMergeInvited
-                ? "可能"
-                : "不可"}
-          </p>
-          {repository.canEdit && actor && (
-            <AuthenticatedContent actorId={actor.id}>
-              <Link href={`/score/create?repositoryId=${repository.id}`}>
-                楽譜を取り込む
-              </Link>
-            </AuthenticatedContent>
-          )}
-          {repository.canManage && actor && (
-            <AuthenticatedContent actorId={actor.id}>
-              <RepositoryMembers
-                repositoryId={repository.id}
-                accessVersion={repository.accessVersion}
-                visibility={repository.visibility}
-                editScope={repository.editScope}
-                members={members}
-              />
-            </AuthenticatedContent>
-          )}
-        </section>
+        <Card
+          as="section"
+          className="min-w-0 overflow-visible border border-divider bg-content1"
+        >
+          <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+            <h2 className="text-xl font-semibold">{repository.name}</h2>
+            <p>
+              閲覧: {visibilityNames[repository.visibility]} · 編集:{" "}
+              {repository.canEdit ? "可能" : "不可"} · マージ:{" "}
+              {repository.editScope === "ALL_USERS"
+                ? "信頼度の基準によって判定"
+                : repository.canMergeInvited
+                  ? "可能"
+                  : "不可"}
+            </p>
+            {repository.canEdit && actor && (
+              <AuthenticatedContent actorId={actor.id}>
+                <Link
+                  href={`/score/create?repositoryId=${repository.id}`}
+                  className="rounded-small text-primary underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-focus"
+                >
+                  楽譜を取り込む
+                </Link>
+              </AuthenticatedContent>
+            )}
+            {repository.canManage && actor && (
+              <AuthenticatedContent actorId={actor.id}>
+                <RepositoryMembers
+                  repositoryId={repository.id}
+                  accessVersion={repository.accessVersion}
+                  visibility={repository.visibility}
+                  editScope={repository.editScope}
+                  members={members}
+                />
+              </AuthenticatedContent>
+            )}
+          </CardBody>
+        </Card>
       );
       return (
         <div key={repository.id}>
@@ -71,8 +80,10 @@ export default async function Repositories() {
   return (
     <>
       <Header />
-      <main>
-        <h1>リポジトリ</h1>
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          リポジトリ
+        </h1>
         {actor ? (
           <AuthenticatedContent actorId={actor.id}>
             <RepositoryCreate />

@@ -18,8 +18,10 @@ export default async function TrustAdministration() {
     : null;
   return (
     <AuthenticatedContent actorId={actor.id}>
-      <main>
-        <h1>信頼度の運営設定</h1>
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          信頼度の運営設定
+        </h1>
         <TrustAdmin
           rule={rule ? trustRuleSchema.parse(rule) : null}
           ruleId={rule?.id ?? null}

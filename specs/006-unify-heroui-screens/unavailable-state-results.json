@@ -1,0 +1,66 @@
+{
+  "browser": "156.0.8078.4",
+  "evaluationRules": 0,
+  "routes": [
+    {
+      "route": "/score/[id]/practice?revisionId=[id]",
+      "heading": "楽譜[id]・版1の練習",
+      "message": "この版は未解決の問題があるため練習できません。楽譜の内容を修正してください。",
+      "status": 200,
+      "controls": 0,
+      "width": 360,
+      "scroll": 360,
+      "midiRequests": 0,
+      "audioRequests": 0
+    },
+    {
+      "route": "/score/[id]/rythme?revisionId=[id]",
+      "heading": "楽譜[id]・版1のリズムゲーム",
+      "message": "この版は未解決の問題があるためゲームで利用できません。",
+      "status": 200,
+      "controls": 0,
+      "width": 360,
+      "scroll": 360,
+      "midiRequests": 0,
+      "audioRequests": 0
+    },
+    {
+      "route": "/score/[id]/practice?revisionId=[id]",
+      "heading": "楽譜[id]・版1の練習",
+      "message": "この版は未解決の問題があるため練習できません。楽譜の内容を修正してください。",
+      "status": 200,
+      "controls": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "midiRequests": 0,
+      "audioRequests": 0
+    },
+    {
+      "route": "/score/[id]/rythme?revisionId=[id]",
+      "heading": "楽譜[id]・版1のリズムゲーム",
+      "message": "この版は未解決の問題があるためゲームで利用できません。",
+      "status": 200,
+      "controls": 0,
+      "width": 1280,
+      "scroll": 1280,
+      "midiRequests": 0,
+      "audioRequests": 0
+    }
+  ],
+  "errors": [],
+  "task": "T034",
+  "date": "2026-10-19",
+  "result": "PASS",
+  "environment": "Isolated production server and dedicated _test DB/Git; fixture DB session; unresolved partial score; no evaluation rule configured",
+  "relatedUnitTests": {
+    "files": 3,
+    "tests": 9,
+    "result": "PASS"
+  },
+  "staticChecks": {
+    "nextTypegen": "PASS",
+    "tsc": "PASS",
+    "eslint": "PASS",
+    "productionBuild": "PASS"
+  }
+}

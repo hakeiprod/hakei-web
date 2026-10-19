@@ -9,7 +9,9 @@ import { prisma } from "@/prisma";
 import { currentActor } from "@/server/auth";
 import { readScore, scoreGitStore } from "@/server/score-reader";
 export default async function Edit(properties: {
-  params: Promise<{ id: string }>;
+  params: Promise<{
+    id: string;
+  }>;
 }) {
   const actor = await currentActor();
   if (!actor) redirect("/api/auth/signin");
@@ -23,11 +25,26 @@ export default async function Edit(properties: {
     if (error instanceof Error && error.message === "NOT_FOUND") notFound();
     throw error;
   });
-  if (!score.canEdit) return <p>編集する権限がありません。</p>;
+  if (!score.canEdit)
+    return (
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          楽譜 {score.id} の編集案
+        </h1>
+        <p
+          role="status"
+          className="rounded-large border border-divider bg-content1 p-4 text-foreground"
+        >
+          編集する権限がありません。
+        </p>
+      </main>
+    );
   return (
     <AuthenticatedContent actorId={actor.id}>
-      <main>
-        <h1>楽譜 {score.id} の編集案</h1>
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          楽譜 {score.id} の編集案
+        </h1>
         {partialScoreSchema.safeParse(score.data).success ? (
           <PartialScoreEditor
             repositoryId={score.repositoryId}
@@ -47,8 +64,10 @@ export default async function Edit(properties: {
             この版の形式を表示できません。対応する楽譜ファイルから修正案を作成してください。
           </p>
         )}
-        <details>
-          <summary>別の楽譜ファイルから修正案を作成</summary>
+        <details className="rounded-large border border-divider p-4">
+          <summary className="cursor-pointer font-medium outline-offset-4">
+            別の楽譜ファイルから修正案を作成
+          </summary>
           <FormCreateScore
             repositoryId={score.repositoryId}
             scoreId={score.id}
