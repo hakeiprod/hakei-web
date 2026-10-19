@@ -37,6 +37,18 @@ The score-import worker is bundled by `npm run build:import-worker` into
 Include this generated artifact alongside `.next` in production; `next start` does
 not run a TypeScript loader. Rebuild it after changing a converter.
 
+MusicXML import accepts declared versions 2.0, 3.0, 3.1 and 4.0 in score-partwise XML/MXL.
+The preview shows the actual source version; the same version is signed and retained in Git/DB.
+Unsupported structures or unknown/unsupported versions have distinct 415 explanations.
+A missing root version is recovered only from a matching standard Recordare PUBLIC DOCTYPE
+that explicitly names a supported version; an INFO diagnostic records its origin.
+No version is inferred from a common SYSTEM URL, and conflicting declarations are rejected.
+Invalid settings (for example tempo zero) are rejected; valid but uninterpretable instructions
+or conflicting part settings remain blocking. Existing defaults for omitted settings are warnings.
+Source-dependent blockers cannot be cleared by acknowledging a warning.
+See [the compatibility matrix](../specs/007-musicxml-version-compat/contracts/compatibility-matrix.md)
+and [validation, including the original Menuett check](../specs/007-musicxml-version-compat/validation.md).
+
 Import defaults are 5MiB input, 20MiB expanded ZIP / 100 entries, 10,000 notes,
 10 seconds per conversion, one request per user, and four workers in total.
 `IMPORT_MAX_INPUT_BYTES` / `IMPORT_TIMEOUT_MS` can lower their respective defaults.

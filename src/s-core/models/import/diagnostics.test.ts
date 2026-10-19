@@ -72,3 +72,33 @@ it("rejects unknown track references and NaN rather than inventing values", () =
     }),
   ).toThrow();
 });
+
+it("keeps display-only warnings playable and source-dependent blockers unresolved", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { convertScore } = await import("./convert");
+  const imported = await convertScore({
+    bytes: await readFile("src/s-core/fixtures/import/quarter.musicxml"),
+    options: { mode: "PRESERVE" },
+  });
+  const issue = {
+    id: "source:repeat",
+    code: "UNSUPPORTED_REPEAT",
+    severity: "BLOCKING" as const,
+    status: "UNRESOLVED" as const,
+    message: "反復の演奏順を確定できません。",
+    track: 0,
+    bar: 0,
+  };
+  const blocked = validateCandidate(imported.candidate, [issue]);
+  expect(blocked.validation.canPractice).toBe(false);
+  expect(blocked.issues[0].status).toBe("UNRESOLVED");
+  const warning = validateCandidate(imported.candidate, [
+    {
+      ...issue,
+      id: "display",
+      code: "DISPLAY_INFORMATION_OMITTED",
+      severity: "WARNING",
+    },
+  ]);
+  expect(warning.validation.canPractice).toBe(true);
+});

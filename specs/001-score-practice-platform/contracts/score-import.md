@@ -2,13 +2,13 @@
 
 ## 認定範囲
 
-| Format       | Accepted                                                      | Preserved / diagnostics                                                                                              |
-| ------------ | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| MusicXML 4.0 | score-partwise .musicxml/.xml、.mxlのcontainerが指定する主XML | 音高・音価・休符・和音・声部/譜表・タイ・duration/divisionsで表す連符・拍子/調号/テンポ。歌詞・装飾/印刷は未対応警告 |
-| SMF 1.0      | format 0/1、PPQN正整数、.mid/.midi                            | 打鍵/離鍵/velocity・チャンネル・トラック・テンポ/拍子/調号。記譜上の綴り・休符等の補完は通知                         |
-| 楽譜JSON     | 既存Core.createパラメーター、既存Sheet.exportの完全構造       | 明示的に構造判定して標準形式へ。任意JSONや混在構造を拒否                                                             |
+| Format                   | Accepted                                                      | Preserved / diagnostics                                                                                              |
+| ------------------------ | ------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| MusicXML 2.0/3.0/3.1/4.0 | score-partwise .musicxml/.xml、.mxlのcontainerが指定する主XML | 音高・音価・休符・和音・声部/譜表・タイ・duration/divisionsで表す連符・拍子/調号/テンポ。歌詞・装飾/印刷は未対応警告 |
+| SMF 1.0                  | format 0/1、PPQN正整数、.mid/.midi                            | 打鍵/離鍵/velocity・チャンネル・トラック・テンポ/拍子/調号。記譜上の綴り・休符等の補完は通知                         |
+| 楽譜JSON                 | 既存Core.createパラメーター、既存Sheet.exportの完全構造       | 明示的に構造判定して標準形式へ。任意JSONや混在構造を拒否                                                             |
 
-MusicXMLのscore-timewise/opus/他版、SMF format 2/SMPTE、MIDI 2.0、PDF・画像はUNSUPPORTED_FORMAT。
+MusicXMLのscore-timewise/opus/上記以外の版、SMF format 2/SMPTE、MIDI 2.0、PDF・画像はUNSUPPORTED_FORMAT。
 MusicXMLの反復/別エンディングなど演奏順を変える未対応表現、微分音・無音高音符、
 パート間で両立しない拍子/調号/テンポはBLOCKING。レイアウトだけの欠落はWARNING。
 MIDIの未完了離鍵は長さ不明としてBLOCKING、同一track/channel/pitchは未完了打鍵を順に閉じる。同音重複で対応付けが曖昧な場合もBLOCKINGとして示す。
@@ -82,3 +82,9 @@ saveImportは新しい候補の署名を検証する。旧候補へ戻る保存�
 期限切れは再アップロードが必要。単なる修正依頼で期限を延長し続けず、最初の変換から30分を上限とする。
 元ファイルを再アップロードさせずに保存前の修正を行え、元bytesの永続保存は行わない。
 署名はNode.js標準cryptoを使い、暗号アルゴリズムを自作しない。
+
+## MusicXML互換性拡張（仕様007）
+
+対象版と構造、診断の分類は[仕様007の契約](../../007-musicxml-version-compat/contracts/score-import.md)と[対応表](../../007-musicxml-version-compat/contracts/compatibility-matrix.md)を参照。新規取り込みは元の宣言versionをmetadata.formatVersionへ保持する。既存の4.0記録や旧converterVersionを推測更新しない。テンポ0・負数等の不正な設定値は422で拒否、有効だが解釈不能な指示やパート間の矛盾はBLOCKING、省略設定の既存既定値補完はWARNINGとする。実ファイルMenuettの検証状況は[検証記録](../../007-musicxml-version-compat/validation.md)を参照。
+
+root版が欠落している場合の標準PUBLIC DOCTYPEからの限定復元は、仕様007 FR-008に従う。Menuett原本は利用者提供のファイルそのままで検証し、反復6件のBLOCKINGを保存後も維持する。

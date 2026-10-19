@@ -1,0 +1,271 @@
+{
+  "date": "2026-10-19",
+  "browser": "156.0.8078.4",
+  "environment": "Isolated production server, dedicated _test DB and Git; DB session fixture, no physical MIDI",
+  "uploads": [
+    {
+      "version": "2.0",
+      "extension": "musicxml",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "2.0",
+      "extension": "mxl",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "3.0",
+      "extension": "musicxml",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "3.0",
+      "extension": "mxl",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "3.1",
+      "extension": "musicxml",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "3.1",
+      "extension": "mxl",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "4.0",
+      "extension": "musicxml",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "4.0",
+      "extension": "mxl",
+      "width": 360,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 360
+    },
+    {
+      "version": "2.0",
+      "extension": "musicxml",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "2.0",
+      "extension": "mxl",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "3.0",
+      "extension": "musicxml",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "3.0",
+      "extension": "mxl",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "3.1",
+      "extension": "musicxml",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "3.1",
+      "extension": "mxl",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "4.0",
+      "extension": "musicxml",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    },
+    {
+      "version": "4.0",
+      "extension": "mxl",
+      "width": 1280,
+      "http": 200,
+      "notes": 7,
+      "playable": true,
+      "dbGitReadback": "MATCH",
+      "reload": "PASS",
+      "keyboardSave": "PASS",
+      "scroll": 1280
+    }
+  ],
+  "diagnostics": [
+    {
+      "name": "display-only",
+      "status": 200,
+      "code": "DISPLAY_INFORMATION_OMITTED",
+      "playable": true
+    },
+    {
+      "name": "default-tempo",
+      "status": 200,
+      "code": "DEFAULT_TEMPO",
+      "playable": true
+    },
+    {
+      "name": "repeat",
+      "status": 200,
+      "code": "UNSUPPORTED_REPEAT",
+      "playable": false
+    },
+    {
+      "name": "missing-pitch",
+      "status": 200,
+      "code": "MISSING_PITCH",
+      "playable": false
+    },
+    {
+      "name": "unknown-key",
+      "status": 200,
+      "code": "UNSUPPORTED_KEY",
+      "playable": false
+    },
+    {
+      "name": "transpose",
+      "status": 200,
+      "code": "UNSUPPORTED_TRANSPOSE",
+      "playable": false
+    },
+    {
+      "name": "invalid-tempo",
+      "status": 422,
+      "code": "VALIDATION_FAILED",
+      "playable": null
+    },
+    {
+      "name": "unsupported-version",
+      "status": 415,
+      "code": "UNSUPPORTED_MUSICXML_VERSION",
+      "playable": null
+    },
+    {
+      "name": "missing-version",
+      "status": 415,
+      "code": "UNSUPPORTED_MUSICXML_VERSION",
+      "playable": null
+    },
+    {
+      "name": "unsupported-root",
+      "status": 415,
+      "code": "UNSUPPORTED_MUSICXML_STRUCTURE",
+      "playable": null
+    },
+    {
+      "name": "entities",
+      "status": 422,
+      "code": "VALIDATION_FAILED",
+      "playable": null
+    }
+  ],
+  "errors": [],
+  "menuett": "NOT_RUN: original unavailable",
+  "retryAndCancel": "PASS",
+  "result": "PASS"
+}
