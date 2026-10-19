@@ -81,6 +81,13 @@ export class Stave extends Sheet.Stave {
                     .otherwise(() => glyph),
                 ),
               );
+              const accidental = ligature.glyphLists
+                .flat()
+                .find((glyph) => glyph.type === Sheet.ElementType.Accidental);
+              // Apply the first accidental's SMuFL advance once before the key
+              // signature, without adding it between consecutive accidentals.
+              if (accidental instanceof Engraving.Glyph)
+                ligature.spaceLeft = accidental.glyphAdvanceWidth;
               return ligature;
             })
             .exhaustive(),
