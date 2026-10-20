@@ -53,6 +53,8 @@ function renderElement(element: Drawing.Element): SVGElement {
     const text = createSVGElement("text");
     text.setAttribute("x", String(element.position.x));
     text.setAttribute("y", String(element.position.y));
+    if (element.fontScale !== 1)
+      text.setAttribute("font-size", `${element.fontScale}em`);
     text.textContent = String.fromCodePoint(element.codepoint);
     node.append(text);
     return node;
