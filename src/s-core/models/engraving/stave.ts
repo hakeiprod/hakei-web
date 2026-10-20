@@ -1,3 +1,4 @@
+import { barlineEndInset, chordInkRight } from "./geometry";
 import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
 import * as Sheet from "../sheet";
@@ -6,11 +7,35 @@ import * as Engraving from "./";
 export class Stave extends Sheet.Stave {
   declare score: Engraving.Score;
   word = new Engraving.Word();
+  get endPadding() {
+    // Measure natural positions so page justification cannot feed back into
+    // the minimum width or make repeated layouts grow.
+    let width = 0;
+    let inkRight = 0;
+    let trailingAdvance = 0;
+    for (const slot of this.slots) {
+      const chords = slot.getTrackStaveChords(this.trackId, this.id);
+      for (const chord of chords)
+        inkRight = Math.max(inkRight, width + chordInkRight(chord));
+      if (chords.length > 0)
+        trailingAdvance = Math.max(
+          ...chords.map((chord) => chord.glyphAdvanceWidth),
+        );
+      width += slot.minWidth;
+    }
+    // Use the final note/rest's SMuFL advance as the trailing gap, after any
+    // ink overhang and the actual barline footprint have been accounted for.
+    return (
+      Math.max(0, inkRight - width) +
+      trailingAdvance +
+      barlineEndInset(this.bar.masterbar.isLast)
+    );
+  }
   override get width() {
-    return super.width + this.word.width;
+    return super.width + this.word.width + this.endPadding;
   }
   override get minWidth() {
-    return super.minWidth + this.word.width;
+    return super.minWidth + this.word.width + this.endPadding;
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
@@ -81,6 +106,13 @@ export class Stave extends Sheet.Stave {
                     .otherwise(() => glyph),
                 ),
               );
+              const accidental = ligature.glyphLists
+                .flat()
+                .find((glyph) => glyph.type === Sheet.ElementType.Accidental);
+              // Apply the first accidental's SMuFL advance once before the key
+              // signature, without adding it between consecutive accidentals.
+              if (accidental instanceof Engraving.Glyph)
+                ligature.spaceLeft = accidental.glyphAdvanceWidth;
               return ligature;
             })
             .exhaustive(),
