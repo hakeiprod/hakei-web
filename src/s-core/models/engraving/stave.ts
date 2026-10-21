@@ -147,6 +147,18 @@ export class Stave extends Sheet.Stave {
             .exhaustive(),
         ),
     );
+    // Percussion clefs have no pitched staff-line anchor. Center their SMuFL
+    // ink bounds on the staff instead of using MusicXML's optional line.
+    for (const element of this.word.glyphOrLigatureLists.flat())
+      if (
+        element instanceof Engraving.Glyph &&
+        element.glyphName === "unpitchedPercussionClef1"
+      )
+        element.line =
+          5 -
+          this.height / 2 -
+          element.glyphBBox.y +
+          element.glyphBBox.height / 2;
   }
   private keyAccidental(line: number) {
     const glyph = new Engraving.Glyph(

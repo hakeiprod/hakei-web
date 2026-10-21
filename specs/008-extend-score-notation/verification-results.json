@@ -2,7 +2,7 @@
   "version": 1,
   "runs": [
     {
-      "runId": "39d4ee9f-3b15-4eb2-8aac-704c068964b2",
+      "runId": "2d671749-92d4-47ff-a01e-7cd525f01367",
       "fixtureId": "accidental/chord-neighbors",
       "sourceHash": "52c3e86398e5aa45cf3504afa5674e543b70f297fbd7a1528f343e36998cd3ef",
       "expectationHash": "56866ccca2682f32afe24e4fa1b9cc6abbf23fd95ce22c2b373216c736cc22cb",
@@ -11,8 +11,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.149Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.657Z",
       "results": [
         {
           "fixtureId": "accidental/chord-neighbors",
@@ -91,7 +91,7 @@
       ]
     },
     {
-      "runId": "5c611825-496f-4e22-8116-3564c538f6fa",
+      "runId": "1325a01c-a45d-49c9-be3f-d4df11b82fcd",
       "fixtureId": "accidental/compressed-source",
       "sourceHash": "35e92ea23520ed79d1e9ac8ae0626fc44129b9467a95729aec2a56c33495a3c7",
       "expectationHash": "97048cce656adcda6f91619a33d2a6c19607bdc414eb5b9e9109824001b1d0bc",
@@ -100,8 +100,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.169Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.675Z",
       "results": [
         {
           "fixtureId": "accidental/compressed-source",
@@ -180,7 +180,7 @@
       ]
     },
     {
-      "runId": "53bb61c7-c904-46cd-91db-5bd9f2dd92d9",
+      "runId": "16136f11-b277-4543-9b0d-4406515ed70c",
       "fixtureId": "accidental/double-flat",
       "sourceHash": "3c38b65cd66fef64b3424ac6009ac93f564caf8c74db4d3fe3b7ce280c730e48",
       "expectationHash": "90770813a83a37359c6e3943b485204f0ae431a561c2b1235f63c8f4be513ddf",
@@ -189,8 +189,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.980Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.504Z",
       "results": [
         {
           "fixtureId": "accidental/double-flat",
@@ -269,7 +269,7 @@
       ]
     },
     {
-      "runId": "6e208d93-d4dd-45a6-8968-02f9722e76aa",
+      "runId": "9822c186-1fd8-47cc-8073-23306fc9ed49",
       "fixtureId": "accidental/double-sharp",
       "sourceHash": "dbf7508dc80cb052e6acd327228eca939a285b35ecee5815cee3aac3eab69922",
       "expectationHash": "c21a226513bea90fe40fb3b4f995d14abf9245e3de8555077e8d2d20044d6cae",
@@ -278,8 +278,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.971Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.496Z",
       "results": [
         {
           "fixtureId": "accidental/double-sharp",
@@ -358,7 +358,7 @@
       ]
     },
     {
-      "runId": "28920b04-6423-4246-9e82-13bd6923bafa",
+      "runId": "5ce62637-4f19-4de7-a1bf-69c01fc22d2b",
       "fixtureId": "accidental/enharmonic-spelling",
       "sourceHash": "3bb61c3397b8c73add5ba2a837d129e0ed54b571bc0450d9e12ab39092df349a",
       "expectationHash": "0799fbba57ddfce550b3a5f0432890d13df8b1eeda91cd80711e60d0b73f581b",
@@ -367,8 +367,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.992Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.516Z",
       "results": [
         {
           "fixtureId": "accidental/enharmonic-spelling",
@@ -447,7 +447,7 @@
       ]
     },
     {
-      "runId": "c0fe67a3-963b-43a0-a2de-69140c7bf576",
+      "runId": "23a8b930-ab0d-4bf4-97d7-abd3597973db",
       "fixtureId": "accidental/explicit-cautionary",
       "sourceHash": "b6e6ec78bfbc8d116a57e49ee84a06067631f74ee151cd03e2da4884fe212d49",
       "expectationHash": "6fcc508c68fb6fc988dcdb327f3d175a3c10c1eedde7e2f8fd55656fc92d41ad",
@@ -456,8 +456,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.084Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.600Z",
       "results": [
         {
           "fixtureId": "accidental/explicit-cautionary",
@@ -536,7 +536,7 @@
       ]
     },
     {
-      "runId": "19ed1365-e2ea-47ac-b1fc-1653aa33414e",
+      "runId": "6e36c80e-e4e8-4d36-a34c-9c08b4a53c37",
       "fixtureId": "accidental/flat",
       "sourceHash": "a2e7c07c271f41b39e43b0157423d48f48e21ad50d4eff1d8ec559559a501332",
       "expectationHash": "be82d46649a3a3064bbaad51b817a23810992e539552b22e41ea23e205b61f32",
@@ -545,8 +545,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.951Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.478Z",
       "results": [
         {
           "fixtureId": "accidental/flat",
@@ -625,7 +625,7 @@
       ]
     },
     {
-      "runId": "2365e525-fd72-492c-90fe-b61dd5b8e888",
+      "runId": "dc7d36e1-1ec7-455f-ae00-f0bb31524023",
       "fixtureId": "accidental/key-change",
       "sourceHash": "fb78d4db378d2cbd12a089231428fee9d845fab01c862292ca2b9bd015937806",
       "expectationHash": "e2acc59fad774c1865fa20d8f749643d0944aa494ba7097a6de7fa63df4a1d92",
@@ -634,8 +634,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.118Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.632Z",
       "results": [
         {
           "fixtureId": "accidental/key-change",
@@ -714,7 +714,7 @@
       ]
     },
     {
-      "runId": "47adc566-37f6-4588-bf82-423019f84224",
+      "runId": "cf8772cc-fb90-483a-9e3c-8a5144150d23",
       "fixtureId": "accidental/ledger-position",
       "sourceHash": "9528861477e7c650d41c5a2dd7ef4039e72640ed6a9b73ca854b91e13bc57b49",
       "expectationHash": "c04903245ed98fc44e1c0f7a9436263e9ff33c8cb9d213d99041ea6bd0165fb8",
@@ -723,8 +723,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.160Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.666Z",
       "results": [
         {
           "fixtureId": "accidental/ledger-position",
@@ -803,7 +803,7 @@
       ]
     },
     {
-      "runId": "0d488be1-aeee-4d68-ab9a-c76c1949e80e",
+      "runId": "48efd6d8-6fd7-4e30-ac79-210d38059d5b",
       "fixtureId": "accidental/natural",
       "sourceHash": "55b24e92bf326524953d0d1b9bc21df711ec5e0848446ec577551da0d77cf489",
       "expectationHash": "62d9c7d62ba0b6845d8fadb417261736ab2c5b53a2e8202a1aab075a150551c7",
@@ -812,8 +812,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.961Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.487Z",
       "results": [
         {
           "fixtureId": "accidental/natural",
@@ -892,7 +892,7 @@
       ]
     },
     {
-      "runId": "da68ccb5-5e91-48ec-88a3-cdfac9ebadca",
+      "runId": "ca140d4a-8465-4d00-a0df-5cc5778e35bd",
       "fixtureId": "accidental/octave-isolation",
       "sourceHash": "2565b19a24d28cd323d37cd5cf18c99674c3d9c0e80425fb094837672b157ae1",
       "expectationHash": "3416edeff4470d1bd7fde726353cbf7e0290796f1281ac8a06eb71d6c5144488",
@@ -901,8 +901,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.042Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.561Z",
       "results": [
         {
           "fixtureId": "accidental/octave-isolation",
@@ -981,7 +981,7 @@
       ]
     },
     {
-      "runId": "e3dd9be6-77ea-4e65-8b52-18911800ef78",
+      "runId": "93fedaa8-cdd4-4d65-8141-6787b7b2c04b",
       "fixtureId": "accidental/parentheses",
       "sourceHash": "ff923d996876318f35c6f6746e453ddd8f0af52011e94d7d41c61ea2905d370d",
       "expectationHash": "d8c3c42383f02918b5ee8ebe3502b6eb4a72fd04804d508eb22cf57082652470",
@@ -990,8 +990,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.092Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.608Z",
       "results": [
         {
           "fixtureId": "accidental/parentheses",
@@ -1070,7 +1070,7 @@
       ]
     },
     {
-      "runId": "9ce92562-7fdb-46c9-a5a9-d8310e420303",
+      "runId": "62ce5d4e-306b-41e6-8bb7-23a5db4a1bdf",
       "fixtureId": "accidental/part-isolation",
       "sourceHash": "d61a319bb19b467eec8002767f742c4bb6697eec6735b5543a29078eb6925945",
       "expectationHash": "4958c2ad0f1affebeac9509f17ecb93c7791d1210351f896c37baf46bb9470c4",
@@ -1079,8 +1079,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.073Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.590Z",
       "results": [
         {
           "fixtureId": "accidental/part-isolation",
@@ -1159,13 +1159,13 @@
       ]
     },
     {
-      "runId": "7df13ae5-5c66-4a73-a272-d8dde1926f38",
+      "runId": "7077ddec-1a49-474c-ae5e-b7c38c3539cf",
       "fixtureId": "accidental/reject-pitch",
       "sourceHash": "7b7bce817fe5afbb30c35eeb5aa8af207881b82129e42622efbb14020f401159",
       "expectationHash": "e56f0f33835d92c47f97d002e7f68d8e72389cb0d3523d8a4763520812b13374",
       "layout": null,
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.171Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.678Z",
       "results": [
         {
           "fixtureId": "accidental/reject-pitch",
@@ -1188,7 +1188,7 @@
       ]
     },
     {
-      "runId": "2bb0c954-eead-4e6e-a143-f32646ac82b7",
+      "runId": "55bfefcf-fe20-4221-977b-854e12a516ed",
       "fixtureId": "accidental/repeat-in-bar",
       "sourceHash": "20f9af5df4742364418b75287916b479c9675fea1f09c074c205f58ddb664f34",
       "expectationHash": "7b6f154a685534a4065ea39e0f0da0f1e6c10db7a9e5fd32acea2ee4cb1ad438",
@@ -1197,8 +1197,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.004Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.527Z",
       "results": [
         {
           "fixtureId": "accidental/repeat-in-bar",
@@ -1277,7 +1277,7 @@
       ]
     },
     {
-      "runId": "202d79ae-1de5-44f6-a784-7e2a90f5ad90",
+      "runId": "0d01831b-19c6-42fe-81d0-8eadc04c14a1",
       "fixtureId": "accidental/reset-next-bar",
       "sourceHash": "837f6ce807407cf9f66288e76a3d2c8d7e0b7af16f74562bf495902af40d4e03",
       "expectationHash": "44c64fb6a3ddf7d74b3cd7c66f8c58cb8b8f20876d3d82eebb65fb4b0411b3b4",
@@ -1286,8 +1286,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.021Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.541Z",
       "results": [
         {
           "fixtureId": "accidental/reset-next-bar",
@@ -1366,7 +1366,7 @@
       ]
     },
     {
-      "runId": "d36fbea6-d90e-4af7-a338-f6fb0bc9eb79",
+      "runId": "87ca9a35-0284-46e1-97ac-1dc54533bd12",
       "fixtureId": "accidental/sharp",
       "sourceHash": "6fded9f381c2a3c32ed504bfafa99154042a6926d332edbe83e81d8ce869c7d2",
       "expectationHash": "fcecc05447bfbb72ea253e4dd2dcac731cf7601826004a585c6ea54a98610de3",
@@ -1375,8 +1375,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.943Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.470Z",
       "results": [
         {
           "fixtureId": "accidental/sharp",
@@ -1455,7 +1455,7 @@
       ]
     },
     {
-      "runId": "fce55f85-daf0-49b2-a1f8-1bf09f34c139",
+      "runId": "f8882d84-95aa-4a0a-9c3e-a9a249257aa3",
       "fixtureId": "accidental/simultaneous-conflict",
       "sourceHash": "e15ba8e9b00fb299d8d3af19cf58a279140369abf955bfd9ebdda68a953a40fa",
       "expectationHash": "6049ae3a4b6e5e9c4ca657c94c85d3cd23462ccaf51fe801c0e025e8c05d5d13",
@@ -1464,8 +1464,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.106Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.621Z",
       "results": [
         {
           "fixtureId": "accidental/simultaneous-conflict",
@@ -1544,7 +1544,7 @@
       ]
     },
     {
-      "runId": "b90916a9-0e9f-45a1-9951-bb0ccd311b10",
+      "runId": "1b14768b-87a2-4874-9326-85be519542a7",
       "fixtureId": "accidental/staff-isolation",
       "sourceHash": "3c3d986c1af35a3bcb699cb389ade01135ad8e6515b42b2b4cb1d4ec142f2884",
       "expectationHash": "bc9967453949373345d52aca111ccc2352f0a73246008a8cbaa3be3995011273",
@@ -1553,8 +1553,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.056Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.575Z",
       "results": [
         {
           "fixtureId": "accidental/staff-isolation",
@@ -1633,7 +1633,7 @@
       ]
     },
     {
-      "runId": "13bdc1e0-0309-42ef-b1dc-46a616a2416d",
+      "runId": "c1b5d0c9-70e6-43df-80e5-564b98ca9e0b",
       "fixtureId": "accidental/tie-continuation",
       "sourceHash": "6e3ac2e6fe0d400daf5c1f5037adfc4df57eea676559cc94197c8cd5f36fb11d",
       "expectationHash": "2e907ef9005df230ac4c3c202acd959d485c27033b00ec5870756d82197196c9",
@@ -1642,8 +1642,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.136Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.648Z",
       "results": [
         {
           "fixtureId": "accidental/tie-continuation",
@@ -1722,7 +1722,7 @@
       ]
     },
     {
-      "runId": "f8c10964-d798-4862-9448-312cb5ca459a",
+      "runId": "3b355f0f-dbde-41bb-9997-4fe9eb562e1a",
       "fixtureId": "accidental/voice-sharing",
       "sourceHash": "f40ad78043229d9d59522c0b31f9f5cc6d77e7567de28640e9280937c79cba25",
       "expectationHash": "e0dd16b54adc7188e6ffe1aff675f833f5e5e4346061cb32eacdcae00a72235b",
@@ -1731,8 +1731,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.032Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.552Z",
       "results": [
         {
           "fixtureId": "accidental/voice-sharing",
@@ -1811,7 +1811,7 @@
       ]
     },
     {
-      "runId": "a039c568-d859-4c32-8240-130ec116f780",
+      "runId": "1dd5ba21-4182-4613-b393-0f36e540ad8e",
       "fixtureId": "barline/final",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "1d1e1de8ac18f209f37e55fb87f48947bc1516174d0c43d3153b6e36b5e45ebb",
@@ -1820,8 +1820,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.706Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.232Z",
       "results": [
         {
           "fixtureId": "barline/final",
@@ -1853,7 +1853,7 @@
       ]
     },
     {
-      "runId": "d525e2fc-11dd-4de2-a73f-cc2241cc2aad",
+      "runId": "79392427-ee6f-445c-a540-72a2680e4105",
       "fixtureId": "barline/start",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "d42798abfd529171fa6fd46c15389b1fdc20d05fa12593e4559d798276d847c4",
@@ -1862,8 +1862,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.698Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.221Z",
       "results": [
         {
           "fixtureId": "barline/start",
@@ -1895,7 +1895,7 @@
       ]
     },
     {
-      "runId": "a6491f13-2a7c-47bf-93aa-45ce7a344f21",
+      "runId": "7a246aaf-087f-4d6f-9b07-e272c3db3cd5",
       "fixtureId": "beam/backward-hook",
       "sourceHash": "764a5bed6c098a3c5aeca988d38b7042566b8e283f0206fffababc3707993b21",
       "expectationHash": "2c24933007a364573908d492264ce5e9654edfaf1ee6abaa69ceb911855619f2",
@@ -1904,8 +1904,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.597Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.116Z",
       "results": [
         {
           "fixtureId": "beam/backward-hook",
@@ -1937,7 +1937,7 @@
       ]
     },
     {
-      "runId": "1a27542a-6062-4a94-90e2-5c7d1c5a46f6",
+      "runId": "128ef4a7-9f61-475d-abc3-999886797850",
       "fixtureId": "beam/forward-hook",
       "sourceHash": "cdf9fa841cb18038735db30f8c67d8eea66b2ffd5c9b4ae8b5e6cf8a273573c2",
       "expectationHash": "b5df3dd0cbf74b12a1dc06eb7aa1331431107f0608f1c75ddf569c85f7c2737f",
@@ -1946,8 +1946,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.586Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.105Z",
       "results": [
         {
           "fixtureId": "beam/forward-hook",
@@ -1979,7 +1979,7 @@
       ]
     },
     {
-      "runId": "b863a068-1aaf-4b58-828f-4a4217daa978",
+      "runId": "04a6d2f8-875b-4152-9e1a-97b97126df4d",
       "fixtureId": "beam/primary",
       "sourceHash": "fd440b324a87a6295185a69c03298fd76600956100f0dd76767a0707e1bf4cec",
       "expectationHash": "f538e9b6e48fcdc3cc9ab1543bea99d62a9c551b8ce55b2f85d3711f32af5ddf",
@@ -1988,8 +1988,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.573Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.092Z",
       "results": [
         {
           "fixtureId": "beam/primary",
@@ -2021,7 +2021,7 @@
       ]
     },
     {
-      "runId": "53e2a072-edd1-4ac7-87b4-5e1605c245f9",
+      "runId": "0a4219f6-c5d0-4598-ac25-c0a74d3c1283",
       "fixtureId": "chord/triad",
       "sourceHash": "51096ac068db64e9ddab88410ade83a12a75665c588c999dffd0d42b53cc140c",
       "expectationHash": "2e718529c9e18f091758f8a4958359304cde1c7378c2749a25c07940ad488ea8",
@@ -2030,8 +2030,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.610Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.130Z",
       "results": [
         {
           "fixtureId": "chord/triad",
@@ -2063,7 +2063,7 @@
       ]
     },
     {
-      "runId": "c909be18-10da-4b39-8801-701fc03e1cbe",
+      "runId": "851be22d-e1bc-44d6-bb1d-888f7ab79d7b",
       "fixtureId": "clef/F",
       "sourceHash": "df74660e91745100487d101ce72f1bb213b0b29a8b2132d7cf3dbe2954b30f8a",
       "expectationHash": "1f2d07289da5777493d61fb87ba413160ebfc77684e02ddb1c6ebae864a4070d",
@@ -2072,8 +2072,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.646Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.169Z",
       "results": [
         {
           "fixtureId": "clef/F",
@@ -2105,7 +2105,7 @@
       ]
     },
     {
-      "runId": "4f7d009a-4480-437e-b1d6-987e5206bab1",
+      "runId": "cb683d3d-0106-448b-91ab-b718f713c01e",
       "fixtureId": "clef/G",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "c71f4c53a287dae8094ca98cf2bddb0d268b2758e3ce4807a7effcab8b4ffded",
@@ -2114,8 +2114,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.636Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.159Z",
       "results": [
         {
           "fixtureId": "clef/G",
@@ -2147,7 +2147,7 @@
       ]
     },
     {
-      "runId": "44847c88-76d1-4186-a14b-9ebe99ca62b3",
+      "runId": "cdf95fd1-2f42-44e6-b758-1658337f52f7",
       "fixtureId": "dot/single",
       "sourceHash": "3c4ec0ac3c16e371d94e48d9381252400d2bab4660c3a35500404cc5b3af64ba",
       "expectationHash": "3e426062ac850726b921624ced99446c6fefedfa044a6b2bb913c85fecae364a",
@@ -2156,8 +2156,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.516Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.037Z",
       "results": [
         {
           "fixtureId": "dot/single",
@@ -2189,7 +2189,7 @@
       ]
     },
     {
-      "runId": "46c0b811-5ca0-4fcb-9c65-2dd2b983f66b",
+      "runId": "47593196-7b65-4846-aec6-293cd9a32150",
       "fixtureId": "flag/down",
       "sourceHash": "0f98672afef27dc45751a8a56fe382700c5fe50012b49ab4d2ab1c3869854e90",
       "expectationHash": "8636c3be182ab1bb0ca322f9beecd53b58fbd0258724b4c305185a0d7f3dcc0f",
@@ -2198,8 +2198,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.559Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.079Z",
       "results": [
         {
           "fixtureId": "flag/down",
@@ -2231,7 +2231,7 @@
       ]
     },
     {
-      "runId": "ac69767c-4db3-4b27-802f-a4057c1ed074",
+      "runId": "2e574668-9ce1-4da6-a87f-4efc1de899bc",
       "fixtureId": "flag/up",
       "sourceHash": "84038cbd3ce9c6cdd2138e5583413554c9646e3c806b14c2a7865c335930bcb1",
       "expectationHash": "840450a54a9098c19231b27ab7a90536edb657566c339b5a4983658e0647e196",
@@ -2240,8 +2240,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.538Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.057Z",
       "results": [
         {
           "fixtureId": "flag/up",
@@ -2273,7 +2273,7 @@
       ]
     },
     {
-      "runId": "f85aa943-bc24-4bb8-a6ca-3a1bcda64eba",
+      "runId": "fb39a7e7-75b5-404d-88bf-13a19dfc4ec6",
       "fixtureId": "key/-1",
       "sourceHash": "f83fa54007be454044064999a62f31be042ab45e95fbb12fa019734dd9baa575",
       "expectationHash": "9c3aedb4ca048a4db0940739af7c49d5d47f5b628d888e045b2151f92d7e30e3",
@@ -2282,8 +2282,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.664Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.188Z",
       "results": [
         {
           "fixtureId": "key/-1",
@@ -2315,7 +2315,7 @@
       ]
     },
     {
-      "runId": "69a51ea3-c6b1-429b-9bc3-9a6b69d24a81",
+      "runId": "97985ccd-bb85-479c-8da2-188c205841cf",
       "fixtureId": "key/1",
       "sourceHash": "5177ef5c7bbd51f21056b8222c4e36766481b4b11c95aa75c028019a472f077b",
       "expectationHash": "b5ccff8617cef830d95872e7578535b7527c4f90a095569558082c62aa69b0c9",
@@ -2324,8 +2324,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.656Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.179Z",
       "results": [
         {
           "fixtureId": "key/1",
@@ -2357,7 +2357,7 @@
       ]
     },
     {
-      "runId": "656685cb-dde6-48dc-9697-db4df0363452",
+      "runId": "c902ac1f-a504-4d18-a67d-5eba5c88dbeb",
       "fixtureId": "ledger/high",
       "sourceHash": "78884eefa78f930be3fe3437bdbdfdf42e5cd8e1533790e4487a7f6199548290",
       "expectationHash": "08aa88e44eab503e66819863925e2d70bdff2ecbb01d381f4e3ab3bb16e40617",
@@ -2366,8 +2366,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.627Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.149Z",
       "results": [
         {
           "fixtureId": "ledger/high",
@@ -2399,7 +2399,7 @@
       ]
     },
     {
-      "runId": "93b2a272-ae8b-437c-b0c8-5f1d7ba52c6e",
+      "runId": "05c01b84-b45f-4296-acf7-e1d9fb814068",
       "fixtureId": "ledger/low",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "7408b5d595dc7f93ea400e9bc8c521db054c27f37633ba0cac614f5a02a5efa8",
@@ -2408,8 +2408,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.618Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.139Z",
       "results": [
         {
           "fixtureId": "ledger/low",
@@ -2441,7 +2441,7 @@
       ]
     },
     {
-      "runId": "853c7819-7a6c-4cab-b135-77b5379550c0",
+      "runId": "03e56c74-d2fd-4d17-923e-898c1e8fe44e",
       "fixtureId": "meter/4-4",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "b9240e4daeddb006c1c5a638d288a5104cb1487fba445eeecc05c31b9c57df65",
@@ -2450,8 +2450,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.675Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.199Z",
       "results": [
         {
           "fixtureId": "meter/4-4",
@@ -2483,7 +2483,7 @@
       ]
     },
     {
-      "runId": "a8eb70df-8d40-4da2-8163-e17581d536fa",
+      "runId": "53b4f6db-9d02-4829-8600-e9b96daa8647",
       "fixtureId": "meter/change",
       "sourceHash": "7848e0fd8cfb22d198ec830db41a649ccc2822ef46b05b335806a7de310b3fb3",
       "expectationHash": "cdd708a8cd01fd26cded6a447b70ead64d9bd83708110195832c5d74cc5d4327",
@@ -2492,8 +2492,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.687Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.213Z",
       "results": [
         {
           "fixtureId": "meter/change",
@@ -2525,7 +2525,7 @@
       ]
     },
     {
-      "runId": "bf5c2bc4-c800-4b47-a732-aad6be4d55c2",
+      "runId": "26cd106e-4f40-42a9-822a-d7d4265f9ab8",
       "fixtureId": "notehead/16th",
       "sourceHash": "d125100ff5bab3e84e0c9d2b3f8a6c03a2e9da639f0b005319c272055de30091",
       "expectationHash": "689172471440f1d093e706c459633747a81cf1a8647b540aa29f8098db269a54",
@@ -2534,8 +2534,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.492Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.014Z",
       "results": [
         {
           "fixtureId": "notehead/16th",
@@ -2567,7 +2567,7 @@
       ]
     },
     {
-      "runId": "0481eaf7-886f-4891-ba17-521670e5bf1b",
+      "runId": "25bdbe9d-b853-4826-a0cb-d485d1d1ffc7",
       "fixtureId": "notehead/eighth",
       "sourceHash": "84038cbd3ce9c6cdd2138e5583413554c9646e3c806b14c2a7865c335930bcb1",
       "expectationHash": "08dea72af0af1831fcc0747a7c3e54c7c799a22447190163081faa8a14258f34",
@@ -2576,8 +2576,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.468Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.989Z",
       "results": [
         {
           "fixtureId": "notehead/eighth",
@@ -2609,7 +2609,7 @@
       ]
     },
     {
-      "runId": "da24817d-4c0d-4ce0-923d-3d1136ad0b04",
+      "runId": "1464f472-0005-4f2f-bb02-2c7eee6aa0f0",
       "fixtureId": "notehead/half",
       "sourceHash": "89987983a03fe12b3af1aa596a82154382507287f1fc3360089f09afffb5499b",
       "expectationHash": "7549375e6493539d93af1db476da873668f6ddddeba174ecb3eddab0d69eb89b",
@@ -2618,8 +2618,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.416Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.937Z",
       "results": [
         {
           "fixtureId": "notehead/half",
@@ -2651,7 +2651,7 @@
       ]
     },
     {
-      "runId": "f7f17299-744a-44ed-9709-de75bc9c35d7",
+      "runId": "67e1502f-25e7-4ee1-bce2-9046dd368513",
       "fixtureId": "notehead/quarter",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "f15f2c09f7c293880bbc10d90aded2a8015d728ca4891d8dda543ed5fc0c3699",
@@ -2660,8 +2660,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.445Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.967Z",
       "results": [
         {
           "fixtureId": "notehead/quarter",
@@ -2708,7 +2708,7 @@
       ]
     },
     {
-      "runId": "32d4d433-dc2a-469a-9286-801deb9fcf38",
+      "runId": "3a1f0584-59aa-4970-a4c4-88bb029b08e8",
       "fixtureId": "notehead/whole",
       "sourceHash": "75cfa5177432ff6fb866ad42120b88f8298b302acd7761fab592582a67502a86",
       "expectationHash": "df5c255fdf133e7673fe48218cb212e053d5bb59c420faad193d9eb7397323d2",
@@ -2717,8 +2717,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.385Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.903Z",
       "results": [
         {
           "fixtureId": "notehead/whole",
@@ -2786,13 +2786,13 @@
       ]
     },
     {
-      "runId": "08ec68e7-0323-4cee-ad6b-b4f9a4c18466",
+      "runId": "045ce068-3f03-45e9-8ee0-8f8c5616f5bd",
       "fixtureId": "reject/unsupported-version",
       "sourceHash": "f0d31b2eec4c27a856c381bcc1ba5ed6676e9ec6d80ffeb9f2fba503c813185f",
       "expectationHash": "1f0d6022da10cef7a603ff1d3f88607b8c74b3e5c4e314522efdc9daebdb8edf",
       "layout": null,
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.196Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.700Z",
       "results": [
         {
           "fixtureId": "reject/unsupported-version",
@@ -2806,7 +2806,7 @@
       ]
     },
     {
-      "runId": "d04bbfdd-610c-4688-b151-a08cae9729b2",
+      "runId": "9e77e665-944e-4a87-b464-e9d9d7fdf184",
       "fixtureId": "rest/16th",
       "sourceHash": "6faaf43923f39389b253a965d6b8cb54a094f31fa193ffa1ccff25b328e5e354",
       "expectationHash": "bbb3d10f063198a81941bd3f4ad6c09fe62c808a11ab4d6d0efabfe631b975c0",
@@ -2815,8 +2815,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.503Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.024Z",
       "results": [
         {
           "fixtureId": "rest/16th",
@@ -2884,7 +2884,7 @@
       ]
     },
     {
-      "runId": "adfae7d8-147f-40ce-a83c-92d5e5c20b6b",
+      "runId": "c2a429be-f121-4207-9c9e-6eb4af0b35ff",
       "fixtureId": "rest/eighth",
       "sourceHash": "6c899d6038abfc93a45de63fe7f13288a43f23309b8a4501fd3a066b07417c68",
       "expectationHash": "9bb0515be5e41fa9c30be69945253ab20886c9fc53078c47c3b49378e1c9f599",
@@ -2893,8 +2893,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.480Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.001Z",
       "results": [
         {
           "fixtureId": "rest/eighth",
@@ -2962,7 +2962,7 @@
       ]
     },
     {
-      "runId": "ff56683d-d748-4954-a167-d2d37487b0fe",
+      "runId": "9533f56c-33c3-4532-9476-389356d5eb5c",
       "fixtureId": "rest/half",
       "sourceHash": "06d0e8f448449651735c9984196ece7a3ef4506dc65b3722c46e50252c40af18",
       "expectationHash": "4fbf04e6a328d11c5ffc934df293c1f10077d756ef4a0feb0aeb4c4b55c333b3",
@@ -2971,8 +2971,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.432Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.953Z",
       "results": [
         {
           "fixtureId": "rest/half",
@@ -3040,7 +3040,7 @@
       ]
     },
     {
-      "runId": "cdc3c43c-ba46-4917-b063-798a963354a6",
+      "runId": "744b2bcc-98f3-457a-9127-696251372b2b",
       "fixtureId": "rest/quarter",
       "sourceHash": "4d50ab2fd5e4dfd68d81ed61b99ad32865cf17a8e6ab91279c8cbb75146aa2e7",
       "expectationHash": "18182660731f17020b8d892f07a1ebcc6659ef2728ed940f0d581d98ee44fc9b",
@@ -3049,8 +3049,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.455Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.977Z",
       "results": [
         {
           "fixtureId": "rest/quarter",
@@ -3118,7 +3118,7 @@
       ]
     },
     {
-      "runId": "0bc412df-d133-4100-85d4-fe61f3caf6f6",
+      "runId": "71382ae7-86df-4cc6-ac2b-e9bcf8b2cd6b",
       "fixtureId": "rest/whole",
       "sourceHash": "6c0af54ba6e369ac77c8cb987cc71dbe6fbfe82dec9357acddb9b4ebc07b494b",
       "expectationHash": "f01e6daae550a8230838b9ee2ad5c22f6f8485c1d83e08ee9e00e0677b9ea2fd",
@@ -3127,8 +3127,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.401Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:39.920Z",
       "results": [
         {
           "fixtureId": "rest/whole",
@@ -3196,7 +3196,7 @@
       ]
     },
     {
-      "runId": "1a5b0188-d5af-4eb6-8fd6-fd7d38a77ad4",
+      "runId": "a06761e8-4215-43ca-b585-84220e36b96e",
       "fixtureId": "staff/multiple",
       "sourceHash": "72ec487ac68de3cfc9b79bb1671f3a9c7c89509e1af590bf8fe345c35180f23d",
       "expectationHash": "52850569c04ea58db95d0cac5b7512e165b11e069d1149bf589da55e6fe38ce2",
@@ -3205,8 +3205,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.746Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.270Z",
       "results": [
         {
           "fixtureId": "staff/multiple",
@@ -3238,7 +3238,7 @@
       ]
     },
     {
-      "runId": "58c07b5f-219a-483f-93a6-22ffebbfa8ed",
+      "runId": "62dee1bb-fcc4-4f35-96c2-1ba0d5939df8",
       "fixtureId": "stem/down",
       "sourceHash": "09c85ed6e6263b3a6f9b15e6eee045d59454648437e2df8a7b58ed83fabda4f7",
       "expectationHash": "3e3112a1688fbdee7b7bb90aba78f487916eaa70b1d884d8d6d58fc810f88146",
@@ -3247,8 +3247,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.550Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.070Z",
       "results": [
         {
           "fixtureId": "stem/down",
@@ -3280,7 +3280,7 @@
       ]
     },
     {
-      "runId": "50f6cda7-219c-4269-8470-4b1e7e00dae8",
+      "runId": "6d6e0f9f-3c1f-413c-a755-44f2e9bc1c52",
       "fixtureId": "stem/up",
       "sourceHash": "bc9c442e93badcc0545b207c87ca724c94b8ba0a04b1a2ef8f97d568039635dd",
       "expectationHash": "564338cbf5772db4cec336d907a5e6c967079740aa9f80c50bc0e3a33ec89926",
@@ -3289,8 +3289,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.527Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.047Z",
       "results": [
         {
           "fixtureId": "stem/up",
@@ -3322,7 +3322,7 @@
       ]
     },
     {
-      "runId": "dba74c00-cde2-46b9-93e0-54f30252633f",
+      "runId": "77c91c6e-ba75-470b-8c3a-55ea27bde3a6",
       "fixtureId": "tie/ambiguous-unison",
       "sourceHash": "bc3ae7377dd3bd58d47036efddf400e1a9a6cf7e63d4f3d29eb281753ba822d6",
       "expectationHash": "f51aeabe622077ba22daf1975881230ae6f9bfc83020a1f6e324893737d45600",
@@ -3331,8 +3331,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.893Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.420Z",
       "results": [
         {
           "fixtureId": "tie/ambiguous-unison",
@@ -3391,7 +3391,7 @@
       ]
     },
     {
-      "runId": "59072b4e-31aa-4a87-a2a8-9aa6bc5f3238",
+      "runId": "b05ebf88-c7f4-4577-80ea-78d14b4e4bef",
       "fixtureId": "tie/chain",
       "sourceHash": "7bb37ac04934dd43c310aa05a690c9631595a51787c16ecf402423ce5f165060",
       "expectationHash": "413a56275ceb744dc68176ce00f1601b74d2dce549ae901df7b6079528d8e715",
@@ -3400,8 +3400,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.787Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.313Z",
       "results": [
         {
           "fixtureId": "tie/chain",
@@ -3469,7 +3469,7 @@
       ]
     },
     {
-      "runId": "67e2a90b-9609-464b-b5e6-a5baa5950c54",
+      "runId": "51682f8b-e1bd-4e11-aa85-5a48888e2bc0",
       "fixtureId": "tie/chord-member",
       "sourceHash": "f960929bde18e4474348397cd97ebefaca06301435487508447e61c81b29b428",
       "expectationHash": "6d606f46802e286014623b2ca3711abe64c0f83ad7f63151f569bf2049c2093a",
@@ -3478,8 +3478,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.802Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.327Z",
       "results": [
         {
           "fixtureId": "tie/chord-member",
@@ -3538,7 +3538,7 @@
       ]
     },
     {
-      "runId": "17a69ddc-bc1c-44cc-8238-5abc02e8e64e",
+      "runId": "985f8078-0da0-46eb-9bdb-3311a263dbf0",
       "fixtureId": "tie/compressed",
       "sourceHash": "a43c291e2a1f5c42f97f6d24356a5359e9ca1257f48f1d423bac5f0619759cb6",
       "expectationHash": "a0dc46efb3be1017fe9079826188e7fa9b038e0d329a69f6bd35f20b248de3b0",
@@ -3547,8 +3547,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.934Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.460Z",
       "results": [
         {
           "fixtureId": "tie/compressed",
@@ -3669,7 +3669,7 @@
       ]
     },
     {
-      "runId": "98d5ff33-bd5f-42e7-a062-f11db5f73a9e",
+      "runId": "fabb44a2-6247-4a8a-af25-e1447b7eb583",
       "fixtureId": "tie/cross-bar",
       "sourceHash": "3ff5383a376781c60997405eff6efd3a11dd3770fb896d05a890ec871c2a7b6a",
       "expectationHash": "1dc8e3413b1554082e0f19acc2a3b5194c548c3f3596d8bd177620a63ba22d9a",
@@ -3678,8 +3678,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.773Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.299Z",
       "results": [
         {
           "fixtureId": "tie/cross-bar",
@@ -3738,7 +3738,7 @@
       ]
     },
     {
-      "runId": "fcc4b6f6-da6c-4112-b6e0-4a082e9945d7",
+      "runId": "d4d4c86d-de8a-4559-88e1-4410ee6ec26a",
       "fixtureId": "tie/enharmonic",
       "sourceHash": "5e093b60f1c0377a0e097a0baa1fd6bad27e6da802b5a4a27a95238026c89234",
       "expectationHash": "e60ae6baef2bf2c2b847bb9f7760c87f6e8b1d706b85352e2e6d0252eaf3a424",
@@ -3747,8 +3747,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.194Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.698Z",
       "results": [
         {
           "fixtureId": "tie/enharmonic",
@@ -3869,7 +3869,7 @@
       ]
     },
     {
-      "runId": "fe30ad2e-40b0-4f72-b969-6105bdd9f5fb",
+      "runId": "64608e4b-ad1c-4a33-aeed-59d7f4ce2646",
       "fixtureId": "tie/mismatch",
       "sourceHash": "dc02ebe1fa8af4800ed965d8b152a33c3450f5482397e20caf369c045adb10f3",
       "expectationHash": "52c0c4e5b5726e104ce43d1e3f8e4c7e7a579c8aaef9a9729235d943cea2b1bd",
@@ -3878,8 +3878,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.876Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.402Z",
       "results": [
         {
           "fixtureId": "tie/mismatch",
@@ -3938,7 +3938,7 @@
       ]
     },
     {
-      "runId": "c3f30a3e-d0a5-4760-96eb-90aa6515b76f",
+      "runId": "320e52bc-baed-4cc9-a5f6-6fcd2b2f697a",
       "fixtureId": "tie/missing-endpoint",
       "sourceHash": "c44ec2569e3fd157e7ec2ce87d78243b4da2fe0f25cd2414a1be8cf1b9b01111",
       "expectationHash": "08db46041cbf71794d740af04d3574530d05919b7b8bb5b1b0a8eee588207e2a",
@@ -3947,8 +3947,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.883Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.410Z",
       "results": [
         {
           "fixtureId": "tie/missing-endpoint",
@@ -4007,7 +4007,7 @@
       ]
     },
     {
-      "runId": "97e5d4c7-6455-43d4-ad33-141849114072",
+      "runId": "07518ca0-137c-4e9c-aec7-e3f60a7029af",
       "fixtureId": "tie/musical-fallback",
       "sourceHash": "649dec3f82326e0d0616812333f944c0cc30783969c355cb541414163718adac",
       "expectationHash": "e83df44947c820ed447b47f93457fca01d09df6f2d0ea439c951bae27839797d",
@@ -4016,8 +4016,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.864Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.391Z",
       "results": [
         {
           "fixtureId": "tie/musical-fallback",
@@ -4085,7 +4085,7 @@
       ]
     },
     {
-      "runId": "5b024963-6fea-4ef1-9317-898f7bbe44a7",
+      "runId": "ba10d322-936d-49bb-bfe8-bfc1aca6bdc0",
       "fixtureId": "tie/numbered",
       "sourceHash": "4b961d68925c90a13e95a08273300ba715dbcbbb170500383670a812323ad6b7",
       "expectationHash": "5eb867c54eea95097c3a3ad0dfdd87b5654515fb6a14d7bc606466413af032f4",
@@ -4094,8 +4094,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:02.181Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.687Z",
       "results": [
         {
           "fixtureId": "tie/numbered",
@@ -4216,7 +4216,7 @@
       ]
     },
     {
-      "runId": "b58a7c82-d765-40cd-9ebf-20e7e0af0cf4",
+      "runId": "a69c30fb-892e-4cc3-b3f5-d3de869a4022",
       "fixtureId": "tie/page-break",
       "sourceHash": "3ff5383a376781c60997405eff6efd3a11dd3770fb896d05a890ec871c2a7b6a",
       "expectationHash": "abd7dc0ef9ab9b44c90e1cec74b61d95eb03f8533e2a69148a1756fb44954c86",
@@ -4229,8 +4229,8 @@
           "margin": 1
         }
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.920Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.446Z",
       "results": [
         {
           "fixtureId": "tie/page-break",
@@ -4289,7 +4289,7 @@
       ]
     },
     {
-      "runId": "4fccf112-9b39-4376-928c-f24f0ccadca5",
+      "runId": "a6087ea5-0cf4-4a81-9f26-625ee486aec6",
       "fixtureId": "tie/part-isolation",
       "sourceHash": "adc120a7b2deff07f1c3a0893fa26bf3e0a9f6a0f52009cd697c44ad2a5dcecd",
       "expectationHash": "d953ac5102f40b339db28fff5a43a3bd23105b5531e50f11adc3d9c9b381107c",
@@ -4298,8 +4298,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.841Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.366Z",
       "results": [
         {
           "fixtureId": "tie/part-isolation",
@@ -4358,7 +4358,7 @@
       ]
     },
     {
-      "runId": "06aa9b8d-473a-4c9d-98c0-633c50d0b1a1",
+      "runId": "2cae5a63-993d-4e58-96a2-f330e979faf6",
       "fixtureId": "tie/same-bar",
       "sourceHash": "6e008422333e798025177f0f7d102f5b83e1d244c2a2ef7f57883575f5b9ad31",
       "expectationHash": "80385df696768d1a055399d39485b3690ad14831bfdcee38d11d2cc15dc18fdd",
@@ -4367,8 +4367,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.759Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.284Z",
       "results": [
         {
           "fixtureId": "tie/same-bar",
@@ -4489,7 +4489,7 @@
       ]
     },
     {
-      "runId": "6456af84-079c-4b9a-970c-2633118da3b5",
+      "runId": "07366eee-0f65-4396-8fe3-8aeb47015f16",
       "fixtureId": "tie/staff-isolation",
       "sourceHash": "54fa25cd552b18461a67ad14f0e017e251f82d49fa4156458a17375953f7a765",
       "expectationHash": "dd5c66ed1ae72c64bb64fad25de2f4df170fe2d0ea18f829f5c98b70b0316fc5",
@@ -4498,8 +4498,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.825Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.351Z",
       "results": [
         {
           "fixtureId": "tie/staff-isolation",
@@ -4558,7 +4558,7 @@
       ]
     },
     {
-      "runId": "09fa57e1-9ff3-4e26-b2eb-660f0606422d",
+      "runId": "61e3d467-9146-4e64-aa94-b553d3d35994",
       "fixtureId": "tie/system-break",
       "sourceHash": "3ff5383a376781c60997405eff6efd3a11dd3770fb896d05a890ec871c2a7b6a",
       "expectationHash": "25e44adb0e3fbe80541b907e204cf4f18773648935f5cbfd4dcbe855c6b28fe0",
@@ -4568,8 +4568,8 @@
         "viewportWidth": 100,
         "viewportHeight": 500
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.908Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.434Z",
       "results": [
         {
           "fixtureId": "tie/system-break",
@@ -4628,7 +4628,7 @@
       ]
     },
     {
-      "runId": "65c338de-9dfa-4360-9688-f7cfb7daa5cb",
+      "runId": "808953ec-7208-495d-af63-31e66345e916",
       "fixtureId": "tie/visual-only",
       "sourceHash": "f9e1e651820b9c7e4f73720f8c8656ae16d747d6988e021f96cd395f652fb300",
       "expectationHash": "efc740a72592c8bec167c710c41613f44ad9091ed222126bd73e47316a72f6ff",
@@ -4637,8 +4637,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.852Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.379Z",
       "results": [
         {
           "fixtureId": "tie/visual-only",
@@ -4706,7 +4706,7 @@
       ]
     },
     {
-      "runId": "0da54ccb-9fe6-4c5d-b034-1065d36e72c2",
+      "runId": "448e4b20-bd9f-4e7a-bba0-ffb5ddbfff43",
       "fixtureId": "tie/voice-isolation",
       "sourceHash": "31a902022d535658dbdbcee5d50bcf6be510814da85a0dabe39728f6af437376",
       "expectationHash": "e31be400db7b3acc72fdbd42a883c91b97bbcf9fac0d6974af7cde320e4290c0",
@@ -4715,8 +4715,8 @@
         "scale": 12,
         "viewportWidth": 800
       },
-      "rendererRevision": "f5f2968baa9ec848a89cbfbb9a782c7970357969267e555b5a225725dce33db1",
-      "executedAt": "2026-10-21T02:19:01.811Z",
+      "rendererRevision": "4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125",
+      "executedAt": "2026-10-21T02:51:40.337Z",
       "results": [
         {
           "fixtureId": "tie/voice-isolation",

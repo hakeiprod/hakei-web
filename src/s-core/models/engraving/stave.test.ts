@@ -250,3 +250,28 @@ test.each(
     controller.unmount();
   },
 );
+
+test.each([
+  [3, 4],
+  [6, 8],
+  [2, 4],
+  [4, 4],
+])(
+  "centers the numerator and denominator of %s/%s",
+  (numerator, denominator) => {
+    const controller = prepare({
+      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+      timesignatures: [{ numerator, denominator, start: 0 }],
+    });
+    const drawing = controller.toDocument();
+    const digits = glyphs(drawing).filter((glyph) =>
+      glyph.glyphName?.startsWith("timeSig"),
+    );
+    expect(digits).toHaveLength(2);
+    expect(digits[0].bounds.x + digits[0].bounds.width / 2).toBeCloseTo(
+      digits[1].bounds.x + digits[1].bounds.width / 2,
+    );
+    expect(controller.toDocument()).toEqual(drawing);
+    controller.unmount();
+  },
+);

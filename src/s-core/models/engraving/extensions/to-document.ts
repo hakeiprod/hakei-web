@@ -48,23 +48,44 @@ function glyphAtPosition(
   position: Drawing.Point,
   source: Drawing.Source,
   role = "glyph",
+  fontScale = 1,
 ) {
   return new Drawing.Glyph(
     glyph.codepoint,
     position,
     {
-      x: position.x + glyph.glyphBBox.x,
-      y: position.y - glyph.glyphBBox.y,
-      width: glyph.glyphBBox.width,
-      height: glyph.glyphBBox.height,
+      x: position.x + glyph.glyphBBox.x * fontScale,
+      y: position.y - glyph.glyphBBox.y * fontScale,
+      width: glyph.glyphBBox.width * fontScale,
+      height: glyph.glyphBBox.height * fontScale,
     },
-    glyph.glyphAdvanceWidth,
+    glyph.glyphAdvanceWidth * fontScale,
     {
+      fontScale,
       role,
       source,
       classList: glyph.classList,
       glyphName: glyph.glyphName,
     },
+  );
+}
+
+function tabClefToDocument(
+  glyph: Engraving.Glyph,
+  height: number,
+  source: Drawing.Source,
+) {
+  // Fit the full SMuFL ink bounds inside the staff without enlarging the font.
+  const scale = Math.min(1, height / glyph.glyphBBox.height);
+  return glyphAtPosition(
+    glyph,
+    {
+      x: glyph.x + glyph.spaceLeft,
+      y: height / 2 + (glyph.glyphBBox.y - glyph.glyphBBox.height / 2) * scale,
+    },
+    source,
+    "glyph",
+    scale,
   );
 }
 
@@ -372,7 +393,11 @@ function staveToDocument(
       .map((element) =>
         element instanceof Engraving.Ligature
           ? ligatureToDocument(element, source)
-          : glyphToDocument(element, source),
+          : element instanceof Engraving.Glyph &&
+              (element.glyphName === "4stringTabClef" ||
+                element.glyphName === "6stringTabClef")
+            ? tabClefToDocument(element, stave.height, source)
+            : glyphToDocument(element, source),
       ),
     source,
   );
