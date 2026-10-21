@@ -1,3 +1,5 @@
+import { capabilities } from "../sheet/notation/capabilities";
+import { performanceNotes } from "../sheet/notation/performance-events";
 import { z } from "zod";
 import { Beat } from "../core/units/beat";
 import { Microseconds } from "../core/units/microseconds";
@@ -10,6 +12,8 @@ function deriveTimeline(
   rawConditions: PracticeConditions,
 ): PracticeTimeline {
   const score = sheetScoreSchema.parse(input);
+  if (!capabilities(score).canPractice)
+    throw new Error("Score practice is unavailable");
   const conditions = rawConditions;
   if (!score.tracks.some((track) => track.id === conditions.trackId))
     throw new Error("INVALID_TRACK");
@@ -34,7 +38,7 @@ function deriveTimeline(
     | PracticeTimeline["notes"][number]
     | PracticeTimeline["continuations"][number]
   >();
-  for (const note of score.notes.toSorted(
+  for (const note of performanceNotes(score.notes).toSorted(
     (a, b) => a.start - b.start || a.id - b.id,
   )) {
     if (
@@ -44,6 +48,7 @@ function deriveTimeline(
       note.start >= endBar.end
     )
       continue;
+    if (note.pitch === null) throw new Error("Missing sounding pitch");
     const key = `${note.trackId}:${note.voice}:${note.staveId}:${note.pitch}`;
     const onsetUs = Math.max(0, Math.round(timeAt(note.start) - origin));
     const endUs = Math.round(timeAt(Math.min(note.end, endBar.end)) - origin);

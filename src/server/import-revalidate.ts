@@ -74,6 +74,7 @@ export function revalidateImport(
     now,
   );
   let candidate = structuredClone(input.originalCandidate);
+  const correctionIssues: z.infer<typeof conversionIssueSchema>[] = [];
   for (const correction of input.corrections) {
     switch (correction.kind) {
       case "NOTE": {
@@ -85,7 +86,28 @@ export function revalidateImport(
           correction.duration === undefined
         )
           throw new Error("INVALID_CORRECTION");
-        if (correction.pitch !== undefined) note.pitch = correction.pitch;
+        if (correction.pitch !== undefined) {
+          if (note.percussion || (note.rest && note.pitch === null))
+            throw new Error("INVALID_CORRECTION");
+          if (
+            note.pitch !== correction.pitch &&
+            (note.notatedPitch || note.explicitAccidental)
+          ) {
+            delete note.notatedPitch;
+            delete note.explicitAccidental;
+            correctionIssues.push({
+              id: `notation-correction:${correction.index}:${correctionIssues.length}`,
+              code: "NOTATION_REINFERRED",
+              severity: "WARNING",
+              status: "UNRESOLVED",
+              fieldPath: `notes.${correction.index}.pitch`,
+              track: note.trackId,
+              message:
+                "音高を修正したため、元の音名と臨時記号を新しい音高から推定します。表示を確認してください。",
+            });
+          }
+          note.pitch = correction.pitch;
+        }
         if (correction.duration !== undefined)
           note.duration = correction.duration;
         if (correction.start !== undefined) {
@@ -130,6 +152,7 @@ export function revalidateImport(
   // Musical corrections only; source-dependent blockers remain until evidence resolves them.
   const validated = validateCandidate(candidate, [
     ...input.originalIssues,
+    ...correctionIssues,
     ...promoted.issues.filter(
       (issue) =>
         !input.originalIssues.some((original) => original.id === issue.id),

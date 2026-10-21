@@ -1,3 +1,4 @@
+import { notationShape, validateNotation } from "../sheet/notation/schema";
 import { z } from "zod";
 import {
   beamSchema,
@@ -23,6 +24,7 @@ export type ConversionIssue = z.infer<typeof conversionIssueSchema>;
 const nonnegative = z.number().finite().nonnegative();
 export const partialNoteSchema = z
   .object({
+    ...notationShape,
     id: z.string().min(1),
     trackId: z.int().nonnegative(),
     pitch: z.int().min(0).max(127).nullable(),
@@ -40,7 +42,8 @@ export const partialNoteSchema = z
     notatedType: notatedTypeSchema.optional(),
     notatedDots: z.int().min(0).max(4).optional(),
   })
-  .strict();
+  .strict()
+  .superRefine(validateNotation);
 export const partialScoreSchema = z
   .object({
     format: z.literal("converted-partial-v1"),
@@ -81,6 +84,29 @@ export const partialScoreSchema = z
   })
   .strict()
   .superRefine((score, context) => {
+    if (
+      score.notes.reduce(
+        (sum, n) =>
+          sum +
+          (n.sourceNotation === undefined
+            ? 0
+            : new TextEncoder().encode(JSON.stringify(n.sourceNotation))
+                .length),
+        score.notation &&
+          typeof score.notation === "object" &&
+          !Array.isArray(score.notation) &&
+          score.notation.sourceStaves !== undefined
+          ? new TextEncoder().encode(
+              JSON.stringify(score.notation.sourceStaves),
+            ).length
+          : 0,
+      ) > 65_536
+    )
+      context.addIssue({
+        code: "custom",
+        path: ["notes"],
+        message: "Notation source exceeds score limit",
+      });
     const tracks = new Set(score.tracks.map((track) => track.id));
     if (tracks.size !== score.tracks.length)
       context.addIssue({

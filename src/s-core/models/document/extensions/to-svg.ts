@@ -25,6 +25,8 @@ function setMetadata(node: SVGElement, element: Drawing.Element) {
   node.setAttribute("type", element.role ?? element.kind);
   if (element.classList.length > 0)
     node.setAttribute("class", element.classList.join(" "));
+  for (const key of ["tabValue", "string", "fret", "anchorRole"] as const)
+    if (element[key] !== undefined) node.dataset[key] = String(element[key]);
   for (const [key, value] of Object.entries(element.source ?? {})) {
     if (value === undefined) continue;
     const name = key.replaceAll(
@@ -53,8 +55,31 @@ function renderElement(element: Drawing.Element): SVGElement {
     const text = createSVGElement("text");
     text.setAttribute("x", String(element.position.x));
     text.setAttribute("y", String(element.position.y));
+    if (element.fontScale !== 1)
+      text.setAttribute("font-size", `${element.fontScale}em`);
     text.textContent = String.fromCodePoint(element.codepoint);
     node.append(text);
+    return node;
+  }
+  if (element instanceof Drawing.Curve) {
+    const node = createSVGElement("path");
+    setMetadata(node, element);
+    const point = (p: Drawing.Point) => `${p.x} ${p.y}`;
+    node.setAttribute(
+      "d",
+      `M ${point(element.start)} C ${point(element.outer[0])} ${point(element.outer[1])} ${point(element.end)} C ${point(element.inner[1])} ${point(element.inner[0])} ${point(element.start)} Z`,
+    );
+    node.setAttribute("fill", element.fill);
+    node.dataset.relationId = element.relationId;
+    node.dataset.part = element.part;
+    node.dataset.startTrackId = String(element.startNote.trackId);
+    node.dataset.startNoteId = String(element.startNote.noteId);
+    node.dataset.endTrackId = String(element.endNote.trackId);
+    node.dataset.endNoteId = String(element.endNote.noteId);
+    node.dataset.startX = String(element.start.x);
+    node.dataset.startY = String(element.start.y);
+    node.dataset.endX = String(element.end.x);
+    node.dataset.endY = String(element.end.y);
     return node;
   }
   if (element instanceof Drawing.Line && element.role === "beam") {

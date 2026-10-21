@@ -136,3 +136,31 @@ it("extends tied reference sound once and clips a pre-range sustained note as co
       .continuations[0],
   ).toMatchObject({ onsetUs: 0, durationUs: 2_000_000 });
 });
+
+it("visual ties and enharmonic notation do not change attacks, timing or game evaluation", async () => {
+  const { evaluateGame } = await import("./game-evaluation");
+  const { matchPerformance } = await import("./matching");
+  const data = score();
+  const before = buildTimeline(data, conditions);
+  const first = data.notes.find((n: { rest: boolean }) => !n.rest);
+  first.notatedPitch = { step: "B", octave: 3, alter: 1 };
+  first.explicitAccidental = { kind: "sharp", parentheses: true };
+  first.visualTies = [{ type: "start" }];
+  const after = buildTimeline(data, conditions);
+  expect(after).toEqual(before);
+  const events = before.notes.map((n, index) => ({
+    sequence: index,
+    relativeUs: n.onsetUs,
+    pitch: n.pitch,
+    type: "NOTE_ON" as const,
+    channel: 0,
+    velocity: 90,
+  }));
+  const evaluate = (notes: typeof before.notes) =>
+    evaluateGame(
+      matchPerformance(notes, events, 60_000, 0, before.durationUs),
+      30_000,
+      60_000,
+    );
+  expect(evaluate(after.notes)).toEqual(evaluate(before.notes));
+});

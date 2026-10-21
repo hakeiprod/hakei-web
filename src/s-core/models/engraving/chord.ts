@@ -1,10 +1,32 @@
-import { filter, firstBy, flat, isTruthy, map, pipe, prop } from "remeda";
+import { firstBy, flat, map, pipe, prop } from "remeda";
 import * as Engraving from "./";
 import * as Sheet from "../sheet";
 export class Chord extends Sheet.Chord {
   word = new Engraving.Word();
   noteheadsLigature = new Engraving.Ligature();
   legerlinesLigature = new Engraving.Ligature();
+  override get width() {
+    return this.word.width;
+  }
+  get noteheadOffset() {
+    return this.notes.reduce(
+      (sum, note) =>
+        sum +
+        note.accidentalGlyphs.reduce((width, glyph) => width + glyph.width, 0),
+      0,
+    );
+  }
+  override get legerlines() {
+    if (this.stave.staffSettings?.kind === "tablature") return [];
+    const notes = this.notes.filter((note) => !note.rest);
+    if (notes.length === 0) return [];
+    const minimum = Math.min(...notes.map((note) => note.line)),
+      maximum = Math.max(...notes.map((note) => note.line));
+    const lines: number[] = [];
+    for (let line = 6; line <= Math.floor(maximum); line++) lines.push(line);
+    for (let line = 0; line >= Math.ceil(minimum); line--) lines.push(line);
+    return lines;
+  }
   get notes() {
     return super.notes as Engraving.Note[];
   }
@@ -42,8 +64,11 @@ export class Chord extends Sheet.Chord {
     this.noteheadsLigature = new Engraving.Ligature();
     this.legerlinesLigature = new Engraving.Ligature();
     this.noteheadsLigature.append(this.notes.map(prop("glyph")));
+    // Give accidentals their own columns, including parentheses. This conservatively
+    // separates adjacent chord symbols rather than placing them on top of each other.
+    for (const note of this.notes.toSorted((a, b) => a.line - b.line))
+      for (const glyph of note.accidentalGlyphs) this.word.append([glyph]);
     this.word.append(
-      pipe(this.notes, map(prop("accidentalGlyph")), filter(isTruthy)),
       [this.noteheadsLigature],
       this.notes.map(prop("dotLigature")),
     );

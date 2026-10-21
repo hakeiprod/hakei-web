@@ -10,7 +10,7 @@ export class Glyph<
 > extends LayoutGlyph {
   glyphName;
   glyphBBox;
-  glyphAdvanceWidth;
+  glyphAdvanceWidth: number;
   glyphWithAnchor;
   get width() {
     return this.glyphBBox.width + this.spaceLeft;
@@ -44,8 +44,7 @@ export class Glyph<
   /** SMuFL coordinates are relative to the glyph origin, with positive y upwards. */
   getAnchor(name: string): readonly [number, number] | undefined {
     const anchors = this.glyphWithAnchor as
-      | Partial<Record<string, readonly [number, number]>>
-      | undefined;
+      Partial<Record<string, readonly [number, number]>> | undefined;
     return anchors?.[name];
   }
   static find(

@@ -37,3 +37,18 @@ it("validates tie continuity after edits instead of accepting a stale playable f
     validateCandidate(candidate, broken.issues).validation.canPractice,
   ).toBe(true);
 });
+
+it("reports ambiguous unison starts instead of silently overwriting a pending tie", () => {
+  const candidate = score();
+  candidate.notes[0].ties = ["start"];
+  candidate.notes[1].ties = ["stop"];
+  candidate.notes.push({ ...candidate.notes[0], id: 99, ties: ["start"] });
+  const result = validateCandidate(candidate, []);
+  expect(
+    result.issues.some(
+      (index) =>
+        index.code === "AMBIGUOUS_TIE" && index.severity === "BLOCKING",
+    ),
+  ).toBe(true);
+  expect(result.validation.canPractice).toBe(false);
+});

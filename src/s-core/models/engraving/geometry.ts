@@ -1,3 +1,4 @@
+import { staffY } from "./notation/staff-geometry";
 import type { Chord } from "./chord";
 import { Glyph } from "./glyph";
 import type * as Drawing from "../document";
@@ -29,16 +30,17 @@ export function chordStem(chord: Chord): StemGeometry | undefined {
     // The anchors describe a corner of the stem rectangle; SVG lines use its centre.
     return {
       x:
+        chord.noteheadOffset +
         glyph.x +
         glyph.spaceLeft +
         anchorX +
         (up ? -engraving.stemThickness / 2 : engraving.stemThickness / 2),
-      y: 5 - glyph.line - (anchor?.[1] ?? 0),
+      y: staffY(glyph.line) - (anchor?.[1] ?? 0),
     };
   });
   const x = (up ? Math.max : Math.min)(...points.map((point) => point.x));
   const y = (up ? Math.max : Math.min)(...points.map((point) => point.y));
-  const noteheadY = notes.map((note) => 5 - note.glyph.line);
+  const noteheadY = notes.map((note) => staffY(note.glyph.line));
   // Span the whole chord, then extend from the outer notehead by the nominal length.
   const flagName = !chord.beamGroup && Glyph.findFlag(notes[0].type, direction);
   const flag = flagName
@@ -88,8 +90,8 @@ function glyphRight(glyph: Glyph, includeSpace = true) {
 /** Rightmost painted edge in the chord's local coordinates. */
 export function chordInkRight(chord: Chord) {
   const edges = chord.notes.flatMap((note) => [
-    glyphRight(note.glyph),
-    ...(note.accidentalGlyph ? [glyphRight(note.accidentalGlyph)] : []),
+    chord.noteheadOffset + glyphRight(note.glyph),
+    ...note.accidentalGlyphs.map((glyph) => glyphRight(glyph)),
     ...note.dotLigature.glyphLists
       .flat()
       .map((glyph) => note.dotLigature.x + glyphRight(glyph as Glyph, false)),
@@ -99,7 +101,9 @@ export function chordInkRight(chord: Chord) {
       .flat()
       .map(
         (glyph) =>
-          chord.legerlinesLigature.x + glyphRight(glyph as Glyph, false),
+          chord.noteheadOffset +
+          chord.legerlinesLigature.x +
+          glyphRight(glyph as Glyph, false),
       ),
   );
   const stem = chordStem(chord);

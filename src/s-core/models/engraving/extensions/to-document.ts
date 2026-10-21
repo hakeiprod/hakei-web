@@ -1,3 +1,6 @@
+import { staffY } from "../notation/staff-geometry";
+import { staffSegments } from "../notation/tablature";
+import { attachTies } from "../notation/ties";
 import { barlineEndInset, chordStem, type StemGeometry } from "../geometry";
 import type { LayoutGlyph } from "../layout/glyph";
 import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
@@ -27,14 +30,15 @@ function glyphToDocument(
   glyph: LayoutGlyph,
   source: Drawing.Source,
   includeSpace = true,
+  offsetX = 0,
 ) {
   if (!(glyph instanceof Engraving.Glyph))
     throw new Error(
       "toDocument requires Engraving glyphs; draw the score first.",
     );
   const position = {
-    x: glyph.x + (includeSpace ? glyph.spaceLeft : 0),
-    y: 5 - glyph.line,
+    x: glyph.x + (includeSpace ? glyph.spaceLeft : 0) + offsetX,
+    y: staffY(glyph.line),
   };
   return glyphAtPosition(glyph, position, source);
 }
@@ -136,7 +140,7 @@ function chordToDocument(
       debugBounds(
         {
           x: 0,
-          y: 5 - chord.line - 0.5,
+          y: staffY(chord.line) - 0.5,
           width: chord.width,
           height: chord.height,
         },
@@ -147,10 +151,65 @@ function chordToDocument(
     );
   for (const note of chord.notes) {
     const noteSource = { ...source, noteId: note.id };
-    const glyphs: Drawing.Element[] = [glyphToDocument(note.glyph, noteSource)];
-    if (note.accidentalGlyph)
-      glyphs.unshift(glyphToDocument(note.accidentalGlyph, noteSource));
-    children.push(group("note", glyphs, noteSource));
+    const glyphs: Drawing.Element[] = [
+      ...note.accidentalGlyphs.map((glyph) =>
+        glyphToDocument(glyph, noteSource),
+      ),
+      ...(note.fretRun
+        ? note.fretRun.digits.map((d) => {
+            const x =
+              chord.noteheadOffset + note.glyph.x + note.glyph.spaceLeft + d.x;
+            const y =
+              5 -
+              note.line +
+              (d.glyph.glyphBBox.y - d.glyph.glyphBBox.height / 2) * d.scale;
+            return new Drawing.Glyph(
+              d.glyph.codepoint,
+              { x, y },
+              {
+                x: x + d.glyph.glyphBBox.x * d.scale,
+                y: y - d.glyph.glyphBBox.y * d.scale,
+                width: d.glyph.glyphBBox.width * d.scale,
+                height: d.glyph.glyphBBox.height * d.scale,
+              },
+              d.glyph.glyphAdvanceWidth * d.scale,
+              {
+                role: "tab-digit",
+                source: noteSource,
+                glyphName: d.glyph.glyphName,
+                fontScale: d.scale,
+              },
+            );
+          })
+        : [
+            glyphToDocument(note.glyph, noteSource, true, chord.noteheadOffset),
+          ]),
+    ];
+    const x = chord.noteheadOffset + note.glyph.x + note.glyph.spaceLeft;
+    children.push(
+      new Drawing.Group(glyphs, {
+        role: note.fretRun ? "tab-fret" : "note",
+        source: noteSource,
+        ...(note.rest
+          ? {}
+          : {
+              anchorRole: "note-anchor",
+              anchorBounds: {
+                x,
+                y: staffY(note.line),
+                width: note.glyph.glyphBBox.width,
+                height: note.glyph.glyphBBox.height,
+              },
+            }),
+        ...(note.tablature
+          ? {
+              tabValue: String(note.tablature.fret),
+              string: note.tablature.string,
+              fret: note.tablature.fret,
+            }
+          : {}),
+      }),
+    );
   }
   children.push(
     group(
@@ -164,6 +223,7 @@ function chordToDocument(
       "ledger-lines",
       [ligatureToDocument(chord.legerlinesLigature, source)],
       source,
+      { x: chord.noteheadOffset, y: 0 },
     ),
   );
   if (stem)
@@ -225,11 +285,11 @@ function beamsToDocument(
     if (!first || !last) return [];
     const offset = (first.direction === "up" ? 1 : -1) * beam.level * spacing;
     const start = {
-      x: stave.word.width + beam.firstChord.slot.x + first.end.x,
+      x: stave.headerWidth + beam.firstChord.slot.x + first.end.x,
       y: first.end.y + offset,
     };
     const end = {
-      x: stave.word.width + beam.lastChord.slot.x + last.end.x,
+      x: stave.headerWidth + beam.lastChord.slot.x + last.end.x,
       y: last.end.y + offset,
     };
     if (beam.firstChord.id === beam.lastChord.id) {
@@ -329,18 +389,32 @@ function staveToDocument(
       slotToDocument(slot, stave, source, debug, stems),
     ),
     source,
-    { x: stave.word.width, y: 0 },
+    { x: stave.headerWidth, y: 0 },
   );
-  const staff = Array.from(
-    { length: stave.height + 1 },
-    (_, y) =>
-      new Drawing.Line(
-        { x: 0, y },
-        { x: masterbar.width, y },
-        engraving.staffLineThickness,
-        { role: "staff-line", source },
-      ),
-  );
+  const staff = Array.from({ length: stave.height + 1 }, (_, y) => {
+    const gaps: [number, number][] = [];
+    for (const slot of uniqueSlots)
+      for (const chord of slot.getTrackStaveChords(stave.trackId, stave.id))
+        for (const note of chord.notes)
+          if (note.fretRun && note.tablature?.string === y + 1) {
+            const x =
+              stave.headerWidth +
+              slot.x +
+              chord.noteheadOffset +
+              note.glyph.x +
+              note.glyph.spaceLeft;
+            gaps.push([x - 0.15, x + note.fretRun.width + 0.15]);
+          }
+    return staffSegments(masterbar.width, gaps).map(
+      ([a, b]) =>
+        new Drawing.Line(
+          { x: a, y },
+          { x: b, y },
+          engraving.staffLineThickness,
+          { role: "staff-line", source },
+        ),
+    );
+  }).flat();
   return group(
     "stave",
     [word, slots, ...staff, ...beamsToDocument(stave, source, stems)],
@@ -466,8 +540,13 @@ export function toDocument(
     );
   if (score.notes.some((note) => !note.glyph))
     throw new Error("toDocument requires a drawn score; draw its notes first.");
-  const rows = score.rows.map((row) =>
-    rowToDocument(row, score, options.debug ?? false),
+  for (const row of score.rows) {
+    row.notationTop = 0;
+    row.notationBottom = 0;
+  }
+  const rows = attachTies(
+    score,
+    score.rows.map((row) => rowToDocument(row, score, options.debug ?? false)),
   );
   if (options.pageLayout)
     return new Drawing.Document(

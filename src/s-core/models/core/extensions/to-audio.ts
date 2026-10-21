@@ -9,6 +9,8 @@ declare module ".." {
 }
 
 Core.Score.prototype.toAudio = function (this) {
+  if (this.notes.some((n) => n.pitch === null))
+    throw new Error("Unpitched note cannot be played");
   const masterbars = pipe(
     this.timesignatures,
     reduce(

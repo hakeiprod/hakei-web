@@ -65,3 +65,24 @@ it("accepts an unchanged v1 preview but rejects source-version-only tampering", 
     "INVALID_PREVIEW_TOKEN",
   );
 });
+
+it("keeps valid v1/v2 tokens and signs new v3 candidates without filling omitted notation", async () => {
+  const { signPreview, verifyPreview } = await import("./import-preview-token");
+  const key = "notation-compatibility-secret-at-least-32-characters";
+  for (const converterVersion of [
+    "score-import-v1",
+    "score-import-v2",
+    "score-import-v3",
+  ]) {
+    const payload = {
+      candidate: { notes: [] },
+      issues: [],
+      metadata: { converterVersion },
+    };
+    const token = signPreview("actor", payload, key, 1000);
+    expect(
+      verifyPreview(token, "actor", payload, key, 1001).converterVersion,
+    ).toBe(converterVersion);
+    expect(payload.candidate).toEqual({ notes: [] });
+  }
+});

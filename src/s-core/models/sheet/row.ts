@@ -4,6 +4,8 @@ export const rowSpacing = 10;
 
 export class Row {
   readonly id;
+  notationTop = 0;
+  notationBottom = 0;
   score!: Sheet.Score;
   get width() {
     return this.masterbars.reduce(
@@ -19,11 +21,13 @@ export class Row {
   }
   get height() {
     return (
-      pipe(
+      (pipe(
         this.masterbars,
         map(prop("height")),
         firstBy([identity(), "desc"]),
-      ) ?? 0
+      ) ?? 0) +
+      this.notationTop +
+      this.notationBottom
     );
   }
   get y(): number {

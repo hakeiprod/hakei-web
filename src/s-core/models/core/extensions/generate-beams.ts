@@ -14,7 +14,7 @@ function beamLevels(duration: number) {
 function connect(group: Chord[]) {
   if (group.length < 2) return;
   const pitches = group.flatMap((chord) =>
-    chord.notes.map((note) => note.pitch),
+    chord.notes.flatMap((note) => (note.pitch === null ? [] : [note.pitch])),
   );
   const middleLine = group[0].notes[0].staveId === 1 ? 50 : 71;
   const direction =

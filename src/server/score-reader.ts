@@ -1,3 +1,4 @@
+import { capabilities } from "@/s-core/models/sheet/notation/capabilities";
 import type { Prisma } from "@/generated/prisma/client";
 import "server-only";
 import { repositoryAccess } from "./authorization";
@@ -17,6 +18,7 @@ export type ScoreDto = {
   revisionId: string;
   revisionNumber: number;
   data: unknown;
+  capabilities?: ReturnType<typeof capabilities>;
   canEdit: boolean;
   canManage: boolean;
   requiresAuthentication: boolean;
@@ -70,6 +72,7 @@ export async function readScore(
   );
   return {
     artifacts,
+    capabilities: capabilities(data, artifacts?.issues),
     id: score.id,
     repositoryId: score.repositoryId,
     revisionId: revision.id,

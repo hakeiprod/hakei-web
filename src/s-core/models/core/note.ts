@@ -24,7 +24,7 @@ export class Note extends Core.Event {
       trackId: number;
       velocity: number;
       channel?: number;
-      pitch: Core.Units.MidiNoteNumber;
+      pitch: Core.Units.MidiNoteNumber | null;
     } & ConstructorParameters<typeof Core.Event>[0],
   ) {
     const { id, trackId, pitch, velocity, channel } = note;
@@ -39,7 +39,7 @@ export class Note extends Core.Event {
     return {
       id: this.id,
       trackId: this.trackId,
-      pitch: this.pitch.value,
+      pitch: this.pitch?.value ?? null,
       velocity: this.velocity,
       ...(this.channel === undefined ? {} : { channel: this.channel }),
       start: this.start.value,
@@ -53,7 +53,8 @@ export class Note extends Core.Event {
   static import(data: ReturnType<Note["export"]>) {
     return new Note({
       ...data,
-      pitch: new Core.Units.MidiNoteNumber(data.pitch),
+      pitch:
+        data.pitch === null ? null : new Core.Units.MidiNoteNumber(data.pitch),
       start: new Core.Units.Beat(data.start),
       duration: new Core.Units.Beat(data.duration),
       end: new Core.Units.Beat(data.end),

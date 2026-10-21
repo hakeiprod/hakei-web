@@ -8,6 +8,7 @@ type Events = {
   noteOff?: undefined;
 };
 export class Note extends Core.Note {
+  declare pitch: Core.Units.MidiNoteNumber;
   emitter = mitt<Events>();
   masterbarId;
   score!: Audio.Score;
@@ -29,6 +30,7 @@ export class Note extends Core.Note {
       masterbarId: number;
     } & ConstructorParameters<typeof Core.Note>[0],
   ) {
+    if (note.pitch === null) throw new Error("Unpitched note cannot be played");
     const { masterbarId } = note;
     super(note);
     this.masterbarId = masterbarId;

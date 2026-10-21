@@ -13,7 +13,7 @@ it("retains MIDI pitch zero in the accepted score range", () => {
       },
     ],
   });
-  expect(score.keyRange.map((pitch) => pitch.value)).toEqual([0, 127]);
+  expect(score.keyRange!.map((pitch) => pitch.value)).toEqual([0, 127]);
 });
 it("renders both inclusive endpoints and a single-note keyboard", () => {
   expect(

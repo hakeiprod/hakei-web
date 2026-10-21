@@ -190,7 +190,9 @@ describe("stave signatures", () => {
       });
       const drawing = controller.toDocument();
       const accidentals = glyphs(drawing).filter(
-        (glyph) => glyph.glyphName === name,
+        // This assertion concerns key-signature glyphs, not note accidentals.
+        (glyph) =>
+          glyph.glyphName === name && glyph.source?.noteId === undefined,
       );
       expect(accidentals).toHaveLength(Math.abs(accidental));
       for (let index = 1; index < accidentals.length; index++) {

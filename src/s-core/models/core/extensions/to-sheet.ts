@@ -11,6 +11,8 @@ declare module "../../core" {
 }
 
 Core.Score.prototype.toSheet = function (this: Core.Score) {
+  if (this.notes.some((n) => n.pitch === null))
+    throw new Error("Core notation inference requires sounding pitches");
   const notes = this.notes.map((note) => ({
     ...note.export(),
     stem: undefined as Stem | undefined,
@@ -21,7 +23,7 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
     alter: undefined,
     staveId: match(note.track.preset.toName())
       .with("Acoustic Grand Piano", () =>
-        note.pitch.value < Core.Units.MidiNoteNumber.MIDDLE_C ? 1 : 0,
+        note.pitch!.value < Core.Units.MidiNoteNumber.MIDDLE_C ? 1 : 0,
       )
       .otherwise(() => 0),
   }));
@@ -44,8 +46,16 @@ Core.Score.prototype.toSheet = function (this: Core.Score) {
         ?.preset.toName() === "Acoustic Grand Piano";
     const middleLinePitch = isBassStave ? 50 : 71;
     const centerPitch =
-      (Math.min(...chordNotes.map((note) => note.pitch)) +
-        Math.max(...chordNotes.map((note) => note.pitch))) /
+      (Math.min(
+        ...chordNotes.flatMap((note) =>
+          note.pitch === null ? [] : [note.pitch],
+        ),
+      ) +
+        Math.max(
+          ...chordNotes.flatMap((note) =>
+            note.pitch === null ? [] : [note.pitch],
+          ),
+        )) /
       2;
     const stem = chordNotes.some((note) => note.duration < 4)
       ? {

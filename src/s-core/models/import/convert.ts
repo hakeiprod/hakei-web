@@ -10,7 +10,7 @@ import {
   midiConversionOptionsSchema,
   type MidiConversionOptions,
 } from "./quantize-midi";
-export const converterVersion = "score-import-v2";
+export const converterVersion = "score-import-v4";
 export interface ConversionInput {
   bytes: Uint8Array;
   sourceName?: string;

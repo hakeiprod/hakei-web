@@ -11,15 +11,15 @@ export class Chord extends Core.Event<{ id: number }> {
   get maxPitchNote() {
     return pipe(
       this.notes,
-      filter((note) => !note.rest),
-      firstBy([prop("pitch"), "desc"]),
+      filter((note) => !note.rest && note.pitch !== null),
+      firstBy([(note) => note.pitch?.value ?? 0, "desc"]),
     );
   }
   get minPitchNote() {
     return pipe(
       this.notes,
-      filter((note) => !note.rest),
-      firstBy(prop("pitch")),
+      filter((note) => !note.rest && note.pitch !== null),
+      firstBy((note) => note.pitch?.value ?? 0),
     );
   }
   get keysignature() {
@@ -100,14 +100,14 @@ export class Chord extends Core.Event<{ id: number }> {
       .exhaustive();
     return [
       ...times(
-        this.maxPitchNote.pitch
-          .toScientificPitchNotation(this.keysignature)
+        this.maxPitchNote
+          .pitch!.toScientificPitchNotation(this.keysignature)
           .getDegree(bounds.max) / 2,
         (index) => index + 6,
       ),
       ...times(
         bounds.min.getDegree(
-          this.minPitchNote.pitch.toScientificPitchNotation(this.keysignature),
+          this.minPitchNote.pitch!.toScientificPitchNotation(this.keysignature),
         ) / 2,
         (index) => index,
       ),

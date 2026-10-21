@@ -1,0 +1,4927 @@
+{
+  "version": 1,
+  "fixtures": [
+    {
+      "id": "notehead/whole",
+      "title": "notehead/whole",
+      "target": "{'glyphName': 'noteheadWhole'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC3"],
+      "source": {
+        "path": "notation/basic/notehead-whole.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadWhole"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadWhole"
+          },
+          "expected": 1
+        },
+        {
+          "id": "document-no-stem",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "document-no-flag",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-stem",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-flag",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "notehead/whole: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "rest/whole",
+      "title": "rest/whole",
+      "target": "{'glyphName': 'restWhole'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC3"],
+      "source": {
+        "path": "notation/basic/rest-whole.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "restWhole"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "restWhole"
+          },
+          "expected": 1
+        },
+        {
+          "id": "document-no-stem",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "document-no-flag",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-stem",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-flag",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "rest/whole: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "notehead/half",
+      "title": "notehead/half",
+      "target": "{'glyphName': 'noteheadHalf'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/notehead-half.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadHalf"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadHalf"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "notehead/half: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "rest/half",
+      "title": "rest/half",
+      "target": "{'glyphName': 'restHalf'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC3"],
+      "source": {
+        "path": "notation/basic/rest-half.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "restHalf"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "restHalf"
+          },
+          "expected": 1
+        },
+        {
+          "id": "document-no-stem",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "document-no-flag",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-stem",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-flag",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "rest/half: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "notehead/quarter",
+      "title": "notehead/quarter",
+      "target": "{'glyphName': 'noteheadBlack'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC2"],
+      "source": {
+        "path": "notation/basic/notehead-quarter.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 1
+        },
+        {
+          "id": "middle-c-position",
+          "stage": "document",
+          "kind": "relativePosition",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": {
+            "axis": "y",
+            "value": 5,
+            "tolerance": 0.001
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "notehead/quarter: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "rest/quarter",
+      "title": "rest/quarter",
+      "target": "{'glyphName': 'restQuarter'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC3"],
+      "source": {
+        "path": "notation/basic/rest-quarter.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "restQuarter"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "restQuarter"
+          },
+          "expected": 1
+        },
+        {
+          "id": "document-no-stem",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "document-no-flag",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-stem",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-flag",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "rest/quarter: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "notehead/eighth",
+      "title": "notehead/eighth",
+      "target": "{'glyphName': 'noteheadBlack'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/notehead-eighth.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "notehead/eighth: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "rest/eighth",
+      "title": "rest/eighth",
+      "target": "{'glyphName': 'rest8th'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC3"],
+      "source": {
+        "path": "notation/basic/rest-eighth.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "rest8th"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "rest8th"
+          },
+          "expected": 1
+        },
+        {
+          "id": "document-no-stem",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "document-no-flag",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-stem",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-flag",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "rest/eighth: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "notehead/16th",
+      "title": "notehead/16th",
+      "target": "{'glyphName': 'noteheadBlack'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/notehead-16th.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "notehead/16th: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "rest/16th",
+      "title": "rest/16th",
+      "target": "{'glyphName': 'rest16th'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001", "US1/AC3"],
+      "source": {
+        "path": "notation/basic/rest-16th.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "rest16th"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "rest16th"
+          },
+          "expected": 1
+        },
+        {
+          "id": "document-no-stem",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "document-no-flag",
+          "stage": "document",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-stem",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-no-flag",
+          "stage": "svg",
+          "kind": "absent",
+          "selector": {
+            "role": "flag"
+          },
+          "expected": 0
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "rest/16th: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "dot/single",
+      "title": "dot/single",
+      "target": "{'glyphName': 'augmentationDot'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/dot-single.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "augmentationDot"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "augmentationDot"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "dot/single: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "stem/up",
+      "title": "stem/up",
+      "target": "{'role': 'stem'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/stem-up.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "stem/up: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "flag/up",
+      "title": "flag/up",
+      "target": "{'glyphName': 'flag8thUp'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/flag-up.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "flag8thUp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "flag8thUp"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "flag/up: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "stem/down",
+      "title": "stem/down",
+      "target": "{'role': 'stem'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/stem-down.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "stem"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "stem/down: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "flag/down",
+      "title": "flag/down",
+      "target": "{'glyphName': 'flag8thDown'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/flag-down.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "flag8thDown"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "flag8thDown"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "flag/down: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "beam/primary",
+      "title": "beam/primary",
+      "target": "{'role': 'beam'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/beam-primary.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "beam"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "beam"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "beam/primary: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "beam/forward-hook",
+      "title": "beam/forward-hook",
+      "target": "{'role': 'beam'}: 2",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/beam-forward-hook.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "beam"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "beam"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "beam/forward-hook: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "beam/backward-hook",
+      "title": "beam/backward-hook",
+      "target": "{'role': 'beam'}: 2",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/beam-backward-hook.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "beam"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "beam"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "beam/backward-hook: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "chord/triad",
+      "title": "chord/triad",
+      "target": "{'glyphName': 'noteheadBlack'}: 3",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/chord-triad.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 3
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "noteheadBlack"
+          },
+          "expected": 3
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "chord/triad: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "ledger/low",
+      "title": "ledger/low",
+      "target": "{'glyphName': 'legerLine'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/ledger-low.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "legerLine"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "legerLine"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "ledger/low: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "ledger/high",
+      "title": "ledger/high",
+      "target": "{'glyphName': 'legerLine'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/ledger-high.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "legerLine"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "legerLine"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "ledger/high: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "clef/G",
+      "title": "clef/G",
+      "target": "{'glyphName': 'gClef'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/clef-G.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "gClef"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "gClef"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "clef/G: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "clef/F",
+      "title": "clef/F",
+      "target": "{'glyphName': 'fClef'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/clef-F.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "fClef"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "fClef"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "clef/F: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "key/1",
+      "title": "key/1",
+      "target": "{'glyphName': 'accidentalSharp'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/key-1.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "key/1: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "key/-1",
+      "title": "key/-1",
+      "target": "{'glyphName': 'accidentalFlat'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/key--1.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalFlat"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "key/-1: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "meter/4-4",
+      "title": "meter/4-4",
+      "target": "{'glyphName': 'timeSig4'}: 2",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/meter-4-4.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "timeSig4"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "timeSig4"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "meter/4-4: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "meter/change",
+      "title": "meter/change",
+      "target": "{'glyphName': 'timeSig3'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/meter-change.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "timeSig3"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "timeSig3"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "meter/change: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "barline/start",
+      "title": "barline/start",
+      "target": "{'role': 'barline-start'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/barline-start.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "barline-start"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "barline-start"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "barline/start: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "barline/final",
+      "title": "barline/final",
+      "target": "{'role': 'barline-end-thick'}: 1",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "notation/basic/barline-final.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "barline-end-thick"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "barline-end-thick"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "barline/final: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "staff/multiple",
+      "title": "staff/multiple",
+      "target": "{'role': 'stave'}: 2",
+      "requirementRefs": ["FR-003", "US1/AC1", "SC-001"],
+      "source": {
+        "path": "files/musicxml/piano_track.mxl",
+        "format": "MXL",
+        "provenance": "Existing repository fixture"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": ["document", "svg", "visual"],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-target",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "stave"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-target",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "stave"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "staff/multiple: expected symbol visible, no clipping or unintended symbols"
+        }
+      ]
+    },
+    {
+      "id": "tie/same-bar",
+      "title": "Tie same-bar",
+      "target": "Tie connection: same-bar",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002"],
+      "source": {
+        "path": "notation/ties/same-bar.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "document-endpoints",
+          "stage": "document",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        },
+        {
+          "id": "svg-endpoints",
+          "stage": "svg",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; same-bar, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/cross-bar",
+      "title": "Tie cross-bar",
+      "target": "Tie connection: cross-bar",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002"],
+      "source": {
+        "path": "notation/ties/cross-bar.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; cross-bar, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/chain",
+      "title": "Tie chain",
+      "target": "Tie connection: chain",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002", "US2/AC4"],
+      "source": {
+        "path": "notation/ties/chain.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 3
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 3
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 3
+        },
+        {
+          "id": "attack-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "timeline.notes.length"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "2 tie segments with intended endpoints; chain, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/chord-member",
+      "title": "Tie chord-member",
+      "target": "Tie connection: chord-member",
+      "requirementRefs": ["FR-005", "US2/AC2", "SC-002"],
+      "source": {
+        "path": "notation/ties/chord-member.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 4
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 4
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 4
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; chord-member, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/voice-isolation",
+      "title": "Tie voice-isolation",
+      "target": "Tie connection: voice-isolation",
+      "requirementRefs": ["FR-005", "US2/AC5", "SC-002"],
+      "source": {
+        "path": "notation/ties/voice-isolation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "0 tie segments with intended endpoints; voice-isolation, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/staff-isolation",
+      "title": "Tie staff-isolation",
+      "target": "Tie connection: staff-isolation",
+      "requirementRefs": ["FR-005", "US2/AC5", "SC-002"],
+      "source": {
+        "path": "notation/ties/staff-isolation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "0 tie segments with intended endpoints; staff-isolation, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/part-isolation",
+      "title": "Tie part-isolation",
+      "target": "Tie connection: part-isolation",
+      "requirementRefs": ["FR-005", "US2/AC5", "SC-002"],
+      "source": {
+        "path": "notation/ties/part-isolation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "0 tie segments with intended endpoints; part-isolation, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/visual-only",
+      "title": "Tie visual-only",
+      "target": "Tie connection: visual-only",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002", "US2/AC4"],
+      "source": {
+        "path": "notation/ties/visual-only.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "attack-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "timeline.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; visual-only, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/musical-fallback",
+      "title": "Tie musical-fallback",
+      "target": "Tie connection: musical-fallback",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002", "US2/AC4"],
+      "source": {
+        "path": "notation/ties/musical-fallback.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "attack-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "timeline.notes.length"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; musical-fallback, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/mismatch",
+      "title": "Tie mismatch",
+      "target": "Tie connection: mismatch",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002"],
+      "source": {
+        "path": "notation/ties/mismatch.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; mismatch, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/missing-endpoint",
+      "title": "Tie missing-endpoint",
+      "target": "Tie connection: missing-endpoint",
+      "requirementRefs": ["FR-005", "US2/AC5", "SC-002"],
+      "source": {
+        "path": "notation/ties/missing-endpoint.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 1
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 1
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 1
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "0 tie segments with intended endpoints; missing-endpoint, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/ambiguous-unison",
+      "title": "Tie ambiguous-unison",
+      "target": "Tie connection: ambiguous-unison",
+      "requirementRefs": ["FR-005", "US2/AC5", "SC-002"],
+      "source": {
+        "path": "notation/ties/ambiguous-unison.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 0
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 3
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 3
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 3
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "0 tie segments with intended endpoints; ambiguous-unison, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "tie/system-break",
+      "title": "Tie system-break",
+      "target": "Tie connection: system-break",
+      "requirementRefs": ["FR-005", "US2/AC3", "SC-002"],
+      "source": {
+        "path": "notation/ties/system-break.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Vertical",
+        "scale": 12,
+        "viewportWidth": 100,
+        "viewportHeight": 500
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "2 tie segments with intended endpoints; system-break, no clipping"
+        }
+      ],
+      "sizeReason": "Two measures and fixed dimensions force the system/page boundary."
+    },
+    {
+      "id": "tie/page-break",
+      "title": "Tie page-break",
+      "target": "Tie connection: page-break",
+      "requirementRefs": ["FR-005", "US2/AC3", "SC-002"],
+      "source": {
+        "path": "notation/ties/page-break.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Page",
+        "scale": 12,
+        "pageLayout": {
+          "width": 12,
+          "height": 12,
+          "margin": 1
+        }
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "2 tie segments with intended endpoints; page-break, no clipping"
+        }
+      ],
+      "sizeReason": "Two measures and fixed dimensions force the system/page boundary."
+    },
+    {
+      "id": "tie/compressed",
+      "title": "Compressed tie",
+      "target": "Tie connection: same-bar",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002"],
+      "source": {
+        "path": "notation/ties/same-bar.mxl",
+        "format": "MXL",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "document-endpoints",
+          "stage": "document",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        },
+        {
+          "id": "svg-endpoints",
+          "stage": "svg",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "1 tie segments with intended endpoints; same-bar, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/sharp",
+      "title": "Accidental sharp",
+      "target": "sharp: accidentalSharp x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/sharp.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "sharp: expected spelling, staff position and 1 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/flat",
+      "title": "Accidental flat",
+      "target": "flat: accidentalFlat x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/flat.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": -1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": -1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": -1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "flat: expected spelling, staff position and 1 accidentalFlat, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/natural",
+      "title": "Accidental natural",
+      "target": "natural: accidentalNatural x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/natural.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalNatural"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalNatural"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 0
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 0
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 0
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "natural: expected spelling, staff position and 1 accidentalNatural, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/double-sharp",
+      "title": "Accidental double-sharp",
+      "target": "double-sharp: accidentalDoubleSharp x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/double-sharp.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalDoubleSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalDoubleSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 2
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 2
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 2
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "double-sharp: expected spelling, staff position and 1 accidentalDoubleSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/double-flat",
+      "title": "Accidental double-flat",
+      "target": "double-flat: accidentalDoubleFlat x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/double-flat.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalDoubleFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalDoubleFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": -2
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": -2
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": -2
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "double-flat: expected spelling, staff position and 1 accidentalDoubleFlat, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/enharmonic-spelling",
+      "title": "Accidental enharmonic-spelling",
+      "target": "enharmonic-spelling: accidentalFlat x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/enharmonic-spelling.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalFlat"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "enharmonic-spelling: expected spelling, staff position and 1 accidentalFlat, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/repeat-in-bar",
+      "title": "Accidental repeat-in-bar",
+      "target": "repeat-in-bar: accidentalSharp x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC2", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/repeat-in-bar.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "repeat-in-bar: expected spelling, staff position and 1 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/reset-next-bar",
+      "title": "Accidental reset-next-bar",
+      "target": "reset-next-bar: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC2", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/reset-next-bar.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "reset-next-bar: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/voice-sharing",
+      "title": "Accidental voice-sharing",
+      "target": "voice-sharing: accidentalSharp x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC4", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/voice-sharing.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "voice-sharing: expected spelling, staff position and 1 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/octave-isolation",
+      "title": "Accidental octave-isolation",
+      "target": "octave-isolation: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC4", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/octave-isolation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "octave-isolation: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/staff-isolation",
+      "title": "Accidental staff-isolation",
+      "target": "staff-isolation: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC4", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/staff-isolation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "staff-isolation: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/part-isolation",
+      "title": "Accidental part-isolation",
+      "target": "part-isolation: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC4", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/part-isolation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "part-isolation: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/explicit-cautionary",
+      "title": "Accidental explicit-cautionary",
+      "target": "explicit-cautionary: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC3", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/explicit-cautionary.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "explicit-cautionary: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/parentheses",
+      "title": "Accidental parentheses",
+      "target": "parentheses: accidentalParensLeft x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC3", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/parentheses.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalParensLeft"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalParensLeft"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "parentheses: expected spelling, staff position and 1 accidentalParensLeft, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/simultaneous-conflict",
+      "title": "Accidental simultaneous-conflict",
+      "target": "simultaneous-conflict: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC4", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/simultaneous-conflict.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "simultaneous-conflict: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/key-change",
+      "title": "Accidental key-change",
+      "target": "key-change: accidentalNatural x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC2", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/key-change.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalNatural"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalNatural"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "key-change: expected spelling, staff position and 1 accidentalNatural, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/tie-continuation",
+      "title": "Accidental tie-continuation",
+      "target": "tie-continuation: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/tie-continuation.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "tie-continuation: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/chord-neighbors",
+      "title": "Accidental chord-neighbors",
+      "target": "chord-neighbors: accidentalSharp x2",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/chord-neighbors.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 2
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "chord-neighbors: expected spelling, staff position and 2 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/ledger-position",
+      "title": "Accidental ledger-position",
+      "target": "ledger-position: accidentalSharp x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/ledger-position.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 6,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 6,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 6,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "ledger-position: expected spelling, staff position and 1 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/compressed-source",
+      "title": "Accidental compressed-source",
+      "target": "compressed-source: accidentalSharp x1",
+      "requirementRefs": ["FR-007", "FR-008", "US3/AC1", "SC-002"],
+      "source": {
+        "path": "notation/accidentals/compressed-source.mxl",
+        "format": "MXL",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-symbol",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-symbol",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "glyphName": "accidentalSharp"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-spelling",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "roundtrip-spelling",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        },
+        {
+          "id": "persisted-spelling",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.0.notatedPitch"
+          },
+          "expected": {
+            "step": "C",
+            "octave": 4,
+            "alter": 1
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "appearance",
+          "expected": "compressed-source: expected spelling, staff position and 1 accidentalSharp, no clipping"
+        }
+      ]
+    },
+    {
+      "id": "accidental/reject-pitch",
+      "title": "Reject contradictory stored spelling",
+      "target": "Save rejects pitch mismatch without modifying revision or Git",
+      "requirementRefs": ["FR-010", "FR-015", "US3/AC1", "SC-006"],
+      "source": {
+        "path": "notation/accidentals/reject-pitch.json",
+        "format": "SHEET_JSON",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "reject",
+      "rejectionStage": "persisted",
+      "requiredStages": ["persisted"],
+      "assertions": [
+        {
+          "id": "reject-schema",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "rejected"
+          },
+          "expected": true
+        },
+        {
+          "id": "unchanged",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "unchanged"
+          },
+          "expected": true
+        }
+      ],
+      "visualChecklist": []
+    },
+    {
+      "id": "tie/numbered",
+      "title": "numbered",
+      "target": "numbered tie connection",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002"],
+      "source": {
+        "path": "notation/ties/numbered.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "document-endpoints",
+          "stage": "document",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        },
+        {
+          "id": "svg-endpoints",
+          "stage": "svg",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "numbered: the tie connects the expected two noteheads"
+        }
+      ]
+    },
+    {
+      "id": "tie/enharmonic",
+      "title": "enharmonic",
+      "target": "enharmonic tie connection",
+      "requirementRefs": ["FR-005", "US2/AC1", "SC-002"],
+      "source": {
+        "path": "notation/ties/enharmonic.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Self-authored minimal fixture; CC0-1.0"
+      },
+      "expectedOutcome": "render",
+      "requiredStages": [
+        "import",
+        "roundtrip",
+        "persisted",
+        "document",
+        "svg",
+        "visual"
+      ],
+      "layout": {
+        "type": "Horizontal",
+        "scale": 12,
+        "viewportWidth": 800
+      },
+      "assertions": [
+        {
+          "id": "document-ties",
+          "stage": "document",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "svg-ties",
+          "stage": "svg",
+          "kind": "count",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": 1
+        },
+        {
+          "id": "import-note-count",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "roundtrip-note-count",
+          "stage": "roundtrip",
+          "kind": "value",
+          "selector": {
+            "path": "roundtrip.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "persisted-note-count",
+          "stage": "persisted",
+          "kind": "value",
+          "selector": {
+            "path": "candidate.notes.length"
+          },
+          "expected": 2
+        },
+        {
+          "id": "document-endpoints",
+          "stage": "document",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        },
+        {
+          "id": "svg-endpoints",
+          "stage": "svg",
+          "kind": "tieEndpoints",
+          "selector": {
+            "role": "tie"
+          },
+          "expected": {
+            "startNote": {
+              "trackId": 0,
+              "noteId": 0
+            },
+            "endNote": {
+              "trackId": 0,
+              "noteId": 1
+            },
+            "part": "complete"
+          }
+        }
+      ],
+      "visualChecklist": [
+        {
+          "id": "connection",
+          "expected": "enharmonic: the tie connects the expected two noteheads"
+        }
+      ]
+    },
+    {
+      "id": "reject/unsupported-version",
+      "title": "Reject unsupported MusicXML version",
+      "target": "Unsupported version is rejected at import",
+      "requirementRefs": ["FR-010", "SC-006"],
+      "source": {
+        "path": "import/unsupported-version.musicxml",
+        "format": "MUSICXML",
+        "provenance": "Existing repository fixture"
+      },
+      "expectedOutcome": "reject",
+      "rejectionStage": "import",
+      "requiredStages": ["import"],
+      "assertions": [
+        {
+          "id": "error-code",
+          "stage": "import",
+          "kind": "value",
+          "selector": {
+            "path": "error"
+          },
+          "expected": "UNSUPPORTED_MUSICXML_VERSION"
+        }
+      ],
+      "visualChecklist": []
+    }
+  ]
+}

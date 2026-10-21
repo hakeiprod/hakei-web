@@ -8,6 +8,7 @@ export class Stave {
   barId;
   trackId;
   clefs;
+  staffSettings?: import("./notation/staff-settings").StaffSettings;
   score!: Sheet.Score;
   get bar() {
     return this.score.bars.find(
@@ -49,7 +50,9 @@ export class Stave {
     return this.slots.reduce((width, slot) => width + slot.minWidth, 0);
   }
   get y() {
-    return this.id * this.height + this.id * 6.5;
+    return this.bar.staves
+      .filter((s) => s.id < this.id)
+      .reduce((y, s) => y + s.height + 6.5, 0);
   }
   get prev() {
     return this.bar.prev?.staves[this.id];
@@ -59,16 +62,19 @@ export class Stave {
     barId,
     trackId,
     clefs: clef,
+    staffSettings,
   }: {
     id: number;
     barId: number;
     trackId: number;
     clefs?: Clef[];
+    staffSettings?: import("./notation/staff-settings").StaffSettings;
   }) {
     this.id = id;
     this.barId = barId;
     this.trackId = trackId;
     this.clefs = clef;
+    this.staffSettings = staffSettings;
   }
   serialize() {
     return {
@@ -76,6 +82,9 @@ export class Stave {
       trackId: this.trackId,
       barId: this.barId,
       clefs: this.clefs,
+      ...(this.staffSettings
+        ? { staffSettings: structuredClone(this.staffSettings) }
+        : {}),
     };
   }
   export() {

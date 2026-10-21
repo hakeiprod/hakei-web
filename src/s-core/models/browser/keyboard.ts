@@ -31,18 +31,20 @@ export class Keyboard {
     ],
   ) {}
   noteOn(...arguments_: Parameters<NonNullable<typeof this.onNoteOn>>) {
+    if (!arguments_[0].pitch) return;
     this.onNoteOn?.(...arguments_);
     const graphics = this.container.getChildByLabel(
-      arguments_[0].pitch.value.toString(),
+      arguments_[0].pitch!.value.toString(),
     ) as Graphics | null;
     if (!graphics) return;
     const { x, y, width, height } = graphics.getLocalBounds();
     graphics.clear().rect(x, y, width, height).setFillStyle("red").fill();
   }
   noteOff(...arguments_: Parameters<NonNullable<typeof this.onNoteOff>>) {
+    if (!arguments_[0].pitch) return;
     this.onNoteOff?.(...arguments_);
     const graphics = this.container.getChildByLabel(
-      arguments_[0].pitch.value.toString(),
+      arguments_[0].pitch!.value.toString(),
     ) as Graphics | null;
     if (!graphics) return;
     const { x, y, width, height } = graphics.getLocalBounds();
@@ -50,7 +52,7 @@ export class Keyboard {
       .clear()
       .rect(x, y, width, height)
       .setFillStyle(
-        Keyboard.isBlackKey(arguments_[0].pitch.value) ? "black" : "white",
+        Keyboard.isBlackKey(arguments_[0].pitch!.value) ? "black" : "white",
       )
       .fill();
   }

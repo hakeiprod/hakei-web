@@ -98,3 +98,43 @@ it("retains actual source version and first expiry through correction", async ()
     verifyPreview(result.previewToken, "alice", result, secret, 2001).expiresAt,
   ).toBe(1_801_000);
 });
+
+it("retains original spelling for timing edits and explicitly reinfers it after pitch correction", async () => {
+  const original = await convertScore({
+    bytes: await readFile(
+      "src/s-core/fixtures/notation/accidentals/parentheses.musicxml",
+    ),
+    sourceName: "parentheses.musicxml",
+    options: { mode: "PRESERVE" },
+  });
+  const input = {
+    originalCandidate: original.candidate,
+    originalIssues: original.issues,
+    metadata: original.metadata,
+    previewToken: signPreview("alice", original, secret, 1000),
+  };
+  const timing = revalidateImport(
+    "alice",
+    { ...input, corrections: [{ kind: "NOTE", index: 0, duration: 2 }] },
+    secret,
+    2000,
+  );
+  expect(timing.candidate.notes[0].explicitAccidental).toEqual(
+    original.candidate.notes[0].explicitAccidental,
+  );
+  const pitch = revalidateImport(
+    "alice",
+    { ...input, corrections: [{ kind: "NOTE", index: 0, pitch: 65 }] },
+    secret,
+    2000,
+  );
+  expect(pitch.candidate.notes[0].notatedPitch).toBeUndefined();
+  expect(
+    pitch.issues.some((index) => index.code === "NOTATION_REINFERRED"),
+  ).toBe(true);
+  expect(original.candidate.notes[0].notatedPitch).toEqual({
+    step: "C",
+    octave: 4,
+    alter: 1,
+  });
+});

@@ -1,3 +1,4 @@
+import { staffGeometry } from "./notation/staff-geometry";
 import { barlineEndInset, chordInkRight } from "./geometry";
 import { LayoutGlyph } from "./layout/glyph";
 import { P, match } from "ts-pattern";
@@ -31,11 +32,19 @@ export class Stave extends Sheet.Stave {
       barlineEndInset(this.bar.masterbar.isLast)
     );
   }
+  get headerWidth() {
+    return Math.max(
+      0,
+      ...this.score.staves
+        .filter((s) => s.barId === this.barId)
+        .map((s) => s.word.width),
+    );
+  }
   override get width() {
-    return super.width + this.word.width + this.endPadding;
+    return super.width + this.headerWidth + this.endPadding;
   }
   override get minWidth() {
-    return super.minWidth + this.word.width + this.endPadding;
+    return super.minWidth + this.headerWidth + this.endPadding;
   }
   get track() {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
@@ -46,21 +55,35 @@ export class Stave extends Sheet.Stave {
   override get notes() {
     return super.notes as Engraving.Note[];
   }
-  override get height() {
-    return (this.track.staffDetails["staff-lines"]?.[0]._ ?? 0) - 1;
+  override get height(): number {
+    return staffGeometry(this).height;
   }
   override get slots() {
     return super.slots as Engraving.Slot[];
   }
   draw() {
-    if (this.bar.masterbar.isRowFirst)
+    const previousStave = this.prev;
+    const clef = this.resolveClefs()[0];
+    const previousClef = previousStave?.resolveClefs()[0];
+    const clefChanged =
+      previousStave &&
+      (clef?.sign?.[0]._ !== previousClef?.sign?.[0]._ ||
+        clef?.line?.[0]._ !== previousClef?.line?.[0]._ ||
+        (this.staffSettings?.kind ?? "standard") !==
+          (previousStave.staffSettings?.kind ?? "standard"));
+    if (this.bar.masterbar.isRowFirst || clefChanged)
       this.word.append([
         new LayoutGlyph(
           Sheet.ElementType.Clef,
           this.resolveClefs()[0]?.line?.[0]?._ ?? 0,
         ),
       ]);
-    if (this.bar.masterbar.isFirst) {
+    if (
+      (this.bar.masterbar.isFirst ||
+        (previousStave &&
+          (previousStave.staffSettings?.kind ?? "standard") !== "standard")) &&
+      (!this.staffSettings || this.staffSettings.kind === "standard")
+    ) {
       const keysignatureLigature = new Engraving.Ligature(
         (this.bar.keysignature as Engraving.Keysignature).ligature.glyphLists,
       );
@@ -86,7 +109,13 @@ export class Stave extends Sheet.Stave {
                   Sheet.ElementType.Clef,
                   () =>
                     new Engraving.Glyph(
-                      Engraving.Glyph.findClef(this.resolveClefs()[0]!)!,
+                      this.staffSettings?.kind === "tablature"
+                        ? this.staffSettings.lineCount === 4
+                          ? "4stringTabClef"
+                          : "6stringTabClef"
+                        : this.staffSettings?.kind === "percussion"
+                          ? "unpitchedPercussionClef1"
+                          : Engraving.Glyph.findClef(this.resolveClefs()[0]!)!,
                       glyph.type,
                       glyph.line,
                     ),

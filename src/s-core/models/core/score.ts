@@ -16,7 +16,6 @@ import {
 import { match } from "ts-pattern";
 import { LiteralToPrimitiveDeep, Merge, PartialDeep } from "type-fest";
 import * as Core from "../core";
-import { NonNegativeIntSchema } from "../validator";
 import { Beat, MidiNoteNumber } from "./units";
 export class Score<
   Note extends Core.Note = Core.Note,
@@ -24,25 +23,21 @@ export class Score<
   Timesignature extends Core.Timesignature = Core.Timesignature,
   Keysignature extends Core.Keysignature = Core.Keysignature,
   Tempo extends Core.Tempo = Core.Tempo,
-> extends Core.Event {
+>
+  extends Core.Event
+{
   override get start() {
     return firstBy(this.tracks, [prop("start"), "asc"])?.start ?? new Beat(0);
   }
   override get end() {
     return firstBy(this.tracks, [prop("end"), "desc"])?.end ?? new Beat(0);
   }
-  get keyRange() {
-    return (["asc", "desc"] as const).map(
-      (sort) =>
-        firstBy(
-          this.notes.filter(
-            (note) =>
-              NonNegativeIntSchema.safeParse(note.pitch.value).success &&
-              !("rest" in note && note.rest === true),
-          ),
-          [prop("pitch", "value"), sort],
-        )!.pitch,
-    ) as [min: MidiNoteNumber, max: MidiNoteNumber];
+  get keyRange(): [MidiNoteNumber, MidiNoteNumber] | null {
+    const pitches = this.notes
+      .filter((n) => !("rest" in n && n.rest))
+      .flatMap((n) => (n.pitch ? [n.pitch] : []))
+      .toSorted((a, b) => a.value - b.value);
+    return pitches.length > 0 ? [pitches[0], pitches.at(-1)!] : null;
   }
   name;
   timesignatures;
@@ -236,9 +231,8 @@ export interface Parameter<
   TrackConstructorParameter extends ConstructorParameters<
     typeof Core.Track
   >[0] = ConstructorParameters<typeof Core.Track>[0],
-  NoteConstructorParameter extends ConstructorParameters<
-    typeof Core.Note
-  >[0] = ConstructorParameters<typeof Core.Note>[0],
+  NoteConstructorParameter extends ConstructorParameters<typeof Core.Note>[0] =
+    ConstructorParameters<typeof Core.Note>[0],
   Track = object,
   Note = object,
 > {

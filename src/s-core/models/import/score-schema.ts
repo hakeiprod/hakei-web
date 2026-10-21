@@ -1,3 +1,6 @@
+import { staffSettingsSchema } from "../sheet/notation/staff-settings";
+import { notationPitch } from "../sheet/notation/schema";
+import { notationShape, validateNotation } from "../sheet/notation/schema";
 import { z } from "zod";
 import { NonNegativeIntSchema, PositiveIntSchema } from "../validator";
 export const notatedTypeSchema = z
@@ -49,11 +52,12 @@ const event = z.object(eventShape).passthrough();
 const note = z
   .object({
     ...eventShape,
+    ...notationShape,
     id,
     trackId: id,
     staveId: id,
     chordId: id.optional(),
-    pitch: id.max(127),
+    pitch: id.max(127).nullable(),
     velocity: id.max(127),
     channel: id.max(15).optional(),
     rest: z.boolean(),
@@ -64,7 +68,8 @@ const note = z
     stem: stemSchema.optional(),
     beam: beamSchema.optional(),
   })
-  .passthrough();
+  .passthrough()
+  .superRefine(validateNotation);
 // Older Sheet exports omit track duration; track bounds are derived from notes.
 const track = z
   .object({
@@ -100,7 +105,13 @@ export const sheetScoreSchema = z
     masterbars: z.array(event.extend({ id })),
     staves: z.array(
       z
-        .object({ id, trackId: id, barId: id, clefs: z.json().optional() })
+        .object({
+          id,
+          trackId: id,
+          barId: id,
+          clefs: z.json().optional(),
+          staffSettings: staffSettingsSchema.optional(),
+        })
         .passthrough(),
     ),
     chords: z.array(z.object({ id }).passthrough()),
@@ -167,13 +178,98 @@ export const sheetScoreSchema = z
           problem([key, index, "duration"], "Note duration must be positive");
       }
     }
+    const sourceBytes = score.notes.reduce(
+      (sum, n) =>
+        sum +
+        (n.sourceNotation === undefined
+          ? 0
+          : new TextEncoder().encode(JSON.stringify(n.sourceNotation)).length),
+      0,
+    );
+    if (sourceBytes > 65_536)
+      problem(["notes"], "Notation source exceeds score limit");
+    const orderedBars = score.masterbars.toSorted((a, b) => a.start - b.start);
+    const staffInstances = new Map(
+      score.staves.map((s) => [`${s.trackId}:${s.barId}:${s.id}`, s]),
+    );
+    function barAt(start: number) {
+      let a = 0,
+        b = orderedBars.length;
+      while (a < b) {
+        const m = (a + b) >>> 1;
+        if (orderedBars[m].start <= start) a = m + 1;
+        else b = m;
+      }
+      const bar = orderedBars[a - 1];
+      return bar && start < bar.end ? bar : undefined;
+    }
+    const stringEvents = new Map<string, number>();
+    const sharedEvents = new Map<string, typeof score.notes>();
     for (const [index, item] of score.notes.entries()) {
+      const bar = barAt(item.start);
+      const stave = staffInstances.get(
+        `${item.trackId}:${bar?.id}:${item.staveId}`,
+      );
+      const kind = stave?.staffSettings?.kind ?? "standard";
+      if (
+        (item.tablature && kind !== "tablature") ||
+        (item.percussion && kind !== "percussion") ||
+        (!item.rest && kind === "tablature" && !item.tablature) ||
+        (!item.rest && kind === "percussion" && !item.percussion)
+      )
+        problem(["notes", index], "Staff and note notation mismatch");
+      if (
+        item.pitch === null &&
+        !(item.rest ? kind === "percussion" : item.tablature || item.percussion)
+      )
+        problem(["notes", index, "pitch"], "Missing sounding pitch");
+      if (item.tablature) {
+        if (item.tablature.string > (stave?.staffSettings?.lineCount ?? 0))
+          problem(["notes", index], "String outside staff");
+        const key = `${item.trackId}:${item.staveId}:${item.start}:${item.tablature.string}`;
+        const previous = stringEvents.get(key);
+        if (previous !== undefined && previous !== item.tablature.fret)
+          problem(["notes", index], "Conflicting frets on the same string");
+        stringEvents.set(key, item.tablature.fret);
+        const tuning = stave?.staffSettings?.tuning?.find(
+          (t) => t.string === item.tablature!.string,
+        );
+        if (
+          tuning &&
+          item.pitch !== null &&
+          notationPitch(tuning) + item.tablature.fret !== item.pitch
+        )
+          problem(["notes", index], "Tuning and pitch mismatch");
+      }
+      if (item.performanceEventId) {
+        const key = `${item.trackId}:${item.performanceEventId}`;
+        const list = sharedEvents.get(key) ?? [];
+        list.push(item);
+        sharedEvents.set(key, list);
+      }
+
       if (!tracks.has(item.trackId))
         problem(["notes", index, "trackId"], "Unknown track");
       if (!staves.has(`${item.trackId}:${item.staveId}`))
         problem(["notes", index, "staveId"], "Unknown stave");
       if (item.chordId !== undefined && !chords.has(item.chordId))
         problem(["notes", index, "chordId"], "Unknown chord");
+    }
+    for (const group of sharedEvents.values()) {
+      const first = group[0];
+      if (
+        group.length !== 2 ||
+        group.filter((n) => Boolean(n.tablature)).length !== 1 ||
+        group.some(
+          (n) =>
+            n.rest ||
+            n.pitch === null ||
+            n.start !== first.start ||
+            n.pitch !== first.pitch ||
+            n.duration !== first.duration,
+        )
+      )
+        problem(["notes"], "Invalid shared performance event");
     }
     for (const [index, item] of score.bars.entries()) {
       if (!tracks.has(item.trackId) || !masterbars.has(item.id))

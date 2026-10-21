@@ -30,7 +30,7 @@ describe("MusicXML to Sheet", () => {
     expect(sheet.tracks.length).toBeGreaterThan(0);
     expect(sheet.notes.length).toBeGreaterThan(0);
     for (const note of sheet.notes) {
-      expect(Number.isFinite(note.pitch.value)).toBe(true);
+      expect(Number.isFinite(note.pitch!.value)).toBe(true);
       expect(Number.isFinite(note.start.value)).toBe(true);
       expect(Number.isFinite(note.duration.value)).toBe(true);
       expect(note.duration.value).toBeGreaterThan(0);

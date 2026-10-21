@@ -19,7 +19,7 @@ describe.each(["2.0", "3.0", "3.1", "4.0"])("MusicXML %s", (version) => {
       expect(result.metadata).toMatchObject({
         format: "MUSICXML",
         formatVersion: version,
-        converterVersion: "score-import-v2",
+        converterVersion: "score-import-v4",
       });
       expect(result.canPractice).toBe(true);
       expect(

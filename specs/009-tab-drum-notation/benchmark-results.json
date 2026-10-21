@@ -1,0 +1,120 @@
+{
+  "environment": {
+    "node": "v22.23.3",
+    "warmups": 10,
+    "iterations": 30,
+    "method": "Model to Document and repeated layout; excludes real browser and initial file import. Baseline is the pre-009 working source including uncommitted 008."
+  },
+  "before": [
+    {
+      "file": "quarter_middle_c.json",
+      "iterations": 30,
+      "medianMs": 2.4309429999999566,
+      "elements": 40,
+      "width": 16.6,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "c_major_scale_up.json",
+      "iterations": 30,
+      "medianMs": 6.4553789999999935,
+      "elements": 107,
+      "width": 31.448,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "dotted_eighth_sixteenth_beam_hooks.json",
+      "iterations": 30,
+      "medianMs": 8.254983999999922,
+      "elements": 102,
+      "width": 31.708,
+      "repeatedLayoutStable": true
+    }
+  ],
+  "after": [
+    {
+      "file": "quarter_middle_c.json",
+      "iterations": 30,
+      "medianMs": 2.574850999999967,
+      "elements": 40,
+      "width": 16.6,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "c_major_scale_up.json",
+      "iterations": 30,
+      "medianMs": 8.290787000000023,
+      "elements": 107,
+      "width": 31.448,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "dotted_eighth_sixteenth_beam_hooks.json",
+      "iterations": 30,
+      "medianMs": 9.946984000000157,
+      "elements": 102,
+      "width": 31.708,
+      "repeatedLayoutStable": true
+    }
+  ],
+  "newNotationOnly": [
+    {
+      "fixtureId": "tab/fret-10",
+      "medianMs": 1.639695999999958,
+      "pages": [
+        {
+          "width": 12.419199999999998,
+          "height": 5.7012,
+          "elements": 32
+        }
+      ],
+      "repeatedLayoutStable": true
+    },
+    {
+      "fixtureId": "drum/crash",
+      "medianMs": 1.2779749999999694,
+      "pages": [
+        {
+          "width": 11.703999999999999,
+          "height": 5.6,
+          "elements": 30
+        }
+      ],
+      "repeatedLayoutStable": true
+    },
+    {
+      "fixtureId": "mixed/all-three",
+      "medianMs": 8.18517600000007,
+      "pages": [
+        {
+          "width": 13.588,
+          "height": 26,
+          "elements": 71
+        }
+      ],
+      "repeatedLayoutStable": true
+    },
+    {
+      "fixtureId": "mixed/pages",
+      "medianMs": 18.3077659999999,
+      "pages": [
+        {
+          "width": 18,
+          "height": 28,
+          "elements": 70
+        },
+        {
+          "width": 18,
+          "height": 28,
+          "elements": 115
+        },
+        {
+          "width": 18,
+          "height": 28,
+          "elements": 116
+        }
+      ],
+      "repeatedLayoutStable": true
+    }
+  ]
+}

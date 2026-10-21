@@ -1,3 +1,18 @@
+/* Normalize parser/model data through the actual JSON transport boundary. */
+/* eslint-disable unicorn/prefer-structured-clone */
+import {
+  staffSettingsSchema,
+  type StaffSettings,
+} from "../sheet/notation/staff-settings";
+import { tablatureSchema, percussionSchema } from "../sheet/notation/schema";
+import {
+  copyNotation,
+  visualTiesSchema,
+  notatedPitchSchema,
+  explicitAccidentalSchema,
+  notationSchema,
+  type NotationFields,
+} from "../sheet/notation/schema";
 import { parseStringPromise, processors } from "xml2js";
 import { isMusicXmlVersion } from "./musicxml-support";
 import { partialScoreSchema, type ConversionIssue } from "./contracts";
@@ -133,7 +148,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
   const parts = children(root, "part");
   if (parts.length === 0) throw new Error("EMPTY_SCORE");
   const issues: ConversionIssue[] = [];
-  const notes: {
+  const notes: (NotationFields & {
     id: number;
     trackId: number;
     staveId: number;
@@ -152,7 +167,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
     notatedDots?: number;
     beam?: unknown;
     stem?: unknown;
-  }[] = [];
+  })[] = [];
   const tracks: {
     id: number;
     name: string;
@@ -174,6 +189,13 @@ export async function convertMusicXml(bytes: Uint8Array) {
     trackId: number;
     barId: number;
     clefs: object[];
+    staffSettings?: StaffSettings;
+  }[] = [];
+  const sourceStaves: {
+    trackId: number;
+    barId: number;
+    staveId: number;
+    attributes: Xml;
   }[] = [];
   const chords: { id: number }[] = [];
   const tempos: { start: number; value: number }[] = [];
@@ -263,11 +285,27 @@ export async function convertMusicXml(bytes: Uint8Array) {
   );
   for (const [trackId, part] of parts.entries()) {
     scan(part, trackId);
+    let nextNoteId = 0;
     let divisions: number | undefined;
     let nominal = 4;
     let measureStart = 0;
     let staveCount = 1;
-    let clefs: object[] = [];
+    const clefs = new Map<number, Xml>();
+    const settings = new Map<number, StaffSettings>();
+    const unsupportedStaves = new Set<number>();
+    const instruments = new Map(
+      children(first(root, "part-list") ?? {}, "score-part")
+        .filter((p) => p.$?.id === part.$?.id)
+        .flatMap((p) => children(p, "midi-instrument"))
+        .map((index) => [
+          index.$?.id,
+          {
+            source: index,
+            midiNote: number(first(index, "midi-unpitched")),
+            midiChannel: number(first(index, "midi-channel")),
+          },
+        ]),
+    );
     const voiceIds = new Map<string, number>();
     const reservedVoices = new Set<number>([1]);
     reserveVoices(part, voiceIds, reservedVoices);
@@ -300,8 +338,70 @@ export async function convertMusicXml(bytes: Uint8Array) {
               throw new Error("INVALID_XML_STAVES");
             staveCount = stavesValue;
           }
-          if (children(child, "clef").length > 0)
-            clefs = children(child, "clef");
+          for (const clef of children(child, "clef"))
+            clefs.set(Number(clef.$?.number ?? 1) - 1, clef);
+          for (let id = 0; id < staveCount; id++) {
+            const clef = clefs.get(id);
+            const sign = text(first(clef ?? {}, "sign"));
+            const details = children(child, "staff-details").find(
+              (d) => Number(d.$?.number ?? 1) === id + 1,
+            );
+            const previous = settings.get(id);
+            const kind =
+              sign === undefined
+                ? (previous?.kind ?? "standard")
+                : sign === "TAB"
+                  ? "tablature"
+                  : sign === "percussion"
+                    ? "percussion"
+                    : "standard";
+            if (kind !== "standard" || details || previous) {
+              const lineCount =
+                number(first(details ?? {}, "staff-lines")) ??
+                (previous?.kind === kind ? previous.lineCount : undefined) ??
+                (kind === "tablature" ? 6 : 5);
+              const tuning = children(details ?? {}, "staff-tuning").map(
+                (t) => ({
+                  string: lineCount + 1 - Number(t.$?.line),
+                  step: text(first(t, "tuning-step")),
+                  octave: number(first(t, "tuning-octave")),
+                  alter: number(first(t, "tuning-alter")) ?? 0,
+                }),
+              );
+              const result = staffSettingsSchema.safeParse({
+                kind,
+                lineCount,
+                ...(tuning.length > 0
+                  ? { tuning }
+                  : previous?.kind === kind && previous.tuning
+                    ? { tuning: previous.tuning }
+                    : {}),
+              });
+              if (
+                result.success &&
+                (!previous ||
+                  previous.kind !== result.data.kind ||
+                  previous.lineCount === result.data.lineCount)
+              )
+                settings.set(id, result.data);
+              else {
+                unsupportedStaves.add(id);
+                sourceStaves.push({
+                  trackId,
+                  barId,
+                  staveId: id,
+                  attributes: child,
+                });
+                issue(
+                  "UNSUPPORTED_STAFF",
+                  "WARNING",
+                  "譜表の線数・調弦には未対応または矛盾があります。元情報を保持します。",
+                  trackId,
+                  barId,
+                );
+              }
+            }
+          }
           for (const time of children(child, "time")) {
             const beats = text(first(time, "beats"));
             const denominator = number(first(time, "beat-type"));
@@ -491,6 +591,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
               barId,
             );
           let pitch: number | null = rest ? 0 : null;
+          const notation: NotationFields = {};
           if (!rest) {
             const data = first(child, "pitch");
             const step = text(first(data ?? {}, "step"));
@@ -506,7 +607,78 @@ export async function convertMusicXml(bytes: Uint8Array) {
               const value = (octave + 1) * 12 + steps[step] + alter;
               if (value >= 0 && value <= 127) pitch = value;
             }
-            if (pitch === null)
+            const spelling = notatedPitchSchema.safeParse({
+              step,
+              octave,
+              alter,
+            });
+            if (spelling.success) notation.notatedPitch = spelling.data;
+            else if (pitch !== null)
+              issue(
+                "DISPLAY_INFORMATION_OMITTED",
+                "WARNING",
+                "原譜の音名・変化量の表記には未対応の指定があります。演奏音高は維持します。",
+                trackId,
+                barId,
+              );
+            const accidental = first(child, "accidental");
+            if (accidental) {
+              const rawKind = text(accidental);
+              const kind =
+                rawKind === "flat-flat"
+                  ? "double-flat"
+                  : rawKind === "sharp-sharp"
+                    ? "double-sharp"
+                    : rawKind;
+              const explicit = explicitAccidentalSchema.safeParse({
+                kind,
+                ...(accidental.$?.cautionary === undefined
+                  ? {}
+                  : { cautionary: accidental.$.cautionary === "yes" }),
+                ...(accidental.$?.parentheses === undefined
+                  ? {}
+                  : { parentheses: accidental.$.parentheses === "yes" }),
+              });
+              if (explicit.success) notation.explicitAccidental = explicit.data;
+              else
+                issue(
+                  "DISPLAY_INFORMATION_OMITTED",
+                  "WARNING",
+                  "臨時記号の表示指定に未対応の種類があります。",
+                  trackId,
+                  barId,
+                );
+              if (
+                Object.keys(accidental.$ ?? {}).some(
+                  (key) => !["cautionary", "parentheses"].includes(key),
+                )
+              )
+                issue(
+                  "DISPLAY_INFORMATION_OMITTED",
+                  "WARNING",
+                  "臨時記号の装飾属性の一部を表示できません。",
+                  trackId,
+                  barId,
+                );
+            }
+            if (!notationSchema.safeParse({ ...notation, pitch }).success) {
+              delete notation.explicitAccidental;
+              issue(
+                "NOTATION_PITCH_MISMATCH",
+                "WARNING",
+                "臨時記号の指定と演奏音高が一致しません。音高を維持して表記を推定します。原譜を確認してください。",
+                trackId,
+                barId,
+              );
+            }
+            if (
+              pitch === null &&
+              !first(child, "unpitched") &&
+              children(
+                first(first(child, "notations") ?? {}, "technical") ?? {},
+                "string",
+              ).length === 0
+            )
               issue(
                 "MISSING_PITCH",
                 "BLOCKING",
@@ -538,6 +710,46 @@ export async function convertMusicXml(bytes: Uint8Array) {
             .filter(
               (type): type is string => type === "start" || type === "stop",
             );
+          const rawVisual = children(child, "notations").flatMap((notations) =>
+            children(notations, "tied"),
+          );
+          const display = rawVisual.map((tie) => ({
+            type: tie.$?.type,
+            ...(tie.$?.number === undefined
+              ? {}
+              : { number: Number(tie.$.number) }),
+            ...(tie.$?.placement === undefined
+              ? {}
+              : { placement: tie.$.placement }),
+            ...(tie.$?.orientation === undefined
+              ? {}
+              : { orientation: tie.$.orientation }),
+          }));
+          const visual = visualTiesSchema.safeParse(display);
+          const unsupportedShape = rawVisual.some(
+            (tie) =>
+              Object.keys(tie.$ ?? {}).some(
+                (key) =>
+                  ![
+                    "type",
+                    "number",
+                    "placement",
+                    "orientation",
+                    "id",
+                  ].includes(key),
+              ) ||
+              (tie.$?.placement === "above" &&
+                tie.$?.orientation === "under") ||
+              (tie.$?.placement === "below" && tie.$?.orientation === "over"),
+          );
+          if ((rawVisual.length > 0 && !visual.success) || unsupportedShape)
+            issue(
+              "DISPLAY_INFORMATION_OMITTED",
+              "WARNING",
+              "タイの形状指定の一部を表示できません。通常のタイと演奏指定を確認してください。",
+              trackId,
+              barId,
+            );
           const beams = beamSchema.safeParse(children(child, "beam"));
           const stem = stemSchema.safeParse(first(child, "stem"));
           if (!beams.success || (first(child, "stem") && !stem.success))
@@ -560,8 +772,122 @@ export async function convertMusicXml(bytes: Uint8Array) {
               trackId,
               barId,
             );
+          const setting = settings.get(staveId);
+          let displayIncomplete = unsupportedStaves.has(staveId);
+          if (rest && setting?.kind === "percussion") pitch = null;
+          if (!rest && setting?.kind === "tablature") {
+            const technical = first(
+              first(child, "notations") ?? {},
+              "technical",
+            );
+            const tab = tablatureSchema.safeParse({
+              string: number(first(technical ?? {}, "string")),
+              fret: number(first(technical ?? {}, "fret")),
+            });
+            if (tab.success && tab.data.string <= setting.lineCount)
+              notation.tablature = tab.data;
+            else displayIncomplete = true;
+            if (
+              technical &&
+              (technical.$$ ?? []).some(
+                (n) => !["string", "fret"].includes(n["#name"] ?? ""),
+              )
+            ) {
+              notation.sourceNotation = JSON.parse(JSON.stringify(child));
+              issue(
+                "UNSUPPORTED_TECHNIQUE",
+                "WARNING",
+                "TABの奏法を省略しています。元情報を保持し演奏を無効にします。",
+                trackId,
+                barId,
+              );
+            }
+          }
+          if (
+            !rest &&
+            (setting?.kind === "percussion" || first(child, "unpitched"))
+          ) {
+            const unpitched = first(child, "unpitched") ?? {};
+            const instrumentId = first(child, "instrument")?.$?.id;
+            const midi = instruments.get(instrumentId);
+            const head = text(first(child, "notehead")) ?? "normal";
+            const parsed = percussionSchema.safeParse({
+              displayStep: text(first(unpitched, "display-step")),
+              displayOctave: number(first(unpitched, "display-octave")),
+              notehead: head,
+              instrumentId,
+              ...(midi?.midiNote === undefined
+                ? {}
+                : { midiNote: midi.midiNote - 1 }),
+              ...(midi?.midiChannel === undefined
+                ? {}
+                : { midiChannel: midi.midiChannel - 1 }),
+            });
+            delete notation.notatedPitch;
+            delete notation.explicitAccidental;
+            pitch = null;
+            if (parsed.success) notation.percussion = parsed.data;
+            else displayIncomplete = true;
+            if (instrumentId && !midi)
+              issue(
+                "UNKNOWN_PERCUSSION_INSTRUMENT",
+                "WARNING",
+                "打楽器の演奏対応が不明です。表示位置は保持します。",
+                trackId,
+                barId,
+              );
+            // Ties are rendered; retain all other note-level notation as omitted source.
+            const omittedNotations = children(child, "notations").some(
+              (notations) =>
+                (notations.$$ ?? []).some((item) => item["#name"] !== "tied"),
+            );
+            const omittedPerformance = Boolean(
+              first(child, "grace") || first(child, "play"),
+            );
+            const headAttributes = first(child, "notehead")?.$;
+            const omittedHeadAppearance =
+              headAttributes?.parentheses === "yes" ||
+              headAttributes?.filled !== undefined;
+            if (
+              omittedNotations ||
+              omittedPerformance ||
+              omittedHeadAppearance
+            ) {
+              notation.sourceNotation = JSON.parse(JSON.stringify(child));
+              issue(
+                "UNSUPPORTED_TECHNIQUE",
+                "WARNING",
+                "打楽器の特殊奏法・符頭装飾は表示を省略します。元情報を保持します。",
+                trackId,
+                barId,
+              );
+            }
+          }
+          if (displayIncomplete) {
+            notation.sourceNotation = JSON.parse(
+              JSON.stringify(
+                first(child, "instrument") &&
+                  instruments.get(first(child, "instrument")?.$?.id)
+                  ? {
+                      ...child,
+                      sourceInstrument: instruments.get(
+                        first(child, "instrument")?.$?.id,
+                      )?.source,
+                    }
+                  : child,
+              ),
+            );
+            issue(
+              "UNSUPPORTED_NOTATION",
+              "WARNING",
+              "表示に必要な情報が不足または未対応です。不完全候補に保持します。",
+              trackId,
+              barId,
+            );
+          }
           const note = {
-            id: notes.filter((note) => note.trackId === trackId).length,
+            ...copyNotation(notation),
+            id: nextNoteId++,
             trackId,
             staveId,
             chordId: previousChord,
@@ -585,7 +911,10 @@ export async function convertMusicXml(bytes: Uint8Array) {
                   notatedDots: Math.min(dots, 4),
                 }
               : {}),
-            ...(ties.length > 0 ? { ties } : {}),
+            ...(!rest && ties.length > 0 ? { ties } : {}),
+            ...(!rest && rawVisual.length > 0 && visual.success
+              ? { visualTies: visual.data }
+              : {}),
           };
           notes.push(note);
           if (!chord) {
@@ -622,7 +951,17 @@ export async function convertMusicXml(bytes: Uint8Array) {
         );
       bars.push({ id: barId, trackId });
       for (let id = 0; id < staveCount; id++)
-        staves.push({ id, trackId, barId, clefs });
+        staves.push({
+          id,
+          trackId,
+          barId,
+          clefs: [clefs.get(id) ?? clefs.get(0)].filter(
+            (clef) => clef !== undefined,
+          ),
+          ...(settings.has(id)
+            ? { staffSettings: structuredClone(settings.get(id)!) }
+            : {}),
+        });
       measureStart += duration;
       if (measureStart > 40_000) throw new Error("SCORE_SPAN_LIMIT");
     }
@@ -678,18 +1017,62 @@ export async function convertMusicXml(bytes: Uint8Array) {
       "KEY",
     ),
   };
+  const semanticallyComplete = sheetScoreSchema.safeParse({
+    notes,
+    tracks,
+    masterbars,
+    bars,
+    staves,
+    chords,
+    rows: [],
+    slots: [],
+    ...normalized,
+  });
   if (
-    issues.some((issue) => issue.code === "PART_TIMELINE_CONFLICT") ||
+    !semanticallyComplete.success &&
+    !notes.some(
+      (n) =>
+        n.start === null ||
+        n.duration === null ||
+        (!n.rest && n.pitch === null && !n.tablature && !n.percussion),
+    )
+  )
+    issue(
+      "NOTATION_VALUE_CONFLICT",
+      "WARNING",
+      "表記と音高・調弦・弦指定が一致しません。既知情報を不完全候補に保持します。",
+    );
+  if (
+    !semanticallyComplete.success ||
+    issues.some((issue) =>
+      [
+        "PART_TIMELINE_CONFLICT",
+        "UNSUPPORTED_STAFF",
+        "UNSUPPORTED_NOTATION",
+      ].includes(issue.code),
+    ) ||
     notes.some(
       (note) =>
-        note.pitch === null || note.start === null || note.duration === null,
+        (!note.rest &&
+          note.pitch === null &&
+          !note.tablature &&
+          !note.percussion) ||
+        note.start === null ||
+        note.duration === null,
     )
   ) {
     const candidate = partialScoreSchema.parse({
       format: "converted-partial-v1",
       notation: {
-        layoutIncomplete: issues.some(
-          (issue) => issue.code === "PART_TIMELINE_CONFLICT",
+        ...(sourceStaves.length > 0
+          ? { sourceStaves: JSON.parse(JSON.stringify(sourceStaves)) }
+          : {}),
+        layoutIncomplete: issues.some((issue) =>
+          [
+            "PART_TIMELINE_CONFLICT",
+            "UNSUPPORTED_STAFF",
+            "UNSUPPORTED_NOTATION",
+          ].includes(issue.code),
         ),
         tracks,
         masterbars,
@@ -702,6 +1085,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
       },
       tracks: tracks.map(({ id, name, preset }) => ({ id, name, preset })),
       notes: notes.map((note) => ({
+        ...copyNotation(note),
         id: String(note.id),
         trackId: note.trackId,
         pitch: note.pitch,
@@ -734,7 +1118,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
     });
     return { candidate, issues, formatVersion };
   }
-  const candidate = sheetScoreSchema.parse({
+  const completeInput = {
     name:
       text(first(root, "work") && first(first(root, "work")!, "work-title")) ??
       "",
@@ -747,6 +1131,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
     rows: [],
     slots: [],
     ...normalized,
-  });
+  };
+  const candidate = sheetScoreSchema.parse(completeInput);
   return { candidate, issues, formatVersion };
 }

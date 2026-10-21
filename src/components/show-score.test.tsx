@@ -13,7 +13,7 @@ vi.mock("./score-viewer", () => ({
     <div data-testid="notes">
       {score.notes
         .filter((note) => !note.rest)
-        .map((note) => note.pitch.value)
+        .map((note) => note.pitch?.value ?? "unpitched")
         .join(",")}
     </div>
   ),
@@ -77,4 +77,19 @@ test("viewing preserves fixture pitches and needs no MIDI access", () => {
   expect(screen.getByText("版 2")).toBeDefined();
   expect(data).toEqual(original);
   expect(midi).not.toHaveBeenCalled();
+});
+
+test("unpitched percussion displays without constructing audio or fetching a soundfont", async () => {
+  const { readFile } = await import("node:fs/promises");
+  const { convertScore } = await import("@/s-core/models/import/convert");
+  const result = await convertScore({
+    bytes: await readFile("src/s-core/fixtures/tab-drum/drums/snare.musicxml"),
+    options: { mode: "PRESERVE" },
+  });
+  const fetcher = vi.fn();
+  vi.stubGlobal("fetch", fetcher);
+  render(<ShowScore score={{ data: result.candidate }} />);
+  expect(screen.getByTestId("notes").textContent).toContain("unpitched");
+  expect(fetcher).not.toHaveBeenCalled();
+  expect(screen.getByText(/打楽器譜は表示できます/)).toBeTruthy();
 });

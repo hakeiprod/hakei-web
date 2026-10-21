@@ -199,3 +199,26 @@ This does not edit `.env` or change the running development server. A production
 ### GitHub environment variable names
 
 This project uses next-auth 5.0.0-beta.32. Follow the [Auth.js v5 GitHub guide](https://authjs.dev/getting-started/providers/github): AUTH_GITHUB_ID and AUTH_GITHUB_SECRET. Both must be configured to enable GitHub login. The [NextAuth.js v4 example](https://next-auth.js.org/providers/github) uses GITHUB_ID/GITHUB_SECRET and passes them explicitly; that example targets a different major version.
+
+## Notation fixtures
+
+Open `/dev/notation/fixtures` in development to inspect individual symbols and their expected conditions. The route returns not-found in production; existing Core/MXL galleries remain available in development.
+
+Add fixtures to `src/s-core/fixtures/notation/manifest.json` with one primary condition, stable IDs, source provenance, layout, expectedOutcome and requiredStages. Keep inputs small; document sizeReason when a system/page boundary requires a larger input. Add assertions and destructive counterexamples with each symbol change. A rendered SVG alone is not a verification pass.
+
+Run `node --import tsx scripts/verify-notation-fixtures.ts` to write automatic results to `specs/008-extend-score-notation/verification-results.json`. Use `--persisted` only with a dedicated TEST_DATABASE_URL ending `_test`; it exercises actual save/read/proposal/merge paths. Regular npm test does not overwrite reports. Missing database or visual checks stay unverified.
+
+Record actual browser reviews in `visual-results.json` according to [the fixture contract](../specs/008-extend-score-notation/contracts/fixtures.md). Include current input/expectation hashes, rendererRevision, layout, browser, reviewer, time and each visual checklist ID. The loader rejects stale evidence after code/font/input/expectation/layout changes. It never creates visual passes from SVG structure tests.
+
+
+### TAB・ドラム譜のfixtures
+
+`src/s-core/fixtures/tab-drum/manifest.json` は `tab/`・`drums/`・`mixed/`・`reject/` の自作最小入力を参照する。1つのfixtureにつき主条件を1つ定め、数字・弦・符頭・位置・符幹・旗・連桁などの期待値と、その誤りを検出する対照結果を加える。改行・改ページに必要な入力は固定layoutとsizeReasonを記録する。既存IDは維持する。
+
+`node --import tsx scripts/verify-notation-fixtures.ts --suite tab-drum` で009へ、`--suite notation`（省略時の既定）で008へ自動結果を保存する。両方を `/dev/notation/fixtures` で確認できる。通常の `npm test` は証跡ファイルを更新しない。
+
+`render` は保持・モデル往復・実保存取得・Document・SVG・実ブラウザーの6段階、`partial` は既知情報と元表記・診断のimport/roundtrip/persisted、`reject` は期待する拒否と保存不変の適用段階を検証する。partialの描画非適用を描画合格と扱わない。
+
+打楽器の打音は表示位置と楽器対応を保持する。打楽器休符は `rest:true, pitch:null` と所属譜表を持ち、打音用表記を要求しない。旧数値pitch付き休符は読み続ける。TABの運指を音高から生成せず、ドラム・音高不明TAB・対応不明の通常譜併記は理由付きで演奏不可とする。
+
+目視結果は該当suiteの `visual-results.json` に、visualChecklist ID、確認した入力・期待値・layout・rendererRevision、日時、ブラウザー、確認者を記録する。最新ソース・フォントで失効した条件は再確認する。SVG生成やjsdomの合格は実表示の合格を代替しない。DB検証は今回利用者指示で保留し、後日末尾 `_test` の専用DBで `--persisted` を実行する。

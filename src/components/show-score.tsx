@@ -9,6 +9,7 @@ import {
   CardBody,
   Card,
 } from "@heroui/react";
+import { capabilities } from "@/s-core/models/sheet/notation/capabilities";
 import { partialScoreSchema } from "@/s-core/models/import/contracts";
 import { sheetScoreSchema } from "@/s-core/models/import/score-schema";
 import * as Audio from "@/s-core/models/audio";
@@ -87,7 +88,17 @@ export function ShowScore(properties: {
   return (
     <>
       <p>版 {properties.score.revisionNumber ?? 1}</p>
-      <ValidatedScore data={parsed.data} canPlay={properties.canPlay ?? true} />
+      {capabilities(parsed.data).reasons.map((r) => (
+        <p key={r.code} role="status">
+          {r.message}
+        </p>
+      ))}
+      <ValidatedScore
+        data={parsed.data}
+        canPlay={
+          (properties.canPlay ?? true) && capabilities(parsed.data).canPlayback
+        }
+      />
     </>
   );
 }
@@ -97,12 +108,13 @@ function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
     Sheet.Score["export"]
   >;
   const audio = useMemo(
-    () => Sheet.Score.import(scoreData).toAudio(),
-    [scoreData],
+    () =>
+      properties.canPlay ? Sheet.Score.import(scoreData).toAudio() : undefined,
+    [scoreData, properties.canPlay],
   );
   const keyboard = useMemo(
     () =>
-      properties.canPlay && audio.notes.length > 0
+      properties.canPlay && audio && audio.notes.length > 0 && audio.keyRange
         ? new Keyboard(audio.keyRange)
         : undefined,
     [audio, properties.canPlay],
@@ -112,6 +124,7 @@ function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
   useEffect(() => {
     if (
       !properties.canPlay ||
+      !audio ||
       !soundfont2 ||
       audio.notes.length === 0 ||
       typeof AudioContext === "undefined"
@@ -150,12 +163,13 @@ function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
   return (
     <>
       <ScoreViewer score={smufl} />
-      {properties.canPlay && controller && (
+      {properties.canPlay && audio && controller && (
         <ScorePlayer score={audio} controller={controller} />
       )}
-      {properties.canPlay && audio.notes.length > 0 && (
-        <ScoreMixier score={audio} />
-      )}
+      {properties.canPlay &&
+        audio &&
+        audio.notes.length > 0 &&
+        audio.keyRange && <ScoreMixier score={audio} />}
       {keyboard && <VirtualKeyboard keyboard={keyboard} />}
     </>
   );

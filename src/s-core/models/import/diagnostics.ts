@@ -1,10 +1,12 @@
+import { capabilities } from "../sheet/notation/capabilities";
+import { resolveTies } from "../sheet/notation/ties";
 import {
   conversionIssueSchema,
   importCandidateSchema,
   type ConversionIssue,
 } from "./contracts";
 
-export const validatorVersion = "score-import-validation-v1";
+export const validatorVersion = "score-import-validation-v2";
 /** Recompute field diagnostics; acknowledgements never influence musical validity. */
 export function validateCandidate(
   input: unknown,
@@ -14,7 +16,9 @@ export function validateCandidate(
   const issues = suppliedIssues
     .filter(
       (issue) =>
-        !issue.id.startsWith("tie:") && issue.id !== "validation:no-attacks",
+        !issue.id.startsWith("tie:") &&
+        !issue.id.startsWith("notation:display-tie:") &&
+        issue.id !== "validation:no-attacks",
     )
     .map((issue) => conversionIssueSchema.parse(issue));
   if (new Set(issues.map((issue) => issue.id)).size !== issues.length)
@@ -23,7 +27,12 @@ export function validateCandidate(
   if ("format" in candidate && candidate.format === "converted-partial-v1") {
     for (const [index, note] of candidate.notes.entries()) {
       for (const field of ["pitch", "onset", "duration"] as const) {
-        if (note[field] !== null || (field === "pitch" && note.rest)) continue;
+        if (
+          note[field] !== null ||
+          (field === "pitch" &&
+            (note.rest || note.tablature || note.percussion))
+        )
+          continue;
         const id = `missing:${note.trackId}:${note.id}:${field}`;
         missing.add(id);
         const diagnostic: ConversionIssue = {
@@ -43,6 +52,10 @@ export function validateCandidate(
         }
       }
     }
+  }
+  if (!("format" in candidate)) {
+    for (const issue of issues)
+      if (issue.id === "notation:promotion") issue.status = "RESOLVED";
   }
   for (const issue of issues) {
     if (
@@ -125,11 +138,47 @@ export function validateCandidate(
         tieIssue("UNMATCHED_TIE", id, index);
       pendingTies.delete(key);
     }
-    if (note.ties?.includes("start"))
+    if (note.ties?.includes("start")) {
+      const previous = pendingTies.get(key);
+      if (previous) {
+        tieIssue("AMBIGUOUS_TIE", previous.id, previous.index);
+        tieIssue("AMBIGUOUS_TIE", id, index);
+      }
       pendingTies.set(key, { end: start + note.duration, id, index });
+    }
   }
   for (const pending of pendingTies.values())
     tieIssue("UNCLOSED_TIE", pending.id, pending.index);
+  const visualNotes = ordered.flatMap(({ note, start }) =>
+    start === null || note.duration === null
+      ? []
+      : [{ ...note, start, duration: note.duration }],
+  );
+  const displayProblems = resolveTies(visualNotes).problems;
+  for (const [index, problem] of displayProblems.entries()) {
+    const originalIndex = candidate.notes.findIndex(
+      (note) =>
+        note.trackId === problem.note.trackId &&
+        String(note.id) === String(problem.note.id),
+    );
+    const bar =
+      "masterbars" in candidate && Array.isArray(candidate.masterbars)
+        ? candidate.masterbars.find(
+            (bar) =>
+              problem.note.start >= bar.start && problem.note.start < bar.end,
+          )
+        : undefined;
+    issues.push({
+      id: `notation:display-tie:${problem.code}:${problem.note.trackId}:${problem.note.id}:${index}`,
+      code: problem.code,
+      severity: "WARNING",
+      status: "UNRESOLVED",
+      fieldPath: `notes.${originalIndex}.visualTies`,
+      track: problem.note.trackId,
+      ...(bar ? { bar: bar.id } : {}),
+      message: problem.message,
+    });
+  }
   if (
     !candidate.notes.some((note) => !note.rest && !note.ties?.includes("stop"))
   )
@@ -149,7 +198,10 @@ export function validateCandidate(
   const complete = !(
     "format" in candidate && candidate.format === "converted-partial-v1"
   );
-  const canPlay = complete && unresolvedIssueIds.length === 0;
+  const canPlay =
+    complete &&
+    unresolvedIssueIds.length === 0 &&
+    capabilities(candidate, issues).canPlayback;
   return {
     candidate,
     issues,
