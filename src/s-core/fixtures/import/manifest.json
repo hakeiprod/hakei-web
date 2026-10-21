@@ -1,0 +1,210 @@
+{
+  "version": 1,
+  "fixtures": [
+    {
+      "path": "quarter.musicxml",
+      "outcome": "PLAYABLE",
+      "notes": [[60, 0, 1]]
+    },
+    {
+      "path": "quarter.mxl",
+      "outcome": "PLAYABLE",
+      "notes": [[60, 0, 1]]
+    },
+    {
+      "path": "quarter.mid",
+      "outcome": "PLAYABLE",
+      "notes": [[60, 0, 1]]
+    },
+    {
+      "path": "quarter-format1.mid",
+      "outcome": "PLAYABLE",
+      "notes": [[60, 0, 1]]
+    },
+    {
+      "path": "quarter-core.json",
+      "outcome": "PLAYABLE",
+      "notes": [[60, 0, 1]]
+    },
+    {
+      "path": "quarter-sheet.json",
+      "outcome": "PLAYABLE",
+      "notes": [[60, 0, 1]]
+    },
+    {
+      "path": "unsupported-version.musicxml",
+      "outcome": "FATAL",
+      "error": "UNSUPPORTED_MUSICXML_VERSION"
+    },
+    {
+      "path": "truncated.mid",
+      "outcome": "FATAL",
+      "error": "INVALID_MIDI"
+    },
+    {
+      "path": "repeat.musicxml",
+      "outcome": "BLOCKING",
+      "code": "UNSUPPORTED_REPEAT"
+    },
+    {
+      "path": "missing-duration.musicxml",
+      "outcome": "PARTIAL",
+      "code": "MISSING_DURATION"
+    },
+    {
+      "path": "overlap.mid",
+      "outcome": "BLOCKING",
+      "code": "MIDI_OVERLAPPING_SAME_PITCH"
+    },
+    {
+      "path": "quantize-boundary.mid",
+      "outcome": "PLAYABLE",
+      "options": {
+        "mode": "QUANTIZE",
+        "grid": "1/2"
+      },
+      "notes": [[60, 0, 0.5]]
+    },
+    {
+      "path": "musicxml-versions/study-2.0.musicxml",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "2.0",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "a45856cdeeca4762aae3c5e985d8e3e0c5f6f52450faf492022bee13905b4b8c"
+    },
+    {
+      "path": "musicxml-versions/study-2.0.mxl",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "2.0",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "51005493d25c6a575d9e7d058f347620ed6ee3816362ecf646661446cd955534"
+    },
+    {
+      "path": "musicxml-versions/study-3.0.musicxml",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "3.0",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "5cc9a53bfed81bde8f56bc9d2233faadf41d9f836b751f9e1e40fb7f8eb5610f"
+    },
+    {
+      "path": "musicxml-versions/study-3.0.mxl",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "3.0",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "d1420dec33f5fea2db32632e51c78da52a76b1d3e998361da1f052f152976c71"
+    },
+    {
+      "path": "musicxml-versions/study-3.1.musicxml",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "3.1",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "ca4fd9d9398ff6eb07de9d6c521448a410a2e7cd416836cdac44fc87bc992ee4"
+    },
+    {
+      "path": "musicxml-versions/study-3.1.mxl",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "3.1",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "f40d9d01291bcaf5843ce52b003c740e7a5bc09b909bbc82435dbfbde71dba73"
+    },
+    {
+      "path": "musicxml-versions/study-4.0.musicxml",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "4.0",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "1d1fe2bc15aa505be6849266dd595477461d9893b486fe0d6b606359625c30c4"
+    },
+    {
+      "path": "musicxml-versions/study-4.0.mxl",
+      "outcome": "PLAYABLE",
+      "notes": [
+        [60, 0, 1],
+        [64, 0, 1],
+        [62, 1, 2],
+        [48, 0, 3],
+        [65, 3, 1],
+        [65, 4, 1]
+      ],
+      "version": "4.0",
+      "license": "CC0-1.0",
+      "source": "Original compatibility study authored for this repository",
+      "sha256": "4c762e68546c870ee00b88e8a49f7739a270e6f1d5a5092483c6f137eeac8b52"
+    },
+    {
+      "path": "mismatched-version.musicxml",
+      "outcome": "FATAL",
+      "error": "INVALID_XML_DOCTYPE"
+    },
+    {
+      "path": "../files/musicxml/Menuett_in_G-Dur_BWV_Anh._114.mxl",
+      "outcome": "BLOCKING",
+      "code": "UNSUPPORTED_REPEAT",
+      "version": "3.0",
+      "source": "User-supplied original; embedded source http://musescore.com/score/713151",
+      "sha256": "2a4fb54e1229faa8d7268a804ab4f8c90f9704c544f1721e171be925c1d5ae1a"
+    }
+  ]
+}

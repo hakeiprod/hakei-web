@@ -1,4 +1,5 @@
 "use client";
+import { Button, NumberInput, Select, SelectItem, Switch } from "@heroui/react";
 import { debugAtom } from "@/store/debug";
 import { LayoutType } from "@/s-core/models/sheet";
 import * as Engraving from "@/s-core/models/engraving";
@@ -8,12 +9,11 @@ import { bindNoteHighlights } from "@/s-core/models/browser/bind-note-highlights
 import { scrollNoteIntoView } from "@/s-core/models/browser/scroll-note-into-view";
 import { layoutTypeAtom } from "@/store/layout-type";
 import { scaleAtom } from "@/store/scale";
-import { NumberInput, Select, SelectItem, Switch } from "@heroui/react";
+
 import { useAtom } from "jotai";
 import localFont from "next/font/local";
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
-
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
@@ -22,7 +22,6 @@ const layouts = [
   { type: LayoutType.Vertical, label: "縦スクロール" },
   { type: LayoutType.Page, label: "ページ" },
 ];
-
 export function ScoreViewer({ score }: { score: Engraving.Score }) {
   const [layoutType, setLayoutType] = useAtom(layoutTypeAtom);
   const [scale, setScale] = useAtom(scaleAtom);
@@ -208,25 +207,29 @@ export function ScoreViewer({ score }: { score: Engraving.Score }) {
           aria-label="楽譜のページ切り替え"
           className="flex items-center justify-center gap-4 py-3"
         >
-          <button
+          <Button
             type="button"
-            className="rounded border px-3 py-2 disabled:opacity-40"
-            disabled={pagination.index === 0}
             onClick={() => renderPage(pagination.index - 1)}
+            isDisabled={pagination.index === 0}
+            color="default"
+            variant="bordered"
+            className="max-w-full whitespace-normal"
           >
             前のページ
-          </button>
+          </Button>
           <span aria-live="polite">
             {pagination.index + 1} / {pagination.total}
           </span>
-          <button
+          <Button
             type="button"
-            className="rounded border px-3 py-2 disabled:opacity-40"
-            disabled={pagination.index >= pagination.total - 1}
             onClick={() => renderPage(pagination.index + 1)}
+            isDisabled={pagination.index >= pagination.total - 1}
+            color="default"
+            variant="bordered"
+            className="max-w-full whitespace-normal"
           >
             次のページ
-          </button>
+          </Button>
         </nav>
       )}
     </>

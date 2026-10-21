@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-19 (client timezone UTC+09)",
+  "scanner": "Trivy 0.76.0",
+  "database_metadata": {
+    "Version": 2,
+    "NextUpdate": "2026-10-19T13:11:41.355239192Z",
+    "UpdatedAt": "2026-10-18T13:11:41.355239553Z",
+    "DownloadedAt": "2026-10-18T16:09:27.14150379Z"
+  },
+  "scope": "current container rootfs; vuln scanner; exclude /workspaces,/proc,/sys,/dev,/tmp,/root,/var/lib/mailpit; not a clean base-image scan or application npm audit",
+  "source_report_sha256": "a0b4104707a8d9a8f3d676a2655904a6e2bb7464109d538cfc0bcdc1ec6112cb",
+  "results": [
+    {
+      "target": "current container (Debian 12.15)",
+      "type": "debian",
+      "package_finding_counts": {
+        "LOW": 1834,
+        "HIGH": 528,
+        "MEDIUM": 2853,
+        "UNKNOWN": 51,
+        "CRITICAL": 21
+      },
+      "unique_advisories": 3107
+    },
+    {
+      "target": "Node.js",
+      "type": "node-pkg",
+      "package_finding_counts": {
+        "MEDIUM": 81,
+        "LOW": 28,
+        "HIGH": 85
+      },
+      "unique_advisories": 62
+    },
+    {
+      "target": "Python",
+      "type": "python-pkg",
+      "package_finding_counts": {
+        "MEDIUM": 7,
+        "LOW": 1,
+        "HIGH": 2
+      },
+      "unique_advisories": 10
+    },
+    {
+      "target": "opt/specify-tools/bin/uv",
+      "type": "rustbinary",
+      "package_finding_counts": {},
+      "unique_advisories": 0
+    },
+    {
+      "target": "opt/specify-tools/bin/uvx",
+      "type": "rustbinary",
+      "package_finding_counts": {},
+      "unique_advisories": 0
+    },
+    {
+      "target": "usr/bin/gh",
+      "type": "gobinary",
+      "package_finding_counts": {
+        "UNKNOWN": 1,
+        "HIGH": 4,
+        "MEDIUM": 13,
+        "LOW": 1
+      },
+      "unique_advisories": 14
+    },
+    {
+      "target": "usr/local/bin/mailpit",
+      "type": "gobinary",
+      "package_finding_counts": {
+        "UNKNOWN": 1
+      },
+      "unique_advisories": 1
+    },
+    {
+      "target": "vscode/vscode-server/bin/linux-alpine/89de5a8d4d6205e5b11647eb6a74844ca23d2573/node_modules/vsda/rust/Cargo.lock",
+      "type": "cargo",
+      "package_finding_counts": {
+        "LOW": 1
+      },
+      "unique_advisories": 1
+    },
+    {
+      "target": "vscode/vscode-server/bin/linux-x64/89de5a8d4d6205e5b11647eb6a74844ca23d2573/node_modules/vsda/rust/Cargo.lock",
+      "type": "cargo",
+      "package_finding_counts": {
+        "LOW": 1
+      },
+      "unique_advisories": 1
+    }
+  ],
+  "mailpit_findings": [
+    {
+      "VulnerabilityID": "GO-2026-5932",
+      "PkgName": "golang.org/x/crypto",
+      "InstalledVersion": "v0.58.0",
+      "FixedVersion": null,
+      "Severity": "UNKNOWN",
+      "Status": "affected"
+    }
+  ],
+  "os_high_critical_unique_advisories": 313
+}

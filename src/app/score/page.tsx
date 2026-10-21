@@ -1,5 +1,1 @@
-"use client";
-
-export default function Scores() {
-  return <>scores</>;
-}
+export { default } from "../page";

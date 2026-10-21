@@ -12,13 +12,15 @@ export class Glyph extends Element {
     position: Point,
     bounds: Bounds,
     public readonly advanceWidth: number,
-    options: ElementOptions & { glyphName?: string } = {},
+    options: ElementOptions & { glyphName?: string; fontScale?: number } = {},
   ) {
     super(options);
     this.position = { ...position };
     this.bounds = { ...bounds };
     this.glyphName = options.glyphName;
+    this.fontScale = options.fontScale ?? 1;
   }
 
   readonly glyphName?: string;
+  readonly fontScale: number;
 }

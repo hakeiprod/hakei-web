@@ -1,3 +1,4 @@
+import { keyAccidentalSchema } from "../../../core/key-accidental";
 import {
   firstBy,
   isEmpty,
@@ -20,7 +21,6 @@ declare module ".." {
   }
 }
 export const toSheet = function (this: MusicXML) {
-  if (process.env.NODE_ENV === "development") console.log({ mxl: this });
   return Sheet.Score.import({
     name: this.name ?? "",
     rows: [],
@@ -65,7 +65,7 @@ export const toSheet = function (this: MusicXML) {
       })) ?? [],
     keysignatures:
       this.scorePartwise.parts?.[0].keys.map((key) => ({
-        accidental: key.fifths ?? 0,
+        accidental: keyAccidentalSchema.parse(key.fifths ?? 0),
         tonality:
           key.mode === "minor"
             ? Core.Enums.Tonality.Minor

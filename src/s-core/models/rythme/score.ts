@@ -17,7 +17,6 @@ export class Score<
           rest: false,
           voice: -1,
           beam: undefined,
-          alter: undefined,
         }),
       ),
     });

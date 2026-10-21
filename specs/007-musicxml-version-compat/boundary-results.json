@@ -1,0 +1,8 @@
+{
+  "notes": 10000,
+  "inputBytes": 1180560,
+  "elapsedMs": 2054,
+  "workerHeapMb": 128,
+  "timeoutMs": 10000,
+  "result": "PASS"
+}

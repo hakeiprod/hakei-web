@@ -11,8 +11,12 @@ export function ButtonPlayPause(properties: ButtonPlayProperties) {
     properties.onPress(properties.isPlaying);
   }
   return (
-    <Button onPress={handlePress}>
-      {properties.isPlaying ? <Pause color="white" /> : <Play color="white" />}
+    <Button
+      isIconOnly
+      aria-label={properties.isPlaying ? "一時停止" : "再生"}
+      onPress={handlePress}
+    >
+      {properties.isPlaying ? <Pause /> : <Play />}
     </Button>
   );
 }

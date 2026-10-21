@@ -1,0 +1,56 @@
+{
+  "method": "Node 22; same existing inputs, 10 warmup + 30 runs; two sequential layouts per run; staff-space width and recursive element count",
+  "baselineCommit": "0f92a67e703694f3f544836d7d395ec81e0bc8b1",
+  "before": [
+    {
+      "file": "quarter_middle_c.json",
+      "iterations": 30,
+      "medianMs": 1.880172000000016,
+      "elements": 40,
+      "width": 16.6,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "c_major_scale_up.json",
+      "iterations": 30,
+      "medianMs": 4.470661000000064,
+      "elements": 107,
+      "width": 31.448,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "dotted_eighth_sixteenth_beam_hooks.json",
+      "iterations": 30,
+      "medianMs": 5.543097999999986,
+      "elements": 102,
+      "width": 31.708,
+      "repeatedLayoutStable": true
+    }
+  ],
+  "after": [
+    {
+      "file": "quarter_middle_c.json",
+      "iterations": 30,
+      "medianMs": 1.9783710000000383,
+      "elements": 40,
+      "width": 16.6,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "c_major_scale_up.json",
+      "iterations": 30,
+      "medianMs": 6.234023999999977,
+      "elements": 107,
+      "width": 31.448,
+      "repeatedLayoutStable": true
+    },
+    {
+      "file": "dotted_eighth_sixteenth_beam_hooks.json",
+      "iterations": 30,
+      "medianMs": 7.752477999999996,
+      "elements": 102,
+      "width": 31.708,
+      "repeatedLayoutStable": true
+    }
+  ]
+}

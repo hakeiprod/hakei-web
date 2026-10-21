@@ -190,7 +190,9 @@ describe("stave signatures", () => {
       });
       const drawing = controller.toDocument();
       const accidentals = glyphs(drawing).filter(
-        (glyph) => glyph.glyphName === name,
+        // This assertion concerns key-signature glyphs, not note accidentals.
+        (glyph) =>
+          glyph.glyphName === name && glyph.source?.noteId === undefined,
       );
       expect(accidentals).toHaveLength(Math.abs(accidental));
       for (let index = 1; index < accidentals.length; index++) {
@@ -208,3 +210,68 @@ describe("stave signatures", () => {
     },
   );
 });
+
+test.each(
+  ([1, 5, -1, -3] as const).flatMap((accidental) =>
+    [60, 48].map((pitch) => ({ accidental, pitch })),
+  ),
+)(
+  "uses the SMuFL advance between the clef and key signature ($accidental, pitch $pitch)",
+  ({ accidental, pitch }) => {
+    const controller = prepare({
+      tracks: [{ notes: [{ pitch, start: 0, duration: 1 }] }],
+      keysignatures: [{ accidental, tonality: Core.Enums.Tonality.Major }],
+    });
+    const drawing = controller.toDocument();
+    const elements = flatten(drawing.pages[0].elements);
+    const word = elements.find(
+      (element) => element.role === "word",
+    ) as Drawing.Group;
+    const clef = word.children.find(
+      (element) => element instanceof Drawing.Glyph,
+    ) as Drawing.Glyph;
+    const key = word.children.find(
+      (element) =>
+        element instanceof Drawing.Group &&
+        element.children.some(
+          (glyph) =>
+            glyph instanceof Drawing.Glyph &&
+            glyph.glyphName?.startsWith("accidental"),
+        ),
+    ) as Drawing.Group;
+    const first = key.children[0] as Drawing.Glyph;
+    expect(key.position.x - clef.position.x - clef.bounds.width).toBeCloseTo(
+      first.advanceWidth,
+    );
+    expect(
+      key.position.x + first.bounds.x - clef.bounds.x - clef.bounds.width,
+    ).toBeGreaterThan(0);
+    expect(controller.toDocument()).toEqual(drawing);
+    controller.unmount();
+  },
+);
+
+test.each([
+  [3, 4],
+  [6, 8],
+  [2, 4],
+  [4, 4],
+])(
+  "centers the numerator and denominator of %s/%s",
+  (numerator, denominator) => {
+    const controller = prepare({
+      tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+      timesignatures: [{ numerator, denominator, start: 0 }],
+    });
+    const drawing = controller.toDocument();
+    const digits = glyphs(drawing).filter((glyph) =>
+      glyph.glyphName?.startsWith("timeSig"),
+    );
+    expect(digits).toHaveLength(2);
+    expect(digits[0].bounds.x + digits[0].bounds.width / 2).toBeCloseTo(
+      digits[1].bounds.x + digits[1].bounds.width / 2,
+    );
+    expect(controller.toDocument()).toEqual(drawing);
+    controller.unmount();
+  },
+);

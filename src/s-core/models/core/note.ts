@@ -5,6 +5,7 @@ export class Note extends Core.Event {
   trackId;
   pitch;
   velocity;
+  channel;
   score!: Core.Score;
   get tempo() {
     return this.score.tempos.find((tempo) => tempo.isOverlapped(this))!;
@@ -22,22 +23,25 @@ export class Note extends Core.Event {
       id: number;
       trackId: number;
       velocity: number;
-      pitch: Core.Units.MidiNoteNumber;
+      channel?: number;
+      pitch: Core.Units.MidiNoteNumber | null;
     } & ConstructorParameters<typeof Core.Event>[0],
   ) {
-    const { id, trackId, pitch, velocity } = note;
+    const { id, trackId, pitch, velocity, channel } = note;
     super(note);
     this.id = id;
     this.trackId = trackId;
     this.pitch = pitch;
     this.velocity = velocity;
+    this.channel = channel;
   }
   serialize() {
     return {
       id: this.id,
       trackId: this.trackId,
-      pitch: this.pitch.value,
+      pitch: this.pitch?.value ?? null,
       velocity: this.velocity,
+      ...(this.channel === undefined ? {} : { channel: this.channel }),
       start: this.start.value,
       duration: this.duration.value,
       end: this.end.value,
@@ -49,7 +53,8 @@ export class Note extends Core.Event {
   static import(data: ReturnType<Note["export"]>) {
     return new Note({
       ...data,
-      pitch: new Core.Units.MidiNoteNumber(data.pitch),
+      pitch:
+        data.pitch === null ? null : new Core.Units.MidiNoteNumber(data.pitch),
       start: new Core.Units.Beat(data.start),
       duration: new Core.Units.Beat(data.duration),
       end: new Core.Units.Beat(data.end),

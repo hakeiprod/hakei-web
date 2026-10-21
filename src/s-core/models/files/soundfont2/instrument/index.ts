@@ -15,7 +15,7 @@ export default class Instrument {
     public header: Header,
     public bags: Bag[],
     public globalGenerators: Generator[],
-    public samples: Sample[]
+    public samples: Sample[],
   ) {}
   static create = create;
 }

@@ -30,7 +30,7 @@ export default class Envelope {
       decay,
       sustain,
       release,
-    }: IEnvelope<ValueAtTime, number>
+    }: IEnvelope<ValueAtTime, number>,
   ) {
     this.audioParam = audioParameter;
     this.init = init;
@@ -47,7 +47,7 @@ export default class Envelope {
     this.audioParam.setValueAtTime(this.delay.value, time + this.delay.time);
     this.audioParam.linearRampToValueAtTime(
       this.attack.value,
-      time + this.attack.time
+      time + this.attack.time,
     );
     this.audioParam.setValueAtTime(this.hold.value, time + this.hold.time);
     this.audioParam.linearRampToValueAtTime(this.sustain, time + this.decay);
@@ -55,7 +55,7 @@ export default class Envelope {
   noteOff(time: number) {
     this.audioParam.linearRampToValueAtTime(
       this.release.value,
-      time + this.release.time
+      time + this.release.time,
     );
   }
 }

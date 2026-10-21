@@ -41,5 +41,5 @@ export function VirtualKeyboard({ keyboard }: { keyboard: Keyboard }) {
       }
     };
   }, [keyboard]);
-  return <div ref={reference} />;
+  return <div ref={reference} className="max-w-full overflow-x-auto" />;
 }

@@ -1,18 +1,67 @@
 name: Test
-
 on:
   push:
     branches: [develop]
   pull_request:
     branches: [develop]
-
 jobs:
   vitest:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test-only-password
+          POSTGRES_DB: hakei_test
+        ports: [5432:5432]
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://postgres:test-only-password@localhost:5432/hakei_test
+      TEST_DATABASE_URL: postgresql://postgres:test-only-password@localhost:5432/hakei_test
+      SCORE_GIT_ROOT: /tmp/hakei-ci-scores
+      AUTH_SECRET: ci-only-build-secret-not-for-deployment
+      TEST_EMAIL_SERVER: smtp://127.0.0.1:11025
+      TEST_MAILPIT_URL: http://127.0.0.1:18025
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Start dedicated Mailpit for SMTP integration tests
+        run: |
+          set -euo pipefail
+          mailpit_dir="$RUNNER_TEMP/hakei-test-mailpit"
+          mkdir -p "$mailpit_dir"
+          curl --fail --silent --show-error --location \
+            https://github.com/axllent/mailpit/releases/download/v1.31.6/mailpit-linux-amd64.tar.gz \
+            --output "$mailpit_dir/mailpit.tar.gz"
+          echo "10fa12ccc610f653d4ed4df848c1817f9935dcf4e9a6a458a19ab0fa02093f91  $mailpit_dir/mailpit.tar.gz" | sha256sum --check --status
+          tar -xzf "$mailpit_dir/mailpit.tar.gz" -C "$mailpit_dir" mailpit
+          "$mailpit_dir/mailpit" --disable-version-check \
+            --database "$mailpit_dir/mailpit.db" \
+            --listen 127.0.0.1:18025 --smtp 127.0.0.1:11025 \
+            > "$mailpit_dir/mailpit.log" 2>&1 &
+          curl --fail --silent --show-error --retry 20 --retry-connrefused \
+            --retry-delay 1 --max-time 2 \
+            "$TEST_MAILPIT_URL/api/v1/messages" --output /dev/null
+      - name: Use matching PostgreSQL 16 dump/restore clients
+        run: |
+          mkdir -p "$RUNNER_TEMP/postgres-bin"
+          for command in pg_dump pg_restore; do
+            cat > "$RUNNER_TEMP/postgres-bin/$command" <<SCRIPT
+          #!/bin/sh
+          exec docker run --rm --network host --user "$(id -u):$(id -g)" -e PGPASSWORD -e PGSSLMODE -v /tmp:/tmp postgres:16 $command "\$@"
+          SCRIPT
+            chmod +x "$RUNNER_TEMP/postgres-bin/$command"
+          done
+          echo "$RUNNER_TEMP/postgres-bin" >> "$GITHUB_PATH"
       - run: npm ci
+      - run: npx prisma generate
+      - run: npx prisma migrate deploy
+      - run: npx prisma db seed
       - run: npm test -- --run
+      - run: npm run test:integration
+      - run: npx next typegen
+      - run: npx tsc --noEmit
+      - run: npm run build

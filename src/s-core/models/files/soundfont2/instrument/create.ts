@@ -9,10 +9,10 @@ import Preset from "../preset";
 export function create(
   preset: Preset,
   presetGenerators: Generator[],
-  presetModulators: Modulator[]
+  presetModulators: Modulator[],
 ) {
   const headerI = presetGenerators.find(
-    (generator) => generator.genOper === Metadata["generators"][41]?.name
+    (generator) => generator.genOper === Metadata["generators"][41]?.name,
   )!.genAmount as number;
   const header = preset.soundfont2.inst[headerI]!;
   const nextHeader = preset.soundfont2.inst[headerI + 1];
@@ -31,20 +31,20 @@ export function create(
     header,
     bags.map((b) => b.data),
     globalGenerators,
-    samples
+    samples,
   );
   for (const bag of bags) {
     const generators = preset.soundfont2.igen.slice(
       bag.data.genIndex,
-      preset.soundfont2.ibag[bag.index + 1]?.genIndex
+      preset.soundfont2.ibag[bag.index + 1]?.genIndex,
     );
     const modulators = preset.soundfont2.imod.slice(
       bag.data.modIndex,
-      preset.soundfont2.ibag[bag.index + 1]?.modIndex
+      preset.soundfont2.ibag[bag.index + 1]?.modIndex,
     );
     if (
       generators.some(
-        (generator) => generator.genOper === Metadata["generators"][53]?.name
+        (generator) => generator.genOper === Metadata["generators"][53]?.name,
       )
     ) {
       for (const gen of generators)

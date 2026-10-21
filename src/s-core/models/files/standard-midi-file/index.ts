@@ -16,24 +16,33 @@ export interface IMidi {
     events: MidiTrackEvent[];
   }[];
 }
-interface MidiTrackEvent<
+export interface MidiTrackEvent<
   Event extends MetaEvent | MidiEvent = MetaEvent | MidiEvent,
 > {
   statusByte: {
-    type:
-      | typeof Metadata.mtrk.metaEvent.type
-      | typeof Metadata.mtrk.midiEvents.noteOn.type
-      | typeof Metadata.mtrk.midiEvents.noteOff.type;
+    type: number;
     channel: number;
   };
   deltaTime: number;
   event: Event;
 }
-interface MidiEvent {
+export interface MidiEvent {
+  kind?: string;
+  pitch?: number;
+  velocity?: number;
+  controller?: number;
+  value?: number;
+  program?: number;
+  pitchBend?: number;
+  pressure?: number;
+  raw?: number[];
+}
+export interface MidiNoteEvent extends MidiEvent {
   pitch: number;
   velocity: number;
 }
-interface MetaEvent extends Partial<MetaEvents> {
+export interface MetaEvent extends Partial<MetaEvents> {
+  kind?: string;
   length: number;
   type: number;
 }
@@ -59,16 +68,16 @@ interface MetaEvents {
 export const calcDuration = (deltaTime: number, resolution: number) =>
   deltaTime / resolution;
 export const isMetaEvent = (
-  event: MidiTrackEvent
+  event: MidiTrackEvent,
 ): event is MidiTrackEvent<MetaEvent> =>
   event.statusByte.type === Metadata.mtrk.metaEvent.type &&
   event.statusByte.channel === 15;
 export const isNoteOffEvent = (
-  event: MidiTrackEvent
-): event is MidiTrackEvent<MidiEvent> =>
+  event: MidiTrackEvent,
+): event is MidiTrackEvent<MidiNoteEvent> =>
   event.statusByte.type === Metadata.mtrk.midiEvents.noteOff.type ||
   (isNoteOnEvent(event) && event.event.velocity === 0);
 export const isNoteOnEvent = (
-  event: MidiTrackEvent
-): event is MidiTrackEvent<MidiEvent> =>
+  event: MidiTrackEvent,
+): event is MidiTrackEvent<MidiNoteEvent> =>
   event.statusByte.type === Metadata.mtrk.midiEvents.noteOn.type;

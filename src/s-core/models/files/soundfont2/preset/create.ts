@@ -6,7 +6,7 @@ import Instrument from "../instrument";
 
 export function create(soundfont2: Soundfont2, presetNumber: number) {
   const headerI = soundfont2.phdr.findIndex(
-    (data) => data.preset === presetNumber
+    (data) => data.preset === presetNumber,
   );
   const header = soundfont2.phdr[headerI]!;
   const nextHeader = soundfont2.phdr[headerI + 1];
@@ -24,16 +24,16 @@ export function create(soundfont2: Soundfont2, presetNumber: number) {
     header,
     bags.map((b) => b.data),
     globalGenerators,
-    instruments
+    instruments,
   );
   for (const bag of bags) {
     const generators = soundfont2.pgen.slice(
       bag.data.genIndex,
-      soundfont2.pbag[bag.index + 1]?.genIndex
+      soundfont2.pbag[bag.index + 1]?.genIndex,
     );
     const modulators = soundfont2.pmod.slice(
       bag.data.modIndex,
-      soundfont2.pbag[bag.index + 1]?.modIndex
+      soundfont2.pbag[bag.index + 1]?.modIndex,
     );
     if (generators.some((generator) => isInstrument(generator))) {
       for (const gen of generators)

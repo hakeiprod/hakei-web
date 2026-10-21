@@ -1,3 +1,11 @@
+import { diatonicPosition } from "./notation/pitch";
+import {
+  copyNotation,
+  stepSemitones,
+  type NotatedPitch,
+  type ExplicitAccidental,
+  type VisualTie,
+} from "./notation/schema";
 import { P, match } from "ts-pattern";
 import * as Sheet from ".";
 import {
@@ -8,6 +16,10 @@ import {
 import * as Core from "../core";
 
 export class Note extends Core.Note {
+  declare tablature?: import("./notation/schema").NotationFields["tablature"];
+  declare percussion?: import("./notation/schema").NotationFields["percussion"];
+  declare performanceEventId?: string;
+  declare sourceNotation?: import("./notation/schema").NotationFields["sourceNotation"];
   readonly id;
   staveId;
   chordId;
@@ -15,6 +27,12 @@ export class Note extends Core.Note {
   rest;
   voice;
   beam;
+  notatedType;
+  notatedDots;
+  ties;
+  notatedPitch?: NotatedPitch;
+  explicitAccidental?: ExplicitAccidental;
+  visualTies?: VisualTie[];
   score!: Sheet.Score;
   /** Glyph dimensions are supplied by the engraving model. */
   get width(): number {
@@ -24,9 +42,18 @@ export class Note extends Core.Note {
     return this.score.tracks.find((track) => track.id === this.trackId)!;
   }
   get stave() {
-    return this.score.staves.find(
-      (stave) => stave.trackId === this.trackId && stave.id === this.staveId,
-    )!;
+    return (
+      this.score.staves.find(
+        (stave) =>
+          stave.trackId === this.trackId &&
+          stave.id === this.staveId &&
+          this.start.value >= stave.bar.masterbar.start.value &&
+          this.start.value < stave.bar.masterbar.end.value,
+      ) ??
+      this.score.staves.find(
+        (s) => s.trackId === this.trackId && s.id === this.staveId,
+      )!
+    );
   }
   get keysignature() {
     return this.score.keysignatures.find((keysignature) =>
@@ -35,7 +62,8 @@ export class Note extends Core.Note {
   }
   get accidental() {
     // TODO: Natural
-    if (this.rest) return null;
+    if (this.rest || !this.pitch || this.tablature || this.percussion)
+      return null;
     return match(
       this.pitch.toPitchClass().toPitchClassName(this.keysignature).accidental,
     )
@@ -44,6 +72,22 @@ export class Note extends Core.Note {
       .with("", () => null)
       .exhaustive();
   }
+  get spelling(): NotatedPitch {
+    if (this.notatedPitch) return this.notatedPitch;
+    if (!this.pitch) throw new Error("Unpitched note has no spelling");
+    const name = this.pitch.toScientificPitchNotation(this.keysignature);
+    const accidental = name.alter;
+    const alter = accidental.includes("#")
+      ? accidental.length
+      : accidental.includes("b")
+        ? -accidental.length
+        : 0;
+    return {
+      step: name.step,
+      octave: (this.pitch.value - stepSemitones[name.step] - alter) / 12 - 1,
+      alter,
+    };
+  }
   get line() {
     if (this.rest) {
       if (this.stave.bar.masterbar.duration.equal(this.duration)) return 3;
@@ -51,17 +95,39 @@ export class Note extends Core.Note {
         .with(P.union("quarter", "half"), () => 2)
         .otherwise(() => 0);
     }
+    if (this.tablature) return 5 - (this.tablature.string - 1);
+    if (this.percussion)
+      return (
+        1 +
+        (diatonicPosition({
+          step: this.percussion.displayStep,
+          octave: this.percussion.displayOctave,
+        }) -
+          diatonicPosition({ step: "E", octave: 4 })) /
+          2
+      );
+    const clef = this.stave.getClefScientificPitchNotation();
     return (
       (this.stave.resolveClefs()[0].line?.[0]?._ ?? 0) -
-      this.stave
-        .getClefScientificPitchNotation()
-        .getDegree(this.pitch.toScientificPitchNotation(this.keysignature)) /
+      (diatonicPosition({ step: clef.step, octave: clef.octave }) -
+        diatonicPosition(this.spelling)) /
         2
     );
   }
+
   get type() {
+    if (this.notatedType) return this.notatedType;
+    const tripletBase = this.duration.value * 1.5;
+    const power = Math.log2(tripletBase);
+    const base =
+      Math.abs(power - Math.round(power)) <= 1e-9
+        ? Math.pow(2, Math.round(power))
+        : Math.pow(2, Math.floor(Math.log2(this.duration.value)));
     return <NormalType>{
-      _: match(Math.pow(2, Math.floor(Math.log2(this.duration.value))))
+      _: match(base)
+        .with(32, () => "maxima")
+        .with(16, () => "long")
+        .with(8, () => "breve")
         .with(4, () => "whole")
         .with(2, () => "half")
         .with(1, () => "quarter")
@@ -77,19 +143,28 @@ export class Note extends Core.Note {
     };
   }
   get dot() {
-    let duration = this.duration.value;
-    let dot = 0;
-    while (
-      duration % Math.pow(2, Math.floor(Math.log2(this.duration.value))) !==
-      0
-    ) {
-      duration *= 2;
-      dot += 1;
+    if (this.notatedDots !== undefined) return this.notatedDots;
+    const base = Math.pow(2, Math.floor(Math.log2(this.duration.value)));
+    for (let count = 0; count <= 4; count++) {
+      if (
+        Math.abs(this.duration.value - base * (2 - Math.pow(2, -count))) <= 1e-9
+      )
+        return count;
     }
-    return dot;
+    return 0;
   }
   constructor(
     note: {
+      tablature?: import("./notation/schema").NotationFields["tablature"];
+      percussion?: import("./notation/schema").NotationFields["percussion"];
+      performanceEventId?: string;
+      sourceNotation?: import("./notation/schema").NotationFields["sourceNotation"];
+      notatedPitch?: NotatedPitch;
+      explicitAccidental?: ExplicitAccidental;
+      visualTies?: VisualTie[];
+      ties?: ("start" | "stop")[];
+      notatedType?: NormalType;
+      notatedDots?: number;
       id: number;
       staveId: number;
       chordId?: number;
@@ -100,7 +175,18 @@ export class Note extends Core.Note {
       voice: number;
     } & ConstructorParameters<typeof Core.Note>[0],
   ) {
-    const { id, staveId, rest = false, chordId, stem, voice, beam } = note;
+    const {
+      id,
+      staveId,
+      rest = false,
+      chordId,
+      stem,
+      voice,
+      beam,
+      notatedType,
+      notatedDots,
+      ties,
+    } = note;
     super(note);
     this.id = id;
     this.staveId = staveId;
@@ -109,16 +195,26 @@ export class Note extends Core.Note {
     this.rest = rest;
     this.voice = voice;
     this.beam = beam;
+    this.notatedType = notatedType;
+    this.notatedDots = notatedDots;
+    this.ties = ties;
+    Object.assign(this, copyNotation(note));
   }
   serialize() {
     return {
       ...super.serialize(),
+      ...copyNotation(this),
       staveId: this.staveId,
       chordId: this.chordId,
       stem: this.stem,
       rest: this.rest,
       voice: this.voice,
       beam: this.beam,
+      ...(this.ties ? { ties: this.ties } : {}),
+      ...(this.notatedType ? { notatedType: this.notatedType } : {}),
+      ...(this.notatedDots === undefined
+        ? {}
+        : { notatedDots: this.notatedDots }),
     };
   }
   export() {

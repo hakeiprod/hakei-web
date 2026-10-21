@@ -1,3 +1,7 @@
+import { staffY } from "../notation/staff-geometry";
+import { staffSegments } from "../notation/tablature";
+import { attachTies } from "../notation/ties";
+import { barlineEndInset, chordStem, type StemGeometry } from "../geometry";
 import type { LayoutGlyph } from "../layout/glyph";
 import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
 import * as Drawing from "../../document";
@@ -26,14 +30,15 @@ function glyphToDocument(
   glyph: LayoutGlyph,
   source: Drawing.Source,
   includeSpace = true,
+  offsetX = 0,
 ) {
   if (!(glyph instanceof Engraving.Glyph))
     throw new Error(
       "toDocument requires Engraving glyphs; draw the score first.",
     );
   const position = {
-    x: glyph.x + (includeSpace ? glyph.spaceLeft : 0),
-    y: 5 - glyph.line,
+    x: glyph.x + (includeSpace ? glyph.spaceLeft : 0) + offsetX,
+    y: staffY(glyph.line),
   };
   return glyphAtPosition(glyph, position, source);
 }
@@ -43,23 +48,44 @@ function glyphAtPosition(
   position: Drawing.Point,
   source: Drawing.Source,
   role = "glyph",
+  fontScale = 1,
 ) {
   return new Drawing.Glyph(
     glyph.codepoint,
     position,
     {
-      x: position.x + glyph.glyphBBox.x,
-      y: position.y - glyph.glyphBBox.y,
-      width: glyph.glyphBBox.width,
-      height: glyph.glyphBBox.height,
+      x: position.x + glyph.glyphBBox.x * fontScale,
+      y: position.y - glyph.glyphBBox.y * fontScale,
+      width: glyph.glyphBBox.width * fontScale,
+      height: glyph.glyphBBox.height * fontScale,
     },
-    glyph.glyphAdvanceWidth,
+    glyph.glyphAdvanceWidth * fontScale,
     {
+      fontScale,
       role,
       source,
       classList: glyph.classList,
       glyphName: glyph.glyphName,
     },
+  );
+}
+
+function tabClefToDocument(
+  glyph: Engraving.Glyph,
+  height: number,
+  source: Drawing.Source,
+) {
+  // Fit the full SMuFL ink bounds inside the staff without enlarging the font.
+  const scale = Math.min(1, height / glyph.glyphBBox.height);
+  return glyphAtPosition(
+    glyph,
+    {
+      x: glyph.x + glyph.spaceLeft,
+      y: height / 2 + (glyph.glyphBBox.y - glyph.glyphBBox.height / 2) * scale,
+    },
+    source,
+    "glyph",
+    scale,
   );
 }
 
@@ -95,70 +121,6 @@ function debugBounds(
     source,
     label: JSON.stringify(data),
   });
-}
-
-interface StemGeometry {
-  direction: "up" | "down";
-  start: Drawing.Point;
-  end: Drawing.Point;
-  flag?: { glyph: Engraving.Glyph; position: Drawing.Point };
-}
-
-function chordStem(chord: Engraving.Chord): StemGeometry | undefined {
-  const direction = chord.stem?._ ?? "none";
-  const notes = chord.notes.filter((note) => !note.rest);
-  if (direction === "none" || notes.length === 0) return;
-  if (direction === "double")
-    throw new Error("toDocument does not support double stems yet.");
-  const up = direction === "up";
-  const points = notes.map((note) => {
-    const glyph = note.glyph;
-    const anchor = glyph.getAnchor(up ? "stemUpSE" : "stemDownNW");
-    const anchorX =
-      anchor?.[0] ??
-      (up ? glyph.glyphBBox.x + glyph.glyphBBox.width : glyph.glyphBBox.x);
-    // The anchors describe a corner of the stem rectangle; SVG lines use its centre.
-    return {
-      x:
-        glyph.x +
-        glyph.spaceLeft +
-        anchorX +
-        (up ? -engraving.stemThickness / 2 : engraving.stemThickness / 2),
-      y: 5 - glyph.line - (anchor?.[1] ?? 0),
-    };
-  });
-  const x = (up ? Math.max : Math.min)(...points.map((point) => point.x));
-  const y = (up ? Math.max : Math.min)(...points.map((point) => point.y));
-  const noteheadY = notes.map((note) => 5 - note.glyph.line);
-  // Span the whole chord, then extend from the outer notehead by the nominal length.
-  const flagName =
-    !chord.beamGroup && Engraving.Glyph.findFlag(notes[0].type, direction);
-  const flag = flagName
-    ? new Engraving.Glyph(flagName, Sheet.ElementType.Flag, 0)
-    : undefined;
-  // SMuFL flags are registered at a nominal stem length of 3.5 staff spaces.
-  const length = flag ? 3.5 : 3;
-  const endY = up
-    ? Math.min(...noteheadY) - length
-    : Math.max(...noteheadY) + length;
-  const geometry: StemGeometry = {
-    direction,
-    start: { x, y },
-    end: { x, y: endY },
-  };
-  if (flag) {
-    const anchor = flag.getAnchor(up ? "stemUpNW" : "stemDownSW");
-    geometry.flag = {
-      glyph: flag,
-      position: {
-        x: x - engraving.stemThickness / 2 - (anchor?.[0] ?? 0),
-        y: endY,
-      },
-    };
-    // Extend the primitive to the flag's attachment height, leaving its baseline fixed.
-    geometry.end.y -= anchor?.[1] ?? 0;
-  }
-  return geometry;
 }
 
 function staveStems(stave: Engraving.Stave) {
@@ -199,7 +161,7 @@ function chordToDocument(
       debugBounds(
         {
           x: 0,
-          y: 5 - chord.line - 0.5,
+          y: staffY(chord.line) - 0.5,
           width: chord.width,
           height: chord.height,
         },
@@ -210,10 +172,65 @@ function chordToDocument(
     );
   for (const note of chord.notes) {
     const noteSource = { ...source, noteId: note.id };
-    const glyphs: Drawing.Element[] = [glyphToDocument(note.glyph, noteSource)];
-    if (note.accidentalGlyph)
-      glyphs.unshift(glyphToDocument(note.accidentalGlyph, noteSource));
-    children.push(group("note", glyphs, noteSource));
+    const glyphs: Drawing.Element[] = [
+      ...note.accidentalGlyphs.map((glyph) =>
+        glyphToDocument(glyph, noteSource),
+      ),
+      ...(note.fretRun
+        ? note.fretRun.digits.map((d) => {
+            const x =
+              chord.noteheadOffset + note.glyph.x + note.glyph.spaceLeft + d.x;
+            const y =
+              5 -
+              note.line +
+              (d.glyph.glyphBBox.y - d.glyph.glyphBBox.height / 2) * d.scale;
+            return new Drawing.Glyph(
+              d.glyph.codepoint,
+              { x, y },
+              {
+                x: x + d.glyph.glyphBBox.x * d.scale,
+                y: y - d.glyph.glyphBBox.y * d.scale,
+                width: d.glyph.glyphBBox.width * d.scale,
+                height: d.glyph.glyphBBox.height * d.scale,
+              },
+              d.glyph.glyphAdvanceWidth * d.scale,
+              {
+                role: "tab-digit",
+                source: noteSource,
+                glyphName: d.glyph.glyphName,
+                fontScale: d.scale,
+              },
+            );
+          })
+        : [
+            glyphToDocument(note.glyph, noteSource, true, chord.noteheadOffset),
+          ]),
+    ];
+    const x = chord.noteheadOffset + note.glyph.x + note.glyph.spaceLeft;
+    children.push(
+      new Drawing.Group(glyphs, {
+        role: note.fretRun ? "tab-fret" : "note",
+        source: noteSource,
+        ...(note.rest
+          ? {}
+          : {
+              anchorRole: "note-anchor",
+              anchorBounds: {
+                x,
+                y: staffY(note.line),
+                width: note.glyph.glyphBBox.width,
+                height: note.glyph.glyphBBox.height,
+              },
+            }),
+        ...(note.tablature
+          ? {
+              tabValue: String(note.tablature.fret),
+              string: note.tablature.string,
+              fret: note.tablature.fret,
+            }
+          : {}),
+      }),
+    );
   }
   children.push(
     group(
@@ -227,6 +244,7 @@ function chordToDocument(
       "ledger-lines",
       [ligatureToDocument(chord.legerlinesLigature, source)],
       source,
+      { x: chord.noteheadOffset, y: 0 },
     ),
   );
   if (stem)
@@ -258,11 +276,21 @@ function barlinesToDocument(
   const lines = [line(thin / 2, thin, "barline-start")];
   if (masterbar.isLast) {
     lines.push(
-      line(masterbar.width - thick * 2, thin, "barline-end-thin"),
+      line(
+        masterbar.width - barlineEndInset(true) + thin / 2,
+        thin,
+        "barline-end-thin",
+      ),
       line(masterbar.width - thick / 2, thick, "barline-end-thick"),
     );
   } else if (masterbar.isRowLast)
-    lines.push(line(masterbar.width - thin / 2, thin, "barline-end"));
+    lines.push(
+      line(
+        masterbar.width - barlineEndInset(false) + thin / 2,
+        thin,
+        "barline-end",
+      ),
+    );
   return group("barlines", lines, source);
 }
 
@@ -278,11 +306,11 @@ function beamsToDocument(
     if (!first || !last) return [];
     const offset = (first.direction === "up" ? 1 : -1) * beam.level * spacing;
     const start = {
-      x: stave.word.width + beam.firstChord.slot.x + first.end.x,
+      x: stave.headerWidth + beam.firstChord.slot.x + first.end.x,
       y: first.end.y + offset,
     };
     const end = {
-      x: stave.word.width + beam.lastChord.slot.x + last.end.x,
+      x: stave.headerWidth + beam.lastChord.slot.x + last.end.x,
       y: last.end.y + offset,
     };
     if (beam.firstChord.id === beam.lastChord.id) {
@@ -365,7 +393,11 @@ function staveToDocument(
       .map((element) =>
         element instanceof Engraving.Ligature
           ? ligatureToDocument(element, source)
-          : glyphToDocument(element, source),
+          : element instanceof Engraving.Glyph &&
+              (element.glyphName === "4stringTabClef" ||
+                element.glyphName === "6stringTabClef")
+            ? tabClefToDocument(element, stave.height, source)
+            : glyphToDocument(element, source),
       ),
     source,
   );
@@ -382,18 +414,32 @@ function staveToDocument(
       slotToDocument(slot, stave, source, debug, stems),
     ),
     source,
-    { x: stave.word.width, y: 0 },
+    { x: stave.headerWidth, y: 0 },
   );
-  const staff = Array.from(
-    { length: stave.height + 1 },
-    (_, y) =>
-      new Drawing.Line(
-        { x: 0, y },
-        { x: masterbar.width, y },
-        engraving.staffLineThickness,
-        { role: "staff-line", source },
-      ),
-  );
+  const staff = Array.from({ length: stave.height + 1 }, (_, y) => {
+    const gaps: [number, number][] = [];
+    for (const slot of uniqueSlots)
+      for (const chord of slot.getTrackStaveChords(stave.trackId, stave.id))
+        for (const note of chord.notes)
+          if (note.fretRun && note.tablature?.string === y + 1) {
+            const x =
+              stave.headerWidth +
+              slot.x +
+              chord.noteheadOffset +
+              note.glyph.x +
+              note.glyph.spaceLeft;
+            gaps.push([x - 0.15, x + note.fretRun.width + 0.15]);
+          }
+    return staffSegments(masterbar.width, gaps).map(
+      ([a, b]) =>
+        new Drawing.Line(
+          { x: a, y },
+          { x: b, y },
+          engraving.staffLineThickness,
+          { role: "staff-line", source },
+        ),
+    );
+  }).flat();
   return group(
     "stave",
     [word, slots, ...staff, ...beamsToDocument(stave, source, stems)],
@@ -519,8 +565,13 @@ export function toDocument(
     );
   if (score.notes.some((note) => !note.glyph))
     throw new Error("toDocument requires a drawn score; draw its notes first.");
-  const rows = score.rows.map((row) =>
-    rowToDocument(row, score, options.debug ?? false),
+  for (const row of score.rows) {
+    row.notationTop = 0;
+    row.notationBottom = 0;
+  }
+  const rows = attachTies(
+    score,
+    score.rows.map((row) => rowToDocument(row, score, options.debug ?? false)),
   );
   if (options.pageLayout)
     return new Drawing.Document(

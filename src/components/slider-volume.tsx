@@ -26,7 +26,12 @@ export function SliderVolume(properties: VolumeSlider) {
       color="foreground"
       label={"Volume"}
       startContent={
-        <Button {...properties.muteButtonProps} isIconOnly radius="full">
+        <Button
+          aria-label={properties.isMute ? "ミュートを解除" : "ミュート"}
+          {...properties.muteButtonProps}
+          isIconOnly
+          radius="full"
+        >
           {volumeIcon}
         </Button>
       }

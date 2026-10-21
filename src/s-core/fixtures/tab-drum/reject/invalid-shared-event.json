@@ -1,0 +1,196 @@
+{
+  "notes": [
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "notatedPitch": {
+        "step": "E",
+        "octave": 4,
+        "alter": 0
+      },
+      "id": 0,
+      "trackId": 0,
+      "staveId": 0,
+      "chordId": 0,
+      "pitch": 64,
+      "velocity": 102,
+      "rest": false,
+      "voice": 1,
+      "notatedType": {
+        "_": "quarter"
+      },
+      "notatedDots": 0,
+      "performanceEventId": "shared-attack"
+    },
+    {
+      "start": 0,
+      "duration": 1,
+      "end": 1,
+      "tablature": {
+        "string": 1,
+        "fret": 0
+      },
+      "notatedPitch": {
+        "step": "E",
+        "octave": 4,
+        "alter": 0
+      },
+      "id": 1,
+      "trackId": 0,
+      "staveId": 1,
+      "chordId": 1,
+      "pitch": 64,
+      "velocity": 102,
+      "rest": false,
+      "voice": 1,
+      "notatedType": {
+        "_": "quarter"
+      },
+      "notatedDots": 0,
+      "performanceEventId": "different"
+    }
+  ],
+  "tracks": [
+    {
+      "start": 0,
+      "duration": 4,
+      "end": 4,
+      "id": 0,
+      "name": "mixed",
+      "preset": 0,
+      "staffDetails": {
+        "staff-lines": [
+          {
+            "_": 5
+          }
+        ]
+      }
+    }
+  ],
+  "timesignatures": [
+    {
+      "start": 0,
+      "duration": 4,
+      "end": 4,
+      "numerator": 4,
+      "denominator": 4
+    }
+  ],
+  "keysignatures": [
+    {
+      "start": 0,
+      "duration": 4,
+      "end": 4,
+      "accidental": 0,
+      "tonality": 0
+    }
+  ],
+  "tempos": [
+    {
+      "start": 0,
+      "duration": 4,
+      "end": 4,
+      "value": 120
+    }
+  ],
+  "bars": [
+    {
+      "id": 0,
+      "trackId": 0
+    }
+  ],
+  "masterbars": [
+    {
+      "start": 0,
+      "duration": 4,
+      "end": 4,
+      "id": 0
+    }
+  ],
+  "staves": [
+    {
+      "id": 0,
+      "trackId": 0,
+      "barId": 0,
+      "clefs": [
+        {
+          "$": {
+            "number": "1"
+          },
+          "$$": [
+            {
+              "_": "G",
+              "#name": "sign"
+            },
+            {
+              "_": 2,
+              "#name": "line"
+            }
+          ],
+          "sign": [
+            {
+              "_": "G"
+            }
+          ],
+          "line": [
+            {
+              "_": 2
+            }
+          ]
+        }
+      ],
+      "staffSettings": {
+        "kind": "standard",
+        "lineCount": 5
+      }
+    },
+    {
+      "id": 1,
+      "trackId": 0,
+      "barId": 0,
+      "clefs": [
+        {
+          "$": {
+            "number": "2"
+          },
+          "$$": [
+            {
+              "_": "TAB",
+              "#name": "sign"
+            },
+            {
+              "_": 5,
+              "#name": "line"
+            }
+          ],
+          "sign": [
+            {
+              "_": "TAB"
+            }
+          ],
+          "line": [
+            {
+              "_": 5
+            }
+          ]
+        }
+      ],
+      "staffSettings": {
+        "kind": "tablature",
+        "lineCount": 6
+      }
+    }
+  ],
+  "chords": [
+    {
+      "id": 0
+    },
+    {
+      "id": 1
+    }
+  ],
+  "slots": [],
+  "rows": [],
+  "name": ""
+}

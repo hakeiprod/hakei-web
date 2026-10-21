@@ -1,0 +1,80 @@
+import { notFound, redirect } from "next/navigation";
+import { AuthenticatedContent } from "@/components/authenticated-content";
+import { sheetScoreSchema } from "@/s-core/models/import/score-schema";
+import { partialScoreSchema } from "@/s-core/models/import/contracts";
+import { PartialScoreEditor } from "@/components/partial-score-editor";
+import { FormCreateScore } from "@/components/form-create-score";
+import { ProposalEditor } from "@/components/proposal-editor";
+import { prisma } from "@/prisma";
+import { currentActor } from "@/server/auth";
+import { readScore, scoreGitStore } from "@/server/score-reader";
+export default async function Edit(properties: {
+  params: Promise<{
+    id: string;
+  }>;
+}) {
+  const actor = await currentActor();
+  if (!actor) redirect("/api/auth/signin");
+  const { id } = await properties.params;
+  const score = await readScore(
+    prisma,
+    scoreGitStore(),
+    Number(id),
+    actor.id,
+  ).catch((error) => {
+    if (error instanceof Error && error.message === "NOT_FOUND") notFound();
+    throw error;
+  });
+  if (!score.canEdit)
+    return (
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          楽譜 {score.id} の編集案
+        </h1>
+        <p
+          role="status"
+          className="rounded-large border border-divider bg-content1 p-4 text-foreground"
+        >
+          編集する権限がありません。
+        </p>
+      </main>
+    );
+  return (
+    <AuthenticatedContent actorId={actor.id}>
+      <main className="mx-auto w-full min-w-0 max-w-7xl space-y-6 px-4 py-6 sm:px-6">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          楽譜 {score.id} の編集案
+        </h1>
+        {partialScoreSchema.safeParse(score.data).success ? (
+          <PartialScoreEditor
+            repositoryId={score.repositoryId}
+            scoreId={score.id}
+            baseRevisionId={score.revisionId}
+            initial={score.data}
+          />
+        ) : sheetScoreSchema.safeParse(score.data).success ? (
+          <ProposalEditor
+            repositoryId={score.repositoryId}
+            scoreId={score.id}
+            baseRevisionId={score.revisionId}
+            initial={score.data}
+          />
+        ) : (
+          <p>
+            この版の形式を表示できません。対応する楽譜ファイルから修正案を作成してください。
+          </p>
+        )}
+        <details className="rounded-large border border-divider p-4">
+          <summary className="cursor-pointer font-medium outline-offset-4">
+            別の楽譜ファイルから修正案を作成
+          </summary>
+          <FormCreateScore
+            repositoryId={score.repositoryId}
+            scoreId={score.id}
+            baseRevisionId={score.revisionId}
+          />
+        </details>
+      </main>
+    </AuthenticatedContent>
+  );
+}

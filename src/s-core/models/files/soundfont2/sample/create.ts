@@ -34,10 +34,10 @@ import {
 export function create(
   instrument: Instrument,
   instrumentGenerators: Generator[],
-  instrumentModulators: Modulator[]
+  instrumentModulators: Modulator[],
 ) {
   const headerI = instrumentGenerators.find(
-    (generator) => generator.genOper === Metadata.generators[53]?.name
+    (generator) => generator.genOper === Metadata.generators[53]?.name,
   )!.genAmount as number;
   const header = instrument.preset.soundfont2.shdr[headerI]!;
   return new Sample(
@@ -50,10 +50,10 @@ export function create(
       new Uint8Array(
         instrument.preset.soundfont2.smpl.subarray(
           header.start * 2,
-          header.end * 2
-        )
-      ).buffer
-    )
+          header.end * 2,
+        ),
+      ).buffer,
+    ),
   );
   function setGenerators() {
     return pipe(
@@ -100,7 +100,7 @@ export function create(
         };
 
         // TODO: Metadata.generatorsに対してvalueを追加するだけでいいかも
-        accumulator[current.name] = match(current.uint)
+        const generatorValue = match(current.uint)
           .with("smpls", () => new Smpls(zone() as number))
           .with("32k smpls", () => new Smpls32k(zone() as number))
           .with("MIDI ky#", () => new MidiKey(zone() as number))
@@ -121,8 +121,8 @@ export function create(
           .with("cB attan", () => new Centibelattan(zone() as number))
           .with("timecent", () => new Timecent(zone() as number))
           .exhaustive();
-        return accumulator;
-      }, {} as Generators)
+        return { ...accumulator, [current.name]: generatorValue };
+      }, {} as Generators),
     );
   }
 }

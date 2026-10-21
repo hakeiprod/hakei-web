@@ -55,10 +55,14 @@ export class RythmeGame {
     );
   }
   noteOn(note: Core.Note) {
+    if (!note.pitch) return;
     const time = this.audioController.timer.elapsedSeconds;
     const rythmeNote = pipe(
       this.rythme.notes,
-      filter(({ isHitted, pitch }) => !isHitted && pitch.equal(note.pitch)),
+      filter(
+        ({ isHitted, pitch }) =>
+          !isHitted && Boolean(pitch?.equal(note.pitch!)),
+      ),
       find((note) => note.canHit(time)),
     );
     if (!rythmeNote) return;
@@ -84,6 +88,7 @@ export class RythmeGame {
       return null;
     }
     this.application = application;
+    if (!this.rythme.keyRange) throw new Error("No playable pitch range");
     this.keyboard.range = this.rythme.keyRange;
     this.keys = new KeyeventConnecter(this.keyboard);
     this.midi = new MidiinputConnecter(this.keyboard);
@@ -101,7 +106,7 @@ export class RythmeGame {
           fill: "black",
         },
         x:
-          (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch.value) ??
+          (this.keyboard.groupedRnageKeys.white?.indexOf(note.pitch!.value) ??
             -1) * Keyboard.WHITE_KEY_WIDTH,
         y: -(
           note.duration.toSeconds(note.tempo.value).value *

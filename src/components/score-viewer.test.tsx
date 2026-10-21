@@ -16,7 +16,8 @@ vi.mock("next/font/local", () => ({
   default: () => ({ className: "bravura", style: { fontFamily: "Bravura" } }),
 }));
 
-vi.mock("@heroui/react", () => ({
+vi.mock("@heroui/react", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("@heroui/react")>()),
   NumberInput: (properties: {
     value: number;
     onChange: (event: ChangeEvent<HTMLInputElement>) => void;

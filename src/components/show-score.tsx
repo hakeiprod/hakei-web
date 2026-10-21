@@ -1,5 +1,17 @@
 "use client";
-import { prisma } from "@/prisma";
+import {
+  TableColumn,
+  TableHeader,
+  TableCell,
+  TableRow,
+  TableBody,
+  Table,
+  CardBody,
+  Card,
+} from "@heroui/react";
+import { capabilities } from "@/s-core/models/sheet/notation/capabilities";
+import { partialScoreSchema } from "@/s-core/models/import/contracts";
+import { sheetScoreSchema } from "@/s-core/models/import/score-schema";
 import * as Audio from "@/s-core/models/audio";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
@@ -15,23 +27,109 @@ import { ScoreMixier } from "./score-mixier";
 import { ScorePlayer } from "./score-player";
 import { ScoreViewer } from "./score-viewer";
 import { VirtualKeyboard } from "./virtual-keyboard";
-
 export function ShowScore(properties: {
-  score: NonNullable<Awaited<ReturnType<typeof prisma.score.findUnique>>>;
+  score: {
+    data: unknown;
+    revisionNumber?: number;
+  };
+  canPlay?: boolean;
 }) {
+  const partial = partialScoreSchema.safeParse(properties.score.data);
+  if (partial.success)
+    return (
+      <Card
+        as="section"
+        className="min-w-0 overflow-visible border border-divider bg-content1"
+      >
+        <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
+          <p
+            role="status"
+            className="empty:hidden rounded-lg bg-default-100 p-3 text-sm text-foreground"
+          >
+            不明な音高・開始位置・長さがあるため、練習・ゲームには利用できません。
+          </p>
+          <div className="min-w-0 max-w-full overflow-x-auto">
+            <Table
+              aria-label="既知の音符（先頭50個）"
+              selectionMode="none"
+              className="min-w-0"
+              topContent={
+                <p className="text-sm font-medium">既知の音符（先頭50個）</p>
+              }
+            >
+              <TableHeader>
+                <TableColumn>トラック</TableColumn>
+                <TableColumn>音高</TableColumn>
+                <TableColumn>開始（拍）</TableColumn>
+                <TableColumn>長さ（拍）</TableColumn>
+              </TableHeader>
+              <TableBody>
+                {partial.data.notes.slice(0, 50).map((note) => (
+                  <TableRow key={`${note.trackId}:${note.id}`}>
+                    <TableCell>{note.trackId + 1}</TableCell>
+                    <TableCell>
+                      {note.rest ? "休符" : (note.pitch ?? "不明")}
+                    </TableCell>
+                    <TableCell>{note.onset ?? "不明"}</TableCell>
+                    <TableCell>{note.duration ?? "不明"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </CardBody>
+      </Card>
+    );
+  const parsed = sheetScoreSchema.safeParse(properties.score.data);
+  if (!parsed.success)
+    return <p role="alert">楽譜のデータを表示できません。修正が必要です。</p>;
+  if (parsed.data.notes.length === 0)
+    return <p>この楽譜には音符がありません。</p>;
+  return (
+    <>
+      <p>版 {properties.score.revisionNumber ?? 1}</p>
+      {capabilities(parsed.data).reasons.map((r) => (
+        <p key={r.code} role="status">
+          {r.message}
+        </p>
+      ))}
+      <ValidatedScore
+        data={parsed.data}
+        canPlay={
+          (properties.canPlay ?? true) && capabilities(parsed.data).canPlayback
+        }
+      />
+    </>
+  );
+}
+function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
-  const scoreData = properties.score.data as unknown as ReturnType<
+  const scoreData = properties.data as unknown as ReturnType<
     Sheet.Score["export"]
   >;
   const audio = useMemo(
-    () => Sheet.Score.import(scoreData).toAudio(),
-    [scoreData],
+    () =>
+      properties.canPlay ? Sheet.Score.import(scoreData).toAudio() : undefined,
+    [scoreData, properties.canPlay],
   );
-  const keyboard = useMemo(() => new Keyboard(audio.keyRange), [audio]);
+  const keyboard = useMemo(
+    () =>
+      properties.canPlay && audio && audio.notes.length > 0 && audio.keyRange
+        ? new Keyboard(audio.keyRange)
+        : undefined,
+    [audio, properties.canPlay],
+  );
   const smufl = useMemo(() => Engraving.Score.import(scoreData), [scoreData]);
   const [controller, setController] = useState<BrowserAudio.Controller>();
   useEffect(() => {
-    if (!soundfont2) return;
+    if (
+      !properties.canPlay ||
+      !audio ||
+      !soundfont2 ||
+      audio.notes.length === 0 ||
+      typeof AudioContext === "undefined"
+    )
+      return;
     const next = new BrowserAudio.Controller(
       audio,
       soundfont2,
@@ -42,7 +140,7 @@ export function ShowScore(properties: {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setController(next);
     return () => next.unmount();
-  }, [audio, soundfont2]);
+  }, [audio, soundfont2, properties.canPlay]);
   useEffect(() => {
     if (!controller) return;
     const highlighter = new NoteHighlighter(smufl, controller);
@@ -50,6 +148,7 @@ export function ShowScore(properties: {
     return () => highlighter.stop();
   }, [controller, smufl]);
   useEffect(() => {
+    if (!properties.canPlay) return;
     const abort = new AbortController();
     fetch("/A320U.sf2", { signal: abort.signal })
       .then((response) => response.arrayBuffer())
@@ -60,13 +159,18 @@ export function ShowScore(properties: {
         if (!abort.signal.aborted) console.error(error);
       });
     return () => abort.abort();
-  }, []);
+  }, [properties.canPlay]);
   return (
     <>
       <ScoreViewer score={smufl} />
-      {controller && <ScorePlayer score={audio} controller={controller} />}
-      <ScoreMixier score={audio} />
-      <VirtualKeyboard keyboard={keyboard} />
+      {properties.canPlay && audio && controller && (
+        <ScorePlayer score={audio} controller={controller} />
+      )}
+      {properties.canPlay &&
+        audio &&
+        audio.notes.length > 0 &&
+        audio.keyRange && <ScoreMixier score={audio} />}
+      {keyboard && <VirtualKeyboard keyboard={keyboard} />}
     </>
   );
 }

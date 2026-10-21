@@ -1,0 +1,29 @@
+{
+  "package": "debian-security-support 1:12+2026.06.30",
+  "scope": "installed container packages; downloaded official package snapshot, not a complete live support guarantee",
+  "matches": {
+    "ended": [],
+    "limited": [
+      {
+        "source": "binutils",
+        "packages": [
+          "binutils",
+          "binutils-common:amd64",
+          "binutils-x86-64-linux-gnu",
+          "libbinutils:amd64",
+          "libctf-nobfd0:amd64",
+          "libctf0:amd64",
+          "libgprofng0:amd64"
+        ],
+        "rule": "binutils        Only suitable for trusted content; see https://lists.debian.org/msgid-search/87lfqsomtg.fsf@mid.deneb.enyo.de"
+      },
+      {
+        "source": "rust-sequoia-sq",
+        "packages": [
+          "sq"
+        ],
+        "rule": "rust.*          See https://www.debian.org/releases/bookworm/amd64/release-notes/ch-information.en.html#golang-static-linking"
+      }
+    ]
+  }
+}

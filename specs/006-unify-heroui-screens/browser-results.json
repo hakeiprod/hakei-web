@@ -1,0 +1,272 @@
+{
+  "date": "2026-10-18 UTC",
+  "browser": "Chromium 156.0.8078.4",
+  "environment": "Isolated production server, dedicated _test database and Git, fixture DB sessions; synthetic MIDI; Japanese Noto CJK font",
+  "summary": {
+    "screenGroups": 12,
+    "viewportRuns": 24,
+    "widths": [360, 1280],
+    "unexpectedPageOverflow": 0,
+    "pageErrors": 0,
+    "unnamedButtons": 0,
+    "operations": 27
+  },
+  "routes": [
+    {
+      "width": 360,
+      "route": "/",
+      "status": 200,
+      "scroll": 360,
+      "heading": "楽譜",
+      "controls": 4,
+      "group": "楽譜一覧"
+    },
+    {
+      "width": 360,
+      "route": "/score/[id]",
+      "status": 200,
+      "scroll": 360,
+      "heading": "楽譜 2",
+      "controls": 21,
+      "group": "楽譜詳細"
+    },
+    {
+      "width": 360,
+      "route": "/score/create?repositoryId=[id]",
+      "status": 200,
+      "scroll": 360,
+      "heading": "Musicに楽譜を保存",
+      "controls": 1,
+      "group": "楽譜取込"
+    },
+    {
+      "width": 360,
+      "route": "/score/[id]/edit",
+      "status": 200,
+      "scroll": 360,
+      "heading": "楽譜 2 の編集案",
+      "controls": 31,
+      "group": "楽譜編集"
+    },
+    {
+      "width": 360,
+      "route": "/score/[id]/practice",
+      "status": 200,
+      "scroll": 360,
+      "heading": "楽譜2・版1の練習",
+      "controls": 19,
+      "group": "練習"
+    },
+    {
+      "width": 360,
+      "route": "/score/[id]/rythme",
+      "status": 200,
+      "scroll": 360,
+      "heading": "楽譜2・版1のリズムゲーム",
+      "controls": 19,
+      "group": "リズムゲーム"
+    },
+    {
+      "width": 360,
+      "route": "/practice/history",
+      "status": 200,
+      "scroll": 360,
+      "heading": "自分の演奏履歴",
+      "controls": 5,
+      "group": "練習履歴"
+    },
+    {
+      "width": 360,
+      "route": "/practice/[id]",
+      "status": 200,
+      "scroll": 360,
+      "heading": "演奏結果",
+      "controls": 12,
+      "group": "練習結果"
+    },
+    {
+      "width": 360,
+      "route": "/repositories",
+      "status": 200,
+      "scroll": 360,
+      "heading": "リポジトリ",
+      "controls": 15,
+      "group": "リポジトリ"
+    },
+    {
+      "width": 360,
+      "route": "/repositories/[id]/proposals/[proposalId]",
+      "status": 200,
+      "scroll": 360,
+      "heading": "編集案: Browser proposal",
+      "controls": 36,
+      "group": "提案詳細"
+    },
+    {
+      "width": 360,
+      "route": "/trust",
+      "status": 200,
+      "scroll": 360,
+      "heading": "信頼度と評価",
+      "controls": 7,
+      "group": "信頼度"
+    },
+    {
+      "width": 360,
+      "route": "/admin/trust",
+      "status": 200,
+      "scroll": 360,
+      "heading": "信頼度の運営設定",
+      "controls": 19,
+      "group": "運営信頼度"
+    },
+    {
+      "width": 1280,
+      "route": "/",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "楽譜",
+      "controls": 4,
+      "group": "楽譜一覧"
+    },
+    {
+      "width": 1280,
+      "route": "/score/[id]",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "楽譜 2",
+      "controls": 21,
+      "group": "楽譜詳細"
+    },
+    {
+      "width": 1280,
+      "route": "/score/create?repositoryId=[id]",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "Musicに楽譜を保存",
+      "controls": 1,
+      "group": "楽譜取込"
+    },
+    {
+      "width": 1280,
+      "route": "/score/[id]/edit",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "楽譜 2 の編集案",
+      "controls": 31,
+      "group": "楽譜編集"
+    },
+    {
+      "width": 1280,
+      "route": "/score/[id]/practice",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "楽譜2・版1の練習",
+      "controls": 19,
+      "group": "練習"
+    },
+    {
+      "width": 1280,
+      "route": "/score/[id]/rythme",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "楽譜2・版1のリズムゲーム",
+      "controls": 19,
+      "group": "リズムゲーム"
+    },
+    {
+      "width": 1280,
+      "route": "/practice/history",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "自分の演奏履歴",
+      "controls": 5,
+      "group": "練習履歴"
+    },
+    {
+      "width": 1280,
+      "route": "/practice/[id]",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "演奏結果",
+      "controls": 12,
+      "group": "練習結果"
+    },
+    {
+      "width": 1280,
+      "route": "/repositories",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "リポジトリ",
+      "controls": 15,
+      "group": "リポジトリ"
+    },
+    {
+      "width": 1280,
+      "route": "/repositories/[id]/proposals/[proposalId]",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "編集案: Browser proposal",
+      "controls": 36,
+      "group": "提案詳細"
+    },
+    {
+      "width": 1280,
+      "route": "/trust",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "信頼度と評価",
+      "controls": 7,
+      "group": "信頼度"
+    },
+    {
+      "width": 1280,
+      "route": "/admin/trust",
+      "status": 200,
+      "scroll": 1280,
+      "heading": "信頼度の運営設定",
+      "controls": 19,
+      "group": "運営信頼度"
+    }
+  ],
+  "operations": [
+    "repository popup ArrowDown/select/Escape",
+    "360: required validation, real popup, FormData enum, Enter one create",
+    "360: member real role popup, unchecked absent/checked on, persisted role and permission",
+    "360: delete confirmation Space/cancel, analysis details",
+    "360 practice: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "360 rythme: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "360: decimal negative review, saved value unchanged",
+    "360: decimal rule confirmation/cancel leaves version unchanged",
+    "360: rule activation, native confirm cancel/apply, exact decimal adjusted score",
+    "360: pitch zero, draft description, keyboard save and proposal destination",
+    "360: partial null/zero/fraction/rest/fifty-row pagination and submit",
+    "360: real file chooser, same file reselection and preview",
+    "1280: required validation, real popup, FormData enum, Enter one create",
+    "1280: member real role popup, unchecked absent/checked on, persisted role and permission",
+    "1280: delete confirmation Space/cancel, analysis details",
+    "1280 practice: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "1280 rythme: MIDI substitute real device/track popup, interruption, save failure and identical retry",
+    "1280: decimal negative review, saved value unchanged",
+    "1280: decimal rule confirmation/cancel leaves version unchanged",
+    "1280: rule activation, native confirm cancel/apply, exact decimal adjusted score",
+    "1280: pitch zero, draft description, keyboard save and proposal destination",
+    "1280: partial null/zero/fraction/rest/fifty-row pagination and submit",
+    "1280: real file chooser, same file reselection and preview",
+    "360: role-based merge/reject/withdraw, conflict retains description and identical retry payload/key",
+    "1280: role-based merge/reject/withdraw, conflict retains description and identical retry payload/key",
+    "authenticated VIEWER keeps read-only controls",
+    "editor/operator/anonymous UI permission boundaries"
+  ],
+  "limits": [
+    "Physical MIDI not tested",
+    "Production SMTP/OAuth and OS-dependent feature005 checks remain outside this validation"
+  ],
+  "finalLayoutSmoke": {
+    "viewportRuns": 24,
+    "unexpectedPageOverflow": 0,
+    "pageErrors": 0,
+    "unnamedButtons": 0,
+    "passed": true
+  }
+}

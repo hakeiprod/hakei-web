@@ -68,7 +68,10 @@ describe("score drawing layouts", () => {
     expect(score.rows.length).toBeGreaterThan(1);
     for (const [index, row] of score.rows.entries()) {
       expect(row.masterbars.length).toBeGreaterThan(0);
-      expect(row.width).toBeLessThanOrEqual(controller.layoutWidth);
+      if (row.width > controller.layoutWidth) {
+        expect(row.masterbars).toHaveLength(1);
+        expect(row.width).toBeCloseTo(row.masterbars[0].minWidth);
+      }
       expect(row.masterbars[0].bars[0].staves[0].word.width).toBeGreaterThan(0);
       if (index > 0)
         expect(row.y).toBeGreaterThan(
@@ -190,7 +193,10 @@ test.each([1, 4, 17, 64])(
         const slots = stave.slots;
         expect(stave.width).toBeCloseTo(bar.width);
         expect(
-          slots.at(-1)!.x + slots.at(-1)!.width + stave.word.width,
+          slots.at(-1)!.x +
+            slots.at(-1)!.width +
+            stave.word.width +
+            stave.endPadding,
         ).toBeCloseTo(bar.width);
       }
     }

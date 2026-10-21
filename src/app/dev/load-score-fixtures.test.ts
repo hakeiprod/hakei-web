@@ -39,3 +39,28 @@ test("loads Core JSON fixtures in filename order", async () => {
   );
   expect(fixtures.every((fixture) => "data" in fixture)).toBe(true);
 });
+
+test("loads notation expectations without inventing persisted or visual passes", async () => {
+  const { loadNotationFixtures } = await import("./load-score-fixtures");
+  const fixtures = await loadNotationFixtures();
+  expect(fixtures.length).toBeGreaterThan(20);
+  for (const fixture of fixtures) {
+    expect(fixture.definition?.target).toBeTruthy();
+    expect(
+      fixture.results
+        ?.filter((r) => ["persisted", "visual"].includes(r.stage))
+        .every((r) => r.status !== "pass"),
+    ).toBe(true);
+  }
+}, 15_000);
+
+test("loads tab/drum and partial expectations independently", async () => {
+  const { loadNotationFixtures } = await import("./load-score-fixtures");
+  const fixtures = await loadNotationFixtures("tab-drum");
+  expect(fixtures.length).toBeGreaterThan(90);
+  expect(fixtures.every((f) => !("error" in f))).toBe(true);
+  expect(fixtures.some((f) => "partial" in f)).toBe(true);
+  await expect(loadNotationFixtures("../notation")).rejects.toThrow(
+    "Unknown fixture suite",
+  );
+}, 15_000);

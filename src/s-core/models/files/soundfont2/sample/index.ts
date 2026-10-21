@@ -51,7 +51,7 @@ export class Sample {
     public instrumentModulators: Modulator[],
     public header: Header,
     public generators: Generators,
-    public data: Int16Array
+    public data: Int16Array,
   ) {}
   static create = create;
 }

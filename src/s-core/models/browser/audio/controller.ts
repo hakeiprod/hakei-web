@@ -4,6 +4,9 @@ import * as BrowserAudio from ".";
 import "../../../extensions/audioContext/get-current-seconds.extensions";
 import * as Audio from "../../audio";
 import Soundfont2 from "../../files/soundfont2";
+import type { PracticeTimeline } from "../../practice/contracts";
+import { MidiNoteNumber } from "../../core/units";
+import { Seconds } from "../../files/soundfont2/units/seconds";
 import { Timer } from "./timer";
 
 export enum ControllerState {
@@ -47,14 +50,16 @@ export class Controller {
       unique(),
       map((value) => this.soundfont2.getPreset(value)),
     );
-    this.synths = this.score.tracks.map(
-      (track) =>
-        new BrowserAudio.Synth({
-          audioContext: this.audioContext,
-          preset: this.soundfont2.getPreset(track.preset.value),
-          track,
-        }),
-    );
+    this.synths = this.score.tracks
+      .filter((track) => track.notes.length > 0)
+      .map(
+        (track) =>
+          new BrowserAudio.Synth({
+            audioContext: this.audioContext,
+            preset: this.soundfont2.getPreset(track.preset.value),
+            track,
+          }),
+      );
   }
   private updateMasterGain = () => {
     this.masterGainNode.gain.value = this.isMute ? 0 : this.masterGain.value;
@@ -70,6 +75,7 @@ export class Controller {
       this.emitter.off("changeMasterGain", this.updateMasterGain);
     });
     for (const track of this.score.tracks) {
+      if (track.notes.length === 0) continue;
       const synth = this.synths.find((synth) => synth.track.id === track.id)!;
       const trackGain = this.trackGainNodes.get(track.id)!;
       const updateGain = (gain: Audio.Units.Gain) => {
@@ -94,6 +100,7 @@ export class Controller {
     this.timer.play();
     if (this.audioContext.state === "suspended") this.audioContext.resume();
     for (const track of this.score.tracks) {
+      if (track.notes.length === 0) continue;
       const synth = this.synths.find((synth) => synth.track.id === track.id)!;
       if (isNonNullish(this.timer.startSeconds))
         for (const note of track.notes) {
@@ -113,6 +120,26 @@ export class Controller {
               .value,
           );
         }
+    }
+  }
+  playTimeline(timeline: PracticeTimeline, originContextTime: number) {
+    if (this.disposed) throw new Error("PLAYER_DISPOSED");
+    this.mount();
+    for (const synth of this.synths) synth.clearAllScheduled();
+    this.timer.play();
+    this.timer.startSeconds = new Seconds(originContextTime);
+    for (const note of [
+      ...timeline.notes,
+      ...timeline.continuations.filter((note) => !note.continuedFrom),
+    ]) {
+      const synth = this.synths.find(
+        (synth) => synth.track.id === note.trackId,
+      );
+      if (!synth) throw new Error("INVALID_TRACK");
+      const pitch = new MidiNoteNumber(note.pitch),
+        onset = originContextTime + note.onsetUs / 1_000_000;
+      synth.noteOn(pitch, onset);
+      synth.noteOff(pitch, onset + note.durationUs / 1_000_000);
     }
   }
   resume() {

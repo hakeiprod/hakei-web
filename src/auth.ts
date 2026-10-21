@@ -1,8 +1,7 @@
-import { prisma } from "@/prisma";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import NextAuth from "next-auth";
+import { prisma } from "@/prisma";
+import { authenticationOptions } from "@/server/authentication/authjs";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: PrismaAdapter(prisma),
-  providers: [],
-});
+export const { handlers, auth, signIn, signOut } = NextAuth(
+  authenticationOptions(prisma),
+);

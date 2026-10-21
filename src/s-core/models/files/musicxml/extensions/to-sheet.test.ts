@@ -6,8 +6,12 @@ import { Score } from "../../../sheet";
 
 const directory = "src/s-core/fixtures/files/musicxml";
 const entries = await readdir(directory);
+// Menuett has explicit repeat blockers; its preview/save contract is tested in import/menuett.test.ts.
 const fixtures = entries
-  .filter((name) => name.endsWith(".mxl"))
+  .filter(
+    (name) =>
+      name.endsWith(".mxl") && name !== "Menuett_in_G-Dur_BWV_Anh._114.mxl",
+  )
   .toSorted();
 
 beforeEach(() => vi.spyOn(console, "log").mockImplementation(() => {}));
@@ -26,7 +30,7 @@ describe("MusicXML to Sheet", () => {
     expect(sheet.tracks.length).toBeGreaterThan(0);
     expect(sheet.notes.length).toBeGreaterThan(0);
     for (const note of sheet.notes) {
-      expect(Number.isFinite(note.pitch.value)).toBe(true);
+      expect(Number.isFinite(note.pitch!.value)).toBe(true);
       expect(Number.isFinite(note.start.value)).toBe(true);
       expect(Number.isFinite(note.duration.value)).toBe(true);
       expect(note.duration.value).toBeGreaterThan(0);
