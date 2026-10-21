@@ -815,7 +815,7 @@ export async function convertMusicXml(bytes: Uint8Array) {
               displayStep: text(first(unpitched, "display-step")),
               displayOctave: number(first(unpitched, "display-octave")),
               notehead: head,
-              instrumentId,
+              ...(instrumentId === undefined ? {} : { instrumentId }),
               ...(midi?.midiNote === undefined
                 ? {}
                 : { midiNote: midi.midiNote - 1 }),

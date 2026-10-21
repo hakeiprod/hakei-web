@@ -1,3 +1,16 @@
+# GitHub Actionsの保存統合テスト失敗修正（2026-10-21 JST）
+
+GitHub Actions run 39535417425のDB統合テストで、tab/conflicting-string-input、tab/tuning-conflict、drum/percussion-to-standardの3件が失敗した（統合テスト206合格・3失敗）。
+
+- 不完全候補を提案として再保存する際に、完全候補への昇格が表記矛盾で例外になっていた。完全スキーマのsafeParse成功時だけ昇格し、矛盾が残る場合は元のpartialと元情報を保持する。完全候補自体の厳密検証は変更しない。
+- MusicXMLのinstrument参照がない打楽器にinstrumentId:undefinedを明示的に付けていた。未指定時はフィールドを省略して非JSON値を除き、既存の署名・JSON検証は維持する。
+
+src/server/import-notation-regressions.test.tsでCIの3失敗をDBなしで再現し、修正前の失敗と修正後の合格を確認した。全回帰は115ファイル・877テスト合格。型検査・変更3ソースのlint・取り込みworkerビルドも合格。008の69件・009の119件の自動証跡を再生成した。
+
+ローカルDB実行の保留は維持する。DB統合検証にはリポジトリの既存GitHub Actions専用PostgreSQLを利用し、修正コミットに対応するActions実行結果を参照する。構造化したpersisted/visual証跡や最終監査を、この通常テストの合格で自動的に完了扱いにはしない。
+
+---
+
 # push前のリモート統合検証（2026-10-21 JST）
 
 origin/chore/setup-spec-kitの27403d0までの音部記号・拍子配置修正を競合なく統合した。統合後の全回帰は114ファイル・874テスト合格、型検査と統合対象6ソースのlintも合格。008の69件・009の119件の自動証跡を再生成し、入力・期待値・layout・現在ソース版の一致とfail/error 0件を確認した。現在fingerprint: 4983faeb956628f8f8dcc43ffeea9c28906ce2cfb0f660bc153d2324cb675125。

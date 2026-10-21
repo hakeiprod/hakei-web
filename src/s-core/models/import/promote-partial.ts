@@ -40,7 +40,7 @@ export function promotePartial(input: unknown): {
     typeof candidate.notation === "object" &&
     !Array.isArray(candidate.notation)
   ) {
-    const full = sheetScoreSchema.parse({
+    const full = sheetScoreSchema.safeParse({
       ...candidate.notation,
       notes: candidate.notes.map((note) => ({
         ...copyNotation(note),
@@ -64,7 +64,9 @@ export function promotePartial(input: unknown): {
           : {}),
       })),
     });
-    return { candidate: full, issues: [] };
+    // Saving a partial candidate is valid even if its notation still conflicts.
+    // Promote only after every full-score constraint is satisfied.
+    return { candidate: full.success ? full.data : candidate, issues: [] };
   }
   const preservePartial = () => ({
     candidate,
