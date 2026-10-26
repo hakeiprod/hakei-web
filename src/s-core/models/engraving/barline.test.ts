@@ -5,6 +5,7 @@ import "../core/extensions/to-sheet";
 import * as Drawing from "../document";
 import { LayoutType } from "../sheet";
 import * as Engraving from ".";
+import BravuraMetadata from "../../const/bravura/bravura_metadata.json";
 
 function positioned(
   elements: readonly Drawing.Element[],
@@ -163,3 +164,47 @@ test("recomputes the bar width from changed SMuFL ledger-line bounds", () => {
   expect(controller.toDocument()).toEqual(after);
   controller.unmount();
 });
+
+test.each([undefined, 0, 0.7])(
+  "uses the metadata gap between final barline ink edges (%s)",
+  (separation) => {
+    const defaults = BravuraMetadata.engravingDefaults;
+    const metadata = defaults as typeof defaults & {
+      thinThickBarlineSeparation?: number;
+    };
+    const previous = metadata.thinThickBarlineSeparation;
+    metadata.thinThickBarlineSeparation = separation;
+    const score = Engraving.Score.import(
+      Core.Score.create({
+        tracks: [{ notes: [{ pitch: 60, start: 0, duration: 4 }] }],
+      })
+        .toSheet()
+        .export(),
+    );
+    const controller = new Engraving.Controller(score, {
+      layoutType: LayoutType.Horizontal,
+      scale: 12,
+      advanced: true,
+      debug: false,
+    });
+    try {
+      controller.mount();
+      const elements = positioned(controller.toDocument().pages[0].elements);
+      const thin = elements.find(
+        ({ element }) => element.role === "barline-end-thin",
+      )!.element as Drawing.Line;
+      const thick = elements.find(
+        ({ element }) => element.role === "barline-end-thick",
+      )!.element as Drawing.Line;
+      expect(
+        thick.start.x -
+          thick.strokeWidth / 2 -
+          (thin.start.x + thin.strokeWidth / 2),
+      ).toBeCloseTo(separation ?? defaults.barlineSeparation);
+    } finally {
+      if (previous === undefined) delete metadata.thinThickBarlineSeparation;
+      else metadata.thinThickBarlineSeparation = previous;
+      controller.unmount();
+    }
+  },
+);
