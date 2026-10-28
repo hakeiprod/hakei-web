@@ -6,7 +6,9 @@
 
 ## PR準備の最新状態（2026-10-28 UTC）
 
-差分レビューとPR作成を継続中。[レビュー記録](review.md)。通常全単体の並列競合による6件失敗へmaxWorkers=1を追加し、通常コマンドの132ファイル/1,143試験・型・lintすべて成功（[結果](review-checks.json)）。製品コード/描画基準/固定性能目標は不変。大きい生証拠はローカルに保持し、[PR掲載範囲](evidence.md)と[hash一覧](published-evidence.json)を記録した。次は通常全単体・型・lintを確定→終止線別変更の独立コミット→010コミット→push/PR作成。再開指示は待たず続行する。
+差分レビューとコミット準備の確認は完了。[レビュー記録](review.md)、[再検証結果](review-checks.json)。通常の全単体はmaxWorkers=1で132ファイル/1,143試験成功、型/lint成功。製品361ファイルは最終性能producerと一致し、固定目標/描画基準/終止線別変更を保持した。Gitの既存改行変換で圧縮基準54ファイルの格納byteが変わる問題も、binary属性と原本の再登録で修正。Git object/原本の385 binaryファイルが一致した。
+
+生証拠約5.1GBはローカル保持。[PR掲載範囲](evidence.md)と[hash一覧](published-evidence.json)を参照。終止線を独立コミットで区別し、無関係なSMuFL監査文書は含めない。PR用ブランチは `fix/010-responsive-score-rendering`、baseは `develop`。本記録をpushしてPRを作成し、**次はPRのCI結果と差分をレビューする**。未解決の実装指摘0、マージは実行しない。
 
 ## 最新状態（2026-10-28 JST）
 
