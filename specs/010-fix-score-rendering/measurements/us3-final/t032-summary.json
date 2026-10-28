@@ -1,0 +1,20 @@
+{
+  "status": "T032-complete",
+  "unitFiles": 132,
+  "unitTestsPassed": 1143,
+  "integrationFiles": 2,
+  "integrationTestsPassed": 14,
+  "typescript": true,
+  "eslintScope": "src/s-core/models src/components scripts resource/[id]/page.tsx",
+  "eslint": true,
+  "normalProductionBuild": true,
+  "normalProductionBuildIgnoresTypes": false,
+  "workerRegenerated": true,
+  "notes": [
+    "Model reference tests use existing independent old-algorithm + separately authorized final-barline overlay artifacts. Original references and fixed thresholds retained.",
+    "Fresh per-test DOM scope avoids retaining giant SVGs and keeps existing 120s timeout.",
+    "Explicit index rebuild after test-only note/chord mutation follows the existing model contract.",
+    "Resource params type corrected to Promise, matching its existing await and generated Next route types.",
+    "Build advisory notification retried with the identical command; no dependency upgrade performed."
+  ]
+}

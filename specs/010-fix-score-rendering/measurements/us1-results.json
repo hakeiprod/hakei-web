@@ -1,0 +1,376 @@
+{
+  "status": "passed-T018-basic-condition",
+  "performancePass": true,
+  "task": "T018",
+  "budgetsUnchanged": true,
+  "scope": "Original Horizontal / 1280x900 / scale12 / advanced=true / debug=false. Five isolated trials each for model, cold and reload. Additional five-trial retirement input check. T019 onwards remain incomplete.",
+  "completedAt": "2026-10-23T19:50:34.733652+00:00",
+  "model": {
+    "path": "t018-leave/model.json",
+    "equivalence": "t018-leave/model-equivalence.json",
+    "trialsMs": [
+      1661.9891899999998,
+      1831.0659490000003,
+      1715.4592320000002,
+      1758.3644340000005,
+      1925.7012540000005
+    ],
+    "count": 5,
+    "maxMs": 1925.7012540000005,
+    "medianMs": 1758.3644340000005,
+    "budgetMs": 6500,
+    "allPass": true
+  },
+  "browser": {
+    "cold": {
+      "path": "t018-leave/cold/reviewed.json",
+      "display": {
+        "trialsMs": [
+          3143.6669999957085,
+          3183.9809999763966,
+          3149.356000006199,
+          3152.707000017166,
+          3114.680999994278
+        ],
+        "count": 5,
+        "maxMs": 3183.9809999763966,
+        "medianMs": 3149.356000006199,
+        "budgetMs": 12500,
+        "allPass": true
+      },
+      "operations": {
+        "during-render-key": {
+          "trialsMs": [
+            20.34900000691414,
+            24.61100000143051,
+            18.10699999332428,
+            17.802000015974045,
+            36.40999999642372
+          ],
+          "count": 5,
+          "maxMs": 36.40999999642372,
+          "medianMs": 20.34900000691414,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "text-input": {
+          "trialsMs": [
+            56.898999989032745,
+            50.68199998140335,
+            54.79900002479553,
+            66.3110000193119,
+            48.896000027656555
+          ],
+          "count": 5,
+          "maxMs": 66.3110000193119,
+          "medianMs": 54.79900002479553,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "leave": {
+          "trialsMs": [
+            89.74300000071526,
+            78.97499999403954,
+            77.67300000786781,
+            73.63500002026558,
+            81.6550000011921
+          ],
+          "count": 5,
+          "maxMs": 89.74300000071526,
+          "medianMs": 78.97499999403954,
+          "budgetMs": 100,
+          "allPass": true
+        }
+      },
+      "summary": {
+        "trials": 5,
+        "cutoffs": 0,
+        "failures": 0,
+        "unmeasurable": 0,
+        "cold": {
+          "count": 5,
+          "maxMs": 3183.9809999763966,
+          "medianMs": 3149.356000006199
+        },
+        "inputs": {
+          "count": 15,
+          "maxMs": 89.74300000071526,
+          "medianMs": 54.79900002479553
+        }
+      },
+      "allPass": true
+    },
+    "reload": {
+      "path": "t018-leave/reload/reviewed.json",
+      "display": {
+        "trialsMs": [
+          3429.3230000138283,
+          3134.6430000066757,
+          3045.5920000076294,
+          3080.543000012636,
+          2951.0230000019073
+        ],
+        "count": 5,
+        "maxMs": 3429.3230000138283,
+        "medianMs": 3080.543000012636,
+        "budgetMs": 12500,
+        "allPass": true
+      },
+      "operations": {
+        "during-render-key": {
+          "trialsMs": [
+            18.3299999833107,
+            16.689000010490417,
+            25.250999987125397,
+            24.484999984502792,
+            16.689000010490417
+          ],
+          "count": 5,
+          "maxMs": 25.250999987125397,
+          "medianMs": 18.3299999833107,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "text-input": {
+          "trialsMs": [
+            69.13999998569489,
+            49.81999999284744,
+            49.66400000452995,
+            58.119000017642975,
+            46.20899999141693
+          ],
+          "count": 5,
+          "maxMs": 69.13999998569489,
+          "medianMs": 49.81999999284744,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "leave": {
+          "trialsMs": [
+            89.76500001549721,
+            76.25999999046326,
+            76.50800001621246,
+            74.23299998044968,
+            76.5789999961853
+          ],
+          "count": 5,
+          "maxMs": 89.76500001549721,
+          "medianMs": 76.50800001621246,
+          "budgetMs": 100,
+          "allPass": true
+        }
+      },
+      "summary": {
+        "trials": 5,
+        "cutoffs": 0,
+        "failures": 0,
+        "unmeasurable": 0,
+        "cold": {
+          "count": 5,
+          "maxMs": 3429.3230000138283,
+          "medianMs": 3080.543000012636
+        },
+        "inputs": {
+          "count": 15,
+          "maxMs": 89.76500001549721,
+          "medianMs": 49.81999999284744
+        }
+      },
+      "allPass": true
+    },
+    "cleanup": {
+      "path": "t018-leave/cleanup/reviewed.json",
+      "display": {
+        "trialsMs": [
+          3163.53900000453,
+          3399.655000001192,
+          3204.7219999730587,
+          3079.4709999859333,
+          3086.4269999861717
+        ],
+        "count": 5,
+        "maxMs": 3399.655000001192,
+        "medianMs": 3163.53900000453,
+        "budgetMs": 12500,
+        "allPass": true
+      },
+      "operations": {
+        "during-render-key": {
+          "trialsMs": [
+            16.273999989032745,
+            30.795999974012375,
+            18.131000012159348,
+            24.57200002670288,
+            17.997000008821487
+          ],
+          "count": 5,
+          "maxMs": 30.795999974012375,
+          "medianMs": 18.131000012159348,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "text-input": {
+          "trialsMs": [
+            48.18400001525879,
+            49.351000010967255,
+            47.9539999961853,
+            55.300999999046326,
+            47.077999979257584
+          ],
+          "count": 5,
+          "maxMs": 55.300999999046326,
+          "medianMs": 48.18400001525879,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "leave": {
+          "trialsMs": [
+            77.07699999213219,
+            76.78099998831749,
+            73.82499998807907,
+            84.70099997520447,
+            72.22200000286102
+          ],
+          "count": 5,
+          "maxMs": 84.70099997520447,
+          "medianMs": 76.78099998831749,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "input-during-retirement": {
+          "trialsMs": [
+            32.136000007390976,
+            29.16899999976158,
+            28.022000014781952,
+            49.29100000858307,
+            27.212000012397766
+          ],
+          "count": 5,
+          "maxMs": 49.29100000858307,
+          "medianMs": 29.16899999976158,
+          "budgetMs": 100,
+          "allPass": true
+        }
+      },
+      "summary": {
+        "trials": 5,
+        "cutoffs": 0,
+        "failures": 0,
+        "unmeasurable": 0,
+        "cold": {
+          "count": 5,
+          "maxMs": 3399.655000001192,
+          "medianMs": 3163.53900000453
+        },
+        "inputs": {
+          "count": 20,
+          "maxMs": 84.70099997520447,
+          "medianMs": 47.51599998772144
+        }
+      },
+      "allPass": true,
+      "retirementCompletedAll": true
+    },
+    "control": {
+      "path": "t018-leave/control/reviewed.json",
+      "display": {
+        "trialsMs": [
+          3160.6870000064373,
+          3103.1480000019073,
+          3029.0679999887943,
+          3135.9829999804497,
+          3245.6299999952316
+        ],
+        "count": 5,
+        "maxMs": 3245.6299999952316,
+        "medianMs": 3135.9829999804497,
+        "budgetMs": 12500,
+        "allPass": true
+      },
+      "operations": {
+        "during-render-key": {
+          "trialsMs": [
+            42.455999970436096,
+            56.489000022411346,
+            53.19099998474121,
+            55.66100001335144,
+            47.389999985694885
+          ],
+          "count": 5,
+          "maxMs": 56.489000022411346,
+          "medianMs": 53.19099998474121,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "text-input": {
+          "trialsMs": [
+            55.86199998855591,
+            51.1240000128746,
+            57.81899997591972,
+            53.66200000047684,
+            54.91600000858307
+          ],
+          "count": 5,
+          "maxMs": 57.81899997591972,
+          "medianMs": 54.91600000858307,
+          "budgetMs": 100,
+          "allPass": true
+        },
+        "leave": {
+          "trialsMs": [
+            132.50999999046326,
+            135.56600001454353,
+            136.8289999961853,
+            135.25100001692772,
+            159.76899999380112
+          ],
+          "count": 5,
+          "maxMs": 159.76899999380112,
+          "medianMs": 135.56600001454353,
+          "budgetMs": 100,
+          "allPass": false
+        }
+      },
+      "summary": {
+        "trials": 5,
+        "cutoffs": 0,
+        "failures": 0,
+        "unmeasurable": 0,
+        "cold": {
+          "count": 5,
+          "maxMs": 3245.6299999952316,
+          "medianMs": 3135.9829999804497
+        },
+        "inputs": {
+          "count": 15,
+          "maxMs": 159.76899999380112,
+          "medianMs": 55.86199998855591
+        }
+      },
+      "allPass": false
+    }
+  },
+  "drawing": {
+    "independentDocumentSVGConditions": 96,
+    "independentRegressionLog": "t018-leave/t018-regression.log",
+    "sourceAndGeometryConditions": 96,
+    "sourceAndGeometryMatch": true,
+    "surfaceComparison": "t018-leave/surface/results.json",
+    "visualReview": "t018-leave/surface/visual-review.json",
+    "exactRasterMatch": false,
+    "notes": "Raw PNG differences from compositing are retained unchanged; source SVG, coordinates, bbox/CTM and computed paint/font styles match exactly. No coordinate rounding or tolerance added to Document/SVG comparison.",
+    "exactRasterConditions": 28,
+    "rawRasterMaxChannelDelta": 255,
+    "visibleViewportPairsReviewed": 96
+  },
+  "functional": {
+    "workflow": "t018-leave/workflow/results.json",
+    "storage": "t018-leave/workflow/storage.json"
+  },
+  "measurement": "Browser input event timestamp through first explicitly reviewed correct Presentation. Includes queue delay. Same corrected collector and native DOM state observation used for old v5 control and new implementation. Screenshot preparation uses CDP, without Playwright full-DOM walking.",
+  "priorFailures": [
+    "us1-attempt-v3",
+    "us1-attempt-v5",
+    "t018-leave/attempts"
+  ]
+}

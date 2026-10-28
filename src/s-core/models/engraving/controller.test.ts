@@ -1,10 +1,34 @@
 // @vitest-environment node
-import { describe, expect, test } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { createHash } from "node:crypto";
+import { createRequire } from "node:module";
+import { readFile } from "node:fs/promises";
+import { gunzipSync } from "node:zlib";
+import { convertScore } from "../import/convert";
+import "../document/extensions/to-svg";
+import fixtures from "../../../../specs/010-fix-score-rendering/measurements/fixtures.json";
+import references from "../../../../specs/010-fix-score-rendering/measurements/reference-with-separate-barline-manifest.json";
 import * as Core from "../core";
 import "../core/extensions/to-sheet";
 import * as Drawing from "../document";
 import { LayoutType } from "../sheet";
 import * as Engraving from ".";
+
+const hash = (value: string | Uint8Array) =>
+  createHash("sha256").update(value).digest("hex");
+
+// Keep each large SVG comparison in its own DOM, as in the independent
+// benchmark, rather than retaining every fixture in the shared browser window.
+const { JSDOM } = createRequire(import.meta.url)("jsdom");
+let dom: { window: { document: Document; close(): void } };
+beforeEach(() => {
+  dom = new JSDOM();
+  vi.stubGlobal("document", dom.window.document);
+});
+afterEach(() => {
+  dom.window.close();
+  vi.unstubAllGlobals();
+});
 
 function prepare(layoutType: LayoutType, noteCount = 64) {
   const score: Engraving.Score = Engraving.Score.import(
@@ -258,3 +282,106 @@ test("page spacing keeps simultaneous notes aligned across tracks and piano stav
     expect(new Set(groups.map((group) => group.position.x)).size).toBe(1);
   }
 });
+
+test("consumes the mounted layout once, rebuilds after condition changes and keeps repeated geometry", () => {
+  const { controller } = prepare(LayoutType.Page, 16);
+  const layout = controller.layoutSteps.bind(controller);
+  let layouts = 0;
+  controller.layoutSteps = function* () {
+    layouts++;
+    yield* layout();
+  };
+  const first = controller.toDocument();
+  expect(layouts).toBe(0);
+  expect(controller.toDocument()).toEqual(first);
+  expect(layouts).toBe(1);
+  controller.options.scale = 18;
+  controller.toDocument();
+  expect(layouts).toBe(2);
+});
+
+test.each(fixtures.fixtures)(
+  "condition round trips keep the independent complete geometry: $id",
+  async (fixture) => {
+    const converted = await convertScore({
+      bytes: await readFile(fixture.path),
+      sourceName: fixture.path,
+      options: { mode: "PRESERVE" },
+    });
+    if ("format" in converted.candidate)
+      throw new Error("Complete fixture required");
+    const input = JSON.stringify(converted);
+    const score = Engraving.Score.import(
+      converted.candidate as unknown as ReturnType<Engraving.Score["export"]>,
+    );
+    const controller = new Engraving.Controller(score, {
+      layoutType: LayoutType.Horizontal,
+      scale: 12,
+      advanced: true,
+      debug: false,
+      viewportWidth: 1280,
+      viewportHeight: 900,
+    });
+    controller.mount();
+    const conditions = fixtures.layouts.flatMap((layout) =>
+      fixtures.viewports.flatMap((viewport) =>
+        fixtures.scales.map((scale) => ({ layout, viewport, scale })),
+      ),
+    );
+    const initial = JSON.stringify(controller.toDocument());
+    for (const condition of conditions) {
+      controller.options.layoutType =
+        LayoutType[condition.layout as keyof typeof LayoutType];
+      controller.options.scale = condition.scale;
+      controller.options.viewportWidth = condition.viewport.width;
+      controller.options.viewportHeight = condition.viewport.height;
+      const previousPass = score.layoutPass;
+      const drawing = controller.toDocument();
+      expect(score.layoutPass).not.toBe(previousPass);
+      const id = `${fixture.id}-${condition.layout}-${condition.viewport.width}x${condition.viewport.height}-${condition.scale}`;
+      const reference = references.references.find(
+        (entry) => entry.condition === id,
+      )!;
+      const documentArtifact = reference.artifacts.find((artifact) =>
+        artifact.path.endsWith("document.json.gz"),
+      )!;
+      const svgArtifact = reference.artifacts.find((artifact) =>
+        artifact.path.endsWith("svg.gz"),
+      )!;
+      const expectedDocument = await readFile(
+        `specs/010-fix-score-rendering/measurements/${documentArtifact.path}`,
+      );
+      const expectedSVG = await readFile(
+        `specs/010-fix-score-rendering/measurements/${svgArtifact.path}`,
+      );
+      expect(hash(expectedDocument)).toBe(documentArtifact.sha256);
+      expect(hash(expectedSVG)).toBe(svgArtifact.sha256);
+      expect(hash(JSON.stringify(drawing))).toBe(
+        hash(gunzipSync(expectedDocument)),
+      );
+      const pages = drawing.pages
+        .map(
+          (_, pageIndex) =>
+            drawing.toSVG({
+              pageIndex,
+              scale: condition.scale,
+              fontFamily: "Bravura",
+              paddingBottom: condition.layout === "Page" ? 0 : 100,
+            }).outerHTML,
+        )
+        .join("\n");
+      expect(hash(pages)).toBe(hash(gunzipSync(expectedSVG)));
+      expect(controller.toDocument()).toEqual(drawing);
+    }
+    Object.assign(controller.options, {
+      layoutType: LayoutType.Horizontal,
+      scale: 12,
+      viewportWidth: 1280,
+      viewportHeight: 900,
+    });
+    expect(JSON.stringify(controller.toDocument())).toBe(initial);
+    expect(JSON.stringify(converted)).toBe(input);
+    controller.unmount();
+  },
+  120_000,
+);

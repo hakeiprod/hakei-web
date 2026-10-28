@@ -1,3 +1,4 @@
+import { measure } from "./layout-pass";
 import { match, P } from "ts-pattern";
 import * as Sheet from ".";
 import { Clef } from "../../const/musicxml/4.0/musicxml";
@@ -11,19 +12,27 @@ export class Stave {
   staffSettings?: import("./notation/staff-settings").StaffSettings;
   score!: Sheet.Score;
   get bar() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.staveBar.get(this)!;
     return this.score.bars.find(
       (bar) => bar.trackId === this.trackId && bar.id === this.barId,
     )!;
   }
   get notes() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.staveNotes.get(this) ?? [])];
     return this.bar.notes.filter((note) => note.staveId === this.id);
   }
   get slots() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.staveSlots.get(this) ?? [])];
     return this.score.slots.filter((slot) =>
       this.bar.masterbar.isOverlapped(slot),
     );
   }
   get beamGroups() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.staveBeams.get(this) ?? [])];
     return this.score.beamGroups.filter(
       (beam) =>
         beam.staveId === this.id &&
@@ -32,6 +41,8 @@ export class Stave {
     );
   }
   get chords() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.staveChords.get(this) ?? [])];
     return this.bar.chords.filter((chord) => chord.stave.id === this.id);
   }
   get events() {
@@ -41,13 +52,22 @@ export class Stave {
     return -1;
   }
   get width() {
-    return this.slots.reduce(
-      (accumulator, current) => accumulator + current.width,
-      0,
-    );
+    return measure(this.score.layoutPass, this, "sheet/stave.ts:width", () => {
+      return this.slots.reduce(
+        (accumulator, current) => accumulator + current.width,
+        0,
+      );
+    });
   }
   get minWidth() {
-    return this.slots.reduce((width, slot) => width + slot.minWidth, 0);
+    return measure(
+      this.score.layoutPass,
+      this,
+      "sheet/stave.ts:minWidth",
+      () => {
+        return this.slots.reduce((width, slot) => width + slot.minWidth, 0);
+      },
+    );
   }
   get y() {
     return this.bar.staves

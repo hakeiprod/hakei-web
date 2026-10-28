@@ -26,15 +26,23 @@ export class Chord extends Core.Event<{ id: number }> {
     return this.notes[0].keysignature;
   }
   get slot() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.chordSlot.get(this)!;
     return this.score.slots.find((slot) => slot.chords.includes(this))!;
   }
   get stave() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.chordStave.get(this)!;
     return this.notes[0].stave;
   }
   get track() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.chordTrack.get(this)!;
     return this.notes[0].track;
   }
   get beamGroup() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.chordBeams.get(this)?.[0];
     return this.score.beamGroups.find((beamGroup) =>
       isIncludedIn(this.id, pipe(beamGroup.chordIds)),
     );

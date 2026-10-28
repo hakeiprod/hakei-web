@@ -1,0 +1,5 @@
+{
+  "pass": true,
+  "checked": "connection credentials, private keys, auth secret literals",
+  "issues": []
+}

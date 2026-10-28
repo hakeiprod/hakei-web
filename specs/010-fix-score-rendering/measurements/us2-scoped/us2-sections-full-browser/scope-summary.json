@@ -1,0 +1,67 @@
+{
+  "scope": "us2-sections-full-browser",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 22,
+  "reviewedImages": 1,
+  "summary": {
+    "trials": 22,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 22,
+    "cold": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "redraws": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 1,
+      "maxMs": 100.5840000002645,
+      "medianMs": 100.5840000002645
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "svgRestored": 22,
+  "budgetsUnchanged": true
+}

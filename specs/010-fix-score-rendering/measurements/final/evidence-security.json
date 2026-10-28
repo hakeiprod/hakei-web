@@ -1,0 +1,16 @@
+{
+  "purpose": "Exact private secret/token/password/database URL and browser-cookie match scan; values never printed or archived.",
+  "scopes": [
+    "final",
+    "us3-final"
+  ],
+  "filesAndArchiveMembers": 40865,
+  "matches": [],
+  "pass": true,
+  "subsequentDerivedArtifacts": {
+    "us3-results.json": "Result payload equals the already scanned archived reviewed.json; static index metadata added. No private environment/session source read.",
+    "review-integrity.json": "Counts/references from scanned reports, no secret values.",
+    "convergence.json": "Static intent/completion counts and evidence references only.",
+    "cleanupScripts": "Copied source templates refer to private file paths, never contain private values."
+  }
+}

@@ -1,3 +1,4 @@
+import { drainSteps, type RenderSteps } from "../../sheet/render-steps";
 import * as Drawing from "..";
 
 export interface ToSVGOptions {
@@ -12,6 +13,7 @@ export interface ToSVGOptions {
 declare module ".." {
   interface Document {
     toSVG(options?: ToSVGOptions): SVGSVGElement;
+    toSVGSteps(options?: ToSVGOptions): RenderSteps<SVGSVGElement>;
   }
 }
 
@@ -37,7 +39,8 @@ function setMetadata(node: SVGElement, element: Drawing.Element) {
   }
 }
 
-function renderElement(element: Drawing.Element): SVGElement {
+function* renderElement(element: Drawing.Element): RenderSteps<SVGElement> {
+  yield;
   if (element instanceof Drawing.Group) {
     const node = createSVGElement("g");
     setMetadata(node, element);
@@ -45,7 +48,8 @@ function renderElement(element: Drawing.Element): SVGElement {
       "transform",
       `translate(${element.position.x}, ${element.position.y})`,
     );
-    for (const child of element.children) node.append(renderElement(child));
+    for (const child of element.children)
+      node.append(yield* renderElement(child));
     return node;
   }
   if (element instanceof Drawing.Glyph) {
@@ -147,6 +151,12 @@ function renderElement(element: Drawing.Element): SVGElement {
 
 /** Render resolved geometry without depending on musical or SMUFL models. */
 export function toSVG(drawing: Drawing.Document, options: ToSVGOptions = {}) {
+  return drainSteps(toSVGSteps(drawing, options));
+}
+export function* toSVGSteps(
+  drawing: Drawing.Document,
+  options: ToSVGOptions = {},
+): RenderSteps<SVGSVGElement> {
   const pageIndex = options.pageIndex ?? 0;
   const scale = options.scale ?? 1;
   const fontSize = options.fontSize ?? drawing.fontSize;
@@ -174,11 +184,16 @@ export function toSVG(drawing: Drawing.Document, options: ToSVGOptions = {}) {
   if (options.fontFamily) svg.setAttribute("font-family", options.fontFamily);
   const root = createSVGElement("g");
   root.setAttribute("type", "score");
-  for (const element of page.elements) root.append(renderElement(element));
+  for (const element of page.elements)
+    root.append(yield* renderElement(element));
   svg.append(root);
   return svg;
 }
 
 Drawing.Document.prototype.toSVG = function (options) {
   return toSVG(this, options);
+};
+
+Drawing.Document.prototype.toSVGSteps = function (options) {
+  return toSVGSteps(this, options);
 };

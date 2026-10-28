@@ -1,0 +1,40 @@
+{
+  "kind": "functional-import-save-reload",
+  "performancePass": null,
+  "fixture": "naitoobunaitsu-bitomario",
+  "sha256": "1d15dcf279b2de186682740fbdfb501eb5e2e80f5977993cde04f1027b9f36fe",
+  "steps": [
+    {
+      "stage": "new-private-repository-created"
+    },
+    {
+      "stage": "preview-rendered-and-input-usable"
+    },
+    {
+      "stage": "warnings-confirmed",
+      "confirmed": 312
+    },
+    {
+      "stage": "saved-detail-rendered"
+    },
+    {
+      "stage": "saved-detail-reloaded"
+    }
+  ],
+  "status": "complete",
+  "repositoryId": null,
+  "preview": {
+    "candidateSha256": "73486dc116900ae59b7c44dafa25c2728593f5a27be4a14c7948488a84a82dfb",
+    "metadataSha256": "a8e95f8267d1a924ccabc7afc70a81ea6843a765b5337c2bc68357d238b270e7",
+    "issuesSha256": "0a752e0504094ea9086fc359e6ff48c3537cf5d8c2a8883d7bd509e841bb96a3",
+    "validationSha256": "a8825ccd5875da5b54be210188c1d7eeb13572ad88daf85199fc83c7415d592e",
+    "notes": 5540,
+    "issues": 312,
+    "version": "3.1",
+    "canPractice": true,
+    "canGame": true,
+    "renderedSourceIds": 5540,
+    "renderedSourceIdsSha256": "977d5a12638e0fc6fdb457916d56173d7647976dc3c06292af90ac6be26fc7c2"
+  },
+  "scoreId": 29
+}

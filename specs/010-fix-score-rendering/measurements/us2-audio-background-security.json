@@ -1,0 +1,11 @@
+{
+  "scopes": [
+    "us2-audio-background-source",
+    "us2-scoped/us2-audio-background-quarter",
+    "us2-scoped/us2-bounded-boost-full-browser"
+  ],
+  "filesAndArchiveMembers": 18017,
+  "matches": [],
+  "pass": true,
+  "purpose": "Exact private secret/database URL/cookie match scan; values excluded"
+}

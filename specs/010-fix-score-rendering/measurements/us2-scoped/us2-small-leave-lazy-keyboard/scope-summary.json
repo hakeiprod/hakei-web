@@ -1,0 +1,43 @@
+{
+  "scope": "us2-small-leave-lazy-keyboard",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 5,
+  "reviewedImages": 40,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 120.50400000065565,
+      "medianMs": 106.76000000163913
+    },
+    "redraws": {
+      "count": 10,
+      "maxMs": 31.181000001728535,
+      "medianMs": 28.554500000551343
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 25,
+      "maxMs": 82.53999999910593,
+      "medianMs": 19.695000000298023
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 120.50400000065565,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": false
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

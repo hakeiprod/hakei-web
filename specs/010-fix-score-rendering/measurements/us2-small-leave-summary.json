@@ -1,0 +1,42 @@
+{
+  "status": "limited leave verification passed; T025 remains incomplete because quarter cold failed",
+  "currentSourceSnapshot": "us2-small-leave-hydration-source",
+  "small": {
+    "trials": 5,
+    "reviewedImages": 40,
+    "leaveMaxMs": 83.23699999973178,
+    "inputMaxMs": 83.23699999973178,
+    "coldMaxMs": 116.78400000184774,
+    "fixedColdThresholdMs": 112.89399999380112,
+    "coldFailedRuns": [
+      1
+    ],
+    "roundtripSVGAndPreviousControlMatch": 5
+  },
+  "original": {
+    "trials": 5,
+    "reviewedImages": 40,
+    "leaveMaxMs": 56.15600000321865,
+    "inputMaxMs": 74.61600000038743,
+    "coldMaxMs": 3706.3369999974966,
+    "redrawMaxMs": 3357.525999996811,
+    "roundtripSVGAndPreviousControlMatch": 5,
+    "scopeTimingPass": true
+  },
+  "nativeNextCancellation": "us2-small-leave-cancel/results.json",
+  "keyboardPreservation": "us2-small-leave-keyboard-preservation/comparison.json",
+  "investigation": "us2-small-leave-profile.json",
+  "tests": {
+    "passed": 94,
+    "files": 8,
+    "typecheck": true,
+    "lint": true,
+    "privateProductionBuild": true,
+    "rootProductionBuildPass": null
+  },
+  "goalsUnchanged": true,
+  "modelsAndSeparateBarlineUnchanged": true,
+  "fullUS2Pass": null,
+  "causalLimit": "Original115.828ms did not recur in the five unchanged control runs. Offscreen Pixi initialization and its global pointerup work are removed; full elimination of the intermittent excess is not proven by five passes. Prior failures retained.",
+  "next": "Instrument renderScore.onStage in private copy to locate build/layout/document/svg/highlight time before SVG-bound101.592ms in quarter run1; preserve current leave fix and repeat all scoped conditions before full96."
+}

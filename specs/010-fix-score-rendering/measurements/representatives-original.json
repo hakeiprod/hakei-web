@@ -1,0 +1,7167 @@
+{
+  "measuredAt": "2026-10-22T22:55:02.753Z",
+  "sourceRoot": "/tmp/hakei-010-implement/reference",
+  "sourceHashes": {
+    "src/s-core/models/sheet/score.ts": "6ddf4bfa7a6c47053b051de6f0378b9f28a3ca4ae871be8364596e03564a38a0",
+    "src/s-core/models/sheet/controller.ts": "bbb1154f23c48127854cc38acefc819ef9cce6172092e82af9c7b60dd5fd4f8f",
+    "src/s-core/models/engraving/controller.ts": "874528798dd570b6d56897c81013fddb0e3c90a95af76a4a705e10bd7ef4ad1b",
+    "src/s-core/models/engraving/extensions/to-document.ts": "c993404e9d269eae7f88fca3aba4185d99be30589f8cd1177feb2d5ff69798d0",
+    "src/s-core/models/document/extensions/to-svg.ts": "64afe69d5b5a52afb46ffa1cee8b52291c6d87f575c2c1848e996b06ee2a8b1a"
+  },
+  "manifestSha256": "9651eac616f31650c4b6560e4e982f1b5c85ed84e8621e64721c36d271ca4606",
+  "fontSha256": "98f0ab7922e9af19acbc0c0fde7ffc4efdcef3798404a16ebf976a03758ed6a5",
+  "environment": {
+    "node": "v22.23.4",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpu": "Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz",
+    "logicalCpus": 20,
+    "memoryBytes": 8271056896
+  },
+  "measurementKind": "model-cold",
+  "runs": 1,
+  "results": [
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 1468.137895,
+          "endedMs": 1471.358046,
+          "ms": 3.220150999999987
+        },
+        {
+          "name": "mount",
+          "startedMs": 1471.566556,
+          "endedMs": 1477.83295,
+          "ms": 6.266393999999991
+        },
+        {
+          "name": "document",
+          "startedMs": 1477.917454,
+          "endedMs": 1482.94569,
+          "ms": 5.028236000000106
+        },
+        {
+          "name": "svg",
+          "startedMs": 1525.132973,
+          "endedMs": 1534.074193,
+          "ms": 8.94121999999993
+        }
+      ],
+      "status": "complete",
+      "modelMs": 15.169112000000041,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 1468.137895,
+          "endedMs": 1471.358046,
+          "ms": 3.220150999999987
+        },
+        {
+          "name": "mount",
+          "startedMs": 1471.566556,
+          "endedMs": 1477.83295,
+          "ms": 6.266393999999991
+        },
+        {
+          "name": "document",
+          "startedMs": 1477.917454,
+          "endedMs": 1482.94569,
+          "ms": 5.028236000000106
+        },
+        {
+          "name": "svg",
+          "startedMs": 1525.132973,
+          "endedMs": 1534.074193,
+          "ms": 8.94121999999993
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "9bace20d46e0343e81264ca61586a7fe7a8ef4bdb1dfdd6565da13b65ba92fa1",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 947.611133,
+          "endedMs": 950.794382,
+          "ms": 3.183249000000046
+        },
+        {
+          "name": "mount",
+          "startedMs": 950.935389,
+          "endedMs": 955.877521,
+          "ms": 4.942132000000015
+        },
+        {
+          "name": "document",
+          "startedMs": 955.938724,
+          "endedMs": 960.172423,
+          "ms": 4.233699000000001
+        },
+        {
+          "name": "svg",
+          "startedMs": 998.815539,
+          "endedMs": 1007.700257,
+          "ms": 8.88471800000002
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.826802999999927,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 947.611133,
+          "endedMs": 950.794382,
+          "ms": 3.183249000000046
+        },
+        {
+          "name": "mount",
+          "startedMs": 950.935389,
+          "endedMs": 955.877521,
+          "ms": 4.942132000000015
+        },
+        {
+          "name": "document",
+          "startedMs": 955.938724,
+          "endedMs": 960.172423,
+          "ms": 4.233699000000001
+        },
+        {
+          "name": "svg",
+          "startedMs": 998.815539,
+          "endedMs": 1007.700257,
+          "ms": 8.88471800000002
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "89065422b51c05c32620f37924e7df40c4a323d6177c57a4013d5047a2208000",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 952.928583,
+          "endedMs": 956.120133,
+          "ms": 3.1915500000000065
+        },
+        {
+          "name": "mount",
+          "startedMs": 956.235039,
+          "endedMs": 961.132769,
+          "ms": 4.897730000000024
+        },
+        {
+          "name": "document",
+          "startedMs": 961.246074,
+          "endedMs": 965.577078,
+          "ms": 4.331004000000007
+        },
+        {
+          "name": "svg",
+          "startedMs": 1005.040432,
+          "endedMs": 1013.694139,
+          "ms": 8.65370699999994
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.93610799999999,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 952.928583,
+          "endedMs": 956.120133,
+          "ms": 3.1915500000000065
+        },
+        {
+          "name": "mount",
+          "startedMs": 956.235039,
+          "endedMs": 961.132769,
+          "ms": 4.897730000000024
+        },
+        {
+          "name": "document",
+          "startedMs": 961.246074,
+          "endedMs": 965.577078,
+          "ms": 4.331004000000007
+        },
+        {
+          "name": "svg",
+          "startedMs": 1005.040432,
+          "endedMs": 1013.694139,
+          "ms": 8.65370699999994
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "9bace20d46e0343e81264ca61586a7fe7a8ef4bdb1dfdd6565da13b65ba92fa1",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 984.111149,
+          "endedMs": 987.133791,
+          "ms": 3.022642000000019
+        },
+        {
+          "name": "mount",
+          "startedMs": 987.3293,
+          "endedMs": 992.640949,
+          "ms": 5.3116489999999885
+        },
+        {
+          "name": "document",
+          "startedMs": 992.710653,
+          "endedMs": 997.002154,
+          "ms": 4.291501000000039
+        },
+        {
+          "name": "svg",
+          "startedMs": 1036.974933,
+          "endedMs": 1045.781147,
+          "ms": 8.806213999999954
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.179819000000066,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 984.111149,
+          "endedMs": 987.133791,
+          "ms": 3.022642000000019
+        },
+        {
+          "name": "mount",
+          "startedMs": 987.3293,
+          "endedMs": 992.640949,
+          "ms": 5.3116489999999885
+        },
+        {
+          "name": "document",
+          "startedMs": 992.710653,
+          "endedMs": 997.002154,
+          "ms": 4.291501000000039
+        },
+        {
+          "name": "svg",
+          "startedMs": 1036.974933,
+          "endedMs": 1045.781147,
+          "ms": 8.806213999999954
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "89065422b51c05c32620f37924e7df40c4a323d6177c57a4013d5047a2208000",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 978.266174,
+          "endedMs": 981.425522,
+          "ms": 3.1593480000000227
+        },
+        {
+          "name": "mount",
+          "startedMs": 981.550428,
+          "endedMs": 986.344753,
+          "ms": 4.794324999999958
+        },
+        {
+          "name": "document",
+          "startedMs": 986.401456,
+          "endedMs": 991.100377,
+          "ms": 4.6989209999999275
+        },
+        {
+          "name": "svg",
+          "startedMs": 1029.951703,
+          "endedMs": 1038.419501,
+          "ms": 8.46779800000013
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.148117999999954,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 978.266174,
+          "endedMs": 981.425522,
+          "ms": 3.1593480000000227
+        },
+        {
+          "name": "mount",
+          "startedMs": 981.550428,
+          "endedMs": 986.344753,
+          "ms": 4.794324999999958
+        },
+        {
+          "name": "document",
+          "startedMs": 986.401456,
+          "endedMs": 991.100377,
+          "ms": 4.6989209999999275
+        },
+        {
+          "name": "svg",
+          "startedMs": 1029.951703,
+          "endedMs": 1038.419501,
+          "ms": 8.46779800000013
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "9bace20d46e0343e81264ca61586a7fe7a8ef4bdb1dfdd6565da13b65ba92fa1",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 966.520822,
+          "endedMs": 969.691371,
+          "ms": 3.170549000000051
+        },
+        {
+          "name": "mount",
+          "startedMs": 969.823177,
+          "endedMs": 974.452395,
+          "ms": 4.629218000000037
+        },
+        {
+          "name": "document",
+          "startedMs": 974.504897,
+          "endedMs": 978.772498,
+          "ms": 4.267601000000013
+        },
+        {
+          "name": "svg",
+          "startedMs": 1016.996094,
+          "endedMs": 1025.717804,
+          "ms": 8.721709999999916
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.543289999999956,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 966.520822,
+          "endedMs": 969.691371,
+          "ms": 3.170549000000051
+        },
+        {
+          "name": "mount",
+          "startedMs": 969.823177,
+          "endedMs": 974.452395,
+          "ms": 4.629218000000037
+        },
+        {
+          "name": "document",
+          "startedMs": 974.504897,
+          "endedMs": 978.772498,
+          "ms": 4.267601000000013
+        },
+        {
+          "name": "svg",
+          "startedMs": 1016.996094,
+          "endedMs": 1025.717804,
+          "ms": 8.721709999999916
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "89065422b51c05c32620f37924e7df40c4a323d6177c57a4013d5047a2208000",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 980.51608,
+          "endedMs": 983.831335,
+          "ms": 3.315254999999979
+        },
+        {
+          "name": "mount",
+          "startedMs": 983.93844,
+          "endedMs": 990.198935,
+          "ms": 6.260494999999992
+        },
+        {
+          "name": "document",
+          "startedMs": 990.283339,
+          "endedMs": 994.791051,
+          "ms": 4.507712000000083
+        },
+        {
+          "name": "svg",
+          "startedMs": 1036.002487,
+          "endedMs": 1044.755499,
+          "ms": 8.753012000000126
+        }
+      ],
+      "status": "complete",
+      "modelMs": 14.574584999999956,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 980.51608,
+          "endedMs": 983.831335,
+          "ms": 3.315254999999979
+        },
+        {
+          "name": "mount",
+          "startedMs": 983.93844,
+          "endedMs": 990.198935,
+          "ms": 6.260494999999992
+        },
+        {
+          "name": "document",
+          "startedMs": 990.283339,
+          "endedMs": 994.791051,
+          "ms": 4.507712000000083
+        },
+        {
+          "name": "svg",
+          "startedMs": 1036.002487,
+          "endedMs": 1044.755499,
+          "ms": 8.753012000000126
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "9bace20d46e0343e81264ca61586a7fe7a8ef4bdb1dfdd6565da13b65ba92fa1",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 930.729439,
+          "endedMs": 934.205703,
+          "ms": 3.4762640000000147
+        },
+        {
+          "name": "mount",
+          "startedMs": 934.346609,
+          "endedMs": 938.982227,
+          "ms": 4.635618000000022
+        },
+        {
+          "name": "document",
+          "startedMs": 939.03643,
+          "endedMs": 943.398235,
+          "ms": 4.361805000000004
+        },
+        {
+          "name": "svg",
+          "startedMs": 981.946946,
+          "endedMs": 990.620254,
+          "ms": 8.67330800000002
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.930807999999956,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 930.729439,
+          "endedMs": 934.205703,
+          "ms": 3.4762640000000147
+        },
+        {
+          "name": "mount",
+          "startedMs": 934.346609,
+          "endedMs": 938.982227,
+          "ms": 4.635618000000022
+        },
+        {
+          "name": "document",
+          "startedMs": 939.03643,
+          "endedMs": 943.398235,
+          "ms": 4.361805000000004
+        },
+        {
+          "name": "svg",
+          "startedMs": 981.946946,
+          "endedMs": 990.620254,
+          "ms": 8.67330800000002
+        }
+      ],
+      "documentSha256": "6ea9741252dda75eea5e60abb1c7b089556ed33025cf875416ece0f76c993113",
+      "svgSha256": "89065422b51c05c32620f37924e7df40c4a323d6177c57a4013d5047a2208000",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 954.851272,
+          "endedMs": 957.864013,
+          "ms": 3.0127410000000054
+        },
+        {
+          "name": "mount",
+          "startedMs": 957.980719,
+          "endedMs": 962.882249,
+          "ms": 4.90152999999998
+        },
+        {
+          "name": "document",
+          "startedMs": 962.959653,
+          "endedMs": 966.814734,
+          "ms": 3.855081000000041
+        },
+        {
+          "name": "svg",
+          "startedMs": 1006.409795,
+          "endedMs": 1015.078302,
+          "ms": 8.668506999999977
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.249075000000062,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 954.851272,
+          "endedMs": 957.864013,
+          "ms": 3.0127410000000054
+        },
+        {
+          "name": "mount",
+          "startedMs": 957.980719,
+          "endedMs": 962.882249,
+          "ms": 4.90152999999998
+        },
+        {
+          "name": "document",
+          "startedMs": 962.959653,
+          "endedMs": 966.814734,
+          "ms": 3.855081000000041
+        },
+        {
+          "name": "svg",
+          "startedMs": 1006.409795,
+          "endedMs": 1015.078302,
+          "ms": 8.668506999999977
+        }
+      ],
+      "documentSha256": "dd2cbca6078752a4467252b4785e5ffd9a9689cd8960a8b22a330e08f55d36fe",
+      "svgSha256": "bb2032d8169fc668d03dd94eb2f1ca89dd6b63cba7837b778026565e05c17b7c",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 970.969128,
+          "endedMs": 974.079574,
+          "ms": 3.1104460000000245
+        },
+        {
+          "name": "mount",
+          "startedMs": 974.20018,
+          "endedMs": 979.213016,
+          "ms": 5.012835999999993
+        },
+        {
+          "name": "document",
+          "startedMs": 979.288219,
+          "endedMs": 983.062196,
+          "ms": 3.7739769999999453
+        },
+        {
+          "name": "svg",
+          "startedMs": 1021.721513,
+          "endedMs": 1030.405521,
+          "ms": 8.684007999999949
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.376481999999896,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 970.969128,
+          "endedMs": 974.079574,
+          "ms": 3.1104460000000245
+        },
+        {
+          "name": "mount",
+          "startedMs": 974.20018,
+          "endedMs": 979.213016,
+          "ms": 5.012835999999993
+        },
+        {
+          "name": "document",
+          "startedMs": 979.288219,
+          "endedMs": 983.062196,
+          "ms": 3.7739769999999453
+        },
+        {
+          "name": "svg",
+          "startedMs": 1021.721513,
+          "endedMs": 1030.405521,
+          "ms": 8.684007999999949
+        }
+      ],
+      "documentSha256": "eac6c8918bcc8069aae825ebbc928f0862a27cc324ef5e7609366b801a580b48",
+      "svgSha256": "e50e0ffeccc66d99f462364102d55de8ef93408b53e07c97ab3c0b66b6a87816",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 935.179947,
+          "endedMs": 938.568206,
+          "ms": 3.388259000000062
+        },
+        {
+          "name": "mount",
+          "startedMs": 938.718813,
+          "endedMs": 943.735949,
+          "ms": 5.0171360000000504
+        },
+        {
+          "name": "document",
+          "startedMs": 943.795652,
+          "endedMs": 947.643332,
+          "ms": 3.8476799999999685
+        },
+        {
+          "name": "svg",
+          "startedMs": 992.899659,
+          "endedMs": 1002.674919,
+          "ms": 9.775260000000003
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.733998000000042,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 935.179947,
+          "endedMs": 938.568206,
+          "ms": 3.388259000000062
+        },
+        {
+          "name": "mount",
+          "startedMs": 938.718813,
+          "endedMs": 943.735949,
+          "ms": 5.0171360000000504
+        },
+        {
+          "name": "document",
+          "startedMs": 943.795652,
+          "endedMs": 947.643332,
+          "ms": 3.8476799999999685
+        },
+        {
+          "name": "svg",
+          "startedMs": 992.899659,
+          "endedMs": 1002.674919,
+          "ms": 9.775260000000003
+        }
+      ],
+      "documentSha256": "88cfb1aedd5eb5aa41927bce523cc8f23e518e609a7c9d8037dc6e2e5a3094d3",
+      "svgSha256": "0dfa532637219b431c32f860d45088ed1f00068d32aa340a096aa39ac6a088dd",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 943.885056,
+          "endedMs": 947.054805,
+          "ms": 3.1697490000000244
+        },
+        {
+          "name": "mount",
+          "startedMs": 947.16421,
+          "endedMs": 952.234548,
+          "ms": 5.0703379999999925
+        },
+        {
+          "name": "document",
+          "startedMs": 952.308052,
+          "endedMs": 956.921068,
+          "ms": 4.613016000000016
+        },
+        {
+          "name": "svg",
+          "startedMs": 995.872799,
+          "endedMs": 1004.355197,
+          "ms": 8.48239799999999
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.30172600000003,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 943.885056,
+          "endedMs": 947.054805,
+          "ms": 3.1697490000000244
+        },
+        {
+          "name": "mount",
+          "startedMs": 947.16421,
+          "endedMs": 952.234548,
+          "ms": 5.0703379999999925
+        },
+        {
+          "name": "document",
+          "startedMs": 952.308052,
+          "endedMs": 956.921068,
+          "ms": 4.613016000000016
+        },
+        {
+          "name": "svg",
+          "startedMs": 995.872799,
+          "endedMs": 1004.355197,
+          "ms": 8.48239799999999
+        }
+      ],
+      "documentSha256": "0281d0a14fd2ffcafc0b31fce42e4d7c501217751ee54b15e9a3adef5245f639",
+      "svgSha256": "e6fdbe5fa6053a1cfbe650df9ee832768982cb33096023c4bf68af79c9b93616",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 965.90129,
+          "endedMs": 969.899078,
+          "ms": 3.997788000000014
+        },
+        {
+          "name": "mount",
+          "startedMs": 970.019683,
+          "endedMs": 976.501188,
+          "ms": 6.48150499999997
+        },
+        {
+          "name": "document",
+          "startedMs": 976.562391,
+          "endedMs": 1014.795588,
+          "ms": 38.233196999999905
+        },
+        {
+          "name": "svg",
+          "startedMs": 1054.138136,
+          "endedMs": 1070.630911,
+          "ms": 16.492774999999938
+        }
+      ],
+      "status": "complete",
+      "modelMs": 49.22161300000005,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 965.90129,
+          "endedMs": 969.899078,
+          "ms": 3.997788000000014
+        },
+        {
+          "name": "mount",
+          "startedMs": 970.019683,
+          "endedMs": 976.501188,
+          "ms": 6.48150499999997
+        },
+        {
+          "name": "document",
+          "startedMs": 976.562391,
+          "endedMs": 1014.795588,
+          "ms": 38.233196999999905
+        },
+        {
+          "name": "svg",
+          "startedMs": 1054.138136,
+          "endedMs": 1070.630911,
+          "ms": 16.492774999999938
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "c2ecc9e6f49df7656039a0c85b768b36ae31eff91502bc68baae14bbed2e6159",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 980.226763,
+          "endedMs": 984.21355,
+          "ms": 3.9867870000000494
+        },
+        {
+          "name": "mount",
+          "startedMs": 984.335056,
+          "endedMs": 991.175077,
+          "ms": 6.840020999999979
+        },
+        {
+          "name": "document",
+          "startedMs": 991.257881,
+          "endedMs": 1028.436528,
+          "ms": 37.178646999999955
+        },
+        {
+          "name": "svg",
+          "startedMs": 1068.647018,
+          "endedMs": 1085.682218,
+          "ms": 17.03520000000003
+        }
+      ],
+      "status": "complete",
+      "modelMs": 48.57318299999997,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 980.226763,
+          "endedMs": 984.21355,
+          "ms": 3.9867870000000494
+        },
+        {
+          "name": "mount",
+          "startedMs": 984.335056,
+          "endedMs": 991.175077,
+          "ms": 6.840020999999979
+        },
+        {
+          "name": "document",
+          "startedMs": 991.257881,
+          "endedMs": 1028.436528,
+          "ms": 37.178646999999955
+        },
+        {
+          "name": "svg",
+          "startedMs": 1068.647018,
+          "endedMs": 1085.682218,
+          "ms": 17.03520000000003
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "6e317631b506edbd015972f0b0453bb6a51f355204687cf260f7766e7306048a",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 963.34677,
+          "endedMs": 967.078545,
+          "ms": 3.7317749999999705
+        },
+        {
+          "name": "mount",
+          "startedMs": 967.18935,
+          "endedMs": 973.311138,
+          "ms": 6.121788000000038
+        },
+        {
+          "name": "document",
+          "startedMs": 973.36734,
+          "endedMs": 1010.675894,
+          "ms": 37.30855399999996
+        },
+        {
+          "name": "svg",
+          "startedMs": 1050.005242,
+          "endedMs": 1066.061096,
+          "ms": 16.055853999999954
+        }
+      ],
+      "status": "complete",
+      "modelMs": 47.639039000000025,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 963.34677,
+          "endedMs": 967.078545,
+          "ms": 3.7317749999999705
+        },
+        {
+          "name": "mount",
+          "startedMs": 967.18935,
+          "endedMs": 973.311138,
+          "ms": 6.121788000000038
+        },
+        {
+          "name": "document",
+          "startedMs": 973.36734,
+          "endedMs": 1010.675894,
+          "ms": 37.30855399999996
+        },
+        {
+          "name": "svg",
+          "startedMs": 1050.005242,
+          "endedMs": 1066.061096,
+          "ms": 16.055853999999954
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "c2ecc9e6f49df7656039a0c85b768b36ae31eff91502bc68baae14bbed2e6159",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 956.703958,
+          "endedMs": 960.467335,
+          "ms": 3.763377000000105
+        },
+        {
+          "name": "mount",
+          "startedMs": 960.58084,
+          "endedMs": 967.141642,
+          "ms": 6.560802000000081
+        },
+        {
+          "name": "document",
+          "startedMs": 967.236547,
+          "endedMs": 1010.171415,
+          "ms": 42.93486800000005
+        },
+        {
+          "name": "svg",
+          "startedMs": 1050.367559,
+          "endedMs": 1066.97492,
+          "ms": 16.607361000000083
+        }
+      ],
+      "status": "complete",
+      "modelMs": 53.77717100000007,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 956.703958,
+          "endedMs": 960.467335,
+          "ms": 3.763377000000105
+        },
+        {
+          "name": "mount",
+          "startedMs": 960.58084,
+          "endedMs": 967.141642,
+          "ms": 6.560802000000081
+        },
+        {
+          "name": "document",
+          "startedMs": 967.236547,
+          "endedMs": 1010.171415,
+          "ms": 42.93486800000005
+        },
+        {
+          "name": "svg",
+          "startedMs": 1050.367559,
+          "endedMs": 1066.97492,
+          "ms": 16.607361000000083
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "6e317631b506edbd015972f0b0453bb6a51f355204687cf260f7766e7306048a",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 1000.239763,
+          "endedMs": 1004.274448,
+          "ms": 4.034684999999968
+        },
+        {
+          "name": "mount",
+          "startedMs": 1004.446956,
+          "endedMs": 1011.256268,
+          "ms": 6.809311999999977
+        },
+        {
+          "name": "document",
+          "startedMs": 1011.339172,
+          "endedMs": 1053.493505,
+          "ms": 42.15433299999995
+        },
+        {
+          "name": "svg",
+          "startedMs": 1094.968206,
+          "endedMs": 1112.995633,
+          "ms": 18.02742699999999
+        }
+      ],
+      "status": "complete",
+      "modelMs": 53.55225500000006,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 1000.239763,
+          "endedMs": 1004.274448,
+          "ms": 4.034684999999968
+        },
+        {
+          "name": "mount",
+          "startedMs": 1004.446956,
+          "endedMs": 1011.256268,
+          "ms": 6.809311999999977
+        },
+        {
+          "name": "document",
+          "startedMs": 1011.339172,
+          "endedMs": 1053.493505,
+          "ms": 42.15433299999995
+        },
+        {
+          "name": "svg",
+          "startedMs": 1094.968206,
+          "endedMs": 1112.995633,
+          "ms": 18.02742699999999
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "c2ecc9e6f49df7656039a0c85b768b36ae31eff91502bc68baae14bbed2e6159",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 973.828451,
+          "endedMs": 977.874537,
+          "ms": 4.046086000000059
+        },
+        {
+          "name": "mount",
+          "startedMs": 978.001843,
+          "endedMs": 984.547843,
+          "ms": 6.545999999999935
+        },
+        {
+          "name": "document",
+          "startedMs": 984.614146,
+          "endedMs": 1022.453481,
+          "ms": 37.839335000000005
+        },
+        {
+          "name": "svg",
+          "startedMs": 1063.110145,
+          "endedMs": 1079.643203,
+          "ms": 16.533057999999983
+        }
+      ],
+      "status": "complete",
+      "modelMs": 48.93344400000001,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 973.828451,
+          "endedMs": 977.874537,
+          "ms": 4.046086000000059
+        },
+        {
+          "name": "mount",
+          "startedMs": 978.001843,
+          "endedMs": 984.547843,
+          "ms": 6.545999999999935
+        },
+        {
+          "name": "document",
+          "startedMs": 984.614146,
+          "endedMs": 1022.453481,
+          "ms": 37.839335000000005
+        },
+        {
+          "name": "svg",
+          "startedMs": 1063.110145,
+          "endedMs": 1079.643203,
+          "ms": 16.533057999999983
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "6e317631b506edbd015972f0b0453bb6a51f355204687cf260f7766e7306048a",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 988.646332,
+          "endedMs": 992.552411,
+          "ms": 3.906078999999977
+        },
+        {
+          "name": "mount",
+          "startedMs": 992.686617,
+          "endedMs": 999.204816,
+          "ms": 6.518199000000095
+        },
+        {
+          "name": "document",
+          "startedMs": 999.261918,
+          "endedMs": 1035.330172,
+          "ms": 36.06825399999991
+        },
+        {
+          "name": "svg",
+          "startedMs": 1074.32196,
+          "endedMs": 1091.047727,
+          "ms": 16.725766999999905
+        }
+      ],
+      "status": "complete",
+      "modelMs": 46.97235399999988,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 988.646332,
+          "endedMs": 992.552411,
+          "ms": 3.906078999999977
+        },
+        {
+          "name": "mount",
+          "startedMs": 992.686617,
+          "endedMs": 999.204816,
+          "ms": 6.518199000000095
+        },
+        {
+          "name": "document",
+          "startedMs": 999.261918,
+          "endedMs": 1035.330172,
+          "ms": 36.06825399999991
+        },
+        {
+          "name": "svg",
+          "startedMs": 1074.32196,
+          "endedMs": 1091.047727,
+          "ms": 16.725766999999905
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "c2ecc9e6f49df7656039a0c85b768b36ae31eff91502bc68baae14bbed2e6159",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 964.339816,
+          "endedMs": 968.163992,
+          "ms": 3.824175999999966
+        },
+        {
+          "name": "mount",
+          "startedMs": 968.280897,
+          "endedMs": 974.551585,
+          "ms": 6.270688000000064
+        },
+        {
+          "name": "document",
+          "startedMs": 974.616788,
+          "endedMs": 1011.229366,
+          "ms": 36.612577999999985
+        },
+        {
+          "name": "svg",
+          "startedMs": 1050.263056,
+          "endedMs": 1067.491746,
+          "ms": 17.228689999999915
+        }
+      ],
+      "status": "complete",
+      "modelMs": 47.19926399999997,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 964.339816,
+          "endedMs": 968.163992,
+          "ms": 3.824175999999966
+        },
+        {
+          "name": "mount",
+          "startedMs": 968.280897,
+          "endedMs": 974.551585,
+          "ms": 6.270688000000064
+        },
+        {
+          "name": "document",
+          "startedMs": 974.616788,
+          "endedMs": 1011.229366,
+          "ms": 36.612577999999985
+        },
+        {
+          "name": "svg",
+          "startedMs": 1050.263056,
+          "endedMs": 1067.491746,
+          "ms": 17.228689999999915
+        }
+      ],
+      "documentSha256": "97969c1f3cebf7ed58550defa2bb4616952547a85924b345f524a8174ff365dc",
+      "svgSha256": "6e317631b506edbd015972f0b0453bb6a51f355204687cf260f7766e7306048a",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 958.349642,
+          "endedMs": 963.274868,
+          "ms": 4.925225999999952
+        },
+        {
+          "name": "mount",
+          "startedMs": 963.430475,
+          "endedMs": 969.980475,
+          "ms": 6.5499999999999545
+        },
+        {
+          "name": "document",
+          "startedMs": 970.038478,
+          "endedMs": 983.728906,
+          "ms": 13.690427999999997
+        },
+        {
+          "name": "svg",
+          "startedMs": 1023.219917,
+          "endedMs": 1042.184586,
+          "ms": 18.96466900000007
+        }
+      ],
+      "status": "complete",
+      "modelMs": 25.675478,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 958.349642,
+          "endedMs": 963.274868,
+          "ms": 4.925225999999952
+        },
+        {
+          "name": "mount",
+          "startedMs": 963.430475,
+          "endedMs": 969.980475,
+          "ms": 6.5499999999999545
+        },
+        {
+          "name": "document",
+          "startedMs": 970.038478,
+          "endedMs": 983.728906,
+          "ms": 13.690427999999997
+        },
+        {
+          "name": "svg",
+          "startedMs": 1023.219917,
+          "endedMs": 1042.184586,
+          "ms": 18.96466900000007
+        }
+      ],
+      "documentSha256": "18c6c5728c88cfd9f77abb92d422edad5641886d697a155c11deb81c2357513a",
+      "svgSha256": "6d2079b2591fd4c579b8b8299303c7c144cd03fc967d38782094364c785227a6",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 970.403795,
+          "endedMs": 974.961104,
+          "ms": 4.557309000000032
+        },
+        {
+          "name": "mount",
+          "startedMs": 975.106911,
+          "endedMs": 981.4082,
+          "ms": 6.301288999999997
+        },
+        {
+          "name": "document",
+          "startedMs": 981.482103,
+          "endedMs": 996.518793,
+          "ms": 15.036689999999908
+        },
+        {
+          "name": "svg",
+          "startedMs": 1035.441977,
+          "endedMs": 1052.462458,
+          "ms": 17.020481000000018
+        }
+      ],
+      "status": "complete",
+      "modelMs": 26.403709999999933,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 970.403795,
+          "endedMs": 974.961104,
+          "ms": 4.557309000000032
+        },
+        {
+          "name": "mount",
+          "startedMs": 975.106911,
+          "endedMs": 981.4082,
+          "ms": 6.301288999999997
+        },
+        {
+          "name": "document",
+          "startedMs": 981.482103,
+          "endedMs": 996.518793,
+          "ms": 15.036689999999908
+        },
+        {
+          "name": "svg",
+          "startedMs": 1035.441977,
+          "endedMs": 1052.462458,
+          "ms": 17.020481000000018
+        }
+      ],
+      "documentSha256": "9cedad99990b6f7f0a1416519152297c8dcc415814c1e8b232163e6965b6a670",
+      "svgSha256": "94d6a3fc7c03590d7e6d730de5f8ba0cf0682bd65bc0b3a41ae569b784e34d35",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 999.689437,
+          "endedMs": 1003.786725,
+          "ms": 4.097288000000049
+        },
+        {
+          "name": "mount",
+          "startedMs": 1003.947233,
+          "endedMs": 1010.350926,
+          "ms": 6.403692999999976
+        },
+        {
+          "name": "document",
+          "startedMs": 1010.42243,
+          "endedMs": 1025.48032,
+          "ms": 15.05788999999993
+        },
+        {
+          "name": "svg",
+          "startedMs": 1066.636407,
+          "endedMs": 1083.680289,
+          "ms": 17.04388199999994
+        }
+      ],
+      "status": "complete",
+      "modelMs": 26.203701000000024,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 999.689437,
+          "endedMs": 1003.786725,
+          "ms": 4.097288000000049
+        },
+        {
+          "name": "mount",
+          "startedMs": 1003.947233,
+          "endedMs": 1010.350926,
+          "ms": 6.403692999999976
+        },
+        {
+          "name": "document",
+          "startedMs": 1010.42243,
+          "endedMs": 1025.48032,
+          "ms": 15.05788999999993
+        },
+        {
+          "name": "svg",
+          "startedMs": 1066.636407,
+          "endedMs": 1083.680289,
+          "ms": 17.04388199999994
+        }
+      ],
+      "documentSha256": "29aea1b1586b1c24de4c12d4015149bd0bafda847b7eefe58b0a78f89d5e2d4f",
+      "svgSha256": "410767af7dc7c5e7fd92755f6f8715bf3d47569e023d7fe6f9f2b31935f43730",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 980.260884,
+          "endedMs": 984.342946,
+          "ms": 4.082061999999951
+        },
+        {
+          "name": "mount",
+          "startedMs": 984.495152,
+          "endedMs": 990.868306,
+          "ms": 6.3731539999999995
+        },
+        {
+          "name": "document",
+          "startedMs": 990.938808,
+          "endedMs": 1029.612945,
+          "ms": 38.67413700000009
+        },
+        {
+          "name": "svg",
+          "startedMs": 1068.583593,
+          "endedMs": 1086.004486,
+          "ms": 17.420892999999978
+        }
+      ],
+      "status": "complete",
+      "modelMs": 49.65357299999994,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 980.260884,
+          "endedMs": 984.342946,
+          "ms": 4.082061999999951
+        },
+        {
+          "name": "mount",
+          "startedMs": 984.495152,
+          "endedMs": 990.868306,
+          "ms": 6.3731539999999995
+        },
+        {
+          "name": "document",
+          "startedMs": 990.938808,
+          "endedMs": 1029.612945,
+          "ms": 38.67413700000009
+        },
+        {
+          "name": "svg",
+          "startedMs": 1068.583593,
+          "endedMs": 1086.004486,
+          "ms": 17.420892999999978
+        }
+      ],
+      "documentSha256": "bcce1fc631f9f019e832da745c5a7c3815985d65e6b4c2babd8b118bebd2dd56",
+      "svgSha256": "dce1696e66994c4e4646f472414d8adf7393cd122f0674a966583fe6dcbfb3be",
+      "notes": 6,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 935.862285,
+          "endedMs": 939.00531,
+          "ms": 3.143024999999966
+        },
+        {
+          "name": "mount",
+          "startedMs": 939.114514,
+          "endedMs": 944.122013,
+          "ms": 5.0074990000000525
+        },
+        {
+          "name": "document",
+          "startedMs": 944.195216,
+          "endedMs": 949.003707,
+          "ms": 4.808491000000004
+        },
+        {
+          "name": "svg",
+          "startedMs": 987.225926,
+          "endedMs": 997.15002,
+          "ms": 9.924094000000082
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.433933000000025,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 935.862285,
+          "endedMs": 939.00531,
+          "ms": 3.143024999999966
+        },
+        {
+          "name": "mount",
+          "startedMs": 939.114514,
+          "endedMs": 944.122013,
+          "ms": 5.0074990000000525
+        },
+        {
+          "name": "document",
+          "startedMs": 944.195216,
+          "endedMs": 949.003707,
+          "ms": 4.808491000000004
+        },
+        {
+          "name": "svg",
+          "startedMs": 987.225926,
+          "endedMs": 997.15002,
+          "ms": 9.924094000000082
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "3641293aea17e7c3868d6b3693b245ed42d3e9df47190749a540efc87580a979",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 991.679704,
+          "endedMs": 996.356289,
+          "ms": 4.676584999999932
+        },
+        {
+          "name": "mount",
+          "startedMs": 996.6225,
+          "endedMs": 1004.986332,
+          "ms": 8.363832000000002
+        },
+        {
+          "name": "document",
+          "startedMs": 1005.102837,
+          "endedMs": 1011.297983,
+          "ms": 6.1951460000000225
+        },
+        {
+          "name": "svg",
+          "startedMs": 1060.088622,
+          "endedMs": 1071.730984,
+          "ms": 11.642362000000048
+        }
+      ],
+      "status": "complete",
+      "modelMs": 20.11409900000001,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 991.679704,
+          "endedMs": 996.356289,
+          "ms": 4.676584999999932
+        },
+        {
+          "name": "mount",
+          "startedMs": 996.6225,
+          "endedMs": 1004.986332,
+          "ms": 8.363832000000002
+        },
+        {
+          "name": "document",
+          "startedMs": 1005.102837,
+          "endedMs": 1011.297983,
+          "ms": 6.1951460000000225
+        },
+        {
+          "name": "svg",
+          "startedMs": 1060.088622,
+          "endedMs": 1071.730984,
+          "ms": 11.642362000000048
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "6e5134946fab3c091155c07de6782432e70f7a3fd52027be6c313373d4a29b87",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 975.132246,
+          "endedMs": 978.368874,
+          "ms": 3.236627999999996
+        },
+        {
+          "name": "mount",
+          "startedMs": 978.495779,
+          "endedMs": 983.478577,
+          "ms": 4.9827980000000025
+        },
+        {
+          "name": "document",
+          "startedMs": 983.55108,
+          "endedMs": 988.435274,
+          "ms": 4.884194000000093
+        },
+        {
+          "name": "svg",
+          "startedMs": 1027.07191,
+          "endedMs": 1036.961402,
+          "ms": 9.889492000000018
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.595640000000003,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 975.132246,
+          "endedMs": 978.368874,
+          "ms": 3.236627999999996
+        },
+        {
+          "name": "mount",
+          "startedMs": 978.495779,
+          "endedMs": 983.478577,
+          "ms": 4.9827980000000025
+        },
+        {
+          "name": "document",
+          "startedMs": 983.55108,
+          "endedMs": 988.435274,
+          "ms": 4.884194000000093
+        },
+        {
+          "name": "svg",
+          "startedMs": 1027.07191,
+          "endedMs": 1036.961402,
+          "ms": 9.889492000000018
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "3641293aea17e7c3868d6b3693b245ed42d3e9df47190749a540efc87580a979",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 924.349028,
+          "endedMs": 927.772364,
+          "ms": 3.423336000000063
+        },
+        {
+          "name": "mount",
+          "startedMs": 927.906069,
+          "endedMs": 932.869466,
+          "ms": 4.963396999999986
+        },
+        {
+          "name": "document",
+          "startedMs": 932.943669,
+          "endedMs": 941.2648,
+          "ms": 8.321131000000037
+        },
+        {
+          "name": "svg",
+          "startedMs": 980.988878,
+          "endedMs": 990.960274,
+          "ms": 9.971396000000027
+        }
+      ],
+      "status": "complete",
+      "modelMs": 17.26448599999992,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 924.349028,
+          "endedMs": 927.772364,
+          "ms": 3.423336000000063
+        },
+        {
+          "name": "mount",
+          "startedMs": 927.906069,
+          "endedMs": 932.869466,
+          "ms": 4.963396999999986
+        },
+        {
+          "name": "document",
+          "startedMs": 932.943669,
+          "endedMs": 941.2648,
+          "ms": 8.321131000000037
+        },
+        {
+          "name": "svg",
+          "startedMs": 980.988878,
+          "endedMs": 990.960274,
+          "ms": 9.971396000000027
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "6e5134946fab3c091155c07de6782432e70f7a3fd52027be6c313373d4a29b87",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 944.310121,
+          "endedMs": 947.619852,
+          "ms": 3.309731000000056
+        },
+        {
+          "name": "mount",
+          "startedMs": 947.738657,
+          "endedMs": 952.912562,
+          "ms": 5.173904999999991
+        },
+        {
+          "name": "document",
+          "startedMs": 952.988665,
+          "endedMs": 957.871459,
+          "ms": 4.88279399999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 997.40503,
+          "endedMs": 1007.308824,
+          "ms": 9.903793999999948
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.858051000000046,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 944.310121,
+          "endedMs": 947.619852,
+          "ms": 3.309731000000056
+        },
+        {
+          "name": "mount",
+          "startedMs": 947.738657,
+          "endedMs": 952.912562,
+          "ms": 5.173904999999991
+        },
+        {
+          "name": "document",
+          "startedMs": 952.988665,
+          "endedMs": 957.871459,
+          "ms": 4.88279399999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 997.40503,
+          "endedMs": 1007.308824,
+          "ms": 9.903793999999948
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "3641293aea17e7c3868d6b3693b245ed42d3e9df47190749a540efc87580a979",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 938.588093,
+          "endedMs": 941.830822,
+          "ms": 3.242729000000054
+        },
+        {
+          "name": "mount",
+          "startedMs": 941.951827,
+          "endedMs": 947.05523,
+          "ms": 5.103403000000071
+        },
+        {
+          "name": "document",
+          "startedMs": 947.128433,
+          "endedMs": 951.948824,
+          "ms": 4.820390999999972
+        },
+        {
+          "name": "svg",
+          "startedMs": 991.35749,
+          "endedMs": 1001.544695,
+          "ms": 10.187205000000063
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.633941999999934,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 938.588093,
+          "endedMs": 941.830822,
+          "ms": 3.242729000000054
+        },
+        {
+          "name": "mount",
+          "startedMs": 941.951827,
+          "endedMs": 947.05523,
+          "ms": 5.103403000000071
+        },
+        {
+          "name": "document",
+          "startedMs": 947.128433,
+          "endedMs": 951.948824,
+          "ms": 4.820390999999972
+        },
+        {
+          "name": "svg",
+          "startedMs": 991.35749,
+          "endedMs": 1001.544695,
+          "ms": 10.187205000000063
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "6e5134946fab3c091155c07de6782432e70f7a3fd52027be6c313373d4a29b87",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 931.653018,
+          "endedMs": 934.776442,
+          "ms": 3.123424
+        },
+        {
+          "name": "mount",
+          "startedMs": 934.901047,
+          "endedMs": 940.044851,
+          "ms": 5.143804000000046
+        },
+        {
+          "name": "document",
+          "startedMs": 940.120054,
+          "endedMs": 944.737238,
+          "ms": 4.617184000000066
+        },
+        {
+          "name": "svg",
+          "startedMs": 982.629443,
+          "endedMs": 992.465934,
+          "ms": 9.83649099999991
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.351030000000037,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 931.653018,
+          "endedMs": 934.776442,
+          "ms": 3.123424
+        },
+        {
+          "name": "mount",
+          "startedMs": 934.901047,
+          "endedMs": 940.044851,
+          "ms": 5.143804000000046
+        },
+        {
+          "name": "document",
+          "startedMs": 940.120054,
+          "endedMs": 944.737238,
+          "ms": 4.617184000000066
+        },
+        {
+          "name": "svg",
+          "startedMs": 982.629443,
+          "endedMs": 992.465934,
+          "ms": 9.83649099999991
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "3641293aea17e7c3868d6b3693b245ed42d3e9df47190749a540efc87580a979",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 911.569025,
+          "endedMs": 914.789391,
+          "ms": 3.2203660000000127
+        },
+        {
+          "name": "mount",
+          "startedMs": 914.898996,
+          "endedMs": 919.912955,
+          "ms": 5.013959
+        },
+        {
+          "name": "document",
+          "startedMs": 919.968458,
+          "endedMs": 924.86241,
+          "ms": 4.893951999999899
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.628858,
+          "endedMs": 972.024342,
+          "ms": 9.39548400000001
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.58299999999997,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 911.569025,
+          "endedMs": 914.789391,
+          "ms": 3.2203660000000127
+        },
+        {
+          "name": "mount",
+          "startedMs": 914.898996,
+          "endedMs": 919.912955,
+          "ms": 5.013959
+        },
+        {
+          "name": "document",
+          "startedMs": 919.968458,
+          "endedMs": 924.86241,
+          "ms": 4.893951999999899
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.628858,
+          "endedMs": 972.024342,
+          "ms": 9.39548400000001
+        }
+      ],
+      "documentSha256": "9bb6222e226f74b9453ee8b9f194249e48c5241012e7017293c445477aec2c6b",
+      "svgSha256": "6e5134946fab3c091155c07de6782432e70f7a3fd52027be6c313373d4a29b87",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 907.656406,
+          "endedMs": 910.824869,
+          "ms": 3.168463000000088
+        },
+        {
+          "name": "mount",
+          "startedMs": 910.938275,
+          "endedMs": 916.024537,
+          "ms": 5.086262000000033
+        },
+        {
+          "name": "document",
+          "startedMs": 916.07674,
+          "endedMs": 920.384162,
+          "ms": 4.307421999999974
+        },
+        {
+          "name": "svg",
+          "startedMs": 958.560131,
+          "endedMs": 968.402638,
+          "ms": 9.842507000000069
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.010171000000014,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 907.656406,
+          "endedMs": 910.824869,
+          "ms": 3.168463000000088
+        },
+        {
+          "name": "mount",
+          "startedMs": 910.938275,
+          "endedMs": 916.024537,
+          "ms": 5.086262000000033
+        },
+        {
+          "name": "document",
+          "startedMs": 916.07674,
+          "endedMs": 920.384162,
+          "ms": 4.307421999999974
+        },
+        {
+          "name": "svg",
+          "startedMs": 958.560131,
+          "endedMs": 968.402638,
+          "ms": 9.842507000000069
+        }
+      ],
+      "documentSha256": "89418db924824041a420ab7e03c0def9616b7377506980808b59c19ff0e372c7",
+      "svgSha256": "fa2e559ddaf00cb207a684fea285667733e7e1f779856a438762507690d752d7",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 925.044703,
+          "endedMs": 928.27987,
+          "ms": 3.235166999999933
+        },
+        {
+          "name": "mount",
+          "startedMs": 928.388575,
+          "endedMs": 933.301429,
+          "ms": 4.9128540000000385
+        },
+        {
+          "name": "document",
+          "startedMs": 933.351531,
+          "endedMs": 937.696155,
+          "ms": 4.344623999999953
+        },
+        {
+          "name": "svg",
+          "startedMs": 974.854672,
+          "endedMs": 984.287658,
+          "ms": 9.432985999999914
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.92006600000002,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 925.044703,
+          "endedMs": 928.27987,
+          "ms": 3.235166999999933
+        },
+        {
+          "name": "mount",
+          "startedMs": 928.388575,
+          "endedMs": 933.301429,
+          "ms": 4.9128540000000385
+        },
+        {
+          "name": "document",
+          "startedMs": 933.351531,
+          "endedMs": 937.696155,
+          "ms": 4.344623999999953
+        },
+        {
+          "name": "svg",
+          "startedMs": 974.854672,
+          "endedMs": 984.287658,
+          "ms": 9.432985999999914
+        }
+      ],
+      "documentSha256": "305d0a382e9c3b472559b4447c59d77952536b5eb147f203ae4150a5cfbfea33",
+      "svgSha256": "ca03baadf979a2c9aaccceeb4e56ebf36aa357ce0386ffe2fc7bc523282540f7",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 913.954831,
+          "endedMs": 917.147296,
+          "ms": 3.19246499999997
+        },
+        {
+          "name": "mount",
+          "startedMs": 917.275602,
+          "endedMs": 922.364665,
+          "ms": 5.089062999999896
+        },
+        {
+          "name": "document",
+          "startedMs": 922.419968,
+          "endedMs": 926.888098,
+          "ms": 4.468129999999974
+        },
+        {
+          "name": "svg",
+          "startedMs": 964.385632,
+          "endedMs": 974.002228,
+          "ms": 9.616595999999959
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.263484000000062,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 913.954831,
+          "endedMs": 917.147296,
+          "ms": 3.19246499999997
+        },
+        {
+          "name": "mount",
+          "startedMs": 917.275602,
+          "endedMs": 922.364665,
+          "ms": 5.089062999999896
+        },
+        {
+          "name": "document",
+          "startedMs": 922.419968,
+          "endedMs": 926.888098,
+          "ms": 4.468129999999974
+        },
+        {
+          "name": "svg",
+          "startedMs": 964.385632,
+          "endedMs": 974.002228,
+          "ms": 9.616595999999959
+        }
+      ],
+      "documentSha256": "33b12f2a022ca245bfae2e01c9467b2111811e201b9e306605f18ca42725c881",
+      "svgSha256": "c394a5f9c06588e6527588b383d6936bdb15f9d02ba8083850a193c95c9bd21d",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "cross-bar",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 928.592886,
+          "endedMs": 932.615293,
+          "ms": 4.02240699999993
+        },
+        {
+          "name": "mount",
+          "startedMs": 932.757601,
+          "endedMs": 937.993171,
+          "ms": 5.235569999999939
+        },
+        {
+          "name": "document",
+          "startedMs": 938.055374,
+          "endedMs": 943.051132,
+          "ms": 4.9957580000000235
+        },
+        {
+          "name": "svg",
+          "startedMs": 981.60852,
+          "endedMs": 991.770944,
+          "ms": 10.162423999999987
+        }
+      ],
+      "status": "complete",
+      "modelMs": 14.731160000000045,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 928.592886,
+          "endedMs": 932.615293,
+          "ms": 4.02240699999993
+        },
+        {
+          "name": "mount",
+          "startedMs": 932.757601,
+          "endedMs": 937.993171,
+          "ms": 5.235569999999939
+        },
+        {
+          "name": "document",
+          "startedMs": 938.055374,
+          "endedMs": 943.051132,
+          "ms": 4.9957580000000235
+        },
+        {
+          "name": "svg",
+          "startedMs": 981.60852,
+          "endedMs": 991.770944,
+          "ms": 10.162423999999987
+        }
+      ],
+      "documentSha256": "698a132c7fd9d6aed856f696e894432f58c59dd7d3be93edf1e6818e9f5cfa41",
+      "svgSha256": "8199a57d3a9d5b898716ebe9cbd81cec50aea835be7ec06a978fa2d4b20e4c60",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 929.496332,
+          "endedMs": 932.515588,
+          "ms": 3.0192559999999276
+        },
+        {
+          "name": "mount",
+          "startedMs": 932.635594,
+          "endedMs": 936.502093,
+          "ms": 3.866498999999976
+        },
+        {
+          "name": "document",
+          "startedMs": 936.556396,
+          "endedMs": 940.470198,
+          "ms": 3.9138020000000324
+        },
+        {
+          "name": "svg",
+          "startedMs": 977.990933,
+          "endedMs": 986.182355,
+          "ms": 8.191421999999989
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.36738600000001,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 929.496332,
+          "endedMs": 932.515588,
+          "ms": 3.0192559999999276
+        },
+        {
+          "name": "mount",
+          "startedMs": 932.635594,
+          "endedMs": 936.502093,
+          "ms": 3.866498999999976
+        },
+        {
+          "name": "document",
+          "startedMs": 936.556396,
+          "endedMs": 940.470198,
+          "ms": 3.9138020000000324
+        },
+        {
+          "name": "svg",
+          "startedMs": 977.990933,
+          "endedMs": 986.182355,
+          "ms": 8.191421999999989
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "ac786b81468b9e70093f70186058301b6d49b74b831e8d4987a0e7d35fe2b526",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 909.456898,
+          "endedMs": 912.38605,
+          "ms": 2.929151999999931
+        },
+        {
+          "name": "mount",
+          "startedMs": 912.505256,
+          "endedMs": 916.323953,
+          "ms": 3.818696999999929
+        },
+        {
+          "name": "document",
+          "startedMs": 916.380355,
+          "endedMs": 920.286157,
+          "ms": 3.9058019999999942
+        },
+        {
+          "name": "svg",
+          "startedMs": 958.119708,
+          "endedMs": 966.050317,
+          "ms": 7.930609000000004
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.100571999999943,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 909.456898,
+          "endedMs": 912.38605,
+          "ms": 2.929151999999931
+        },
+        {
+          "name": "mount",
+          "startedMs": 912.505256,
+          "endedMs": 916.323953,
+          "ms": 3.818696999999929
+        },
+        {
+          "name": "document",
+          "startedMs": 916.380355,
+          "endedMs": 920.286157,
+          "ms": 3.9058019999999942
+        },
+        {
+          "name": "svg",
+          "startedMs": 958.119708,
+          "endedMs": 966.050317,
+          "ms": 7.930609000000004
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "7c6b3af173f23cfb810e335612bd155b62e928071f43a311433e51b809ddc32f",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 945.437054,
+          "endedMs": 948.674721,
+          "ms": 3.2376669999999876
+        },
+        {
+          "name": "mount",
+          "startedMs": 948.817128,
+          "endedMs": 953.31146,
+          "ms": 4.494331999999986
+        },
+        {
+          "name": "document",
+          "startedMs": 953.391864,
+          "endedMs": 957.862895,
+          "ms": 4.471030999999925
+        },
+        {
+          "name": "svg",
+          "startedMs": 998.441387,
+          "endedMs": 1007.054831,
+          "ms": 8.613444000000072
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.884764000000018,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 945.437054,
+          "endedMs": 948.674721,
+          "ms": 3.2376669999999876
+        },
+        {
+          "name": "mount",
+          "startedMs": 948.817128,
+          "endedMs": 953.31146,
+          "ms": 4.494331999999986
+        },
+        {
+          "name": "document",
+          "startedMs": 953.391864,
+          "endedMs": 957.862895,
+          "ms": 4.471030999999925
+        },
+        {
+          "name": "svg",
+          "startedMs": 998.441387,
+          "endedMs": 1007.054831,
+          "ms": 8.613444000000072
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "ac786b81468b9e70093f70186058301b6d49b74b831e8d4987a0e7d35fe2b526",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 923.545933,
+          "endedMs": 926.549524,
+          "ms": 3.0035910000000285
+        },
+        {
+          "name": "mount",
+          "startedMs": 926.678932,
+          "endedMs": 930.665286,
+          "ms": 3.9863540000000057
+        },
+        {
+          "name": "document",
+          "startedMs": 930.72499,
+          "endedMs": 934.657641,
+          "ms": 3.9326509999999644
+        },
+        {
+          "name": "svg",
+          "startedMs": 972.919878,
+          "endedMs": 980.982292,
+          "ms": 8.06241399999999
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.38352599999996,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 923.545933,
+          "endedMs": 926.549524,
+          "ms": 3.0035910000000285
+        },
+        {
+          "name": "mount",
+          "startedMs": 926.678932,
+          "endedMs": 930.665286,
+          "ms": 3.9863540000000057
+        },
+        {
+          "name": "document",
+          "startedMs": 930.72499,
+          "endedMs": 934.657641,
+          "ms": 3.9326509999999644
+        },
+        {
+          "name": "svg",
+          "startedMs": 972.919878,
+          "endedMs": 980.982292,
+          "ms": 8.06241399999999
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "7c6b3af173f23cfb810e335612bd155b62e928071f43a311433e51b809ddc32f",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 911.178247,
+          "endedMs": 914.183538,
+          "ms": 3.005290999999943
+        },
+        {
+          "name": "mount",
+          "startedMs": 914.299446,
+          "endedMs": 918.204494,
+          "ms": 3.905047999999965
+        },
+        {
+          "name": "document",
+          "startedMs": 918.256698,
+          "endedMs": 922.21035,
+          "ms": 3.95365199999992
+        },
+        {
+          "name": "svg",
+          "startedMs": 960.178368,
+          "endedMs": 968.336488,
+          "ms": 8.158120000000054
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.299020000000041,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 911.178247,
+          "endedMs": 914.183538,
+          "ms": 3.005290999999943
+        },
+        {
+          "name": "mount",
+          "startedMs": 914.299446,
+          "endedMs": 918.204494,
+          "ms": 3.905047999999965
+        },
+        {
+          "name": "document",
+          "startedMs": 918.256698,
+          "endedMs": 922.21035,
+          "ms": 3.95365199999992
+        },
+        {
+          "name": "svg",
+          "startedMs": 960.178368,
+          "endedMs": 968.336488,
+          "ms": 8.158120000000054
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "ac786b81468b9e70093f70186058301b6d49b74b831e8d4987a0e7d35fe2b526",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 920.655151,
+          "endedMs": 923.94106,
+          "ms": 3.285908999999947
+        },
+        {
+          "name": "mount",
+          "startedMs": 924.068568,
+          "endedMs": 928.004019,
+          "ms": 3.9354509999999436
+        },
+        {
+          "name": "document",
+          "startedMs": 928.069523,
+          "endedMs": 931.978172,
+          "ms": 3.9086489999999685
+        },
+        {
+          "name": "svg",
+          "startedMs": 971.03026,
+          "endedMs": 979.700612,
+          "ms": 8.67035199999998
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.597038999999995,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 920.655151,
+          "endedMs": 923.94106,
+          "ms": 3.285908999999947
+        },
+        {
+          "name": "mount",
+          "startedMs": 924.068568,
+          "endedMs": 928.004019,
+          "ms": 3.9354509999999436
+        },
+        {
+          "name": "document",
+          "startedMs": 928.069523,
+          "endedMs": 931.978172,
+          "ms": 3.9086489999999685
+        },
+        {
+          "name": "svg",
+          "startedMs": 971.03026,
+          "endedMs": 979.700612,
+          "ms": 8.67035199999998
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "7c6b3af173f23cfb810e335612bd155b62e928071f43a311433e51b809ddc32f",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 907.841234,
+          "endedMs": 910.982735,
+          "ms": 3.141501000000062
+        },
+        {
+          "name": "mount",
+          "startedMs": 911.090441,
+          "endedMs": 915.091796,
+          "ms": 4.00135499999999
+        },
+        {
+          "name": "document",
+          "startedMs": 915.1431,
+          "endedMs": 919.126953,
+          "ms": 3.9838529999999537
+        },
+        {
+          "name": "svg",
+          "startedMs": 957.21978,
+          "endedMs": 965.580913,
+          "ms": 8.361132999999995
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.579938000000084,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 907.841234,
+          "endedMs": 910.982735,
+          "ms": 3.141501000000062
+        },
+        {
+          "name": "mount",
+          "startedMs": 911.090441,
+          "endedMs": 915.091796,
+          "ms": 4.00135499999999
+        },
+        {
+          "name": "document",
+          "startedMs": 915.1431,
+          "endedMs": 919.126953,
+          "ms": 3.9838529999999537
+        },
+        {
+          "name": "svg",
+          "startedMs": 957.21978,
+          "endedMs": 965.580913,
+          "ms": 8.361132999999995
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "ac786b81468b9e70093f70186058301b6d49b74b831e8d4987a0e7d35fe2b526",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 912.967461,
+          "endedMs": 915.918649,
+          "ms": 2.951188000000002
+        },
+        {
+          "name": "mount",
+          "startedMs": 916.031956,
+          "endedMs": 919.948105,
+          "ms": 3.9161490000000185
+        },
+        {
+          "name": "document",
+          "startedMs": 920.008509,
+          "endedMs": 923.979962,
+          "ms": 3.971452999999997
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.192797,
+          "endedMs": 970.498826,
+          "ms": 8.306028999999967
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.32062099999996,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 912.967461,
+          "endedMs": 915.918649,
+          "ms": 2.951188000000002
+        },
+        {
+          "name": "mount",
+          "startedMs": 916.031956,
+          "endedMs": 919.948105,
+          "ms": 3.9161490000000185
+        },
+        {
+          "name": "document",
+          "startedMs": 920.008509,
+          "endedMs": 923.979962,
+          "ms": 3.971452999999997
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.192797,
+          "endedMs": 970.498826,
+          "ms": 8.306028999999967
+        }
+      ],
+      "documentSha256": "63ccdf62e5d271fc51335e1a7e9d8fd4238109939f73b8df6a725b65a6824712",
+      "svgSha256": "7c6b3af173f23cfb810e335612bd155b62e928071f43a311433e51b809ddc32f",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 925.283846,
+          "endedMs": 928.423146,
+          "ms": 3.1392999999999347
+        },
+        {
+          "name": "mount",
+          "startedMs": 928.539253,
+          "endedMs": 932.475304,
+          "ms": 3.9360510000000204
+        },
+        {
+          "name": "document",
+          "startedMs": 932.545809,
+          "endedMs": 936.188841,
+          "ms": 3.643032000000062
+        },
+        {
+          "name": "svg",
+          "startedMs": 975.227428,
+          "endedMs": 983.627863,
+          "ms": 8.400435000000016
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.16381100000001,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 925.283846,
+          "endedMs": 928.423146,
+          "ms": 3.1392999999999347
+        },
+        {
+          "name": "mount",
+          "startedMs": 928.539253,
+          "endedMs": 932.475304,
+          "ms": 3.9360510000000204
+        },
+        {
+          "name": "document",
+          "startedMs": 932.545809,
+          "endedMs": 936.188841,
+          "ms": 3.643032000000062
+        },
+        {
+          "name": "svg",
+          "startedMs": 975.227428,
+          "endedMs": 983.627863,
+          "ms": 8.400435000000016
+        }
+      ],
+      "documentSha256": "6ad05dd8e5ea6391bcb5f357db7b093158be126f77208f94b30f2feab69278ea",
+      "svgSha256": "25b4144b94a087aaeaac8bb97472eeaeea02cd259450e55a496e10f767414672",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 906.367941,
+          "endedMs": 909.49584,
+          "ms": 3.1278990000000704
+        },
+        {
+          "name": "mount",
+          "startedMs": 909.616848,
+          "endedMs": 913.667606,
+          "ms": 4.050757999999973
+        },
+        {
+          "name": "document",
+          "startedMs": 913.721309,
+          "endedMs": 917.407744,
+          "ms": 3.6864349999999604
+        },
+        {
+          "name": "svg",
+          "startedMs": 956.463632,
+          "endedMs": 964.765661,
+          "ms": 8.302029000000061
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.336521999999945,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 906.367941,
+          "endedMs": 909.49584,
+          "ms": 3.1278990000000704
+        },
+        {
+          "name": "mount",
+          "startedMs": 909.616848,
+          "endedMs": 913.667606,
+          "ms": 4.050757999999973
+        },
+        {
+          "name": "document",
+          "startedMs": 913.721309,
+          "endedMs": 917.407744,
+          "ms": 3.6864349999999604
+        },
+        {
+          "name": "svg",
+          "startedMs": 956.463632,
+          "endedMs": 964.765661,
+          "ms": 8.302029000000061
+        }
+      ],
+      "documentSha256": "e454110c2c1909fc93e3e182634e12dd399aa25b76ebd3ba70e40a5ec15edb78",
+      "svgSha256": "d7791fb0fda12a9426a75bb9b5a24c7ea9ecf885d1f1a706a601f63d626e3960",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 909.955069,
+          "endedMs": 912.999163,
+          "ms": 3.0440939999999728
+        },
+        {
+          "name": "mount",
+          "startedMs": 913.11657,
+          "endedMs": 917.089824,
+          "ms": 3.973253999999997
+        },
+        {
+          "name": "document",
+          "startedMs": 917.154428,
+          "endedMs": 920.864864,
+          "ms": 3.7104359999999588
+        },
+        {
+          "name": "svg",
+          "startedMs": 965.755324,
+          "endedMs": 974.185461,
+          "ms": 8.430137000000059
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.220015000000103,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 909.955069,
+          "endedMs": 912.999163,
+          "ms": 3.0440939999999728
+        },
+        {
+          "name": "mount",
+          "startedMs": 913.11657,
+          "endedMs": 917.089824,
+          "ms": 3.973253999999997
+        },
+        {
+          "name": "document",
+          "startedMs": 917.154428,
+          "endedMs": 920.864864,
+          "ms": 3.7104359999999588
+        },
+        {
+          "name": "svg",
+          "startedMs": 965.755324,
+          "endedMs": 974.185461,
+          "ms": 8.430137000000059
+        }
+      ],
+      "documentSha256": "196b8dcd9ac51a8457e1cbf835f48caadf51a6fb449710f258cf6d8313b56054",
+      "svgSha256": "f4bb1d260d9547879c28abfcecf344cd432ea8183ee1b541c9ab522fe518b252",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 914.892175,
+          "endedMs": 917.782628,
+          "ms": 2.890453000000093
+        },
+        {
+          "name": "mount",
+          "startedMs": 917.895934,
+          "endedMs": 921.612831,
+          "ms": 3.716897000000017
+        },
+        {
+          "name": "document",
+          "startedMs": 921.664234,
+          "endedMs": 925.204922,
+          "ms": 3.5406880000000456
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.214783,
+          "endedMs": 970.083501,
+          "ms": 7.868717999999944
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.584561000000008,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 914.892175,
+          "endedMs": 917.782628,
+          "ms": 2.890453000000093
+        },
+        {
+          "name": "mount",
+          "startedMs": 917.895934,
+          "endedMs": 921.612831,
+          "ms": 3.716897000000017
+        },
+        {
+          "name": "document",
+          "startedMs": 921.664234,
+          "endedMs": 925.204922,
+          "ms": 3.5406880000000456
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.214783,
+          "endedMs": 970.083501,
+          "ms": 7.868717999999944
+        }
+      ],
+      "documentSha256": "786e4f745ed61d012b55c90f1a4c756f76f84306dae2397c67d9594f9329289a",
+      "svgSha256": "85e9dd9fafccad338e7c7fe8941e67481d8a6c4757fb9d025630f66b9e5c5d94",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 904.135321,
+          "endedMs": 906.851665,
+          "ms": 2.716344000000049
+        },
+        {
+          "name": "mount",
+          "startedMs": 906.985472,
+          "endedMs": 910.591064,
+          "ms": 3.6055920000000015
+        },
+        {
+          "name": "document",
+          "startedMs": 910.661367,
+          "endedMs": 914.30626,
+          "ms": 3.644892999999911
+        },
+        {
+          "name": "svg",
+          "startedMs": 953.419534,
+          "endedMs": 961.060839,
+          "ms": 7.6413049999999885
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.457754999999906,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 904.135321,
+          "endedMs": 906.851665,
+          "ms": 2.716344000000049
+        },
+        {
+          "name": "mount",
+          "startedMs": 906.985472,
+          "endedMs": 910.591064,
+          "ms": 3.6055920000000015
+        },
+        {
+          "name": "document",
+          "startedMs": 910.661367,
+          "endedMs": 914.30626,
+          "ms": 3.644892999999911
+        },
+        {
+          "name": "svg",
+          "startedMs": 953.419534,
+          "endedMs": 961.060839,
+          "ms": 7.6413049999999885
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "da4919e225789872e649d130f7961f242bd9f3dced101503be701113649e5fa6",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 902.939659,
+          "endedMs": 905.6093,
+          "ms": 2.669640999999956
+        },
+        {
+          "name": "mount",
+          "startedMs": 905.727006,
+          "endedMs": 909.725418,
+          "ms": 3.9984120000000303
+        },
+        {
+          "name": "document",
+          "startedMs": 909.813223,
+          "endedMs": 913.550621,
+          "ms": 3.7373979999999847
+        },
+        {
+          "name": "svg",
+          "startedMs": 953.061815,
+          "endedMs": 960.962634,
+          "ms": 7.900818999999956
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.89777700000002,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 902.939659,
+          "endedMs": 905.6093,
+          "ms": 2.669640999999956
+        },
+        {
+          "name": "mount",
+          "startedMs": 905.727006,
+          "endedMs": 909.725418,
+          "ms": 3.9984120000000303
+        },
+        {
+          "name": "document",
+          "startedMs": 909.813223,
+          "endedMs": 913.550621,
+          "ms": 3.7373979999999847
+        },
+        {
+          "name": "svg",
+          "startedMs": 953.061815,
+          "endedMs": 960.962634,
+          "ms": 7.900818999999956
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "c7c1867fe544f5627fa6b42005213c5218621d4cd3ce39baf2362036a0c4bbf1",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 910.664968,
+          "endedMs": 913.252405,
+          "ms": 2.587436999999909
+        },
+        {
+          "name": "mount",
+          "startedMs": 913.363411,
+          "endedMs": 916.9271,
+          "ms": 3.563688999999954
+        },
+        {
+          "name": "document",
+          "startedMs": 916.978403,
+          "endedMs": 920.50949,
+          "ms": 3.5310870000000705
+        },
+        {
+          "name": "svg",
+          "startedMs": 958.646511,
+          "endedMs": 965.947798,
+          "ms": 7.301287000000002
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.112136000000078,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 910.664968,
+          "endedMs": 913.252405,
+          "ms": 2.587436999999909
+        },
+        {
+          "name": "mount",
+          "startedMs": 913.363411,
+          "endedMs": 916.9271,
+          "ms": 3.563688999999954
+        },
+        {
+          "name": "document",
+          "startedMs": 916.978403,
+          "endedMs": 920.50949,
+          "ms": 3.5310870000000705
+        },
+        {
+          "name": "svg",
+          "startedMs": 958.646511,
+          "endedMs": 965.947798,
+          "ms": 7.301287000000002
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "da4919e225789872e649d130f7961f242bd9f3dced101503be701113649e5fa6",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 887.955964,
+          "endedMs": 890.5299,
+          "ms": 2.5739360000000033
+        },
+        {
+          "name": "mount",
+          "startedMs": 890.674708,
+          "endedMs": 894.269398,
+          "ms": 3.594690000000014
+        },
+        {
+          "name": "document",
+          "startedMs": 894.321401,
+          "endedMs": 897.832087,
+          "ms": 3.5106859999999642
+        },
+        {
+          "name": "svg",
+          "startedMs": 935.113963,
+          "endedMs": 942.474954,
+          "ms": 7.360991000000013
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.141436999999996,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 887.955964,
+          "endedMs": 890.5299,
+          "ms": 2.5739360000000033
+        },
+        {
+          "name": "mount",
+          "startedMs": 890.674708,
+          "endedMs": 894.269398,
+          "ms": 3.594690000000014
+        },
+        {
+          "name": "document",
+          "startedMs": 894.321401,
+          "endedMs": 897.832087,
+          "ms": 3.5106859999999642
+        },
+        {
+          "name": "svg",
+          "startedMs": 935.113963,
+          "endedMs": 942.474954,
+          "ms": 7.360991000000013
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "c7c1867fe544f5627fa6b42005213c5218621d4cd3ce39baf2362036a0c4bbf1",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 890.601804,
+          "endedMs": 893.221543,
+          "ms": 2.6197389999999814
+        },
+        {
+          "name": "mount",
+          "startedMs": 893.331849,
+          "endedMs": 897.087848,
+          "ms": 3.7559989999999743
+        },
+        {
+          "name": "document",
+          "startedMs": 897.143451,
+          "endedMs": 900.834547,
+          "ms": 3.691096000000016
+        },
+        {
+          "name": "svg",
+          "startedMs": 939.354288,
+          "endedMs": 946.593772,
+          "ms": 7.239483999999948
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.52985799999999,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 890.601804,
+          "endedMs": 893.221543,
+          "ms": 2.6197389999999814
+        },
+        {
+          "name": "mount",
+          "startedMs": 893.331849,
+          "endedMs": 897.087848,
+          "ms": 3.7559989999999743
+        },
+        {
+          "name": "document",
+          "startedMs": 897.143451,
+          "endedMs": 900.834547,
+          "ms": 3.691096000000016
+        },
+        {
+          "name": "svg",
+          "startedMs": 939.354288,
+          "endedMs": 946.593772,
+          "ms": 7.239483999999948
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "da4919e225789872e649d130f7961f242bd9f3dced101503be701113649e5fa6",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 903.53529,
+          "endedMs": 906.199131,
+          "ms": 2.663840999999934
+        },
+        {
+          "name": "mount",
+          "startedMs": 906.307037,
+          "endedMs": 909.966431,
+          "ms": 3.6593939999999066
+        },
+        {
+          "name": "document",
+          "startedMs": 910.021234,
+          "endedMs": 913.682428,
+          "ms": 3.6611939999999095
+        },
+        {
+          "name": "svg",
+          "startedMs": 952.048261,
+          "endedMs": 959.528758,
+          "ms": 7.480497000000014
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.423752000000036,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 903.53529,
+          "endedMs": 906.199131,
+          "ms": 2.663840999999934
+        },
+        {
+          "name": "mount",
+          "startedMs": 906.307037,
+          "endedMs": 909.966431,
+          "ms": 3.6593939999999066
+        },
+        {
+          "name": "document",
+          "startedMs": 910.021234,
+          "endedMs": 913.682428,
+          "ms": 3.6611939999999095
+        },
+        {
+          "name": "svg",
+          "startedMs": 952.048261,
+          "endedMs": 959.528758,
+          "ms": 7.480497000000014
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "c7c1867fe544f5627fa6b42005213c5218621d4cd3ce39baf2362036a0c4bbf1",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 940.165832,
+          "endedMs": 942.856774,
+          "ms": 2.69094199999995
+        },
+        {
+          "name": "mount",
+          "startedMs": 942.96318,
+          "endedMs": 946.767081,
+          "ms": 3.803900999999996
+        },
+        {
+          "name": "document",
+          "startedMs": 946.852086,
+          "endedMs": 950.487779,
+          "ms": 3.6356930000000602
+        },
+        {
+          "name": "svg",
+          "startedMs": 990.590004,
+          "endedMs": 998.181007,
+          "ms": 7.591003000000001
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.595261999999934,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 940.165832,
+          "endedMs": 942.856774,
+          "ms": 2.69094199999995
+        },
+        {
+          "name": "mount",
+          "startedMs": 942.96318,
+          "endedMs": 946.767081,
+          "ms": 3.803900999999996
+        },
+        {
+          "name": "document",
+          "startedMs": 946.852086,
+          "endedMs": 950.487779,
+          "ms": 3.6356930000000602
+        },
+        {
+          "name": "svg",
+          "startedMs": 990.590004,
+          "endedMs": 998.181007,
+          "ms": 7.591003000000001
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "da4919e225789872e649d130f7961f242bd9f3dced101503be701113649e5fa6",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 1011.422636,
+          "endedMs": 1014.183869,
+          "ms": 2.7612329999999474
+        },
+        {
+          "name": "mount",
+          "startedMs": 1014.314975,
+          "endedMs": 1018.731387,
+          "ms": 4.416412000000037
+        },
+        {
+          "name": "document",
+          "startedMs": 1018.812891,
+          "endedMs": 1022.597373,
+          "ms": 3.7844819999999117
+        },
+        {
+          "name": "svg",
+          "startedMs": 1062.819108,
+          "endedMs": 1070.712388,
+          "ms": 7.893280000000004
+        }
+      ],
+      "status": "complete",
+      "modelMs": 11.478051999999934,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 1011.422636,
+          "endedMs": 1014.183869,
+          "ms": 2.7612329999999474
+        },
+        {
+          "name": "mount",
+          "startedMs": 1014.314975,
+          "endedMs": 1018.731387,
+          "ms": 4.416412000000037
+        },
+        {
+          "name": "document",
+          "startedMs": 1018.812891,
+          "endedMs": 1022.597373,
+          "ms": 3.7844819999999117
+        },
+        {
+          "name": "svg",
+          "startedMs": 1062.819108,
+          "endedMs": 1070.712388,
+          "ms": 7.893280000000004
+        }
+      ],
+      "documentSha256": "99bd3708ab58a7164e3ebe107261d82786536d7a8d93b8c35153614fd3ad41b0",
+      "svgSha256": "c7c1867fe544f5627fa6b42005213c5218621d4cd3ce39baf2362036a0c4bbf1",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 967.775161,
+          "endedMs": 970.45359,
+          "ms": 2.6784289999999373
+        },
+        {
+          "name": "mount",
+          "startedMs": 970.563895,
+          "endedMs": 974.248372,
+          "ms": 3.6844770000000153
+        },
+        {
+          "name": "document",
+          "startedMs": 974.317576,
+          "endedMs": 977.72824,
+          "ms": 3.410663999999997
+        },
+        {
+          "name": "svg",
+          "startedMs": 1015.425453,
+          "endedMs": 1022.662401,
+          "ms": 7.236948000000098
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.229892000000063,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 967.775161,
+          "endedMs": 970.45359,
+          "ms": 2.6784289999999373
+        },
+        {
+          "name": "mount",
+          "startedMs": 970.563895,
+          "endedMs": 974.248372,
+          "ms": 3.6844770000000153
+        },
+        {
+          "name": "document",
+          "startedMs": 974.317576,
+          "endedMs": 977.72824,
+          "ms": 3.410663999999997
+        },
+        {
+          "name": "svg",
+          "startedMs": 1015.425453,
+          "endedMs": 1022.662401,
+          "ms": 7.236948000000098
+        }
+      ],
+      "documentSha256": "0b57abea9d6e7377734a372a892d074dfcc4fb90cc036ee313614319e5308c4b",
+      "svgSha256": "bd53cf58e52d1b3e1dd021f7f02c48ba40159e92f2a136903f86a87acac297aa",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 927.738234,
+          "endedMs": 930.426264,
+          "ms": 2.6880299999999124
+        },
+        {
+          "name": "mount",
+          "startedMs": 930.535869,
+          "endedMs": 934.451557,
+          "ms": 3.915687999999932
+        },
+        {
+          "name": "document",
+          "startedMs": 934.51066,
+          "endedMs": 937.767817,
+          "ms": 3.2571570000000065
+        },
+        {
+          "name": "svg",
+          "startedMs": 978.748189,
+          "endedMs": 986.171146,
+          "ms": 7.422956999999997
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.31529599999999,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 927.738234,
+          "endedMs": 930.426264,
+          "ms": 2.6880299999999124
+        },
+        {
+          "name": "mount",
+          "startedMs": 930.535869,
+          "endedMs": 934.451557,
+          "ms": 3.915687999999932
+        },
+        {
+          "name": "document",
+          "startedMs": 934.51066,
+          "endedMs": 937.767817,
+          "ms": 3.2571570000000065
+        },
+        {
+          "name": "svg",
+          "startedMs": 978.748189,
+          "endedMs": 986.171146,
+          "ms": 7.422956999999997
+        }
+      ],
+      "documentSha256": "aaeefac035a15827567ee9235d000df21990773eda8b172490b2211fe5153d90",
+      "svgSha256": "b722b8075109c8bba04b17e8c72bde00853639c438ce55394477eb822e2741c7",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 911.192139,
+          "endedMs": 913.91607,
+          "ms": 2.723930999999993
+        },
+        {
+          "name": "mount",
+          "startedMs": 914.022575,
+          "endedMs": 917.830758,
+          "ms": 3.8081829999999854
+        },
+        {
+          "name": "document",
+          "startedMs": 917.882261,
+          "endedMs": 921.288725,
+          "ms": 3.406464000000028
+        },
+        {
+          "name": "svg",
+          "startedMs": 959.473162,
+          "endedMs": 967.026725,
+          "ms": 7.553563000000054
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.394000000000005,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 911.192139,
+          "endedMs": 913.91607,
+          "ms": 2.723930999999993
+        },
+        {
+          "name": "mount",
+          "startedMs": 914.022575,
+          "endedMs": 917.830758,
+          "ms": 3.8081829999999854
+        },
+        {
+          "name": "document",
+          "startedMs": 917.882261,
+          "endedMs": 921.288725,
+          "ms": 3.406464000000028
+        },
+        {
+          "name": "svg",
+          "startedMs": 959.473162,
+          "endedMs": 967.026725,
+          "ms": 7.553563000000054
+        }
+      ],
+      "documentSha256": "32636e3cd2813507e60b534f5fd67535d936dcfa61e287391af7463547927a38",
+      "svgSha256": "567736d3161b5688f8895f6859bfae2c5fdd5244376c6d6b8265e125af00d4e4",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "snare",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 920.854604,
+          "endedMs": 923.742843,
+          "ms": 2.8882389999999987
+        },
+        {
+          "name": "mount",
+          "startedMs": 923.857148,
+          "endedMs": 927.776437,
+          "ms": 3.919288999999935
+        },
+        {
+          "name": "document",
+          "startedMs": 927.83734,
+          "endedMs": 931.161699,
+          "ms": 3.3243589999999585
+        },
+        {
+          "name": "svg",
+          "startedMs": 971.149723,
+          "endedMs": 978.9684,
+          "ms": 7.81867699999998
+        }
+      ],
+      "status": "complete",
+      "modelMs": 10.618211000000088,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 920.854604,
+          "endedMs": 923.742843,
+          "ms": 2.8882389999999987
+        },
+        {
+          "name": "mount",
+          "startedMs": 923.857148,
+          "endedMs": 927.776437,
+          "ms": 3.919288999999935
+        },
+        {
+          "name": "document",
+          "startedMs": 927.83734,
+          "endedMs": 931.161699,
+          "ms": 3.3243589999999585
+        },
+        {
+          "name": "svg",
+          "startedMs": 971.149723,
+          "endedMs": 978.9684,
+          "ms": 7.81867699999998
+        }
+      ],
+      "documentSha256": "bd38756c06ca689be62fbc194fc8b9f1a41f2103b894c8c7853962bae945cbed",
+      "svgSha256": "5bfe994ad06dad67c6998eb5deb4d466945f8858e44a98c51eb0e8d6ac1d597e",
+      "notes": 1,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 911.894172,
+          "endedMs": 915.221332,
+          "ms": 3.3271599999999353
+        },
+        {
+          "name": "mount",
+          "startedMs": 915.336438,
+          "endedMs": 920.436283,
+          "ms": 5.099844999999959
+        },
+        {
+          "name": "document",
+          "startedMs": 920.496086,
+          "endedMs": 925.088107,
+          "ms": 4.592021000000045
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.883225,
+          "endedMs": 972.046366,
+          "ms": 9.163140999999996
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.519549999999981,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 911.894172,
+          "endedMs": 915.221332,
+          "ms": 3.3271599999999353
+        },
+        {
+          "name": "mount",
+          "startedMs": 915.336438,
+          "endedMs": 920.436283,
+          "ms": 5.099844999999959
+        },
+        {
+          "name": "document",
+          "startedMs": 920.496086,
+          "endedMs": 925.088107,
+          "ms": 4.592021000000045
+        },
+        {
+          "name": "svg",
+          "startedMs": 962.883225,
+          "endedMs": 972.046366,
+          "ms": 9.163140999999996
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "54690e0b44007b5c67cc23cbfb641245c794f7cbefd5f0a36e1a5fbfd425f14a",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 926.864093,
+          "endedMs": 930.518369,
+          "ms": 3.6542759999999817
+        },
+        {
+          "name": "mount",
+          "startedMs": 930.661175,
+          "endedMs": 936.559459,
+          "ms": 5.89828399999999
+        },
+        {
+          "name": "document",
+          "startedMs": 936.665564,
+          "endedMs": 942.649152,
+          "ms": 5.983587999999941
+        },
+        {
+          "name": "svg",
+          "startedMs": 984.097046,
+          "endedMs": 994.785861,
+          "ms": 10.688814999999977
+        }
+      ],
+      "status": "complete",
+      "modelMs": 16.123976000000084,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 926.864093,
+          "endedMs": 930.518369,
+          "ms": 3.6542759999999817
+        },
+        {
+          "name": "mount",
+          "startedMs": 930.661175,
+          "endedMs": 936.559459,
+          "ms": 5.89828399999999
+        },
+        {
+          "name": "document",
+          "startedMs": 936.665564,
+          "endedMs": 942.649152,
+          "ms": 5.983587999999941
+        },
+        {
+          "name": "svg",
+          "startedMs": 984.097046,
+          "endedMs": 994.785861,
+          "ms": 10.688814999999977
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "dcdeb9782531fbab940f26aee7e7a7f1f8ff793d4768723a9b13942795b12b50",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 964.932924,
+          "endedMs": 968.141878,
+          "ms": 3.2089540000000625
+        },
+        {
+          "name": "mount",
+          "startedMs": 968.256784,
+          "endedMs": 973.416532,
+          "ms": 5.159747999999922
+        },
+        {
+          "name": "document",
+          "startedMs": 973.479335,
+          "endedMs": 978.088357,
+          "ms": 4.609021999999982
+        },
+        {
+          "name": "svg",
+          "startedMs": 1016.325096,
+          "endedMs": 1026.523987,
+          "ms": 10.198891000000003
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.441547000000014,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 964.932924,
+          "endedMs": 968.141878,
+          "ms": 3.2089540000000625
+        },
+        {
+          "name": "mount",
+          "startedMs": 968.256784,
+          "endedMs": 973.416532,
+          "ms": 5.159747999999922
+        },
+        {
+          "name": "document",
+          "startedMs": 973.479335,
+          "endedMs": 978.088357,
+          "ms": 4.609021999999982
+        },
+        {
+          "name": "svg",
+          "startedMs": 1016.325096,
+          "endedMs": 1026.523987,
+          "ms": 10.198891000000003
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "54690e0b44007b5c67cc23cbfb641245c794f7cbefd5f0a36e1a5fbfd425f14a",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 936.7707,
+          "endedMs": 940.280973,
+          "ms": 3.5102729999999838
+        },
+        {
+          "name": "mount",
+          "startedMs": 940.398979,
+          "endedMs": 945.715041,
+          "ms": 5.316061999999988
+        },
+        {
+          "name": "document",
+          "startedMs": 945.765943,
+          "endedMs": 950.570381,
+          "ms": 4.804438000000005
+        },
+        {
+          "name": "svg",
+          "startedMs": 989.4692,
+          "endedMs": 999.290184,
+          "ms": 9.820983999999953
+        }
+      ],
+      "status": "complete",
+      "modelMs": 14.128096999999912,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 936.7707,
+          "endedMs": 940.280973,
+          "ms": 3.5102729999999838
+        },
+        {
+          "name": "mount",
+          "startedMs": 940.398979,
+          "endedMs": 945.715041,
+          "ms": 5.316061999999988
+        },
+        {
+          "name": "document",
+          "startedMs": 945.765943,
+          "endedMs": 950.570381,
+          "ms": 4.804438000000005
+        },
+        {
+          "name": "svg",
+          "startedMs": 989.4692,
+          "endedMs": 999.290184,
+          "ms": 9.820983999999953
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "dcdeb9782531fbab940f26aee7e7a7f1f8ff793d4768723a9b13942795b12b50",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 987.889038,
+          "endedMs": 991.345508,
+          "ms": 3.4564699999999675
+        },
+        {
+          "name": "mount",
+          "startedMs": 991.466914,
+          "endedMs": 997.05149,
+          "ms": 5.58457599999997
+        },
+        {
+          "name": "document",
+          "startedMs": 997.123593,
+          "endedMs": 1001.558412,
+          "ms": 4.434818999999948
+        },
+        {
+          "name": "svg",
+          "startedMs": 1039.844401,
+          "endedMs": 1049.34977,
+          "ms": 9.505368999999973
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.941887999999949,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 987.889038,
+          "endedMs": 991.345508,
+          "ms": 3.4564699999999675
+        },
+        {
+          "name": "mount",
+          "startedMs": 991.466914,
+          "endedMs": 997.05149,
+          "ms": 5.58457599999997
+        },
+        {
+          "name": "document",
+          "startedMs": 997.123593,
+          "endedMs": 1001.558412,
+          "ms": 4.434818999999948
+        },
+        {
+          "name": "svg",
+          "startedMs": 1039.844401,
+          "endedMs": 1049.34977,
+          "ms": 9.505368999999973
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "54690e0b44007b5c67cc23cbfb641245c794f7cbefd5f0a36e1a5fbfd425f14a",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 971.916149,
+          "endedMs": 975.220812,
+          "ms": 3.304663000000005
+        },
+        {
+          "name": "mount",
+          "startedMs": 975.403621,
+          "endedMs": 980.706682,
+          "ms": 5.303060999999957
+        },
+        {
+          "name": "document",
+          "startedMs": 980.775086,
+          "endedMs": 985.223505,
+          "ms": 4.448419000000058
+        },
+        {
+          "name": "svg",
+          "startedMs": 1024.326734,
+          "endedMs": 1034.138919,
+          "ms": 9.812185
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.641873000000032,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 971.916149,
+          "endedMs": 975.220812,
+          "ms": 3.304663000000005
+        },
+        {
+          "name": "mount",
+          "startedMs": 975.403621,
+          "endedMs": 980.706682,
+          "ms": 5.303060999999957
+        },
+        {
+          "name": "document",
+          "startedMs": 980.775086,
+          "endedMs": 985.223505,
+          "ms": 4.448419000000058
+        },
+        {
+          "name": "svg",
+          "startedMs": 1024.326734,
+          "endedMs": 1034.138919,
+          "ms": 9.812185
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "dcdeb9782531fbab940f26aee7e7a7f1f8ff793d4768723a9b13942795b12b50",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 972.708687,
+          "endedMs": 975.864443,
+          "ms": 3.1557559999999967
+        },
+        {
+          "name": "mount",
+          "startedMs": 975.971148,
+          "endedMs": 981.0617,
+          "ms": 5.090552000000002
+        },
+        {
+          "name": "document",
+          "startedMs": 981.114302,
+          "endedMs": 985.542321,
+          "ms": 4.428019000000063
+        },
+        {
+          "name": "svg",
+          "startedMs": 1024.222129,
+          "endedMs": 1033.496486,
+          "ms": 9.274357000000009
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.092445999999995,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 972.708687,
+          "endedMs": 975.864443,
+          "ms": 3.1557559999999967
+        },
+        {
+          "name": "mount",
+          "startedMs": 975.971148,
+          "endedMs": 981.0617,
+          "ms": 5.090552000000002
+        },
+        {
+          "name": "document",
+          "startedMs": 981.114302,
+          "endedMs": 985.542321,
+          "ms": 4.428019000000063
+        },
+        {
+          "name": "svg",
+          "startedMs": 1024.222129,
+          "endedMs": 1033.496486,
+          "ms": 9.274357000000009
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "54690e0b44007b5c67cc23cbfb641245c794f7cbefd5f0a36e1a5fbfd425f14a",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 944.243583,
+          "endedMs": 947.540246,
+          "ms": 3.2966630000000805
+        },
+        {
+          "name": "mount",
+          "startedMs": 947.651151,
+          "endedMs": 953.492439,
+          "ms": 5.841287999999963
+        },
+        {
+          "name": "document",
+          "startedMs": 953.609945,
+          "endedMs": 958.444584,
+          "ms": 4.834638999999925
+        },
+        {
+          "name": "svg",
+          "startedMs": 998.132942,
+          "endedMs": 1007.533906,
+          "ms": 9.400964000000045
+        }
+      ],
+      "status": "complete",
+      "modelMs": 14.490814999999998,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 944.243583,
+          "endedMs": 947.540246,
+          "ms": 3.2966630000000805
+        },
+        {
+          "name": "mount",
+          "startedMs": 947.651151,
+          "endedMs": 953.492439,
+          "ms": 5.841287999999963
+        },
+        {
+          "name": "document",
+          "startedMs": 953.609945,
+          "endedMs": 958.444584,
+          "ms": 4.834638999999925
+        },
+        {
+          "name": "svg",
+          "startedMs": 998.132942,
+          "endedMs": 1007.533906,
+          "ms": 9.400964000000045
+        }
+      ],
+      "documentSha256": "e0fe965f7869ce2d72d468e47fa67ea04b664f9de02c4928425af9e695ae3da5",
+      "svgSha256": "dcdeb9782531fbab940f26aee7e7a7f1f8ff793d4768723a9b13942795b12b50",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 922.49251,
+          "endedMs": 925.723069,
+          "ms": 3.230558999999971
+        },
+        {
+          "name": "mount",
+          "startedMs": 925.845875,
+          "endedMs": 931.103535,
+          "ms": 5.257659999999987
+        },
+        {
+          "name": "document",
+          "startedMs": 931.159038,
+          "endedMs": 935.180136,
+          "ms": 4.021097999999938
+        },
+        {
+          "name": "svg",
+          "startedMs": 974.123457,
+          "endedMs": 983.779934,
+          "ms": 9.656476999999995
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.982439999999997,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 922.49251,
+          "endedMs": 925.723069,
+          "ms": 3.230558999999971
+        },
+        {
+          "name": "mount",
+          "startedMs": 925.845875,
+          "endedMs": 931.103535,
+          "ms": 5.257659999999987
+        },
+        {
+          "name": "document",
+          "startedMs": 931.159038,
+          "endedMs": 935.180136,
+          "ms": 4.021097999999938
+        },
+        {
+          "name": "svg",
+          "startedMs": 974.123457,
+          "endedMs": 983.779934,
+          "ms": 9.656476999999995
+        }
+      ],
+      "documentSha256": "7731100059ba4bb46dda7d1b65d0edc5ce89e384799dcf34189c97f1a9cb9cde",
+      "svgSha256": "1dc3325cb17ec1737835e4f749086425319b522dbff486fb7d4fac497424de73",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 1000.634865,
+          "endedMs": 1003.913527,
+          "ms": 3.278662000000054
+        },
+        {
+          "name": "mount",
+          "startedMs": 1004.024132,
+          "endedMs": 1009.090982,
+          "ms": 5.066850000000045
+        },
+        {
+          "name": "document",
+          "startedMs": 1009.174587,
+          "endedMs": 1013.69971,
+          "ms": 4.525123000000008
+        },
+        {
+          "name": "svg",
+          "startedMs": 1053.343666,
+          "endedMs": 1063.540069,
+          "ms": 10.196402999999918
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.374059999999986,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 1000.634865,
+          "endedMs": 1003.913527,
+          "ms": 3.278662000000054
+        },
+        {
+          "name": "mount",
+          "startedMs": 1004.024132,
+          "endedMs": 1009.090982,
+          "ms": 5.066850000000045
+        },
+        {
+          "name": "document",
+          "startedMs": 1009.174587,
+          "endedMs": 1013.69971,
+          "ms": 4.525123000000008
+        },
+        {
+          "name": "svg",
+          "startedMs": 1053.343666,
+          "endedMs": 1063.540069,
+          "ms": 10.196402999999918
+        }
+      ],
+      "documentSha256": "62a6ffa6fe01b88554ee132d89d3d7468b267e3170d06e971eb2e456b27311d2",
+      "svgSha256": "f04daa54a35ec36be925f93980bc021608dca9cb07d3a30f447ecebf63067f0f",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 954.775003,
+          "endedMs": 958.006862,
+          "ms": 3.231858999999986
+        },
+        {
+          "name": "mount",
+          "startedMs": 958.130268,
+          "endedMs": 963.347726,
+          "ms": 5.217457999999965
+        },
+        {
+          "name": "document",
+          "startedMs": 963.414429,
+          "endedMs": 967.650338,
+          "ms": 4.235908999999992
+        },
+        {
+          "name": "svg",
+          "startedMs": 1006.391249,
+          "endedMs": 1016.303738,
+          "ms": 9.912488999999937
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.157549000000017,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 954.775003,
+          "endedMs": 958.006862,
+          "ms": 3.231858999999986
+        },
+        {
+          "name": "mount",
+          "startedMs": 958.130268,
+          "endedMs": 963.347726,
+          "ms": 5.217457999999965
+        },
+        {
+          "name": "document",
+          "startedMs": 963.414429,
+          "endedMs": 967.650338,
+          "ms": 4.235908999999992
+        },
+        {
+          "name": "svg",
+          "startedMs": 1006.391249,
+          "endedMs": 1016.303738,
+          "ms": 9.912488999999937
+        }
+      ],
+      "documentSha256": "4c2a0e658cd3b6db370ce0d78244edad23bdd86e73920a17366f27fefa1c50b7",
+      "svgSha256": "b79f1ba623cf76a2134d3f3e5eb670948bbe9c44aad697142339aac4186dc7d4",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 918.345133,
+          "endedMs": 921.487679,
+          "ms": 3.142545999999925
+        },
+        {
+          "name": "mount",
+          "startedMs": 921.597784,
+          "endedMs": 926.90643,
+          "ms": 5.308645999999953
+        },
+        {
+          "name": "document",
+          "startedMs": 926.979733,
+          "endedMs": 931.786856,
+          "ms": 4.807122999999933
+        },
+        {
+          "name": "svg",
+          "startedMs": 969.925722,
+          "endedMs": 979.308757,
+          "ms": 9.383035000000064
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.72513600000002,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 918.345133,
+          "endedMs": 921.487679,
+          "ms": 3.142545999999925
+        },
+        {
+          "name": "mount",
+          "startedMs": 921.597784,
+          "endedMs": 926.90643,
+          "ms": 5.308645999999953
+        },
+        {
+          "name": "document",
+          "startedMs": 926.979733,
+          "endedMs": 931.786856,
+          "ms": 4.807122999999933
+        },
+        {
+          "name": "svg",
+          "startedMs": 969.925722,
+          "endedMs": 979.308757,
+          "ms": 9.383035000000064
+        }
+      ],
+      "documentSha256": "475ee0d3e2802fa95a0f74c38e6afb2fce5a678b3a5633e52cafdf41a0b58e67",
+      "svgSha256": "6111c3e30b2de5c3b0b87ace397ed8393bfc1e43c07b8c84fb3f9f7dba5f9847",
+      "notes": 3,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 925.938885,
+          "endedMs": 929.591655,
+          "ms": 3.6527699999999186
+        },
+        {
+          "name": "mount",
+          "startedMs": 929.735061,
+          "endedMs": 934.128965,
+          "ms": 4.3939040000000205
+        },
+        {
+          "name": "document",
+          "startedMs": 934.181167,
+          "endedMs": 938.852183,
+          "ms": 4.671016000000009
+        },
+        {
+          "name": "svg",
+          "startedMs": 978.991443,
+          "endedMs": 988.189169,
+          "ms": 9.197725999999989
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.211211000000048,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 925.938885,
+          "endedMs": 929.591655,
+          "ms": 3.6527699999999186
+        },
+        {
+          "name": "mount",
+          "startedMs": 929.735061,
+          "endedMs": 934.128965,
+          "ms": 4.3939040000000205
+        },
+        {
+          "name": "document",
+          "startedMs": 934.181167,
+          "endedMs": 938.852183,
+          "ms": 4.671016000000009
+        },
+        {
+          "name": "svg",
+          "startedMs": 978.991443,
+          "endedMs": 988.189169,
+          "ms": 9.197725999999989
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "6efe22c8bdda3bb116fef70aac8e5e811af0fc42a22c3cc81cefdb813e03014d",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 921.080661,
+          "endedMs": 924.921638,
+          "ms": 3.8409770000000663
+        },
+        {
+          "name": "mount",
+          "startedMs": 925.040644,
+          "endedMs": 929.662558,
+          "ms": 4.621913999999947
+        },
+        {
+          "name": "document",
+          "startedMs": 929.736161,
+          "endedMs": 934.530083,
+          "ms": 4.793921999999952
+        },
+        {
+          "name": "svg",
+          "startedMs": 972.868959,
+          "endedMs": 981.578263,
+          "ms": 8.709303999999975
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.732436000000007,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 921.080661,
+          "endedMs": 924.921638,
+          "ms": 3.8409770000000663
+        },
+        {
+          "name": "mount",
+          "startedMs": 925.040644,
+          "endedMs": 929.662558,
+          "ms": 4.621913999999947
+        },
+        {
+          "name": "document",
+          "startedMs": 929.736161,
+          "endedMs": 934.530083,
+          "ms": 4.793921999999952
+        },
+        {
+          "name": "svg",
+          "startedMs": 972.868959,
+          "endedMs": 981.578263,
+          "ms": 8.709303999999975
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "68b755fff83cf55931a159af1fd25f764e44bfb710230950ce30ff4d65a7ac98",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 963.531727,
+          "endedMs": 967.073491,
+          "ms": 3.5417639999999437
+        },
+        {
+          "name": "mount",
+          "startedMs": 967.210998,
+          "endedMs": 971.624702,
+          "ms": 4.413703999999939
+        },
+        {
+          "name": "document",
+          "startedMs": 971.683305,
+          "endedMs": 976.350921,
+          "ms": 4.667615999999953
+        },
+        {
+          "name": "svg",
+          "startedMs": 1015.588438,
+          "endedMs": 1024.941572,
+          "ms": 9.353133999999955
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.151010000000042,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 963.531727,
+          "endedMs": 967.073491,
+          "ms": 3.5417639999999437
+        },
+        {
+          "name": "mount",
+          "startedMs": 967.210998,
+          "endedMs": 971.624702,
+          "ms": 4.413703999999939
+        },
+        {
+          "name": "document",
+          "startedMs": 971.683305,
+          "endedMs": 976.350921,
+          "ms": 4.667615999999953
+        },
+        {
+          "name": "svg",
+          "startedMs": 1015.588438,
+          "endedMs": 1024.941572,
+          "ms": 9.353133999999955
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "6efe22c8bdda3bb116fef70aac8e5e811af0fc42a22c3cc81cefdb813e03014d",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 947.713595,
+          "endedMs": 951.389965,
+          "ms": 3.676369999999906
+        },
+        {
+          "name": "mount",
+          "startedMs": 951.512071,
+          "endedMs": 956.152585,
+          "ms": 4.640514000000053
+        },
+        {
+          "name": "document",
+          "startedMs": 956.231489,
+          "endedMs": 961.045412,
+          "ms": 4.813923000000045
+        },
+        {
+          "name": "svg",
+          "startedMs": 1000.603244,
+          "endedMs": 1009.633463,
+          "ms": 9.030218999999988
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.630531000000019,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 947.713595,
+          "endedMs": 951.389965,
+          "ms": 3.676369999999906
+        },
+        {
+          "name": "mount",
+          "startedMs": 951.512071,
+          "endedMs": 956.152585,
+          "ms": 4.640514000000053
+        },
+        {
+          "name": "document",
+          "startedMs": 956.231489,
+          "endedMs": 961.045412,
+          "ms": 4.813923000000045
+        },
+        {
+          "name": "svg",
+          "startedMs": 1000.603244,
+          "endedMs": 1009.633463,
+          "ms": 9.030218999999988
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "68b755fff83cf55931a159af1fd25f764e44bfb710230950ce30ff4d65a7ac98",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 1001.678493,
+          "endedMs": 1005.517771,
+          "ms": 3.8392780000000357
+        },
+        {
+          "name": "mount",
+          "startedMs": 1005.666878,
+          "endedMs": 1010.960823,
+          "ms": 5.293945000000008
+        },
+        {
+          "name": "document",
+          "startedMs": 1011.034927,
+          "endedMs": 1016.096161,
+          "ms": 5.061234000000013
+        },
+        {
+          "name": "svg",
+          "startedMs": 1054.043219,
+          "endedMs": 1062.71422,
+          "ms": 8.67100100000016
+        }
+      ],
+      "status": "complete",
+      "modelMs": 14.718381000000022,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 1001.678493,
+          "endedMs": 1005.517771,
+          "ms": 3.8392780000000357
+        },
+        {
+          "name": "mount",
+          "startedMs": 1005.666878,
+          "endedMs": 1010.960823,
+          "ms": 5.293945000000008
+        },
+        {
+          "name": "document",
+          "startedMs": 1011.034927,
+          "endedMs": 1016.096161,
+          "ms": 5.061234000000013
+        },
+        {
+          "name": "svg",
+          "startedMs": 1054.043219,
+          "endedMs": 1062.71422,
+          "ms": 8.67100100000016
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "6efe22c8bdda3bb116fef70aac8e5e811af0fc42a22c3cc81cefdb813e03014d",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 970.875367,
+          "endedMs": 974.259723,
+          "ms": 3.3843560000000252
+        },
+        {
+          "name": "mount",
+          "startedMs": 974.370729,
+          "endedMs": 978.701729,
+          "ms": 4.331000000000017
+        },
+        {
+          "name": "document",
+          "startedMs": 978.755232,
+          "endedMs": 983.361845,
+          "ms": 4.6066130000000385
+        },
+        {
+          "name": "svg",
+          "startedMs": 1020.956086,
+          "endedMs": 1030.340121,
+          "ms": 9.384034999999926
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.781592000000046,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 970.875367,
+          "endedMs": 974.259723,
+          "ms": 3.3843560000000252
+        },
+        {
+          "name": "mount",
+          "startedMs": 974.370729,
+          "endedMs": 978.701729,
+          "ms": 4.331000000000017
+        },
+        {
+          "name": "document",
+          "startedMs": 978.755232,
+          "endedMs": 983.361845,
+          "ms": 4.6066130000000385
+        },
+        {
+          "name": "svg",
+          "startedMs": 1020.956086,
+          "endedMs": 1030.340121,
+          "ms": 9.384034999999926
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "68b755fff83cf55931a159af1fd25f764e44bfb710230950ce30ff4d65a7ac98",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 960.462785,
+          "endedMs": 964.013149,
+          "ms": 3.550363999999945
+        },
+        {
+          "name": "mount",
+          "startedMs": 964.136255,
+          "endedMs": 968.482756,
+          "ms": 4.346500999999989
+        },
+        {
+          "name": "document",
+          "startedMs": 968.548359,
+          "endedMs": 973.207675,
+          "ms": 4.65931599999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 1011.291539,
+          "endedMs": 1019.841535,
+          "ms": 8.549996000000078
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.035004000000072,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 960.462785,
+          "endedMs": 964.013149,
+          "ms": 3.550363999999945
+        },
+        {
+          "name": "mount",
+          "startedMs": 964.136255,
+          "endedMs": 968.482756,
+          "ms": 4.346500999999989
+        },
+        {
+          "name": "document",
+          "startedMs": 968.548359,
+          "endedMs": 973.207675,
+          "ms": 4.65931599999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 1011.291539,
+          "endedMs": 1019.841535,
+          "ms": 8.549996000000078
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "6efe22c8bdda3bb116fef70aac8e5e811af0fc42a22c3cc81cefdb813e03014d",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 937.539878,
+          "endedMs": 941.392234,
+          "ms": 3.852355999999986
+        },
+        {
+          "name": "mount",
+          "startedMs": 941.535436,
+          "endedMs": 946.213704,
+          "ms": 4.678268000000003
+        },
+        {
+          "name": "document",
+          "startedMs": 946.292305,
+          "endedMs": 951.198077,
+          "ms": 4.905771999999956
+        },
+        {
+          "name": "svg",
+          "startedMs": 991.158059,
+          "endedMs": 1000.196791,
+          "ms": 9.038731999999982
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.949003000000062,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 937.539878,
+          "endedMs": 941.392234,
+          "ms": 3.852355999999986
+        },
+        {
+          "name": "mount",
+          "startedMs": 941.535436,
+          "endedMs": 946.213704,
+          "ms": 4.678268000000003
+        },
+        {
+          "name": "document",
+          "startedMs": 946.292305,
+          "endedMs": 951.198077,
+          "ms": 4.905771999999956
+        },
+        {
+          "name": "svg",
+          "startedMs": 991.158059,
+          "endedMs": 1000.196791,
+          "ms": 9.038731999999982
+        }
+      ],
+      "documentSha256": "22ff8a3bae25a0d57ef8b0af788443a6c7eb17ddeb7093098c2b151e38db71a1",
+      "svgSha256": "68b755fff83cf55931a159af1fd25f764e44bfb710230950ce30ff4d65a7ac98",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 906.228304,
+          "endedMs": 909.782156,
+          "ms": 3.5538520000000062
+        },
+        {
+          "name": "mount",
+          "startedMs": 909.893358,
+          "endedMs": 914.391423,
+          "ms": 4.498064999999997
+        },
+        {
+          "name": "document",
+          "startedMs": 914.447324,
+          "endedMs": 918.729486,
+          "ms": 4.282161999999971
+        },
+        {
+          "name": "svg",
+          "startedMs": 956.598638,
+          "endedMs": 965.219564,
+          "ms": 8.62092599999994
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.781885999999986,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 906.228304,
+          "endedMs": 909.782156,
+          "ms": 3.5538520000000062
+        },
+        {
+          "name": "mount",
+          "startedMs": 909.893358,
+          "endedMs": 914.391423,
+          "ms": 4.498064999999997
+        },
+        {
+          "name": "document",
+          "startedMs": 914.447324,
+          "endedMs": 918.729486,
+          "ms": 4.282161999999971
+        },
+        {
+          "name": "svg",
+          "startedMs": 956.598638,
+          "endedMs": 965.219564,
+          "ms": 8.62092599999994
+        }
+      ],
+      "documentSha256": "4f7d406ffb949207a8161c2d6c6c724c7734d0c659e2796373a8a3049a827ddd",
+      "svgSha256": "4f89f0f03a6d4f8d90856e6d648a1d4256b9e6e56fcac1f79e270873b58cef2c",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 941.295415,
+          "endedMs": 945.116271,
+          "ms": 3.820855999999935
+        },
+        {
+          "name": "mount",
+          "startedMs": 945.246473,
+          "endedMs": 949.645337,
+          "ms": 4.398864000000003
+        },
+        {
+          "name": "document",
+          "startedMs": 949.701238,
+          "endedMs": 953.909399,
+          "ms": 4.208161000000018
+        },
+        {
+          "name": "svg",
+          "startedMs": 991.891852,
+          "endedMs": 1000.343275,
+          "ms": 8.451422999999977
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.918688999999972,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 941.295415,
+          "endedMs": 945.116271,
+          "ms": 3.820855999999935
+        },
+        {
+          "name": "mount",
+          "startedMs": 945.246473,
+          "endedMs": 949.645337,
+          "ms": 4.398864000000003
+        },
+        {
+          "name": "document",
+          "startedMs": 949.701238,
+          "endedMs": 953.909399,
+          "ms": 4.208161000000018
+        },
+        {
+          "name": "svg",
+          "startedMs": 991.891852,
+          "endedMs": 1000.343275,
+          "ms": 8.451422999999977
+        }
+      ],
+      "documentSha256": "2fe84ffd1e08596e6ebe7d9ee3b853a3ade5d7a1f53f9ecc2266d879a4358c6d",
+      "svgSha256": "c4f59acc2e1d9128500eddef2f42009d12509eacfe798ea728c2c0121b753bb5",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 911.568581,
+          "endedMs": 915.215734,
+          "ms": 3.647153000000003
+        },
+        {
+          "name": "mount",
+          "startedMs": 915.344536,
+          "endedMs": 919.829102,
+          "ms": 4.484566000000086
+        },
+        {
+          "name": "document",
+          "startedMs": 919.899803,
+          "endedMs": 924.069263,
+          "ms": 4.169459999999958
+        },
+        {
+          "name": "svg",
+          "startedMs": 961.58571,
+          "endedMs": 969.916031,
+          "ms": 8.330321000000026
+        }
+      ],
+      "status": "complete",
+      "modelMs": 12.768785999999977,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 911.568581,
+          "endedMs": 915.215734,
+          "ms": 3.647153000000003
+        },
+        {
+          "name": "mount",
+          "startedMs": 915.344536,
+          "endedMs": 919.829102,
+          "ms": 4.484566000000086
+        },
+        {
+          "name": "document",
+          "startedMs": 919.899803,
+          "endedMs": 924.069263,
+          "ms": 4.169459999999958
+        },
+        {
+          "name": "svg",
+          "startedMs": 961.58571,
+          "endedMs": 969.916031,
+          "ms": 8.330321000000026
+        }
+      ],
+      "documentSha256": "27c632505db94571d1dbbcdbf0c50fd90eeff1e405fd982e2681fa7f98310f29",
+      "svgSha256": "f494ac723608566dca2fe9890618a62eddf516ebdf9183115db89187ccbd6d7d",
+      "notes": 2,
+      "pages": 1
+    },
+    {
+      "fixture": "beam-primary",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 922.100635,
+          "endedMs": 925.779788,
+          "ms": 3.679153000000042
+        },
+        {
+          "name": "mount",
+          "startedMs": 925.941291,
+          "endedMs": 930.401056,
+          "ms": 4.459765000000061
+        },
+        {
+          "name": "document",
+          "startedMs": 930.457556,
+          "endedMs": 935.158125,
+          "ms": 4.700569000000087
+        },
+        {
+          "name": "svg",
+          "startedMs": 972.711872,
+          "endedMs": 981.596602,
+          "ms": 8.88472999999999
+        }
+      ],
+      "status": "complete",
+      "modelMs": 13.363894999999957,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 922.100635,
+          "endedMs": 925.779788,
+          "ms": 3.679153000000042
+        },
+        {
+          "name": "mount",
+          "startedMs": 925.941291,
+          "endedMs": 930.401056,
+          "ms": 4.459765000000061
+        },
+        {
+          "name": "document",
+          "startedMs": 930.457556,
+          "endedMs": 935.158125,
+          "ms": 4.700569000000087
+        },
+        {
+          "name": "svg",
+          "startedMs": 972.711872,
+          "endedMs": 981.596602,
+          "ms": 8.88472999999999
+        }
+      ],
+      "documentSha256": "dec237e8aa9154f85b0324dc9f43f265f57b56506707fc2210753a1703a3496b",
+      "svgSha256": "b009b3a8095fea53af76c904ad88b0d15b3c762d1bc063ac03aef72e963a7ae2",
+      "notes": 2,
+      "pages": 1
+    }
+  ],
+  "summary": [
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 15.169112000000041,
+      "medianMs": 15.169112000000041
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.826802999999927,
+      "medianMs": 12.826802999999927
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.93610799999999,
+      "medianMs": 12.93610799999999
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.179819000000066,
+      "medianMs": 13.179819000000066
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.148117999999954,
+      "medianMs": 13.148117999999954
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.543289999999956,
+      "medianMs": 12.543289999999956
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14.574584999999956,
+      "medianMs": 14.574584999999956
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.930807999999956,
+      "medianMs": 12.930807999999956
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.249075000000062,
+      "medianMs": 12.249075000000062
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.376481999999896,
+      "medianMs": 12.376481999999896
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.733998000000042,
+      "medianMs": 12.733998000000042
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.30172600000003,
+      "medianMs": 13.30172600000003
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 49.22161300000005,
+      "medianMs": 49.22161300000005
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 48.57318299999997,
+      "medianMs": 48.57318299999997
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 47.639039000000025,
+      "medianMs": 47.639039000000025
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 53.77717100000007,
+      "medianMs": 53.77717100000007
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 53.55225500000006,
+      "medianMs": 53.55225500000006
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 48.93344400000001,
+      "medianMs": 48.93344400000001
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 46.97235399999988,
+      "medianMs": 46.97235399999988
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 47.19926399999997,
+      "medianMs": 47.19926399999997
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 25.675478,
+      "medianMs": 25.675478
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 26.403709999999933,
+      "medianMs": 26.403709999999933
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 26.203701000000024,
+      "medianMs": 26.203701000000024
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 49.65357299999994,
+      "medianMs": 49.65357299999994
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.433933000000025,
+      "medianMs": 13.433933000000025
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 20.11409900000001,
+      "medianMs": 20.11409900000001
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.595640000000003,
+      "medianMs": 13.595640000000003
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 17.26448599999992,
+      "medianMs": 17.26448599999992
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.858051000000046,
+      "medianMs": 13.858051000000046
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.633941999999934,
+      "medianMs": 13.633941999999934
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.351030000000037,
+      "medianMs": 13.351030000000037
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.58299999999997,
+      "medianMs": 13.58299999999997
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.010171000000014,
+      "medianMs": 13.010171000000014
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.92006600000002,
+      "medianMs": 12.92006600000002
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.263484000000062,
+      "medianMs": 13.263484000000062
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14.731160000000045,
+      "medianMs": 14.731160000000045
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.36738600000001,
+      "medianMs": 11.36738600000001
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.100571999999943,
+      "medianMs": 11.100571999999943
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.884764000000018,
+      "medianMs": 12.884764000000018
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.38352599999996,
+      "medianMs": 11.38352599999996
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.299020000000041,
+      "medianMs": 11.299020000000041
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.597038999999995,
+      "medianMs": 11.597038999999995
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.579938000000084,
+      "medianMs": 11.579938000000084
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.32062099999996,
+      "medianMs": 11.32062099999996
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.16381100000001,
+      "medianMs": 11.16381100000001
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.336521999999945,
+      "medianMs": 11.336521999999945
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.220015000000103,
+      "medianMs": 11.220015000000103
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.584561000000008,
+      "medianMs": 10.584561000000008
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.457754999999906,
+      "medianMs": 10.457754999999906
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.89777700000002,
+      "medianMs": 10.89777700000002
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.112136000000078,
+      "medianMs": 10.112136000000078
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.141436999999996,
+      "medianMs": 10.141436999999996
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.52985799999999,
+      "medianMs": 10.52985799999999
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.423752000000036,
+      "medianMs": 10.423752000000036
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.595261999999934,
+      "medianMs": 10.595261999999934
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 11.478051999999934,
+      "medianMs": 11.478051999999934
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.229892000000063,
+      "medianMs": 10.229892000000063
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.31529599999999,
+      "medianMs": 10.31529599999999
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.394000000000005,
+      "medianMs": 10.394000000000005
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 10.618211000000088,
+      "medianMs": 10.618211000000088
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.519549999999981,
+      "medianMs": 13.519549999999981
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 16.123976000000084,
+      "medianMs": 16.123976000000084
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.441547000000014,
+      "medianMs": 13.441547000000014
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14.128096999999912,
+      "medianMs": 14.128096999999912
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.941887999999949,
+      "medianMs": 13.941887999999949
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.641873000000032,
+      "medianMs": 13.641873000000032
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.092445999999995,
+      "medianMs": 13.092445999999995
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14.490814999999998,
+      "medianMs": 14.490814999999998
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.982439999999997,
+      "medianMs": 12.982439999999997
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.374059999999986,
+      "medianMs": 13.374059999999986
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.157549000000017,
+      "medianMs": 13.157549000000017
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.72513600000002,
+      "medianMs": 13.72513600000002
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.211211000000048,
+      "medianMs": 13.211211000000048
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.732436000000007,
+      "medianMs": 13.732436000000007
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.151010000000042,
+      "medianMs": 13.151010000000042
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.630531000000019,
+      "medianMs": 13.630531000000019
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14.718381000000022,
+      "medianMs": 14.718381000000022
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.781592000000046,
+      "medianMs": 12.781592000000046
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.035004000000072,
+      "medianMs": 13.035004000000072
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.949003000000062,
+      "medianMs": 13.949003000000062
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.781885999999986,
+      "medianMs": 12.781885999999986
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.918688999999972,
+      "medianMs": 12.918688999999972
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 12.768785999999977,
+      "medianMs": 12.768785999999977
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13.363894999999957,
+      "medianMs": 13.363894999999957
+    }
+  ]
+}

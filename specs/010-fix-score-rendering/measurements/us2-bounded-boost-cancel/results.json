@@ -1,0 +1,24 @@
+{
+  "purpose": "Real Next Link pending state and native cancellation by refreshing the current revision; held obsolete Home RSC completion must not publish. Not performance acceptance or a hard-network-error test.",
+  "heldRequests": 2,
+  "before": {
+    "left": 640,
+    "top": 0,
+    "generation": "4"
+  },
+  "pending": {
+    "hidden": "hidden",
+    "ariaHidden": "true",
+    "sameSVG": true
+  },
+  "after": {
+    "left": 640,
+    "top": 0,
+    "generation": "4",
+    "sameSVG": true,
+    "visible": true
+  },
+  "svgSha256": "5136a9434ec8f4e3c400c542dcb9e52111739736185e9ee96252e6d0fad27b7c",
+  "pageErrors": [],
+  "pass": true
+}

@@ -1,0 +1,37 @@
+{
+  "plannedTrials": 480,
+  "collectedTrials": 336,
+  "explicitReviewedImages": 1,
+  "remainingTrialsNotRun": 144,
+  "otherImagesUnreviewed": true,
+  "collectionFailures": 0,
+  "cutoffs": 0,
+  "latestAttemptTimingPass": false,
+  "fullFeatureAcceptance": false,
+  "budgetsUnchanged": true,
+  "stop": "Owned public collector PID42125 received SIGINT after discovering a candidate lower bound above the frozen non-worsening threshold. No product server or database was interrupted.",
+  "failure": {
+    "fixture": "simultaneous-strings",
+    "layout": "Page",
+    "viewport": {
+      "width": 360,
+      "height": 800
+    },
+    "scale": 18,
+    "run": 4,
+    "metric": "cold",
+    "reviewedMs": 127.02500000037253,
+    "fixedThresholdMs": 125.77080000042915,
+    "excessMs": 1.2541999999433813,
+    "firstCorrectCandidate": 0
+  },
+  "traceObservation": {
+    "reactFunctionCallMs": 103.08,
+    "startRelativeToCandidateMs": -19.023,
+    "layoutMs": 11.316,
+    "layoutStartRelativeToCandidateMs": 48.156,
+    "finding": "React synchronous callback overlaps candidate interval; a long layout is present, but the responsible application work is not isolated. Original230ms callback still not fully explained."
+  },
+  "drawingBaseline": "Separate user-confirmed final-barline change remains in measured source. Frozen old references unchanged. Independent old-algorithm comparison with a one-file geometry overlay is prepared as a script only; not executed and not claimed as evidence.",
+  "note": "No new product code or spec/performance criterion change in this continuation. Partial matrix uses diagnostic review phase, not after acceptance."
+}

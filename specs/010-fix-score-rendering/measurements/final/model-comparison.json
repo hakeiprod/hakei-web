@@ -1,0 +1,2895 @@
+{
+  "status": "complete",
+  "conditions": [
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.592533000000003,
+      "fixedThresholdMs": 34.74347999999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.648408000000018,
+      "fixedThresholdMs": 33.61046499999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.66440799999998,
+      "fixedThresholdMs": 33.03204100000005,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.008988000000045,
+      "fixedThresholdMs": 33.47031199999992,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.78595400000006,
+      "fixedThresholdMs": 33.455528999999956,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.903458999999998,
+      "fixedThresholdMs": 33.6840390000001,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.466514999999958,
+      "fixedThresholdMs": 33.175632000000064,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.743629000000055,
+      "fixedThresholdMs": 33.71165499999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.1331449999999,
+      "fixedThresholdMs": 32.49367700000005,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.702035000000024,
+      "fixedThresholdMs": 33.005611000000044,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.787639000000013,
+      "fixedThresholdMs": 32.32646299999999,
+      "pass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.006048000000078,
+      "fixedThresholdMs": 33.28656699999999,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.61658699999998,
+      "fixedThresholdMs": 73.52087700000004,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.25137099999995,
+      "fixedThresholdMs": 74.89004499999987,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 18.41357000000005,
+      "fixedThresholdMs": 73.2967339999999,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.031378000000018,
+      "fixedThresholdMs": 70.444705,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 20.59507199999996,
+      "fixedThresholdMs": 71.01066500000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.400608999999918,
+      "fixedThresholdMs": 73.60245000000009,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.438814999999977,
+      "fixedThresholdMs": 72.23227799999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.542219000000046,
+      "fixedThresholdMs": 71.63926900000001,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.311968999999976,
+      "fixedThresholdMs": 47.18291599999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.583582999999976,
+      "fixedThresholdMs": 47.615058999999974,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.159748000000036,
+      "fixedThresholdMs": 50.45259599999997,
+      "pass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.06653700000004,
+      "fixedThresholdMs": 76.88285399999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.89069900000004,
+      "fixedThresholdMs": 34.84457499999996,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.997274000000061,
+      "fixedThresholdMs": 37.10931800000003,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.875257000000033,
+      "fixedThresholdMs": 35.041372000000024,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.537202000000093,
+      "fixedThresholdMs": 34.24652500000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.813580000000002,
+      "fixedThresholdMs": 33.734500000000025,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.94148599999994,
+      "fixedThresholdMs": 34.58333600000003,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.110415999999987,
+      "fixedThresholdMs": 34.61043700000005,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.698340999999914,
+      "fixedThresholdMs": 34.421925999999985,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.617237000000046,
+      "fixedThresholdMs": 35.01063499999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.703444000000104,
+      "fixedThresholdMs": 36.303363999999874,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.185426000000007,
+      "fixedThresholdMs": 38.00672300000019,
+      "pass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.522640999999908,
+      "fixedThresholdMs": 35.24398199999996,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.050128000000086,
+      "fixedThresholdMs": 32.530249000000026,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.790715999999975,
+      "fixedThresholdMs": 31.767753999999968,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.997626000000082,
+      "fixedThresholdMs": 33.09153900000001,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.221439999999916,
+      "fixedThresholdMs": 32.59651699999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.70051699999999,
+      "fixedThresholdMs": 32.41110600000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.759515999999962,
+      "fixedThresholdMs": 34.21050800000012,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.886420999999928,
+      "fixedThresholdMs": 31.979681000000028,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.045909999999935,
+      "fixedThresholdMs": 33.84288700000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.660543999999959,
+      "fixedThresholdMs": 32.03666799999996,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.8572529999999,
+      "fixedThresholdMs": 36.47858599999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.77786500000002,
+      "fixedThresholdMs": 35.06751499999996,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.32819100000006,
+      "fixedThresholdMs": 31.686732000000006,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.120795999999928,
+      "fixedThresholdMs": 30.68999299999996,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 10.67647599999998,
+      "fixedThresholdMs": 31.43263300000001,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 10.706832000000077,
+      "fixedThresholdMs": 31.50213999999994,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.11603100000002,
+      "fixedThresholdMs": 33.13801999999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.813225999999986,
+      "fixedThresholdMs": 30.856809,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 10.710476999999969,
+      "fixedThresholdMs": 31.17892800000004,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.51423699999998,
+      "fixedThresholdMs": 32.647411000000034,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.605204999999955,
+      "fixedThresholdMs": 31.16361100000006,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 10.844168000000082,
+      "fixedThresholdMs": 30.924198000000047,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.055180999999948,
+      "fixedThresholdMs": 30.665272999999956,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 10.991077999999902,
+      "fixedThresholdMs": 30.688173000000006,
+      "pass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 11.12358400000005,
+      "fixedThresholdMs": 30.799413999999956,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.819201000000021,
+      "fixedThresholdMs": 33.80479200000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.729494999999929,
+      "fixedThresholdMs": 35.925613,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.908101999999985,
+      "fixedThresholdMs": 34.45308,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.184616000000005,
+      "fixedThresholdMs": 36.03706599999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.142614999999978,
+      "fixedThresholdMs": 33.94386199999997,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.067955999999981,
+      "fixedThresholdMs": 33.81256500000006,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.934006000000068,
+      "fixedThresholdMs": 34.17508799999996,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.744890999999939,
+      "fixedThresholdMs": 34.05128100000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.99452199999996,
+      "fixedThresholdMs": 33.75286100000005,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.99872199999993,
+      "fixedThresholdMs": 38.01999799999999,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 18.350216000000046,
+      "fixedThresholdMs": 33.76186300000006,
+      "pass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.14177200000006,
+      "fixedThresholdMs": 34.50430800000004,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.189408999999955,
+      "fixedThresholdMs": 35.90068499999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.720534000000043,
+      "fixedThresholdMs": 33.161833,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.468391999999994,
+      "fixedThresholdMs": 33.85466799999995,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.310677000000055,
+      "fixedThresholdMs": 34.942928999999936,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.336438000000044,
+      "fixedThresholdMs": 44.89558699999998,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.709124000000088,
+      "fixedThresholdMs": 34.54421000000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.79029300000002,
+      "fixedThresholdMs": 34.55177800000001,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.180866999999921,
+      "fixedThresholdMs": 34.77509000000009,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.371588999999972,
+      "fixedThresholdMs": 33.47742000000005,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.50020399999994,
+      "fixedThresholdMs": 33.586952999999994,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.911166999999978,
+      "fixedThresholdMs": 32.92281300000002,
+      "pass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.378500000000031,
+      "fixedThresholdMs": 34.46789799999999,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1403.892042,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1400.3820839999998,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1416.714528,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1398.037479,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1451.7734569999998,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1476.529888,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1519.366294,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1516.1555039999998,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1475.8763860000001,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1537.0543709999997,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1552.4958339999998,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1557.1511400000004,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "trials": 480,
+  "hashMismatches": [],
+  "allDocumentSVGMatch": true,
+  "allUncompressedArtifactBytesMatch": true,
+  "artifactByteComparisons": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 12310441,
+      "sha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 9988693,
+      "sha256": "5508b1d18d3b0ac816861c0182147034cbb6c322eb40e9beb3ac1629e818876b",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 12310441,
+      "sha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 9988672,
+      "sha256": "4f8c1c38bff48e760c8977f4e5eb9e89472f6e10bb0895cfec736581477c68f5",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 12310441,
+      "sha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 9988693,
+      "sha256": "5508b1d18d3b0ac816861c0182147034cbb6c322eb40e9beb3ac1629e818876b",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 12310441,
+      "sha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 9988672,
+      "sha256": "4f8c1c38bff48e760c8977f4e5eb9e89472f6e10bb0895cfec736581477c68f5",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 12456275,
+      "sha256": "6d37d0f738ec24855d3c42fb0b4bca0ebbe297cb49923a934193848b0501e051",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 10100113,
+      "sha256": "ae51cbf5538f97de0f499d3b5b5b3ac8c0f2e704fcb9b58f8fa74ba2b3f61c9d",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 12556742,
+      "sha256": "a2aa0c66c547f1dc8389d83383ae6557e4d43526546e9f951ec41e5409063353",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 10171932,
+      "sha256": "fdf3d9b495e1381d78eeb9b509af47a9e3cc06fa15a953d13780d13f5b95e9b6",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 12668736,
+      "sha256": "ad284624afed125428e9d4e72225690dee16e478d980b998a71dea5e7596aa0a",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 10248830,
+      "sha256": "6acc319dea6c7ef4244afe53394581ec9d7d7aafedd3d679bdacd6eb29169dbb",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 12668736,
+      "sha256": "ad284624afed125428e9d4e72225690dee16e478d980b998a71dea5e7596aa0a",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 10248831,
+      "sha256": "7f84f09ad0e654f8e178e904c0082f4a4ed5caec97a46d89df8d8f87f62e3e36",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 12564466,
+      "sha256": "72f762d9de53b05c455143da64c7444aaa8697adbbb2dd610a35f45892fa5dda",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 10202564,
+      "sha256": "50364a273ad2c40d1c042092515cb00fba8ae4ce66c139f133c29e31fbb8a26e",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 12678514,
+      "sha256": "bcdfdd5b3cb06c356d382157e4f1f0007779be8845c24a34ac8c5eba3c18299f",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 10289544,
+      "sha256": "2f45776e6eef76cb4ed83fe32cd3272a7a8b077fffd9daa4f8e635c35043f1fb",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 12675228,
+      "sha256": "7d1136896db1da858c2b1860257028674b88ad8abaec26a4ab738fec5931beac",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 10275327,
+      "sha256": "c8c737665aac656b3dc2df6007c7f7d79fa738bb9ab9d320ad25099864c22999",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 12673250,
+      "sha256": "e7090a57be7ea66bc1d4a366901fdb846d19cfbf869b9eb90a3cf604f0355255",
+      "equal": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 10273788,
+      "sha256": "651a8fc01467c231a60c497932846a5eaa398ed738b2fa25f1fc561cb6a8c013",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "b22d2ad50e9ec06cb5e6a0f8a175ad681eff08ae9133092610ab22a22700486c",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "43b1f06b58619dc135deec94b6fb42355987b4f1b0cb073a8279e0b70ec9a673",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "b22d2ad50e9ec06cb5e6a0f8a175ad681eff08ae9133092610ab22a22700486c",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "43b1f06b58619dc135deec94b6fb42355987b4f1b0cb073a8279e0b70ec9a673",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "b22d2ad50e9ec06cb5e6a0f8a175ad681eff08ae9133092610ab22a22700486c",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "43b1f06b58619dc135deec94b6fb42355987b4f1b0cb073a8279e0b70ec9a673",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "b22d2ad50e9ec06cb5e6a0f8a175ad681eff08ae9133092610ab22a22700486c",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 7345,
+      "sha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 5832,
+      "sha256": "43b1f06b58619dc135deec94b6fb42355987b4f1b0cb073a8279e0b70ec9a673",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 7487,
+      "sha256": "339dc6b08ec012532954cf1fe9b07ab374a6f420f6e7ca96ebd99a70c12682d4",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 5975,
+      "sha256": "bdded8b2b9c69df25ed5cd9c3b7c787f1e292caf496ac19954de77648ab30fb4",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 7493,
+      "sha256": "1775ad0efb1d00912dfb6c61aa19674ae94ee465f9fb626841c509733fc5ffbd",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 5981,
+      "sha256": "539ed3e1a2978bfb78c474e1d5955c27336715513c0dffafe76e063b126da9c7",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 7362,
+      "sha256": "52a9de156fc05d90de28b4ecb77f8b1e8dcac220ad33c26e46906f460c1a8945",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 5849,
+      "sha256": "6c3401a6b9ff984f857d17e94303d0c1c6d5d99d3d2e9ad99bfd22494a4177f1",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 7361,
+      "sha256": "f01acdd2394add695e69f17c08349ec446e0ba441658f94d62f8c41412200adf",
+      "equal": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 5848,
+      "sha256": "3505ca165995f0e7dd091b383f5b6108f82e03132449c640431662b7af366af9",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 21013,
+      "sha256": "375159d3f41b03e4185ba41c5bccf2580b0d0895f1409e0d69eac4b099c67ca0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 21014,
+      "sha256": "dc9bfa8bc83dcf79affe5275b55eb0b0fef9e7bb4cb586b588038723660c7ac0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 21013,
+      "sha256": "375159d3f41b03e4185ba41c5bccf2580b0d0895f1409e0d69eac4b099c67ca0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 21014,
+      "sha256": "dc9bfa8bc83dcf79affe5275b55eb0b0fef9e7bb4cb586b588038723660c7ac0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 21013,
+      "sha256": "375159d3f41b03e4185ba41c5bccf2580b0d0895f1409e0d69eac4b099c67ca0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 21014,
+      "sha256": "dc9bfa8bc83dcf79affe5275b55eb0b0fef9e7bb4cb586b588038723660c7ac0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 21013,
+      "sha256": "375159d3f41b03e4185ba41c5bccf2580b0d0895f1409e0d69eac4b099c67ca0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 21014,
+      "sha256": "dc9bfa8bc83dcf79affe5275b55eb0b0fef9e7bb4cb586b588038723660c7ac0",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 27210,
+      "sha256": "e9c3faf327fdee1e38912f3d7667735828bf92341b868876e2ed309580d197dc",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 21484,
+      "sha256": "4557bd20117956f274de5652c1352765c181a38c51deac8d0577cc2f182b76e7",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 27209,
+      "sha256": "91b979b640298a870a73d60b5e9af80107a693c5b8a3f704ad903255f9273c08",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 21484,
+      "sha256": "2cb05d6f001362da792e023dd0a2139ca79b06fa2798db9da43ba1492883f159",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 26600,
+      "sha256": "25ab2e0ddf04584383e53af262e6918cf9fcdf11627a3e57aec177eec6b61f9a",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 20873,
+      "sha256": "67e88456eb160c32b0a808d4a051373169d6ecdcef651cbf7632ab210db3f01a",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 26736,
+      "sha256": "ce5717e1ced9268bf831aac1bcf3e287fdc6b7130e503cd8913d4b4d4434a736",
+      "equal": true
+    },
+    {
+      "condition": "triple_grand_staff-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 21014,
+      "sha256": "8056c381b2291aaa66d5feef21e571050b275726178ff530bbd8172ebcd08b1e",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 8261,
+      "sha256": "631737a15d38a12427e8b80f89fe92f65f0139b6e1c6020c6a474232204c4818",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 8259,
+      "sha256": "767359f7eb8d7f8a8e5c5aa23c67ec909f5f5b06826872129feaebe2ba14dbd7",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 8261,
+      "sha256": "631737a15d38a12427e8b80f89fe92f65f0139b6e1c6020c6a474232204c4818",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 8259,
+      "sha256": "767359f7eb8d7f8a8e5c5aa23c67ec909f5f5b06826872129feaebe2ba14dbd7",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 8261,
+      "sha256": "631737a15d38a12427e8b80f89fe92f65f0139b6e1c6020c6a474232204c4818",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 8259,
+      "sha256": "767359f7eb8d7f8a8e5c5aa23c67ec909f5f5b06826872129feaebe2ba14dbd7",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 8261,
+      "sha256": "631737a15d38a12427e8b80f89fe92f65f0139b6e1c6020c6a474232204c4818",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 10241,
+      "sha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 8259,
+      "sha256": "767359f7eb8d7f8a8e5c5aa23c67ec909f5f5b06826872129feaebe2ba14dbd7",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 10359,
+      "sha256": "ddd10bbdbe2866276db4afa6361f6dd5454e7f8eb6161b60050bfc618ac77e93",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 8374,
+      "sha256": "b6d5f99b636c500de061f23e5576af44070ab527dd7d523ca30f7e2d5e9725f6",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 10367,
+      "sha256": "4980cfb52a221928800540eb0e02ef5d8b3bb08b26ab6a6897827f9b8acd8845",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 8368,
+      "sha256": "d2b58fd7413cd81f6ea86c61f6e4b04bea31e9d9f2fdb91157da6464ac949892",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 10410,
+      "sha256": "81143f131b933f2122ebab74a64af115fadadefebe1ebcbdefc29a4628b88523",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 8410,
+      "sha256": "4c2475e5f5ba428b2441ef72dd77f78d54fe0909e6d8603465c88dc29090eb09",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 11309,
+      "sha256": "158a915c250ee5d21a87abe0c8edbc6b1b2c81f9c2cd338e4c7f3edd9facacd9",
+      "equal": true
+    },
+    {
+      "condition": "cross-bar-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 9031,
+      "sha256": "101db50c89d85a67f694b859c996c5112d9cb86841af94701f23449f1f895aa0",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "0c35cbd49fb1fd35fd339fe1cb6957e9ec98ee50b760f765f231101727de148d",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "f86eb85e5c18f0f2e81598054d31e7c0851d3197831fe5e843e6c37c42a005e7",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "0c35cbd49fb1fd35fd339fe1cb6957e9ec98ee50b760f765f231101727de148d",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "f86eb85e5c18f0f2e81598054d31e7c0851d3197831fe5e843e6c37c42a005e7",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "0c35cbd49fb1fd35fd339fe1cb6957e9ec98ee50b760f765f231101727de148d",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "f86eb85e5c18f0f2e81598054d31e7c0851d3197831fe5e843e6c37c42a005e7",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "0c35cbd49fb1fd35fd339fe1cb6957e9ec98ee50b760f765f231101727de148d",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 6710,
+      "sha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 5407,
+      "sha256": "f86eb85e5c18f0f2e81598054d31e7c0851d3197831fe5e843e6c37c42a005e7",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 6830,
+      "sha256": "35a8c67aa6c9d6378f7cc3231f79608338da3dc87a69e508654c39a304582012",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 5519,
+      "sha256": "a64a223c7164a60d69f495cfa1751b1de3b2843d4df09fc18c97b5d3318ba5e9",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 6829,
+      "sha256": "aa6fbc429b0bff5c48b8e26af4ee67460e178dc27d54915a165c97014e40d60d",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 5518,
+      "sha256": "bf17da6b6af7f1836cd8b01a9960dbca5b35617c82728c9012d142fe47e35158",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 6691,
+      "sha256": "e9cc70354c996957410a264b56103ee7c1ec3b8be4956b179b78e87d0a5b14e3",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 5379,
+      "sha256": "30ffbf5d8e1257df439cca890d2adefeab022f7c8ab61b34e547f037544b5951",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 6691,
+      "sha256": "314fc4558775fc14f9b724781be19437055194922f6c7ba1313e339cd71fa99d",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 5379,
+      "sha256": "c19b50b57bab520c681403cb0486c8ddea15d912eebc3408852f596e80d1cdb9",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "1a7ae52a3b6c098eada9ae16bbf00ac424cd3010842a3a4587c15c327900432f",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "ce928b345d2e50f747dbcf03bb51d10a623799b46e1edf97ae7e6b51b95b6f80",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "1a7ae52a3b6c098eada9ae16bbf00ac424cd3010842a3a4587c15c327900432f",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "ce928b345d2e50f747dbcf03bb51d10a623799b46e1edf97ae7e6b51b95b6f80",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "1a7ae52a3b6c098eada9ae16bbf00ac424cd3010842a3a4587c15c327900432f",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "ce928b345d2e50f747dbcf03bb51d10a623799b46e1edf97ae7e6b51b95b6f80",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "1a7ae52a3b6c098eada9ae16bbf00ac424cd3010842a3a4587c15c327900432f",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 5051,
+      "sha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+      "equal": true
+    },
+    {
+      "condition": "snare-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 4066,
+      "sha256": "ce928b345d2e50f747dbcf03bb51d10a623799b46e1edf97ae7e6b51b95b6f80",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 5163,
+      "sha256": "eb0108a2bdb891c5ff7dbc35ccc7a62f8471b9c6f5df4ad59e1f7cfdd099a68c",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 4175,
+      "sha256": "ec208b8151eb4340675897dcb699ac86f062aeadf68a29036e111d41b725f5bb",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 5169,
+      "sha256": "70e6a8bf0629a6e8c0e81fecd9768992d17fbe2bc715181f2be673e7c169d93d",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 4181,
+      "sha256": "5ba88177c6f9b4075ca6595cf9175763a9675c7af9fc6a4a17da7668e688d65f",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 5039,
+      "sha256": "9c7f1a65a8a7cebf6fd5a26ce7a24cb0371ca4fe991ba1b1a11ef2820601adbe",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 4050,
+      "sha256": "75b6eb3ea429ef37ebc575fc096a498d747b16c6198dc7ffa2fc92f0a164cad4",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 5039,
+      "sha256": "f3546c8862d310681732ee7cefe919fded9f044a53b8c30735ae08f553427321",
+      "equal": true
+    },
+    {
+      "condition": "snare-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 4050,
+      "sha256": "800418f063c386c5710fe35bbbed5fd4a9efadc4f670b396a56f016a6812c05f",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 7226,
+      "sha256": "5ec7518ba8a61ec093b04a04754d3a17c9c00987ce08eaeb5cdff783816b02f2",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 7215,
+      "sha256": "3b0a4ecb384d2834aa359956ef3863e3757b3d49f1fa5a7348d35484b4d8c4c1",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 7226,
+      "sha256": "5ec7518ba8a61ec093b04a04754d3a17c9c00987ce08eaeb5cdff783816b02f2",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 7215,
+      "sha256": "3b0a4ecb384d2834aa359956ef3863e3757b3d49f1fa5a7348d35484b4d8c4c1",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 7226,
+      "sha256": "5ec7518ba8a61ec093b04a04754d3a17c9c00987ce08eaeb5cdff783816b02f2",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 7215,
+      "sha256": "3b0a4ecb384d2834aa359956ef3863e3757b3d49f1fa5a7348d35484b4d8c4c1",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 7226,
+      "sha256": "5ec7518ba8a61ec093b04a04754d3a17c9c00987ce08eaeb5cdff783816b02f2",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 9340,
+      "sha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 7215,
+      "sha256": "3b0a4ecb384d2834aa359956ef3863e3757b3d49f1fa5a7348d35484b4d8c4c1",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 9440,
+      "sha256": "ef4a5ee8391c98ca809052db677e74e6aa5501aa8aa7eeb56a2d4696e41a037e",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 7326,
+      "sha256": "90bb7c08e69a144b69d74e06059bdf1b9aa0045ad5560c3aaef7bfbd7553d7c7",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 9446,
+      "sha256": "7f59e86cc5cfd0f80e99e8ab188e660184dfeaef14c393bffc7fb1dc411de798",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 7318,
+      "sha256": "86b86833668d9df7a89ca13d77515a40130a93c13292cdcea1515952514ea94c",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 9317,
+      "sha256": "e5f99412578e0a09b0548995abf76f171f23b957d2676cbb43b6359e16b7fdcf",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 7188,
+      "sha256": "22fb51d5121374fbdd39d3e172be4c2838603e9e7cfaf6cebd4c399617233819",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 9356,
+      "sha256": "114691e6ac88534540fe947286c786d72d436b6a8fbacde619e28d87506c99c6",
+      "equal": true
+    },
+    {
+      "condition": "simultaneous-conflict-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 7231,
+      "sha256": "8d7a1336eea2685718422aa8f97689e811629df8b4823d2436a6665f6da55c4e",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 6159,
+      "sha256": "732f179d31855ddb63e329f6556ae09040d94b5e4cba8b537e9015f3d5e322ca",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 6148,
+      "sha256": "0e630c848c14d14722c81cfa15fa80b25aa87e4855f63e86c96c5fe1400a6dc5",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 6159,
+      "sha256": "732f179d31855ddb63e329f6556ae09040d94b5e4cba8b537e9015f3d5e322ca",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Horizontal-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 6148,
+      "sha256": "0e630c848c14d14722c81cfa15fa80b25aa87e4855f63e86c96c5fe1400a6dc5",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 6159,
+      "sha256": "732f179d31855ddb63e329f6556ae09040d94b5e4cba8b537e9015f3d5e322ca",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 6148,
+      "sha256": "0e630c848c14d14722c81cfa15fa80b25aa87e4855f63e86c96c5fe1400a6dc5",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 6159,
+      "sha256": "732f179d31855ddb63e329f6556ae09040d94b5e4cba8b537e9015f3d5e322ca",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 7574,
+      "sha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Vertical-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 6148,
+      "sha256": "0e630c848c14d14722c81cfa15fa80b25aa87e4855f63e86c96c5fe1400a6dc5",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-1280x900-12",
+      "kind": "documentSha256",
+      "bytes": 7699,
+      "sha256": "e2a1ce9cc6cc229963c80452ea0f4110365d635e09e2efa358cf034deda564a0",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-1280x900-12",
+      "kind": "svgSha256",
+      "bytes": 6273,
+      "sha256": "b2429c5783b21d652d968eac83d5134ceb8dc8faa562bd4c8485c14dc65a698c",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-1280x900-18",
+      "kind": "documentSha256",
+      "bytes": 7705,
+      "sha256": "1721792a1a24db7dfdbe30c1c9767c3f826e406db75d640b6af2361200df8751",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-1280x900-18",
+      "kind": "svgSha256",
+      "bytes": 6278,
+      "sha256": "b0e2156971c95c3d6b66e92417709310ec7de84b87036ae8e91c33af2860f458",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-360x800-12",
+      "kind": "documentSha256",
+      "bytes": 7551,
+      "sha256": "2c83a09cbfa8a477beb8de381a55dba6f21e03c310b0f4bf304f27b92902743a",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-360x800-12",
+      "kind": "svgSha256",
+      "bytes": 6120,
+      "sha256": "3760533e5457441b883b104cf8f5a5784f1329e9683fd125d085dec13280ac20",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-360x800-18",
+      "kind": "documentSha256",
+      "bytes": 7590,
+      "sha256": "99eed5540fadbec23909d2a67ab8062ff3ba1fc50df44e449ca7c51013f06b1b",
+      "equal": true
+    },
+    {
+      "condition": "beam-primary-Page-360x800-18",
+      "kind": "svgSha256",
+      "bytes": 6164,
+      "sha256": "fe97f957db7fc3e2e8094073b63c8dddf076c833b470950765a2e79dfc2e5acf",
+      "equal": true
+    }
+  ],
+  "modelTimingPass": true,
+  "maxModelMs": 1557.1511400000004,
+  "budgetsUnchanged": true,
+  "referenceScope": "Frozen independent old algorithm + only separately authorized final-barline geometry overlay. Reference memoization proven independently before; original96 offline output excluded from performance."
+}

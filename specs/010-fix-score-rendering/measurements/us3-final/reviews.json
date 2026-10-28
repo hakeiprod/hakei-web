@@ -1,0 +1,992 @@
+[
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-0",
+    "frameSequence": 53,
+    "frameSource": 8589934592,
+    "screenshotSha256": "d4ee3915466b18c3f28809a09c9591f5f641389a4a9398fe31fc694719b50ce2",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-1",
+    "frameSequence": 69,
+    "frameSource": 8589934592,
+    "screenshotSha256": "b7d151060e11d51c1e8863cbd14ed060d9f21a80505b88ccf77450e5d3b40f3d",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-2",
+    "frameSequence": 84,
+    "frameSource": 8589934592,
+    "screenshotSha256": "54e87933f64cc54a02ccb4b38a9c730fa3ae3456013f4b3b2c8109b35e6a764d",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-3",
+    "frameSequence": 96,
+    "frameSource": 8589934592,
+    "screenshotSha256": "137c7c70fd626bb691fa01b35d162f9dab96f026173e1a2e839dd4815859cc03",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-4",
+    "frameSequence": 108,
+    "frameSource": 8589934592,
+    "screenshotSha256": "69a2e20dc906bbd0ff6211448c6c3540a637470b6171c14569b49345516dc4e5",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-5",
+    "frameSequence": 121,
+    "frameSource": 8589934592,
+    "screenshotSha256": "0b6702fa4401f046a19fe23818d32faa65fee87bdb28ea3d015c16420f471006",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-6",
+    "frameSequence": 134,
+    "frameSource": 8589934592,
+    "screenshotSha256": "b5ef737914a249d9d2c2eb1d0c28be71c1d71b8c275161a75d88dcaf9d55a862",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-7",
+    "frameSequence": 445,
+    "frameSource": 8589934592,
+    "screenshotSha256": "0931da459f61d4050505427e7ae6db50eadcd5168958f1293a2ef7fcc1a1acd7",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-8",
+    "frameSequence": 464,
+    "frameSource": 8589934592,
+    "screenshotSha256": "869aea46631c9760f955d1a5804cc99fa89de1aa7ab7b191e7684735217f8d6a",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-9",
+    "frameSequence": 499,
+    "frameSource": 8589934592,
+    "screenshotSha256": "888ec7c2c23f7c7b4e99a57f09176be827c40241ee4ccdedd59c9803566184d4",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-10",
+    "frameSequence": 514,
+    "frameSource": 8589934592,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-0",
+    "frameSequence": 40,
+    "frameSource": 8589934593,
+    "screenshotSha256": "40dcdb1c79895e7c1cdbb625288f2a8da8dedc51fe369ebd5d371fcee25e19fd",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-1",
+    "frameSequence": 53,
+    "frameSource": 8589934593,
+    "screenshotSha256": "c84ab00c25c430953ddae70672d806513ae9134b040437553d2dd6ffdd2e9a3c",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-2",
+    "frameSequence": 67,
+    "frameSource": 8589934593,
+    "screenshotSha256": "f2f53abbce04a08690ab9f22991545c507e20bc047e0c3a516823aa840e88fdc",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-3",
+    "frameSequence": 79,
+    "frameSource": 8589934593,
+    "screenshotSha256": "7af40b122a570b30213122cce05cd7c1ac3fbfd0206348fbb09e302b71afb00e",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-4",
+    "frameSequence": 90,
+    "frameSource": 8589934593,
+    "screenshotSha256": "2f3605764f46837569e4fe8fe229f0e18d5cc082dbf042faa61b206a92ef9cdb",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-5",
+    "frameSequence": 101,
+    "frameSource": 8589934593,
+    "screenshotSha256": "d08aa3603b35607b3496fed74339c62f814f6fc2b03747f9aa7f18fb06c05689",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-6",
+    "frameSequence": 114,
+    "frameSource": 8589934593,
+    "screenshotSha256": "e1b74296b681953fb9b8e569d01a3a9ccd6eab354fafa771720ec14b4a80d2dd",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-7",
+    "frameSequence": 404,
+    "frameSource": 8589934593,
+    "screenshotSha256": "1b474c73d5c16eacccbffcca0184613e30e6af0d2a833a1393a93d3a54a4984f",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-8",
+    "frameSequence": 424,
+    "frameSource": 8589934593,
+    "screenshotSha256": "6a52e1d4a09f6178aa773a6cf864244d3d5a91f0fe507ce957cf8164ff2ce01a",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-9",
+    "frameSequence": 458,
+    "frameSource": 8589934593,
+    "screenshotSha256": "335b0317691cb027bf91c640b10b0cf15c663925660e677d4ca0d5f7c9bff7b7",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-10",
+    "frameSequence": 474,
+    "frameSource": 8589934593,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-0",
+    "frameSequence": 40,
+    "frameSource": 8589934594,
+    "screenshotSha256": "40dcdb1c79895e7c1cdbb625288f2a8da8dedc51fe369ebd5d371fcee25e19fd",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-1",
+    "frameSequence": 53,
+    "frameSource": 8589934594,
+    "screenshotSha256": "3223aa766be2264ee96e91f33e84ada98a664281f58f92eb6c648d5c7022c99a",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-2",
+    "frameSequence": 67,
+    "frameSource": 8589934594,
+    "screenshotSha256": "72f4f369a940a8c104b82faa8defd9e1e67d635e13b51d3cdbccc7fadd4140c3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-3",
+    "frameSequence": 79,
+    "frameSource": 8589934594,
+    "screenshotSha256": "f472002897cd963ada8d885612bacde6b7024513f652cf38b02018323781b399",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-4",
+    "frameSequence": 90,
+    "frameSource": 8589934594,
+    "screenshotSha256": "cdbc9d839e999d9426aae8634ed18166308405bf789734dd061052afa2acb630",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-5",
+    "frameSequence": 101,
+    "frameSource": 8589934594,
+    "screenshotSha256": "d08aa3603b35607b3496fed74339c62f814f6fc2b03747f9aa7f18fb06c05689",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-6",
+    "frameSequence": 114,
+    "frameSource": 8589934594,
+    "screenshotSha256": "7012c428c7cfae2052e06d12b666e4220d77dc2fb12b98467c6fb94cfdaeed09",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-7",
+    "frameSequence": 406,
+    "frameSource": 8589934594,
+    "screenshotSha256": "1b474c73d5c16eacccbffcca0184613e30e6af0d2a833a1393a93d3a54a4984f",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-8",
+    "frameSequence": 426,
+    "frameSource": 8589934594,
+    "screenshotSha256": "38567e630a1bdeb4d1b4c0cf22e2dfa676fe436ebb7b424271c7af976976d708",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-9",
+    "frameSequence": 460,
+    "frameSource": 8589934594,
+    "screenshotSha256": "3cf78aa556dc05d70beeda3dc7ee55614033ccb27731db036bec860c366c5b22",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-10",
+    "frameSequence": 476,
+    "frameSource": 8589934594,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-0",
+    "frameSequence": 41,
+    "frameSource": 8589934595,
+    "screenshotSha256": "c094f1f980e96d994726babc7a98dc04a223c0ca1fd488faa934c45ff4a487b7",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-1",
+    "frameSequence": 56,
+    "frameSource": 8589934595,
+    "screenshotSha256": "bbf831f5793a2f2d9e14f8315a9d84830070a5ea0572bc064b80c8e65567a017",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-2",
+    "frameSequence": 71,
+    "frameSource": 8589934595,
+    "screenshotSha256": "d361e423faa6f798b2a85bf15d9e1da0b4bc82f586a22fa5079eff98c625edbe",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-3",
+    "frameSequence": 86,
+    "frameSource": 8589934595,
+    "screenshotSha256": "783a3bcc4f90b96d81175bbb820f7f9bf5c1dce91402f1e2dade0613c8ea93c4",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-4",
+    "frameSequence": 98,
+    "frameSource": 8589934595,
+    "screenshotSha256": "090194955b848bdfc809b6032084a00b5be97155e66ea5bc6b44e7f5eb8979cf",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-5",
+    "frameSequence": 110,
+    "frameSource": 8589934595,
+    "screenshotSha256": "9e9f0f54b9dbe419b6ccb55b42ce7b9857f912ddbe1d7ca9262a928215a3cce6",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-6",
+    "frameSequence": 122,
+    "frameSource": 8589934595,
+    "screenshotSha256": "7ab82f7fe6b3459b67833146059ef6ce41b1ec1d4878776a7ebfcd325474e880",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-7",
+    "frameSequence": 413,
+    "frameSource": 8589934595,
+    "screenshotSha256": "17dfb75a7db3ada47da408f4d284011becb9f9ea9c1838aa45d256b4fbceb976",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-8",
+    "frameSequence": 432,
+    "frameSource": 8589934595,
+    "screenshotSha256": "e05980b627d1b4164cacc2ef072e62ee03155e5e1c8cf17d73c2b31fcb544695",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-9",
+    "frameSequence": 466,
+    "frameSource": 8589934595,
+    "screenshotSha256": "ab952be95ccbf0e544727e300788dc00c989c1d317f58716f4893f5c1fbbdee1",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-10",
+    "frameSequence": 481,
+    "frameSource": 8589934595,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-0",
+    "frameSequence": 40,
+    "frameSource": 8589934596,
+    "screenshotSha256": "40dcdb1c79895e7c1cdbb625288f2a8da8dedc51fe369ebd5d371fcee25e19fd",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-1",
+    "frameSequence": 54,
+    "frameSource": 8589934596,
+    "screenshotSha256": "39d260988d9e2356d890db0fd9e2b49e7e6a052fb1a2cddaf6b91512843ac351",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-2",
+    "frameSequence": 69,
+    "frameSource": 8589934596,
+    "screenshotSha256": "04f02828e1cd8b8e84476274253edfc44afca7b949d8bc3d69f55d372f9c56f7",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-3",
+    "frameSequence": 82,
+    "frameSource": 8589934596,
+    "screenshotSha256": "f8ce0a80fb5530cb975670d76576efd7e692461010813a1fcb31a99bb1784ce6",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-4",
+    "frameSequence": 94,
+    "frameSource": 8589934596,
+    "screenshotSha256": "ac6c5561049ed281fee57337375a4c6d3b251ba5a716998f39b8030154156b5a",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-5",
+    "frameSequence": 106,
+    "frameSource": 8589934596,
+    "screenshotSha256": "a38015e0e06e6871c7db7b43b945788e87e4bd6026fb51200c810144aaaf9f28",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-6",
+    "frameSequence": 119,
+    "frameSource": 8589934596,
+    "screenshotSha256": "0aeac5b7753c3b003e2aa00830e48d19a60276b4250997c522fa953560dc7969",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-7",
+    "frameSequence": 400,
+    "frameSource": 8589934596,
+    "screenshotSha256": "4e335a3d8cd9167078568f8ba52059289df2ad3e8b1647cc30806452b6f3e747",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-8",
+    "frameSequence": 420,
+    "frameSource": 8589934596,
+    "screenshotSha256": "34367ec1c43cdd91a469da1fc073c3699141443a06ac3593acef6b99265aaf27",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-9",
+    "frameSequence": 453,
+    "frameSource": 8589934596,
+    "screenshotSha256": "3d278776bbbdd33252de790a75b19209eabe3b65224a4a38795687e44fbafe2b",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-10",
+    "frameSequence": 470,
+    "frameSource": 8589934596,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-0",
+    "frameSequence": 234,
+    "frameSource": 8589934597,
+    "screenshotSha256": "51998800810ea3b49c860428a5f761a3930b94c4080a2aa1457766dc187d74f3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-1",
+    "frameSequence": 251,
+    "frameSource": 8589934597,
+    "screenshotSha256": "5449790f89f5778bc7418cb495bb481ab27a686fd19c151564e332af2a6249e2",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-2",
+    "frameSequence": 275,
+    "frameSource": 8589934597,
+    "screenshotSha256": "7fbb80a6dc6d9358511166c0ad95a7fbaa8eac878ae06ad1ef1e60eb0a723937",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-3",
+    "frameSequence": 464,
+    "frameSource": 8589934597,
+    "screenshotSha256": "21e77c19d6d57d2556f28820488095a04566baabbb58382dd9205fd710623522",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-4",
+    "frameSequence": 480,
+    "frameSource": 8589934597,
+    "screenshotSha256": "42ffb05676ac1384bfad97c68cdf4f6cfe0f858a58ffb53fbfffbde7794c68da",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-5",
+    "frameSequence": 668,
+    "frameSource": 8589934597,
+    "screenshotSha256": "18d55fec12d1bd9e9f525e359a76b585354c3c837573ea98f4d07ba2ccc3be05",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-6",
+    "frameSequence": 797,
+    "frameSource": 8589934597,
+    "screenshotSha256": "cb58958ccae15b59db487a078f34132af00b10f8cc8cf4c8e35512a4008e9308",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-7",
+    "frameSequence": 832,
+    "frameSource": 8589934597,
+    "screenshotSha256": "379be1482b7b76f385fad597b1f5456e210a8d4f1f4c78d13b016e4bef2323ff",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-8",
+    "frameSequence": 848,
+    "frameSource": 8589934597,
+    "screenshotSha256": "28d87e17981e74eeec477c957590557ed11d8131da94a493fbafec555e21c125",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-9",
+    "frameSequence": 1152,
+    "frameSource": 8589934597,
+    "screenshotSha256": "424a63c98f4293f530388594a40d0540cb35e793a445fbd884dcf961a9c1ddaf",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-10",
+    "frameSequence": 1169,
+    "frameSource": 8589934597,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-0",
+    "frameSequence": 235,
+    "frameSource": 8589934598,
+    "screenshotSha256": "51998800810ea3b49c860428a5f761a3930b94c4080a2aa1457766dc187d74f3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-1",
+    "frameSequence": 251,
+    "frameSource": 8589934598,
+    "screenshotSha256": "ea97ddd17db00448019ed9bf90143ac10402b2b7340b4f64cf3f6130cffa76c1",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-2",
+    "frameSequence": 274,
+    "frameSource": 8589934598,
+    "screenshotSha256": "0f8f197eaca412c7f8530c6202f25aafa9cc7a3fb0785648754d1391663990aa",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-3",
+    "frameSequence": 464,
+    "frameSource": 8589934598,
+    "screenshotSha256": "31156e111dad4cbef752b6f6f9c12df36d4ca6b39712d848d4f3074ecd08e40f",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-4",
+    "frameSequence": 481,
+    "frameSource": 8589934598,
+    "screenshotSha256": "581438cf976391abcc4ebaeb12cbf2a8e70e1a9b4ee57988503160316b38a3c1",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-5",
+    "frameSequence": 661,
+    "frameSource": 8589934598,
+    "screenshotSha256": "ffe4cf69506b5206f48ecd575e2d11003bbe6ae882219d1fb47922ea4900af21",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-6",
+    "frameSequence": 792,
+    "frameSource": 8589934598,
+    "screenshotSha256": "36ec585c1cdd6c884e1c25e6914df78c80dc32888bb61e23480fff83618b95ed",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-7",
+    "frameSequence": 827,
+    "frameSource": 8589934598,
+    "screenshotSha256": "56ec17574b9794306820fa23855a9b37feb1c8d849ab8b18476dba846cf20795",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-8",
+    "frameSequence": 843,
+    "frameSource": 8589934598,
+    "screenshotSha256": "28d87e17981e74eeec477c957590557ed11d8131da94a493fbafec555e21c125",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-9",
+    "frameSequence": 1156,
+    "frameSource": 8589934598,
+    "screenshotSha256": "bba5b2f5de29821c99f1c1b41461fb5e4eeb0a6310f9c6928e7fa54c390d8a9d",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-10",
+    "frameSequence": 1173,
+    "frameSource": 8589934598,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-0",
+    "frameSequence": 236,
+    "frameSource": 8589934599,
+    "screenshotSha256": "51998800810ea3b49c860428a5f761a3930b94c4080a2aa1457766dc187d74f3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-1",
+    "frameSequence": 252,
+    "frameSource": 8589934599,
+    "screenshotSha256": "36a800b13c38f0084cb3cb6c10acf20402e5c305b625006896463e729f3b6ef0",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-2",
+    "frameSequence": 277,
+    "frameSource": 8589934599,
+    "screenshotSha256": "08af913a76062e51a7a40fe96bbb33a7cea706707274df04374285dfa2b801f8",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-3",
+    "frameSequence": 474,
+    "frameSource": 8589934599,
+    "screenshotSha256": "8a986f548c34f3cca1afb3a532033f869b6f5d1d153cc8fd9c97831857cba5a5",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-4",
+    "frameSequence": 490,
+    "frameSource": 8589934599,
+    "screenshotSha256": "fd883be4557dc2a059d6eb9f0287c07551eac5729b69ffb9582e38c92f0dbb6d",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-5",
+    "frameSequence": 668,
+    "frameSource": 8589934599,
+    "screenshotSha256": "c130ab3192ad55b3fbf7a69d0d8598dd5936cb6e85c271bbee4401f6ed02f7aa",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-6",
+    "frameSequence": 790,
+    "frameSource": 8589934599,
+    "screenshotSha256": "cb58958ccae15b59db487a078f34132af00b10f8cc8cf4c8e35512a4008e9308",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-7",
+    "frameSequence": 823,
+    "frameSource": 8589934599,
+    "screenshotSha256": "33c5309a2e31898595431ec2105c32cc44533858e9a0fdfa6220528656d9b2ea",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-8",
+    "frameSequence": 839,
+    "frameSource": 8589934599,
+    "screenshotSha256": "90b465c92d0295a9d8a4774bc286ef8d900ff01b7a30ce889ac7d206b0bea027",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-9",
+    "frameSequence": 1140,
+    "frameSource": 8589934599,
+    "screenshotSha256": "0d07e47643bd763ccdf857d475da5820d64e4ceac4d0d301922b880bee557d92",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-10",
+    "frameSequence": 1156,
+    "frameSource": 8589934599,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-0",
+    "frameSequence": 223,
+    "frameSource": 8589934600,
+    "screenshotSha256": "51998800810ea3b49c860428a5f761a3930b94c4080a2aa1457766dc187d74f3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-1",
+    "frameSequence": 239,
+    "frameSource": 8589934600,
+    "screenshotSha256": "48e6261bd76b160a470af9c544b98e70c2d905cbc141a49d272c4d5909d8e74f",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-2",
+    "frameSequence": 261,
+    "frameSource": 8589934600,
+    "screenshotSha256": "f534209112dba356a773b000ffcf868cbd0f11d164b3789cdde1a5eb56decda9",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-3",
+    "frameSequence": 440,
+    "frameSource": 8589934600,
+    "screenshotSha256": "79100683b03d99cd85adab8805c41c98862515aaf3c82c6dc12f3f0da9a90aac",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-4",
+    "frameSequence": 455,
+    "frameSource": 8589934600,
+    "screenshotSha256": "2f5265b05086df8b23b8396a8a485f23e4d69b330fd39092f1c6418da8d5d6ad",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-5",
+    "frameSequence": 622,
+    "frameSource": 8589934600,
+    "screenshotSha256": "4d9b0005d74321c7c94cb6027c17f5941997260efce4a821b844e72ea333e85a",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-6",
+    "frameSequence": 741,
+    "frameSource": 8589934600,
+    "screenshotSha256": "9df71ef247a97ca7f6c0106606dec49dafd8b4655ead5d36787469a243778d22",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-7",
+    "frameSequence": 773,
+    "frameSource": 8589934600,
+    "screenshotSha256": "2581e081029341f5403a795e3c4009bfa96d7d36f25eedfbe4c9bf8e702c1cf3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-8",
+    "frameSequence": 788,
+    "frameSource": 8589934600,
+    "screenshotSha256": "4d1eec8a6be4f17a77397c2dbbcf7fbd6649165c27eae7ca450a2f2d9dd65bcc",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-9",
+    "frameSequence": 1069,
+    "frameSource": 8589934600,
+    "screenshotSha256": "88599738a8209d52dd86438fff18707d3c2d408be2283ad97e8db7af3c06a911",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-10",
+    "frameSequence": 1085,
+    "frameSource": 8589934600,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-0",
+    "frameSequence": 221,
+    "frameSource": 8589934601,
+    "screenshotSha256": "51998800810ea3b49c860428a5f761a3930b94c4080a2aa1457766dc187d74f3",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-1",
+    "frameSequence": 238,
+    "frameSource": 8589934601,
+    "screenshotSha256": "adc34177a0e5c173a821afc5163209325743ad1a7b7c19df45fd9d16aac194da",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: cancelled notice and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-2",
+    "frameSequence": 260,
+    "frameSource": 8589934601,
+    "screenshotSha256": "f7c7d02ccb7174cb6c81b4e2dc8e02805de8234c0b101ffe83718b61abaa8335",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-3",
+    "frameSequence": 439,
+    "frameSource": 8589934601,
+    "screenshotSha256": "07687f8f176542c5f7f62e3fefcc2b2052e973c1070fb464827e3cb39be390b5",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: safe render-failure alert and retry button. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-4",
+    "frameSequence": 454,
+    "frameSource": 8589934601,
+    "screenshotSha256": "6abd474b0e6c78e48045502380711dd7b2ff397c067ae40cd9f528725ac5a21c",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-5",
+    "frameSequence": 626,
+    "frameSource": 8589934601,
+    "screenshotSha256": "edfd8cae043c037ac479ac0b2131529a8dd81f5bb394b24850a02c65e3be9025",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-6",
+    "frameSequence": 745,
+    "frameSource": 8589934601,
+    "screenshotSha256": "996d3e235d7dcaed164ff153baacd9fd1118ecf2ed1ea628846010b952b62719",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-7",
+    "frameSequence": 778,
+    "frameSource": 8589934601,
+    "screenshotSha256": "33805fe5aafaeb4a575f5a39a1a85a8aaf2972ec797158201b850a7e70c18a10",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. Earlier candidate(s) explicitly reviewed and rejected as the prior state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-8",
+    "frameSequence": 793,
+    "frameSource": 8589934601,
+    "screenshotSha256": "363d2954c6107d1bf664fb48a649ff3e05b2818718f72d55df002b7424c48bb2",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: new source version and loading/ready notation. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-9",
+    "frameSequence": 1075,
+    "frameSource": 8589934601,
+    "screenshotSha256": "f5b97e5c7af3fa71c45c707f6a86c1895c61e0fd9889f5d23a9c3f0aa4b26a8c",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: loading/update notice and cancel control; old ready notation hidden. First candidate already shows the expected state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-10",
+    "frameSequence": 1091,
+    "frameSource": 8589934601,
+    "screenshotSha256": "36622308b2d34fcbf93c504384cea756021895c6824eaa75b2644f6bcf252406",
+    "matchesExpectedState": true,
+    "reason": "Explicit contact/original-image review: Home heading 楽譜 and score list. First candidate already shows the expected state."
+  }
+]

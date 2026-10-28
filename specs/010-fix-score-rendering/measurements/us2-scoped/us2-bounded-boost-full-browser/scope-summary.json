@@ -1,0 +1,157 @@
+{
+  "scope": "us2-bounded-boost-full-browser",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 97,
+  "reviewedImages": 1,
+  "summary": {
+    "trials": 97,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 96,
+    "cold": {
+      "count": 1,
+      "maxMs": 116.05599999800324,
+      "medianMs": 116.05599999800324
+    },
+    "redraws": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 238.87560001015663,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 149.47200000286102,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 132.92880000472067,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 116.05599999800324,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 174.11999999284743,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 150.47160000801085,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 117.8369999974966,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 113.66499999165535,
+      "pass": false
+    }
+  ],
+  "svgRestored": 97,
+  "budgetsUnchanged": true
+}

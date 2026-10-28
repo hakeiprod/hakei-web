@@ -1,0 +1,49 @@
+{
+  "scope": "us2-bounded-small",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 10,
+  "reviewedImages": 80,
+  "summary": {
+    "trials": 10,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 10,
+      "maxMs": 119.09100000187755,
+      "medianMs": 96.61899999901652
+    },
+    "redraws": {
+      "count": 20,
+      "maxMs": 28.376000002026558,
+      "medianMs": 24.632999999448657
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 50,
+      "maxMs": 99.16499999538064,
+      "medianMs": 20.974500000476837
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12-0",
+      "maxMs": 100.45700000226498,
+      "fixedThresholdMs": 132.92880000472067,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 119.09100000187755,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": false
+    }
+  ],
+  "svgRestored": 10,
+  "budgetsUnchanged": true
+}

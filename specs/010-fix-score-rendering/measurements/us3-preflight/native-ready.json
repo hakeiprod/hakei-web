@@ -1,0 +1,22 @@
+{
+  "results": [
+    {
+      "fixture": "quarter",
+      "audioContext": "function",
+      "notes": 2,
+      "fonts": "loaded",
+      "errors": [],
+      "pass": true
+    },
+    {
+      "fixture": "original",
+      "audioContext": "function",
+      "notes": 5540,
+      "fonts": "loaded",
+      "errors": [],
+      "pass": true
+    }
+  ],
+  "pass": true,
+  "performanceAcceptance": false
+}

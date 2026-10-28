@@ -1,0 +1,43 @@
+{
+  "scope": "us2-small-leave-hydration-quarter",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 5,
+  "reviewedImages": 40,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 116.78400000184774,
+      "medianMs": 91.57699999958277
+    },
+    "redraws": {
+      "count": 10,
+      "maxMs": 31.907999999821186,
+      "medianMs": 28.610999995842576
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 25,
+      "maxMs": 83.23699999973178,
+      "medianMs": 27.31700000166893
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 116.78400000184774,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": false
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

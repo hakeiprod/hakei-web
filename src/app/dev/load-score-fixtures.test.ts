@@ -29,7 +29,8 @@ test("loads every MusicXML fixture as a serialized sheet or an individual error"
   } finally {
     logging.mockRestore();
   }
-});
+  // Allow the real 5,540-note fixture to run alongside other CPU-heavy suites.
+}, 30_000);
 
 test("loads Core JSON fixtures in filename order", async () => {
   const fixtures = await loadScoreFixtures("core");

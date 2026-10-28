@@ -1,0 +1,40 @@
+{
+  "status": "T027-T029-complete",
+  "dateJST": "2026-10-28",
+  "tasksCompleted": [
+    "T027",
+    "T028",
+    "T029"
+  ],
+  "tests": {
+    "files": 8,
+    "passed": 166,
+    "newViewerCases": 5,
+    "newPreviewAndFormCases": 7
+  },
+  "typecheck": true,
+  "eslint": true,
+  "diffCheck": true,
+  "runtimeChanged": false,
+  "changedComparedToT026": [
+    "src/components/import-preview.test.tsx",
+    "src/components/score-viewer.test.tsx"
+  ],
+  "changedSourceSha256": {
+    "src/components/import-preview.test.tsx": "61a149a96c15e678c541d9c62f80b1d4f7d5537832279093971480568cbce387",
+    "src/components/score-viewer.test.tsx": "dab6d81964fdd5c66f4445e0f2481046f7cd005354786e5cb873626fe9493000"
+  },
+  "allOtherMeasuredSourceExact": true,
+  "scope": {
+    "T027": "Actual Viewer and ShowScore: waiting/error/cancel/retry, same-source retained DOM and different-source hidden/removed DOM, acknowledgement/canPractice/candidate preservation, explicit-save-only; form cancel/unmount/pagehide abort render and cause no save/navigation.",
+    "T028": "Existing implementation passes T026 stage abort/exception/retry/late completion/iterator/timer/listener/Score/DOM/binding cleanup; no extra runtime patch needed.",
+    "T029": "Existing Viewer status/alert/cancel/retry and generation controls, ShowScore renderReady/audio readiness and cleanup, preview and form cancellation/save boundaries reviewed with related regressions. No extra runtime patch needed."
+  },
+  "archiveCorrection": "Previous source copies were collected as executable tests/TypeScript. Four copies renamed to .txt with unchanged bytes and SHA256, including prior gallery copies. No test exclusion/config changes; root tsc and related tests pass after correction. Prior T026 test results remain pre-archive-copy observations.",
+  "limitations": [
+    "No new native timing/visual or real audio/MIDI pass.",
+    "jsdom reports missing canvas getContext; tests use existing fallback and assert lifecycle/ownership, not font/paint fidelity.",
+    "Whole suite/build/integration and final timings remain T032/T033; feature incomplete."
+  ],
+  "next": "T030: audit and add latest glyph/old SVG isolation and callback/scroll cleanup coverage after retry/cancel/redraw/page changes. Then T031 native controlled scenarios each 5 trials with unchanged 100ms budget."
+}

@@ -1,3 +1,4 @@
+import { drainSteps, type RenderSteps } from "../render-steps";
 import { sheetScoreSchema } from "../../import/score-schema";
 import { capabilities } from "../notation/capabilities";
 import { performanceNotes } from "../notation/performance-events";
@@ -7,12 +8,20 @@ import * as Audio from "../../audio";
 declare module ".." {
   interface Score {
     toAudio(): Audio.Score;
+    toAudioSteps(): RenderSteps<Audio.Score>;
   }
 }
 
 Sheet.Score.prototype.toAudio = function (this: Sheet.Score) {
+  return drainSteps(this.toAudioSteps());
+};
+Sheet.Score.prototype.toAudioSteps = function* (
+  this: Sheet.Score,
+): RenderSteps<Audio.Score> {
+  const data = this.export();
+  yield;
   const validated = sheetScoreSchema.parse({
-    ...this.export(),
+    ...data,
     slots: [],
     rows: [],
   });
@@ -21,14 +30,15 @@ Sheet.Score.prototype.toAudio = function (this: Sheet.Score) {
   const ids = new Set(
     performanceNotes(validated.notes).map((n) => `${n.trackId}:${n.id}`),
   );
-  return Audio.Score.import({
-    ...this.export(),
-    notes: this.notes
-      .filter((note) => !note.rest && ids.has(`${note.trackId}:${note.id}`))
-      .map((note) => ({
+  const notes: ReturnType<Audio.Score["export"]>["notes"] = [];
+  for (const note of this.notes) {
+    if (!note.rest && ids.has(`${note.trackId}:${note.id}`))
+      notes.push({
         ...note.export(),
         masterbarId: note.stave.bar.masterbar.id,
         pitch: note.pitch!.value,
-      })),
-  });
+      });
+    yield;
+  }
+  return yield* Audio.Score.importSteps({ ...data, notes });
 };

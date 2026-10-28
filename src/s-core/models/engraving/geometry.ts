@@ -71,10 +71,19 @@ export function chordStem(chord: Chord): StemGeometry | undefined {
   return geometry;
 }
 
+/** Older font metadata may only provide the general barline separation. */
+export function finalBarlineSeparation() {
+  const defaults: typeof engraving & { thinThickBarlineSeparation?: number } =
+    engraving;
+  return defaults.thinThickBarlineSeparation ?? defaults.barlineSeparation;
+}
+
 /** Leftmost painted edge of the ending barline, measured from the bar end. */
 export function barlineEndInset(isLast: boolean) {
   return isLast
-    ? engraving.thickBarlineThickness * 2 + engraving.thinBarlineThickness / 2
+    ? engraving.thickBarlineThickness +
+        finalBarlineSeparation() +
+        engraving.thinBarlineThickness
     : engraving.thinBarlineThickness;
 }
 

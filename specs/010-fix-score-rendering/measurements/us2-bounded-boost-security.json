@@ -1,0 +1,15 @@
+{
+  "scopes": [
+    "us2-bounded-boost-source",
+    "us2-initial-highlight-source",
+    "us2-bounded-boost-cancel",
+    "us2-scoped/us2-bounded-boost-quarter",
+    "us2-scoped/us2-bounded-boost-original",
+    "us2-scoped/us2-initial-highlight-quarter",
+    "us2-scoped/us2-navigation-priority-full-browser"
+  ],
+  "filesAndArchiveMembers": 26400,
+  "matches": [],
+  "pass": true,
+  "purpose": "Exact private secret/database URL/cookie match scan; values excluded"
+}

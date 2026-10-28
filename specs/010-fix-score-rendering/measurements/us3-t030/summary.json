@@ -1,0 +1,41 @@
+{
+  "status": "T030-complete",
+  "dateJST": "2026-10-28",
+  "newCases": 4,
+  "relatedTestFiles": 7,
+  "relatedTestsPassed": 155,
+  "typecheck": true,
+  "eslint": true,
+  "diffCheck": true,
+  "runtimeChanged": false,
+  "changedComparedToT029": [
+    "src/components/show-score.test.tsx",
+    "src/s-core/models/browser/score-svg.test.ts"
+  ],
+  "changedSourceSha256": {
+    "src/components/show-score.test.tsx": "d9f71441c3f4e3c53d7639fdb1e7b1a76f737a51099dfee63c0ac8a5de940f21",
+    "src/s-core/models/browser/score-svg.test.ts": "cac4625689886442a48ab1aee6c13a590c6ccadb86d132219b165391f39087d7"
+  },
+  "allOtherMeasuredSourceExact": true,
+  "coverage": [
+    "Cancelled/failed detached binding preparation does not overwrite committed callbacks; retry owns fresh Score/SVG and retires old callbacks/scroll notifications.",
+    "Five page roundtrips with repeat selection: one visible-page notification, offscreen DOM unchanged; double dispose removes every callback.",
+    "ShowScore real Highlighter with controlled audio clock and RAF: update stops frames preserving classes; next publication switches Score; old SVG unchanged; unmount cancels final frame and audio controller.",
+    "Existing Viewer source/revision/redraw/playback scroll, cancellation/retry and audio_sheet highlighter regressions retained."
+  ],
+  "limits": [
+    "Audio controller, soundfont and RAF are controlled substitutes; no physical audio/MIDI or native timing/visual pass claimed.",
+    "Viewer publication is controlled at the existing ShowScore test boundary; actual Viewer ownership is covered by its own tests.",
+    "The ShowScore integration input fills one complete bar with tempo coverage; not a claim that every legacy fixture is safe for audio."
+  ],
+  "boundaryObservation": {
+    "status": "unresolved-separate-boundary",
+    "input": "quarter-sheet.json tempo [0,1), padded rest [1,4); also an underfilled Core score converted to Sheet",
+    "failure": "NoteHighlighter.highlight reads note.tempo.value where the padded rest has no overlapping tempo.",
+    "classification": "Observed while preparing an ownership test; relation to production converted quarter_middle_c and original material has not been established.",
+    "next": "Before T031 native trials, inspect converted/saved original and quarter tempo coverage and reproduce with AudioContext enabled. If reproduced on target workflow, add a narrow regression and fix timing/highlight ownership without altering candidate/music/drawing conditions, then rerun related tests and required native trials."
+  },
+  "featureComplete": false,
+  "performanceMeasurement": false,
+  "nextTask": "T031"
+}

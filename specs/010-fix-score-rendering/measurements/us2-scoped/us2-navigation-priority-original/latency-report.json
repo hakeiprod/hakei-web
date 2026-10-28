@@ -1,0 +1,38 @@
+{
+  "scope": "Original Horizontal360x800 scale18 five native trials, after pending suspension and background task priority",
+  "beforeFailure": "../us2-sections-full-browser/confirmed-failure.json",
+  "beforeLayerizeMs": 26.28,
+  "after": [
+    {
+      "run": 1,
+      "leaveMs": 58.58199999947101,
+      "layerizeMaxMs": 0.557
+    },
+    {
+      "run": 2,
+      "leaveMs": 69.21999999973923,
+      "layerizeMaxMs": 0.703
+    },
+    {
+      "run": 3,
+      "leaveMs": 72.77500000037253,
+      "layerizeMaxMs": 0.859
+    },
+    {
+      "run": 4,
+      "leaveMs": 55.48300000000745,
+      "layerizeMaxMs": 1.12
+    },
+    {
+      "run": 5,
+      "leaveMs": 62.99000000022352,
+      "layerizeMaxMs": 0.599
+    }
+  ],
+  "leaveMaxMs": 72.77500000037253,
+  "layerizeMaxMs": 1.12,
+  "inputMaxMs": 73.9890000000596,
+  "scopeTimingPass": true,
+  "goalsUnchanged": true,
+  "fullT025Pass": null
+}

@@ -1,0 +1,17 @@
+[
+  {
+    "path": "us3-lifecycle-formal.tar.xz",
+    "sha256": "d41876909ce0c500847b825cc866f1744fa0c5cfa492012e29ecde5b2ea90ef3",
+    "bytes": 13193736
+  },
+  {
+    "path": "us3-lifecycle-key-range-formal.tar.xz",
+    "sha256": "91f6b74fb9b3ab026d6d7892a5c690e79cbc1a824f3382c03e98215bbbe9482f",
+    "bytes": 14578908
+  },
+  {
+    "path": "us3-lifecycle-profile.tar.xz",
+    "sha256": "35cdc0cd62212c29619b9dba151ad1edbc878fa5829d3e167aa6b99e888beecc",
+    "bytes": 4339496
+  }
+]

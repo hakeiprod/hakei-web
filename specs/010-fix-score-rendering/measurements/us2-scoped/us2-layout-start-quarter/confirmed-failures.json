@@ -1,0 +1,92 @@
+{
+  "status": "failed; no full collector running",
+  "sourceSnapshot": "../../us2-layout-start-source",
+  "trials": 5,
+  "explicitImageReviews": 40,
+  "coldMaxMs": 109.42700000107288,
+  "fixedColdThresholdMs": 112.89399999380112,
+  "coldPass": true,
+  "redrawMaxMs": 30.70600000023842,
+  "inputBudgetMs": 100,
+  "inputFailures": [
+    {
+      "run": 2,
+      "input": {
+        "id": "input-1793054584890.6-6",
+        "pageId": "1793054584890.6",
+        "generation": "10",
+        "type": "click",
+        "trusted": true,
+        "timeOrigin": 1793054584890.6,
+        "inputReceived": 1043.8999999985099,
+        "handlerStart": 1063.8999999985099,
+        "clock": {
+          "traceUnits": "microseconds",
+          "performanceUnits": "milliseconds",
+          "performanceToTraceOffsetMs": 20121706.049,
+          "timeOrigin": 1793054584890.6
+        },
+        "inputReceivedTraceMs": 20122749.948999997,
+        "handlerStartTraceMs": 20122770.049,
+        "inputDelay": 20,
+        "stateCommitted": 20122802.282,
+        "framePresented": 20122865.777,
+        "candidateFramePresented": 20122865.777,
+        "candidateResponseMs": 115.82800000160933,
+        "responseMs": 115.82800000160933,
+        "measurable": true,
+        "budgetMs": 100,
+        "actionType": "click"
+      }
+    },
+    {
+      "run": 3,
+      "input": {
+        "id": "input-1793054586714.8-6",
+        "pageId": "1793054586714.8",
+        "generation": "10",
+        "type": "click",
+        "trusted": true,
+        "timeOrigin": 1793054586714.8,
+        "inputReceived": 1036,
+        "handlerStart": 1052,
+        "clock": {
+          "traceUnits": "microseconds",
+          "performanceUnits": "milliseconds",
+          "performanceToTraceOffsetMs": 20123530.132,
+          "timeOrigin": 1793054586714.8
+        },
+        "inputReceivedTraceMs": 20124566.132,
+        "handlerStartTraceMs": 20124582.132,
+        "inputDelay": 16,
+        "stateCommitted": 20124611.066,
+        "framePresented": 20124666.503,
+        "candidateFramePresented": 20124666.503,
+        "candidateResponseMs": 100.37099999934435,
+        "responseMs": 100.37099999934435,
+        "measurable": true,
+        "budgetMs": 100,
+        "actionType": "click"
+      }
+    }
+  ],
+  "svgRoundtripMatch": 5,
+  "fullUS2Pass": false,
+  "observedRun2Leave": {
+    "inputToClickHandlerMs": 20.1,
+    "stateCommittedMs": 52.333,
+    "paintMs": 54.729,
+    "presentationWithoutMatchingScreenshotMs": 61.121,
+    "presentationWithoutMatchingScreenshotFrameSequence": 69,
+    "firstVerifiedImagePresentationMs": 115.828,
+    "firstVerifiedImageFrameSequence": 73,
+    "note": "Do not substitute the earlier presentation without its matching image. Its content has not been verified."
+  },
+  "next": [
+    "Profile quarter H360 scale18 leave run2/run3: pointer event handling, React unmount, compositor presentation and trace Screenshot coverage",
+    "Use unchanged contract to establish matching source_id/frame_sequence images; keep current late-frame failures",
+    "Fix the confirmed application bottleneck if present; verify five normal cold/roundtrip trials and all40 images",
+    "Then original five/all images and real Next cancellation on this source, before full96 small-fixtures-first",
+    "Independent Document/SVG with barline overlay and gallery/debug/workflow remain"
+  ]
+}

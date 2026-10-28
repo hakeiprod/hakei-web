@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-import { describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
 import * as Core from "../core";
 import "../core/extensions/to-sheet";
 import { LayoutType } from "../sheet";
@@ -238,3 +238,165 @@ test.each([
     }
   },
 );
+
+test("cooperative SVG preserves bytes and prepares highlights without touching committed bindings", async () => {
+  const { drainCooperatively } = await import("./render-scheduler");
+  const { prepareNoteHighlightsSteps } = await import("./bind-note-highlights");
+  const { score, controller } = prepare({
+    tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+  });
+  const drawing = controller.toDocument();
+  const expected = drawing.toSVG({ scale: 12 }).outerHTML;
+  const next = await drainCooperatively(drawing.toSVGSteps({ scale: 12 }), {
+    budgetMs: 1,
+  });
+  expect(next.outerHTML).toBe(expected);
+  const committed = renderSVG(controller),
+    note = score.notes.find((note) => !note.rest)!;
+  const previous = note.glyph.onClassListChange;
+  const prepared = await drainCooperatively(
+    prepareNoteHighlightsSteps(score, next),
+  );
+  expect(note.glyph.onClassListChange === previous).toBe(true);
+  prepared.activate();
+  note.glyph.setClassName(["note-highlight"]);
+  expect(glyph(next, 0).getAttribute("class")).toBe("note-highlight");
+  expect(glyph(committed, 0).getAttribute("class")).not.toBe("note-highlight");
+  prepared.dispose();
+  expect(note.glyph.onClassListChange).toBeUndefined();
+});
+
+test.each(["cancel", "failure"] as const)(
+  "a %s job cannot replace committed glyph callbacks, and retry binds only the new score",
+  async (outcome) => {
+    const { createSourceSnapshot, renderScore } =
+      await import("./render-score");
+    const source = await createSourceSnapshot(
+      Core.Score.create({
+        tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }],
+      })
+        .toSheet()
+        .export(),
+    );
+    const options = {
+      scale: 12,
+      layoutType: LayoutType.Horizontal,
+      advanced: true,
+      debug: false,
+    };
+    const oldScroll = vi.fn(),
+      nextScroll = vi.fn();
+    const old = await renderScore(source, options, { onHighlight: oldScroll });
+    const oldSVG = old.selectPage(0).svg;
+    const oldNote = old.score.notes.find((note) => !note.rest)!;
+    const callback = oldNote.glyph.onClassListChange;
+    const abort = new AbortController();
+    let next: Awaited<ReturnType<typeof renderScore>> | undefined;
+    try {
+      await expect(
+        renderScore(source, options, {
+          signal: abort.signal,
+          onHighlight: nextScroll,
+          onStage: (stage) => {
+            if (stage !== "highlights") return;
+            if (outcome === "cancel") abort.abort();
+            else throw new Error("binding preparation failed");
+          },
+        }),
+      ).rejects.toThrow(
+        outcome === "cancel" ? /aborted/i : /preparation failed/,
+      );
+      expect(oldNote.glyph.onClassListChange).toBe(callback);
+      oldNote.glyph.setClassName(["note-highlight"]);
+      expect(glyph(oldSVG, 0).getAttribute("class")).toBe("note-highlight");
+      expect(oldScroll).toHaveBeenCalledOnce();
+      expect(nextScroll).not.toHaveBeenCalled();
+      next = await renderScore(source, options, { onHighlight: nextScroll });
+      const nextSVG = next.selectPage(0).svg;
+      old.dispose();
+      const previousHTML = oldSVG.outerHTML;
+      oldScroll.mockClear();
+      oldNote.glyph.setClassName(["retired-note"]);
+      const currentNote = next.score.notes.find((note) => !note.rest)!;
+      currentNote.glyph.setClassName(["note-highlight"]);
+      expect(nextScroll).toHaveBeenCalledOnce();
+      expect(oldScroll).not.toHaveBeenCalled();
+      expect(oldNote.glyph.onClassListChange).toBeUndefined();
+      expect(oldSVG.outerHTML).toBe(previousHTML);
+      expect(nextSVG.querySelector(".retired-note")).toBeNull();
+      expect(glyph(nextSVG, 0).getAttribute("class")).toBe("note-highlight");
+    } finally {
+      old.dispose();
+      next?.dispose();
+    }
+    expect(
+      next!.score.notes.every((note) => !note.glyph.onClassListChange),
+    ).toBe(true);
+  },
+);
+
+test("page roundtrips bind only visible glyphs once and dispose stops every highlight/scroll callback", async () => {
+  const { createSourceSnapshot, renderScore } = await import("./render-score");
+  const source = await createSourceSnapshot(
+    Core.Score.create({
+      tracks: [
+        {
+          notes: Array.from({ length: 32 }, (_, start) => ({
+            pitch: 60,
+            start,
+            duration: 1,
+          })),
+        },
+      ],
+    })
+      .toSheet()
+      .export(),
+  );
+  const scroll = vi.fn();
+  const result = await renderScore(
+    source,
+    {
+      scale: 12,
+      layoutType: LayoutType.Page,
+      advanced: true,
+      debug: false,
+      pageLayout: { width: 36, height: 40, margin: 6 },
+    },
+    { onHighlight: scroll },
+  );
+  try {
+    expect(result.pages.length).toBeGreaterThan(1);
+    for (const pageIndex of [0, 1, 0, 1, 0]) {
+      const current = result.selectPage(pageIndex).svg;
+      // Select again to catch stacked installation on the same page.
+      result.selectPage(pageIndex);
+      const note = result.score.notes.find((note) =>
+        current.querySelector(
+          `[type="note"][data-track-id="${note.trackId}"][data-note-id="${note.id}"] [type="glyph"]`,
+        ),
+      )!;
+      expect(note).toBeDefined();
+      const offscreen = result.pages.filter((page) => page !== current);
+      const expected = offscreen.map((page) => page.outerHTML);
+      scroll.mockClear();
+      note.glyph.setClassName(["note-highlight"]);
+      expect(scroll).toHaveBeenCalledOnce();
+      expect(scroll.mock.calls[0][0].ownerSVGElement).toBe(current);
+      expect(offscreen.map((page) => page.outerHTML)).toEqual(expected);
+      note.glyph.setClassName([]);
+    }
+    const pages = [...result.pages];
+    const before = pages.map((page) => page.outerHTML);
+    result.dispose();
+    result.dispose();
+    scroll.mockClear();
+    for (const note of result.score.notes) {
+      expect(note.glyph.onClassListChange).toBeUndefined();
+      note.glyph.setClassName(["note-highlight"]);
+    }
+    expect(scroll).not.toHaveBeenCalled();
+    expect(pages.map((page) => page.outerHTML)).toEqual(before);
+  } finally {
+    result.dispose();
+  }
+});

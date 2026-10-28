@@ -1,3 +1,4 @@
+import { drainSteps, mapSteps } from "../sheet/render-steps";
 import * as Audio from ".";
 import * as Core from "../core";
 export class Score<
@@ -17,12 +18,47 @@ export class Score<
     for (const data of [...this.notes, ...this.masterbars]) data.score = this;
   }
   static import(data: ReturnType<Score["export"]>) {
-    const core = super.import(data);
+    return drainSteps(Score.importSteps(data));
+  }
+  static *importSteps(data: ReturnType<Score["export"]>) {
+    const notes = yield* mapSteps(data.notes, function* (note) {
+      yield;
+      return Audio.Note.import(note);
+    });
+    const tracks = yield* mapSteps(data.tracks, function* (track) {
+      yield;
+      return new Audio.Track(Core.Track.import(track));
+    });
+    const masterbars = yield* mapSteps(data.masterbars, function* (bar) {
+      yield;
+      return Audio.Masterbar.import(bar);
+    });
+    const timesignatures = yield* mapSteps(
+      data.timesignatures,
+      function* (value) {
+        yield;
+        return Core.Timesignature.import(value);
+      },
+    );
+    const keysignatures = yield* mapSteps(
+      data.keysignatures,
+      function* (value) {
+        yield;
+        return Core.Keysignature.import(value);
+      },
+    );
+    const tempos = yield* mapSteps(data.tempos, function* (value) {
+      yield;
+      return Core.Tempo.import(value);
+    });
     return new Score({
-      ...core,
-      notes: data.notes.map(Audio.Note.import),
-      tracks: core.tracks.map((track) => new Audio.Track(track)),
-      masterbars: data.masterbars.map(Audio.Masterbar.import),
+      name: data.name,
+      notes,
+      tracks,
+      masterbars,
+      timesignatures,
+      keysignatures,
+      tempos,
     });
   }
   export() {

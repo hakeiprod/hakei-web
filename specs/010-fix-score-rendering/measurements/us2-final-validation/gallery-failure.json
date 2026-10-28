@@ -1,0 +1,20 @@
+{
+  "status": "confirmed-existing-gallery-SSR-mismatch",
+  "condition": "Persisted debug=false, native /dev/mxl/fixtures load",
+  "observed": "Server renders debug: ON / aria-pressed=true; first client render is OFF / false. React reports hydration mismatch and regenerates tree.",
+  "galleryWrapperExactSameAsHEAD": true,
+  "debugAtomExactSameAsHEAD": true,
+  "classification": "Existing initialization defect by exact source comparison; actual old-HEAD browser execution not claimed.",
+  "productSourceChanged": false,
+  "drawingRoundtripPass": true,
+  "hydrationPass": false,
+  "originalSourceIdsBeforeOnAfter": [
+    5540,
+    5540,
+    5540
+  ],
+  "debugBoundsOn": 11479,
+  "allCards": 18,
+  "observerCorrection": "Surface is an external DOM owner referenced by placeholder aria-owns. Earlier article-only observation returned false zero counts; not missing rendering.",
+  "next": "Add SSR/hydration regression for stored debug=false and true. Keep SSR/first client control snapshot identical, read stored debug after commit and start gallery rendering once for committed value. Recheck MXL and notation gallery debug ON/OFF, full source ID preservation and error isolation. Maintain current musical algorithms/Viewer/performance budgets/separate barline. Compare unchanged source hashes and rerun timing if drawing/Viewer dependencies change."
+}

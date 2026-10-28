@@ -1,0 +1,77 @@
+{
+  "purpose": "Frozen old synchronous Sheet→Audio export versus current cooperative Engraving→Audio export; byte exact JSON, no normalization. This is not real audio-device verification.",
+  "sourceSha256": {
+    "src/s-core/models/audio/score.ts": {
+      "original": "b4a14aa8b6a0151b67a22d621168f6f94247bc25f1796a1b6e764193db7f832f",
+      "current": "684a9c777fe9056631b07c59efbdaa96f070101854668e967949ac0e9fb033f3"
+    },
+    "src/s-core/models/sheet/extensions/to-audio.ts": {
+      "original": "980eab703a0671ae001ebaddccbe523563859b0f09e32918ebe03f7e49063828",
+      "current": "8df3875735c0e236a22dafbce09bb62099ebd449cc384358f6c39fe57cd21863"
+    }
+  },
+  "results": [
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "sha256": "1d15dcf279b2de186682740fbdfb501eb5e2e80f5977993cde04f1027b9f36fe",
+      "equal": true,
+      "originalExportSha256": "f317f6c18eb07fe44419040735f5d70eac7650cb45c943855b53d891bf8793f6",
+      "cooperativeExportSha256": "f317f6c18eb07fe44419040735f5d70eac7650cb45c943855b53d891bf8793f6",
+      "notes": 4992
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "sha256": "bbf817cd1ef0be965b4039c72f0214c6f7caec1cf617375f670824b822888a9d",
+      "equal": true,
+      "originalExportSha256": "51ae78868216e80c527db090d4ad47da7c389385256792174045a916eec03ae0",
+      "cooperativeExportSha256": "51ae78868216e80c527db090d4ad47da7c389385256792174045a916eec03ae0",
+      "notes": 1
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "sha256": "8ade6624178a7526cb893a9ec82c5bbe5fb33025fcf1dc762c1c59195da7b54d",
+      "equal": true,
+      "oldError": "Cannot read properties of undefined (reading 'start')",
+      "newError": "Cannot read properties of undefined (reading 'start')"
+    },
+    {
+      "fixture": "cross-bar",
+      "sha256": "3ff5383a376781c60997405eff6efd3a11dd3770fb896d05a890ec871c2a7b6a",
+      "equal": true,
+      "originalExportSha256": "38f254094541eaa5541c36b7aed57e12ac4e3420bda6703018ffa858820622af",
+      "cooperativeExportSha256": "38f254094541eaa5541c36b7aed57e12ac4e3420bda6703018ffa858820622af",
+      "notes": 2
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "sha256": "e2bd2e827b1054a90b976b2e2c088b32e9862f0804383c6d7a4e34957320fbec",
+      "equal": true,
+      "originalExportSha256": "50a672ff0843893a5013b44352c20fbf7cc47d05df19e371d10c260469200085",
+      "cooperativeExportSha256": "50a672ff0843893a5013b44352c20fbf7cc47d05df19e371d10c260469200085",
+      "notes": 2
+    },
+    {
+      "fixture": "snare",
+      "sha256": "560719017b4c53d3016fc24e395ec564ad002ce35f9835e13be43ebb897fc54d",
+      "equal": true,
+      "oldError": "Score playback is unavailable",
+      "newError": "Score playback is unavailable"
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "sha256": "e15ba8e9b00fb299d8d3af19cf58a279140369abf955bfd9ebdda68a953a40fa",
+      "equal": true,
+      "originalExportSha256": "e5f883d0c48696a8b248b84df37fbdb3f4691d16bfc7c6a67b139d9b81df191c",
+      "cooperativeExportSha256": "e5f883d0c48696a8b248b84df37fbdb3f4691d16bfc7c6a67b139d9b81df191c",
+      "notes": 3
+    },
+    {
+      "fixture": "beam-primary",
+      "sha256": "fd440b324a87a6295185a69c03298fd76600956100f0dd76767a0707e1bf4cec",
+      "equal": true,
+      "originalExportSha256": "b3608df192e5a000387d2fa928d3a62fe29f84327a393f5c4895508012562bf3",
+      "cooperativeExportSha256": "b3608df192e5a000387d2fa928d3a62fe29f84327a393f5c4895508012562bf3",
+      "notes": 2
+    }
+  ]
+}

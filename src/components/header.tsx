@@ -4,11 +4,13 @@ import { Button, Navbar, NavbarBrand, NavbarContent } from "@heroui/react";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { InputSearch } from "./input-serch";
+import { ScoreNavigationStatus } from "./score-navigation-status";
 export function Header() {
   const { status } = useSession();
   return (
     <>
       <Navbar
+        isBlurred={false}
         height="auto"
         className="border-b border-divider bg-background"
         classNames={{ wrapper: "min-h-16 flex-wrap gap-3 py-3" }}
@@ -17,8 +19,10 @@ export function Header() {
           <Link
             className="rounded-small text-sm text-foreground outline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-focus"
             href="/"
+            prefetch={true}
           >
             <p className="font-bold text-inherit">hakei</p>
+            <ScoreNavigationStatus />
           </Link>
         </NavbarBrand>
         <NavbarContent
@@ -33,12 +37,14 @@ export function Header() {
             href="/repositories"
           >
             リポジトリ
+            <ScoreNavigationStatus />
           </Link>
           <Link
             className="rounded-small text-sm text-foreground outline-offset-4 hover:text-primary focus-visible:outline-2 focus-visible:outline-focus"
             href="/trust"
           >
             信頼度
+            <ScoreNavigationStatus />
           </Link>
           {status === "authenticated" && (
             <>
@@ -47,6 +53,7 @@ export function Header() {
                 href="/practice/history"
               >
                 演奏履歴
+                <ScoreNavigationStatus />
               </Link>
             </>
           )}

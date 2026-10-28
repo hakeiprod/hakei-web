@@ -1,0 +1,532 @@
+{
+  "purpose": "Correctness proof of current horizontal viewport independence, not performance or old independent reference comparison",
+  "fixtureCount": 8,
+  "pairs": 16,
+  "allMatch": true,
+  "manifestSha256": "1512c36fdfeddc798c5868be6d151deb17b060559aa38e29866714c113228f74",
+  "rows": [
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "scale": 12,
+      "notes": 5540,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+          "svgSha256": "5508b1d18d3b0ac816861c0182147034cbb6c322eb40e9beb3ac1629e818876b"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+          "svgSha256": "5508b1d18d3b0ac816861c0182147034cbb6c322eb40e9beb3ac1629e818876b"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "scale": 18,
+      "notes": 5540,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+          "svgSha256": "4f8c1c38bff48e760c8977f4e5eb9e89472f6e10bb0895cfec736581477c68f5"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "eba4dcbf78b5e375f6adbb347b929f0ee7b9009b622369dab0034638e3cf4380",
+          "svgSha256": "4f8c1c38bff48e760c8977f4e5eb9e89472f6e10bb0895cfec736581477c68f5"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "scale": 12,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+          "svgSha256": "b22d2ad50e9ec06cb5e6a0f8a175ad681eff08ae9133092610ab22a22700486c"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+          "svgSha256": "b22d2ad50e9ec06cb5e6a0f8a175ad681eff08ae9133092610ab22a22700486c"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "quarter_middle_c",
+      "scale": 18,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+          "svgSha256": "43b1f06b58619dc135deec94b6fb42355987b4f1b0cb073a8279e0b70ec9a673"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "808d7948ae04baa2844f9922870680496bb1cc0e05eeec099b027afd995a9be6",
+          "svgSha256": "43b1f06b58619dc135deec94b6fb42355987b4f1b0cb073a8279e0b70ec9a673"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "scale": 12,
+      "notes": 6,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+          "svgSha256": "375159d3f41b03e4185ba41c5bccf2580b0d0895f1409e0d69eac4b099c67ca0"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+          "svgSha256": "375159d3f41b03e4185ba41c5bccf2580b0d0895f1409e0d69eac4b099c67ca0"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "triple_grand_staff",
+      "scale": 18,
+      "notes": 6,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+          "svgSha256": "dc9bfa8bc83dcf79affe5275b55eb0b0fef9e7bb4cb586b588038723660c7ac0"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "ce7f0e35279edda109c0fc6b25e8029d837c48b096c92096c06089d125f2169f",
+          "svgSha256": "dc9bfa8bc83dcf79affe5275b55eb0b0fef9e7bb4cb586b588038723660c7ac0"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "cross-bar",
+      "scale": 12,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+          "svgSha256": "631737a15d38a12427e8b80f89fe92f65f0139b6e1c6020c6a474232204c4818"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+          "svgSha256": "631737a15d38a12427e8b80f89fe92f65f0139b6e1c6020c6a474232204c4818"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "cross-bar",
+      "scale": 18,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+          "svgSha256": "767359f7eb8d7f8a8e5c5aa23c67ec909f5f5b06826872129feaebe2ba14dbd7"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "f1539b20eda5b785914a6d9796187376a7660e233b3aedba88ee60cb5abc73f5",
+          "svgSha256": "767359f7eb8d7f8a8e5c5aa23c67ec909f5f5b06826872129feaebe2ba14dbd7"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "scale": 12,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+          "svgSha256": "0c35cbd49fb1fd35fd339fe1cb6957e9ec98ee50b760f765f231101727de148d"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+          "svgSha256": "0c35cbd49fb1fd35fd339fe1cb6957e9ec98ee50b760f765f231101727de148d"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "simultaneous-strings",
+      "scale": 18,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+          "svgSha256": "f86eb85e5c18f0f2e81598054d31e7c0851d3197831fe5e843e6c37c42a005e7"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "4461a52496c6feba2f406afae0876d871e4cbf9692e2afa4325f3bbb995b6697",
+          "svgSha256": "f86eb85e5c18f0f2e81598054d31e7c0851d3197831fe5e843e6c37c42a005e7"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "snare",
+      "scale": 12,
+      "notes": 1,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+          "svgSha256": "1a7ae52a3b6c098eada9ae16bbf00ac424cd3010842a3a4587c15c327900432f"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+          "svgSha256": "1a7ae52a3b6c098eada9ae16bbf00ac424cd3010842a3a4587c15c327900432f"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "snare",
+      "scale": 18,
+      "notes": 1,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+          "svgSha256": "ce928b345d2e50f747dbcf03bb51d10a623799b46e1edf97ae7e6b51b95b6f80"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "8b94d1f168cf8a92d2318b4fff9bbc1cc09c544181021b3e361f76328b9661d1",
+          "svgSha256": "ce928b345d2e50f747dbcf03bb51d10a623799b46e1edf97ae7e6b51b95b6f80"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "scale": 12,
+      "notes": 3,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+          "svgSha256": "5ec7518ba8a61ec093b04a04754d3a17c9c00987ce08eaeb5cdff783816b02f2"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+          "svgSha256": "5ec7518ba8a61ec093b04a04754d3a17c9c00987ce08eaeb5cdff783816b02f2"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "simultaneous-conflict",
+      "scale": 18,
+      "notes": 3,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+          "svgSha256": "3b0a4ecb384d2834aa359956ef3863e3757b3d49f1fa5a7348d35484b4d8c4c1"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "db0eedb2c21ce0253074d336917f8662370f455d185d6cb8baea6add6bb75fa4",
+          "svgSha256": "3b0a4ecb384d2834aa359956ef3863e3757b3d49f1fa5a7348d35484b4d8c4c1"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "beam-primary",
+      "scale": 12,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+          "svgSha256": "732f179d31855ddb63e329f6556ae09040d94b5e4cba8b537e9015f3d5e322ca"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+          "svgSha256": "732f179d31855ddb63e329f6556ae09040d94b5e4cba8b537e9015f3d5e322ca"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    },
+    {
+      "fixture": "beam-primary",
+      "scale": 18,
+      "notes": 2,
+      "outputs": [
+        {
+          "viewport": {
+            "width": 1,
+            "height": 1
+          },
+          "documentSha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+          "svgSha256": "0e630c848c14d14722c81cfa15fa80b25aa87e4855f63e86c96c5fe1400a6dc5"
+        },
+        {
+          "viewport": {
+            "width": 2048,
+            "height": 1536
+          },
+          "documentSha256": "7668579191afae877c89ebf51c29d151daa975a2ae97bd4202cc631b007a6271",
+          "svgSha256": "0e630c848c14d14722c81cfa15fa80b25aa87e4855f63e86c96c5fe1400a6dc5"
+        }
+      ],
+      "same": true,
+      "inputUnchanged": true
+    }
+  ],
+  "script": "us2-horizontal-viewport-invariance-script.txt",
+  "scriptSha256": "60cd923395103721a30823bf3f8e8f85275418a0f86a13bd46ed0d089760e8f6",
+  "sourceHashes": {
+    "src/s-core/models/engraving/notation-ties.test.ts": "9ec64d0a3c6576f6f6ac66ef2998dba9d2ffad8db51a984175651eebd0ac84d0",
+    "src/s-core/models/engraving/row.ts": "be97efe3c1424d715b581b07dbc8bcba2ef6e92974a313a6ce23dfbe8e7c1d9f",
+    "src/s-core/models/engraving/masterbar.ts": "8680f22e0de0ea39d52abe3c973db17cad2a16fb5d38470fa5d6651cd66d5aef",
+    "src/s-core/models/engraving/notation-accidentals.test.ts": "9f6e42cecd679843ba5eb6cba93a304e5a6eacf4097eb04160612dead6692e14",
+    "src/s-core/models/engraving/note.ts": "b66d4308a18569d22b853dcf6e5e30eb5274ab157dbfeb337041a014d13d9ed2",
+    "src/s-core/models/engraving/index.ts": "74d7e9a4cad3677a38d843e7f2ea3c7f34d4c28fb2f28e2db4010ba0b47e2ead",
+    "src/s-core/models/engraving/bar.ts": "3db70e257804ae17cb1a39b5a4fc52e578ac184bac8034f8269a7c05e82ce2b9",
+    "src/s-core/models/engraving/keysignature.ts": "0366577537bbe25a4ffacccdb4f61c5effb1b18e5dc83d914be81c2b21791158",
+    "src/s-core/models/engraving/track.ts": "e20c1ff13bce292c88ea7dcdc98a842f9cfb67a6117b3e30c620da0d84ecd153",
+    "src/s-core/models/engraving/stave.ts": "7121b2ed2950c4558272375073cef3e1b52f8054dea849d252399a92a4f4a6df",
+    "src/s-core/models/engraving/controller.test.ts": "6317686daf8d5414644d32cb666deb72583123755ddadaff669513daf54151b4",
+    "src/s-core/models/engraving/percussion.test.ts": "b6b512bf505b58446de3d5205957ea13a8162833e5e40dacfb5af71fef9ebb0c",
+    "src/s-core/models/engraving/render-score.test.ts": "ab65088476015165cd6cf8d2cbaf6c7347e03131141123493ae5e04ffaab90eb",
+    "src/s-core/models/engraving/barline.test.ts": "8ec5da78ad34193b77b4b6f648946ed3aceb1b8e6fcf844d1ae49c0caf222f4c",
+    "src/s-core/models/engraving/stave.test.ts": "51e07e15604aec5c6a89486ec435f160cf2d067692e61f7d9a1613ee77d0874d",
+    "src/s-core/models/engraving/tablature.test.ts": "ec6555a2acc857a702655927c8463f8f686ceaa5f134e0d9c0d710854af39db4",
+    "src/s-core/models/engraving/mixed-staves.test.ts": "8ba049fdd2813a8380a4aceab4fd7c88a7de57490981fda41bc1fa294eac9134",
+    "src/s-core/models/engraving/chord.ts": "59c08612d338a9511627afefe3a4a9537d1dff24a8b4d11a105e97c5c86386da",
+    "src/s-core/models/engraving/timesignature.ts": "347b20fc02ebf0e9d0574314552a6e423b085d26a8f36ed7e9bfda876a6dee84",
+    "src/s-core/models/engraving/slot.ts": "5e23d08b1a53c56518f249d25cb7133e323b26f5bf0f53f8d89ee1ce9f6d50cb",
+    "src/s-core/models/engraving/percussion-clef.test.ts": "6a932c1dab12967437613d31c10ca8b055312d3f47799830fc9e8a4cac54a912",
+    "src/s-core/models/engraving/tab-clef.test.ts": "965b5e06f10c7c70172511c74447294d0d2dcf74fddf7578e0ac646e073a4f54",
+    "src/s-core/models/engraving/score.ts": "f77ffdcce8ba049a48a4bce95ad3ffe089b942977a34e3790e3451fce9bb2b13",
+    "src/s-core/models/engraving/geometry.ts": "6ad045c37596d7379539e19f8d3f1729188fcadef739a02866148a21d95b93b1",
+    "src/s-core/models/engraving/glyph.ts": "c98c966ab202baf7d111c2658e936d74455c7d1305b246192f2c3f20761a424c",
+    "src/s-core/models/engraving/controller.ts": "60eb348929d951c1c5cb0b8cdd998f7088589643f07b02001439af28c045dea7",
+    "src/s-core/models/engraving/notation/tablature.ts": "5a2a549266d14f058fdbc8e62f6fb6026b486692a053eec98a66c40e2e0d490f",
+    "src/s-core/models/engraving/notation/ties.ts": "24b3573ea2e2a5dfe2104f4e913afbe4681972e02fe8cc3d7f7696b17c9ed99b",
+    "src/s-core/models/engraving/notation/staff-geometry.ts": "d2e73e1e253b43e081789504ffaca30544cd853581321bcefcb38e620e811cbc",
+    "src/s-core/models/engraving/layout/element.ts": "c17cc57b4f8563d42f069b20f697850f6dac09df3b13102c788c821bd989ac9e",
+    "src/s-core/models/engraving/layout/table.ts": "77966ec545425133173e9a0f6981d8f87fa5b69aac34f1da9f16eed8707216b9",
+    "src/s-core/models/engraving/layout/ligature.ts": "c4ffc080e725d3e07d69118e28b6fbcbca3d11d8d9dc978731e6dc8f15d29dc5",
+    "src/s-core/models/engraving/layout/word.ts": "62ab0951d2d7edb9f7d45c51407d3e84af9a205667d445333ed91a51b88e2d42",
+    "src/s-core/models/engraving/layout/glyph.ts": "c64059aef166b8f8c9adce7ec8ca3a7214c57837f08331e8b9d39ac857c65404",
+    "src/s-core/models/engraving/extensions/to-document.test.ts": "a2c41921fe417d15889b93b4aa5eb2948ea1c6c869399f09bff68bc5c3e55555",
+    "src/s-core/models/engraving/extensions/to-document.ts": "d2846077d4d55e9f97888e75d5c25a59cfe345574aef768c70330c19ad5a70d3",
+    "src/s-core/models/sheet/layout-index.test.ts": "5149c1ac16de6e7a96f3c4a7565c439658a171f69d6484699c7e14a150a2d755",
+    "src/s-core/models/sheet/page.ts": "95bfbb1e85bfc7c572e4e2ffdc3ff0025dacec6c16c4d8548250d2721a999cee",
+    "src/s-core/models/sheet/beamgroup.ts": "11de427effcd5e698341da2674b82f85a879bdefe1983494ca00c2f4a2b37d18",
+    "src/s-core/models/sheet/row.ts": "59705d6e94878c7a2d50bcb8cbfe946d3daa711a17e2e0d70ea9d7ce67489fc7",
+    "src/s-core/models/sheet/masterbar.ts": "5cb30a420e4a79c77b9f967fa78ce3c48f93aa631db6db8621068d5e49536e1d",
+    "src/s-core/models/sheet/import-score-parts.ts": "cce74765aaee54280f6fefb8ad2d91061023d6cb8a6f61f07e9ac2bcac50c455",
+    "src/s-core/models/sheet/note.ts": "b5daf1cd3fcec77e4a9bba46f4f626fc47acf84a60a02dbc43dcdd6f3393420a",
+    "src/s-core/models/sheet/index.ts": "1c657f33b53989401fa517e07f77a696efff7a9a3c137d8ce1b3be2c49b964b0",
+    "src/s-core/models/sheet/bar.ts": "2a667bba605f06ed72e69276da1d3b87bc7c302aa42cfab082cd9a8e47aab31c",
+    "src/s-core/models/sheet/keysignature.ts": "a397917cad59ee92366bf6be139997399fe85f261c75d7f2eb8f31a8f5a78090",
+    "src/s-core/models/sheet/track.ts": "a1770ab9fbb3d10a5a7300d528260a580829c6097e85ef183b9776b5d862f629",
+    "src/s-core/models/sheet/stave.ts": "adc8e2c9a9b414ff8e91a0e54fa60a7f81164de64debdc9650b4426b140402f8",
+    "src/s-core/models/sheet/render-steps.test.ts": "2f7fbeb08d49283a47754b85b77149b134de51703f2b56bb90694410575eb907",
+    "src/s-core/models/sheet/note.test.ts": "dfc8784abe1cdf93fc88743c0e660cf3f79d40eaa946d39d13b491efa3141ca1",
+    "src/s-core/models/sheet/layout-index.ts": "28278465f5b9f8cafc02e0e040ba3041a6a4ad1535a9ab0f8ff8babfa4fc30b1",
+    "src/s-core/models/sheet/layout-pass.ts": "4c6aea13f5db23ac8e32fcf833523205c25e2f34a8cf237d77f709480abd4178",
+    "src/s-core/models/sheet/chord.ts": "dabbb8f736ea754bcdc7820cd56fd17fb21f058abee55c5c4d0cd4ef8e6ad417",
+    "src/s-core/models/sheet/timesignature.ts": "ff512c31ab35656e6c0fef700aa92b72f66441102dc17f95cc5513857b78c203",
+    "src/s-core/models/sheet/slot.ts": "5a590d96144dd07470a810e8a50147ba39365c68feb876b9a09f9eb5c0fb605f",
+    "src/s-core/models/sheet/score.ts": "b3195c6671cf4487238ec5b43d12411eb70e7ac64f316ff788b5e13d5ba033c7",
+    "src/s-core/models/sheet/controller.ts": "674c09b6eac0f2c6ecbdef0e72dd85067648d5e9cef0cae3fb6a9b0ad40df147",
+    "src/s-core/models/sheet/render-steps.ts": "43d3b052bdf1181e5bd84368fa40ce6729aad829d4c09e723b1ea3e0ad2f1d1f",
+    "src/s-core/models/sheet/notation/accidentals.test.ts": "e8119322cbc1322ec624c8cf754ecfff8372f52a26f0bc45829ec242ccf537af",
+    "src/s-core/models/sheet/notation/performance-events.test.ts": "715e82689f4b38103a812d2d836459de76fd2a6bd9ec4e475c38d3445639db5f",
+    "src/s-core/models/sheet/notation/staff-settings.ts": "19cfa04af632fca3d4992033db750c6ad73d0c5144cff7a0b9704339a0f76281",
+    "src/s-core/models/sheet/notation/ties.test.ts": "81d423cbc90903c32a124298d75ff7f04ae7dc4fb90d1fdf9427f838b14db23e",
+    "src/s-core/models/sheet/notation/accidentals.ts": "cc07d138f81a1686a11237763010e94c21f3b767c827277416b939b517c842f5",
+    "src/s-core/models/sheet/notation/ties.ts": "72819a1ed11e4063d08eadacfbca26961b1861f863151a27b9d84738b1498012",
+    "src/s-core/models/sheet/notation/capabilities.ts": "23060bc9a55a3471c05c50298d549df7584f5f5e6c7cc57b07c9527b847da7a9",
+    "src/s-core/models/sheet/notation/schema.test.ts": "035e6be4f0ce1578b17a8a0e021734e5114e6c469142ecaeab076ad53857634f",
+    "src/s-core/models/sheet/notation/performance-events.ts": "8ee61104ad5ba754491abc55ffceb480646af8581addfc715a2bba7084d6ff1f",
+    "src/s-core/models/sheet/notation/roundtrip.test.ts": "fcacb32707b1b4090def0936b4718bc88c2050a21c6d38e37e39e0827a7d325c",
+    "src/s-core/models/sheet/notation/staff-settings.test.ts": "4a95c349657e2bb30a41742b9cfffec2f017390486bedcbf0627c6f23536d01f",
+    "src/s-core/models/sheet/notation/capabilities.test.ts": "55b65f03bfd6a49e31f2640c50d1ffbdbfb9e5cf071d8465d38adba82b4696af",
+    "src/s-core/models/sheet/notation/schema.ts": "c835b1d97aa498c3a724d418fea16bb4eb0e0e4963b660cfd3c044b68ae3b75e",
+    "src/s-core/models/sheet/notation/pitch.ts": "a2c32c824d7fd837ba297be7e326254561b69f30171e9cc22bf85474e5c3b809",
+    "src/s-core/models/sheet/extensions/to-audio.test.ts": "beb28cd8dd95bfb4f3b752dac3bb2c2b367727b08197f901a4d70299f74c4993",
+    "src/s-core/models/sheet/extensions/to-audio.ts": "8df3875735c0e236a22dafbce09bb62099ebd449cc384358f6c39fe57cd21863",
+    "src/s-core/models/core/key-accidental.ts": "036b47dc052a6748478f28102c40ec32f0be0f9afd9442bf17bb65fe52b680ba",
+    "src/s-core/models/core/note.ts": "a6ffd359a2d6c8a20f5a77845c2c98500e87b20933aa23a02f6502d0cc884a54",
+    "src/s-core/models/core/index.ts": "8c013fd7634d5a73ea631ab99789f69253a53b53fe1c5734593da9c03572d672",
+    "src/s-core/models/core/score.test.ts": "f6e40f91b3a9b68f0cb2ac07a5baf1bd957ba9b3dd18aaf37b1a2ac4b84d51ec",
+    "src/s-core/models/core/keysignature.ts": "5e41f1bb42d1c4042880f28af816b97773243c3e80e89cb9b405c291372b9db7",
+    "src/s-core/models/core/event.test.ts": "d1369218296d457e5ff40ede978ec108d2ffdf9720f5f39e3562d88ca9a4aecd",
+    "src/s-core/models/core/track.ts": "1af6d3c043207083e65c30d5638a3556040c94dcede8569269d6c42442851556",
+    "src/s-core/models/core/tempo.ts": "30defcb204a587c3e82dabf88a1d298a21219eb19d801cb75e7789cdd8292cdc",
+    "src/s-core/models/core/metadata.d.json.ts": "72b7e0a508a63c591415bf84cc97ab4285bb81b5d4f3f470c8e800c75efaae8c",
+    "src/s-core/models/core/note.test.ts": "712d6fd8067ad41815bcaaced5dc2f39dd1b11ddb3b4a0d8cfd82b7d3e36d2a3",
+    "src/s-core/models/core/event.ts": "5658fe3625388059dccf24fd848b630b0f8308a796b8b15c1bdd11e1628d2e53",
+    "src/s-core/models/core/timesignature.ts": "e6fcdb5f51a986903dc28f703c23484270d6832286864e3fa9fdf908403b541a",
+    "src/s-core/models/core/score.ts": "4ff22ef627cfbf7e86097163116826d56f5fa3a90b247583d28f4a3938634c5d",
+    "src/s-core/models/core/units/index.ts": "dd39337f11e13420036a457076f2a22e70d8d3527805df2364c8f83e995ef583",
+    "src/s-core/models/core/units/tempo.ts": "fae1a2889097cd202c9aa240cc6846284924eb0885ae43b49682bee25824c32d",
+    "src/s-core/models/core/units/beat.ts": "63252b7854164f8e3cb43499d5db96663529ebbbc0b335bcae7097352b12635f",
+    "src/s-core/models/core/units/scientific-pitch-notation.ts": "89e16c1770fb28b334166eb1858386371da6f780d75c699c58e5e17bdf0dcded",
+    "src/s-core/models/core/units/preset.ts": "772406496739bf0827201f2eeccd07e5a20c87ca37678aed28af70acf1e3bc99",
+    "src/s-core/models/core/units/pitch-class-name.ts": "ac69e3d60e16924ca56e76a9718528781f49b531d830064282eb11b3d9e87c6e",
+    "src/s-core/models/core/units/pitch-class.ts": "91afdc3193c34c37cb70d4a896dfc08a335fc3ded5e2f53de0b78edf3c4d2784",
+    "src/s-core/models/core/units/beat.test.ts": "c7a687320c7393de3743210f2248be4813bc99043c998a40e425792f43b9de68",
+    "src/s-core/models/core/units/midi-note-number.ts": "b14e1e5e52d6d763d9817370706030b81e01e6f624f465ae9ccfc1660dc81cc4",
+    "src/s-core/models/core/units/microseconds.ts": "4d65932044f68c0bb4ab48d04a700ba1a759c929a54582de65cdea018de8df39",
+    "src/s-core/models/core/units/microseconds.test.ts": "d7401138ef4a85c274c3eec86e1121dfd357105f2ad584da89094f00c609d408",
+    "src/s-core/models/core/units/time-offset.ts": "04fcdee16bdf188c3a10e608c6fe2e9c93394590d8c6bc533d1208012dd4e6b5",
+    "src/s-core/models/core/extensions/to-sheet.test.ts": "b86389cdd6c0d203d7f9dcfe175c51b5642868726c2fee46d38746794f74eb74",
+    "src/s-core/models/core/extensions/generate-beams.ts": "4fe72c94bd493b12a2c7cf97bd47a0dc4691e71ec5cf7a81be3a191893e0f65a",
+    "src/s-core/models/core/extensions/to-audio.ts": "0ae673fef5389f4257ca39449031a7c8f285e8472b81cb52d02b9bc663c4a4bb",
+    "src/s-core/models/core/extensions/to-sheet.ts": "07ec1363bc81ff37f4db1930ff314336364c19d8818e0f3f9bbef7a1b829644b",
+    "src/s-core/models/core/enums/index.ts": "5506038149f03d35b708d65bb495ec7ee05ba8c9cf6b1f81d71a95434651fc15",
+    "src/s-core/models/core/enums/tonality.ts": "d730ad0241adcae1ea15c806b58d32febc0ed1c75ce8e4d470dce2e68fbbaf42",
+    "src/s-core/models/document/layout.ts": "5e38885d7860d8c5afe226bebfa7a46da1ce6a4389abe2f0ca2a02e8b6a002d6",
+    "src/s-core/models/document/page.ts": "77a8883100b0542926702d28d7d999073745a8769186d42d7927710a3d4095d6",
+    "src/s-core/models/document/document.ts": "8774bfec8a7e44f7bc51ca1b4cec9ec8c8e00d4cd1a2f3d2a9e8483a0ba10a0e",
+    "src/s-core/models/document/element.ts": "9aeb0e349a7553f44eb21423751fe2ad72447d8f1723f742d445f180242e6836",
+    "src/s-core/models/document/index.ts": "1b7137417343dc9c7b97d9f35dc6bb149fab16a88f695c5e23a799e56514c766",
+    "src/s-core/models/document/rectangle.ts": "c4ae30ed05c9bd79a897b415efe5a56be7c792bcf3e527b324d91dfcfa17a973",
+    "src/s-core/models/document/line.ts": "3977673c5a61c5a7322ce0faa1ed78e14672a52306f60f311d0c927f112a2374",
+    "src/s-core/models/document/curve.ts": "6d3d4dae8280e40c14934b8753459f3ebf8f8a1ced8387af9d64413a0de31de9",
+    "src/s-core/models/document/curve.test.ts": "b0eb8d57575f8d2b7773a4fa24d2190e15d0dfcfdef6eaad33cf1c618e9a346e",
+    "src/s-core/models/document/glyph.ts": "5636c2ee81ee201a46cee1fd064ad8a52d2290d534775240ca5ed24ee91864d5",
+    "src/s-core/models/document/extensions/to-svg.ts": "a6e1117bb44d4dc03b1578855ed55cb241c8e05656113ac3461c4fd8abce1c06",
+    "src/s-core/models/document/extensions/to-svg.test.ts": "f34edefe15ff8da7605a6689af621356737012bf94d8d3665b318e86cbf09581",
+    "src/s-core/models/document/extensions/from-sheet.ts": "e164c5a8e085216e055ec7315b9723532014116b0e0b9b1acf238d39d58f3bd7",
+    "src/s-core/models/document/extensions/from-sheet.test.ts": "e7494bccaea32d89871799afa779f3b07f8a13696bca2255e62692ef32ba3218"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "scope": "us2-capabilities-targets",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 10,
+  "reviewedImages": 80,
+  "summary": {
+    "trials": 10,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 10,
+      "maxMs": 85.90300000086427,
+      "medianMs": 70.30350000038743
+    },
+    "redraws": {
+      "count": 20,
+      "maxMs": 27.070000000298023,
+      "medianMs": 23.970999999903142
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 50,
+      "maxMs": 82.87600000016391,
+      "medianMs": 13.262499999254942
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "snare-Horizontal-360x800-18-0",
+      "maxMs": 85.90300000086427,
+      "fixedThresholdMs": 114.73000000417233,
+      "pass": true
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-12-0",
+      "maxMs": 82.62600000016391,
+      "fixedThresholdMs": 124.14479999542236,
+      "pass": true
+    }
+  ],
+  "svgRestored": 10,
+  "budgetsUnchanged": true
+}

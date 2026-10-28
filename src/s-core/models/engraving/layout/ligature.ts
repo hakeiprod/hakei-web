@@ -1,3 +1,4 @@
+import { drainSteps } from "../../sheet/render-steps";
 import {
   filter,
   firstBy,
@@ -48,21 +49,20 @@ export class Ligature<
     );
   }
   order() {
-    reduce(
-      this.glyphLists,
-      (accumulator, current) => {
-        if (accumulator)
-          for (const glyph of current) {
-            const previousMaxWidthGlyph = firstBy(accumulator, [
-              (glyph) => glyph.width,
-              "desc",
-            ]);
-            if (previousMaxWidthGlyph) glyph.x = previousMaxWidthGlyph.right;
-          }
-        return current;
-      },
-      null as Ligature["glyphLists"][number] | null,
-    );
+    return drainSteps(this.orderSteps());
+  }
+  *orderSteps() {
+    let previous: Ligature["glyphLists"][number] | null = null;
+    for (const current of this.glyphLists) {
+      if (previous)
+        for (const glyph of current) {
+          const widest = firstBy(previous, [(glyph) => glyph.width, "desc"]);
+          if (widest) glyph.x = widest.right;
+          yield;
+        }
+      previous = current;
+      yield;
+    }
   }
   append(...glyphLists: Glyph[][]) {
     this.glyphLists.push(...glyphLists);

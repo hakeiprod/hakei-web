@@ -1,0 +1,46 @@
+{
+  "plannedTrials": 480,
+  "collectedTrials": 323,
+  "collectionFailures": 0,
+  "cutoffs": 0,
+  "explicitReviewedImages": 3,
+  "allOtherImagesReviewed": false,
+  "fullUS2Pass": false,
+  "budgetsUnchanged": true,
+  "collectionTermination": "Collection process was absent at resumption; original exec session no longer existed. No controlled SIGINT was delivered because there was no matching process. Cause of termination not established.",
+  "confirmedFailures": [
+    {
+      "condition": "simultaneous-strings-Page-360x800-12-0",
+      "run": 2,
+      "metric": "cold",
+      "measuredMs": 129.38400000007823,
+      "fixedThresholdMs": 124.14479999542236
+    },
+    {
+      "condition": "snare-Horizontal-360x800-18-0",
+      "run": 4,
+      "metric": "cold",
+      "measuredMs": 273.1110000000335,
+      "fixedThresholdMs": 114.73000000417233
+    },
+    {
+      "condition": "snare-Horizontal-360x800-18-0",
+      "run": 4,
+      "metric": "during-render-input",
+      "measuredMs": 170.84300000034273,
+      "fixedThresholdMs": 100,
+      "inputDelayMs": 140.5
+    }
+  ],
+  "traceFinding": {
+    "trial": "snare-Horizontal-360x800-18-4",
+    "event": "FunctionCall",
+    "durationMs": 230.197,
+    "startRelativeToCandidateMs": -31.114,
+    "source": "304ff382-5694fc6b42bb8762.js:1:150489",
+    "observation": "React synchronous callback overlaps 140.5ms input delay. GC 15.269ms and Layout 16.45ms are observed; responsible application effect or rendering work is not isolated. This is not a proven root cause."
+  },
+  "reviewPhase": "diagnostic because collection lacks the complete matching 96-condition matrix required by after phase",
+  "rawEvidence": "results.json and all images; extract traces.tar.xz to run retained review CLI",
+  "nextStep": "Isolate synchronous React work using a targeted profile for the two failing conditions before changing product code. Preserve fixed thresholds; do not substitute reruns for recorded failures."
+}

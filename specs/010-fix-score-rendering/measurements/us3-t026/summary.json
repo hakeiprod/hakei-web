@@ -1,0 +1,43 @@
+{
+  "status": "T026-complete",
+  "dateJST": "2026-10-28",
+  "tests": {
+    "files": 5,
+    "passed": 122,
+    "newAdapterCases": 18,
+    "newRealViewerPublicationCases": 8
+  },
+  "typecheck": true,
+  "eslint": true,
+  "diffCheck": true,
+  "coverage": [
+    "cancel before start creates no Score/SVG/binding",
+    "abort in build/layout/document/svg/highlights; partial multipage bindings disposed",
+    "continuation exception in each stage; same immutable snapshot retries with equal Document and SVG",
+    "synchronous stage exception propagation and retry",
+    "abort after final binding before publication",
+    "fallback timer and abort listener cleanup without continuation",
+    "real Viewer: source/scale/cancel-retry/unmount x late A success/failure; B DOM/generation/status retained, stale success disposed; committed callback removed on unmount",
+    "existing scheduler/validation worker cancellation and SVG highlight regressions"
+  ],
+  "sourceProof": {
+    "changedComparedToT025": [
+      "src/components/score-viewer.test.tsx",
+      "src/s-core/models/browser/render-score.test.ts"
+    ],
+    "changedSourceSha256": {
+      "src/components/score-viewer.test.tsx": "cb47949546b1fe81b10387b9d63a1cc7e92b627955cd720819c90ba0a2662936",
+      "src/s-core/models/browser/render-score.test.ts": "29b2a836a82fdaba645495f83a08e4095e6dd418a1fa396867f484edc17afc6a"
+    },
+    "allOtherMeasuredSourceExact": true,
+    "runtimeChanged": false
+  },
+  "performanceMeasurement": false,
+  "newVisualReview": false,
+  "wholeFeatureComplete": false,
+  "note": "Tests add coverage to existing working behavior; test harness corrections were not product RED defects. No product implementation change, new timing claim or relaxation of drawing/performance conditions.",
+  "nextTask": "T027",
+  "next": "Audit Viewer and import-preview coverage; add loading/ready/error/cancelled, retained/hidden prior score, safe failure and retry, form cancellation/navigation tests preserving acknowledgements, canPractice and save state. Then T028/T029 fill proven gaps; T031 native timing remains pending.",
+  "archiveCorrection": "../us3-t027-029/evidence-renames.json",
+  "archiveCorrectionNote": "Source byte hashes unchanged; source files now have .txt suffix to avoid execution/typechecking. Validation after correction is recorded in ../us3-t027-029/summary.json."
+}

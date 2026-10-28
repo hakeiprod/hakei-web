@@ -222,3 +222,13 @@ Record actual browser reviews in `visual-results.json` according to [the fixture
 打楽器の打音は表示位置と楽器対応を保持する。打楽器休符は `rest:true, pitch:null` と所属譜表を持ち、打音用表記を要求しない。旧数値pitch付き休符は読み続ける。TABの運指を音高から生成せず、ドラム・音高不明TAB・対応不明の通常譜併記は理由付きで演奏不可とする。
 
 目視結果は該当suiteの `visual-results.json` に、visualChecklist ID、確認した入力・期待値・layout・rendererRevision、日時、ブラウザー、確認者を記録する。最新ソース・フォントで失効した条件は再確認する。SVG生成やjsdomの合格は実表示の合格を代替しない。DB検証は今回利用者指示で保留し、後日末尾 `_test` の専用DBで `--persisted` を実行する。
+
+## Score rendering measurements
+
+See [the rendering quickstart](../specs/010-fix-score-rendering/quickstart.md) for model, production-browser, independent Document/SVG comparisons and image-review commands. Use the existing fixture manifest (8 fixtures × 3 layouts × 2 widths × 2 scales, 5 runs each). Preserve the frozen before-results thresholds and original reference artifacts; separately identify the authorized final-barline overlay. Model time is not browser presentation time.
+
+Run performance measurements sequentially without builds, tests or competing renderers. Use an isolated production copy, dedicated `_test` database, separate score Git directory and matching authentication origin. Keep session state and environment files in a private temporary directory. Rendering marks and controlled lifecycle gates belong only to the measurement copy; record their exact differences and hashes. Never add failure/delay controls to a production route.
+
+A DOM commit or requestAnimationFrame is insufficient for a timing pass. Review the corresponding screenshot and trace Presentation source/sequence using `scripts/review-score-rendering-frames.mjs`; include input waiting time. An existing image review can be reused only for byte-identical JPEGs with the same fixture/display/action; verify the new trace clocks independently. Keep unknown frames unmeasurable until explicitly reviewed. Keep cutoffs and unsuccessful trials in the report.
+
+Archive only required measurements, source hashes, approved source snapshots and reviewed images/traces. Exclude environment files, database URLs, session cookies and candidate score JSON. Scan archives against private secret values without printing them. Stop only the owned server/browser process groups and dedicated database, then delete the owned temporary directory after durable evidence and archive checksums are verified. Physical audio/MIDI success requires separate hardware validation.

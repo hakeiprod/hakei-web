@@ -1,0 +1,52 @@
+{
+  "date": "2026-10-22T10:49:22.077Z",
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "stages": [
+    {
+      "stage": "repository-created"
+    },
+    {
+      "stage": "import-screen-ready"
+    },
+    {
+      "stage": "preview-http",
+      "status": 200,
+      "elapsedMs": 9095,
+      "version": "3.1",
+      "notes": 5540,
+      "issues": 312,
+      "validation": {
+        "validatorVersion": "score-import-validation-v2",
+        "canPractice": true,
+        "canGame": true,
+        "unresolvedIssueIds": []
+      }
+    },
+    {
+      "stage": "preview-ui",
+      "responsive": false,
+      "observationMs": 20000
+    }
+  ],
+  "errors": [],
+  "browser": "156.0.8078.4",
+  "environment": {
+    "runtime": "Node.js 22 / Next.js dev --webpack (isolated source copy)",
+    "database": "dedicated hakei_007_convergence_test",
+    "git": "temporary isolated Git root",
+    "authentication": "dedicated test DB session; no live account login",
+    "host": "localhost:3107",
+    "note": "Initial 127.0.0.1 attempt returned 403 because Next dev request.url used localhost. Retried with matching localhost Origin without changing application security checks."
+  },
+  "scope": {
+    "preview": "HTTP200; version and counts confirmed",
+    "uiSave": "not performed: preview main thread did not answer a DOM evaluation for 20 seconds",
+    "uiReadback": "not performed: no browser save",
+    "persistence": "separately verified by real worker/signature/saveImport/DB/Git/readScore integration test",
+    "timing": "API elapsed measured while other CPU-heavy tests were running; not a performance guarantee",
+    "observationWindowMs": 20000
+  }
+}

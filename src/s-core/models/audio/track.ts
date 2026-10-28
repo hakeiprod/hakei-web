@@ -1,5 +1,4 @@
 import mitt from "mitt";
-import { firstBy, prop } from "remeda";
 import * as Audio from ".";
 import * as Core from "../core";
 import { MidiNoteNumber } from "../core/units";
@@ -16,16 +15,28 @@ export class Track extends Core.Track {
   override get notes() {
     return super.notes as Audio.Note[];
   }
-  get keyRange() {
-    return (["asc", "desc"] as const).map(
-      (sort) =>
-        firstBy(
-          this.notes.filter(
-            (note) => NonNegativeIntSchema.safeParse(note.pitch.value).success,
-          ),
-          [prop("pitch", "value"), sort],
-        )!.pitch,
-    ) as [min: MidiNoteNumber, max: MidiNoteNumber];
+  get keyRange(): [min: MidiNoteNumber, max: MidiNoteNumber] {
+    // Validation is unchanged, but equal numeric pitches need the schema only
+    // once per scan. Keep this local so a changed Score never reuses old bounds.
+    const validity = new Map<number, boolean>();
+    let minimum: MidiNoteNumber | undefined;
+    let maximum: MidiNoteNumber | undefined;
+    for (const note of this.notes) {
+      const pitch = note.pitch;
+      const value = pitch.value;
+      let valid = validity.get(value);
+      if (valid === undefined) {
+        valid = NonNegativeIntSchema.safeParse(value).success;
+        validity.set(value, valid);
+      }
+      if (!valid) continue;
+      // Strict comparisons retain the first object when pitches tie, matching
+      // both directions of the previous firstBy implementation.
+      if (!minimum || value < minimum.value) minimum = pitch;
+      if (!maximum || value > maximum.value) maximum = pitch;
+    }
+    if (!minimum || !maximum) throw new TypeError("Track has no valid pitch");
+    return [minimum, maximum];
   }
   setMute(value: typeof this.isMute) {
     this.emitter.emit("changeMute", (this.isMute = value));

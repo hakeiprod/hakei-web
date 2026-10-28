@@ -1,4 +1,5 @@
-import { firstBy, reduce } from "remeda";
+import { drainSteps } from "../../sheet/render-steps";
+import { firstBy } from "remeda";
 import type { LayoutGlyph } from "./glyph";
 import { BoundingBox } from "../../boundingbox";
 import { Element } from "./element";
@@ -28,27 +29,28 @@ export class Word<Glyph extends LayoutGlyph = LayoutGlyph> extends Element {
     return new BoundingBox(0, 0, this.width, 0);
   }
   order() {
-    reduce(
-      this.glyphOrLigatureLists,
-      (accumulator, current) => {
-        for (const glyphOrLigature of current)
-          if (glyphOrLigature instanceof Ligature) glyphOrLigature.order();
-        for (const glyphOrLigature of current) {
-          glyphOrLigature.x =
-            glyphOrLigature instanceof Ligature ? glyphOrLigature.spaceLeft : 0;
-          if (accumulator) {
-            const previousMaxWidthGlyph = firstBy(accumulator, [
-              (element) => element.right,
-              "desc",
-            ]);
-            if (previousMaxWidthGlyph)
-              glyphOrLigature.x += previousMaxWidthGlyph.right;
-          }
+    return drainSteps(this.orderSteps());
+  }
+  *orderSteps() {
+    let previous: Word["glyphOrLigatureLists"][number] | null = null;
+    for (const current of this.glyphOrLigatureLists) {
+      for (const element of current) {
+        if (element instanceof Ligature) yield* element.orderSteps();
+        yield;
+      }
+      for (const element of current) {
+        element.x = element instanceof Ligature ? element.spaceLeft : 0;
+        if (previous) {
+          const widest = firstBy(previous, [
+            (element) => element.right,
+            "desc",
+          ]);
+          if (widest) element.x += widest.right;
         }
-        return current;
-      },
-      null as Word["glyphOrLigatureLists"][number] | null,
-    );
+        yield;
+      }
+      previous = current;
+    }
   }
   append(...glyphOrLigatures: (Ligature<Glyph> | Glyph)[][]) {
     this.glyphOrLigatureLists.push(...glyphOrLigatures);

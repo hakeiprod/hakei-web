@@ -1,0 +1,43 @@
+{
+  "scope": "us2-small-leave-hydration-original",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 5,
+  "reviewedImages": 40,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 3706.3369999974966,
+      "medianMs": 3475.6889999993145
+    },
+    "redraws": {
+      "count": 10,
+      "maxMs": 3357.525999996811,
+      "medianMs": 3178.610999999568
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 25,
+      "maxMs": 74.61600000038743,
+      "medianMs": 33.70599999651313
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-18-0",
+      "maxMs": 3706.3369999974966,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

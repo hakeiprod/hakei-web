@@ -1,0 +1,20 @@
+{
+  "measuredAt": "2026-10-22T21:16:05.597Z",
+  "sourceRoot": "/tmp/hakei-010-implement/reference",
+  "runs": 1,
+  "results": [
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "status": "cutoff",
+      "cutoffMs": 1800000,
+      "stage": "document"
+    }
+  ]
+}

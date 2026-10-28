@@ -1,0 +1,26 @@
+[
+  {
+    "before": "specs/010-fix-score-rendering/measurements/us3-t026/source/src/components/score-viewer.test.tsx",
+    "after": "specs/010-fix-score-rendering/measurements/us3-t026/source/src/components/score-viewer.test.tsx.txt",
+    "sha256": "cb47949546b1fe81b10387b9d63a1cc7e92b627955cd720819c90ba0a2662936",
+    "bytesUnchanged": true
+  },
+  {
+    "before": "specs/010-fix-score-rendering/measurements/us3-t026/source/src/s-core/models/browser/render-score.test.ts",
+    "after": "specs/010-fix-score-rendering/measurements/us3-t026/source/src/s-core/models/browser/render-score.test.ts.txt",
+    "sha256": "29b2a836a82fdaba645495f83a08e4095e6dd418a1fa396867f484edc17afc6a",
+    "bytesUnchanged": true
+  },
+  {
+    "before": "specs/010-fix-score-rendering/measurements/us2-gallery-ssr-fix/source/src/components/score-fixture-gallery.test.tsx",
+    "after": "specs/010-fix-score-rendering/measurements/us2-gallery-ssr-fix/source/src/components/score-fixture-gallery.test.tsx.txt",
+    "sha256": "982c17ae15bfbd7b09b2d1ae4a90deb1fb57334e0894e0026d4634784d733f5e",
+    "bytesUnchanged": true
+  },
+  {
+    "before": "specs/010-fix-score-rendering/measurements/us2-gallery-ssr-fix/source/src/components/score-fixture-gallery.tsx",
+    "after": "specs/010-fix-score-rendering/measurements/us2-gallery-ssr-fix/source/src/components/score-fixture-gallery.tsx.txt",
+    "sha256": "3834a086f9ead3f26ea58ec76a549eb74b77ad0c4a13387bdbe61b64f6dffb43",
+    "bytesUnchanged": true
+  }
+]

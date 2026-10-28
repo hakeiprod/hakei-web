@@ -1,0 +1,25 @@
+{
+  "command": [
+    "npm",
+    "run",
+    "build",
+    "--",
+    "--webpack"
+  ],
+  "typescriptErrorsIgnored": false,
+  "attempts": [
+    {
+      "attempt": 1,
+      "exitCode": 1,
+      "log": "final-app-build-1.log",
+      "sha256": "c218478f2a0798694bb04641a1a0a3744dc9ae949142d65530b82960bdbce718"
+    },
+    {
+      "attempt": 2,
+      "exitCode": 0,
+      "log": "final-app-build-2.log",
+      "sha256": "74562fb192984b202fc40520c62bf5c994c01c996c5f09d428bef4ea816946ca"
+    }
+  ],
+  "exitCode": 0
+}

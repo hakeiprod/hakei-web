@@ -1,4 +1,5 @@
-import { resolveAccidentals } from "../sheet/notation/accidentals";
+import { drainSteps, mapSteps } from "../sheet/render-steps";
+import { resolveAccidentalsSteps } from "../sheet/notation/accidentals";
 import * as Sheet from "@/s-core/models/sheet";
 import * as Engraving from "./";
 export class Controller extends Sheet.Controller {
@@ -10,6 +11,8 @@ export class Controller extends Sheet.Controller {
     super(score, options);
   }
   unmount() {
+    this.preparedLayout = null;
+    this.score.layoutPass = null;
     for (const data of [
       // ...this.score.notes,
       ...this.score.timesignatures,
@@ -22,35 +25,76 @@ export class Controller extends Sheet.Controller {
       data.word = new Engraving.Word();
   }
   private resolveNotation() {
-    const notes = this.score.notes.map((note) => ({
-      ...note.export(),
-      ...(note.rest || note.tablature || note.percussion
-        ? { notatedPitch: undefined }
-        : { notatedPitch: note.spelling }),
-    }));
-    const decisions = resolveAccidentals(
+    return drainSteps(this.resolveNotationSteps());
+  }
+  private *resolveNotationSteps() {
+    const notes = yield* mapSteps(this.score.notes, function* (note) {
+      yield;
+      return {
+        ...note.export(),
+        ...(note.rest || note.tablature || note.percussion
+          ? { notatedPitch: undefined }
+          : { notatedPitch: note.spelling }),
+      };
+    });
+    const decisions = yield* resolveAccidentalsSteps(
       notes,
       this.score.masterbars.map((bar) => bar.export()),
       this.score.keysignatures.map((key) => key.export()),
     );
-    for (const note of this.score.notes)
+    for (const note of this.score.notes) {
       note.accidentalDecision = decisions.get(`${note.trackId}:${note.id}`);
+      yield;
+    }
   }
   draw() {
-    this.resolveNotation();
+    return drainSteps(this.drawSteps());
+  }
+  *drawSteps() {
+    this.preparedLayout = null;
+    this.score.layoutPass = null;
+    yield* this.resolveNotationSteps();
     for (const data of [
       ...this.score.notes,
       ...this.score.chords,
       ...this.score.timesignatures,
       ...this.score.keysignatures,
       ...this.score.staves,
-    ])
-      data.draw();
+    ]) {
+      if (data instanceof Engraving.Chord) yield* data.drawSteps();
+      else data.draw();
+      yield;
+    }
   }
   order() {
-    this.score.staves.map((stave) => stave.word?.order());
-    this.score.chords.map((chord) => chord.word.order());
+    return drainSteps(this.orderSteps());
   }
+  *orderSteps() {
+    for (const stave of this.score.staves) {
+      if (stave.word) yield* stave.word.orderSteps();
+      yield;
+    }
+    for (const chord of this.score.chords) {
+      yield* chord.word.orderSteps();
+      yield;
+    }
+    this.score.layoutPass?.invalidate();
+  }
+  protected override *prepareNotesSteps() {
+    yield* this.resolveNotationSteps();
+    for (const note of this.score.notes) {
+      note.draw();
+      yield;
+    }
+    for (const chord of this.score.chords) {
+      yield* chord.drawSteps();
+      yield;
+    }
+  }
+  protected override *prepareScoreSteps() {
+    yield* this.drawSteps();
+  }
+
   protected override prepareNotes() {
     this.resolveNotation();
     for (const note of this.score.notes) note.draw();
@@ -66,14 +110,17 @@ export class Controller extends Sheet.Controller {
     }
   }
   toDocument() {
-    this.layout();
-    this.space();
-    this.order();
+    return drainSteps(this.toDocumentSteps());
+  }
+  *toDocumentSteps() {
+    if (!this.consumePreparedLayout()) yield* this.layoutSteps();
+    yield* this.spaceSteps();
+    yield* this.orderSteps();
     const debug =
       typeof this.options.debug === "boolean"
         ? this.options.debug
         : this.options.debug.enabled;
-    return this.score.toDocument({
+    return yield* this.score.toDocumentSteps({
       debug,
       pageLayout:
         this.options.layoutType === Sheet.LayoutType.Page

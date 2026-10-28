@@ -1,19 +1,20 @@
 import {
   filter,
   firstBy,
-  flatMap,
   isNonNullish,
   isNullish,
   map,
   pipe,
   piped,
   prop,
-  reduce,
-  uniqueBy,
 } from "remeda";
 import { match, P } from "ts-pattern";
 import * as Sheet from ".";
 import * as Core from "../core";
+import { LayoutIndex } from "./layout-index";
+import { LayoutPass } from "./layout-pass";
+import { drainSteps, sortSteps } from "./render-steps";
+import { importScorePartsSteps } from "./import-score-parts";
 
 export class Score<
   Note extends Sheet.Note = Sheet.Note,
@@ -63,29 +64,51 @@ export class Score<
       new Core.Units.Beat(0)
     );
   }
+  layoutIndex: LayoutIndex | null = null;
+  layoutPass: LayoutPass | null = null;
   notesByChordId: Map<number, Note[]> | null = null;
-  constructor({
-    rows,
-    masterbars,
-    bars,
-    staves,
-    chords,
-    ...score
-  }: {
-    staves: Stave[];
-    bars: Bar[];
-    masterbars: Masterbar[];
-    rows: Row[];
-    chords: Chord[];
-  } & ConstructorParameters<
-    typeof Core.Score<Note, Track, Timesignature, Keysignature, Tempo>
-  >[0]) {
+  rebuildLayoutIndex() {
+    this.layoutIndex = null;
+    this.layoutPass = null;
+    this.notesByChordId = null;
+    const complete = new LayoutIndex(this);
+    this.layoutIndex = complete;
+  }
+  constructor(
+    {
+      rows,
+      masterbars,
+      bars,
+      staves,
+      chords,
+      ...score
+    }: {
+      staves: Stave[];
+      bars: Bar[];
+      masterbars: Masterbar[];
+      rows: Row[];
+      chords: Chord[];
+    } & ConstructorParameters<
+      typeof Core.Score<Note, Track, Timesignature, Keysignature, Tempo>
+    >[0],
+    deferred = false,
+  ) {
     super(score);
     this.bars = bars;
     this.staves = staves;
     this.rows = rows;
     this.masterbars = masterbars;
     this.chords = chords;
+    this.slots = [];
+    this.beamGroups = [];
+    if (!deferred) drainSteps(this.initializeSteps());
+  }
+  *initializeSteps() {
+    this.layoutIndex = null;
+    this.layoutPass = null;
+    this.notesByChordId = null;
+    this.slots = [];
+    this.beamGroups = [];
     for (const data of [
       ...this.notes,
       ...this.staves,
@@ -93,74 +116,70 @@ export class Score<
       ...this.masterbars,
       ...this.rows,
       ...this.chords,
-    ])
+    ]) {
       data.score = this;
-    this.slots = pipe(
-      this.masterbars,
-      flatMap(
-        piped(
-          (masterbar) => masterbar.notes,
-          map((note) => note.start),
-          uniqueBy((beat) => beat.value),
-          (beats) =>
-            beats.reduce(
-              (accumulator, current) => {
-                const slot = new Sheet.Slot({
-                  beat: current,
-                  previousSlot: accumulator.prevSlot,
-                }) as Slot;
-                slot.score = this;
-                accumulator.prevSlot = slot;
-                accumulator.slots.push(slot);
-                return accumulator;
-              },
-              { slots: [], prevSlot: undefined } as {
-                slots: Slot[];
-                prevSlot?: Slot;
-              },
-            ),
-          prop("slots"),
-        ),
-      ),
-    );
-    this.beamGroups = this.staves.flatMap((stave) =>
-      pipe(
-        stave.chords.toSorted((a, b) => a.start.value - b.start.value),
-        reduce(
-          (accumulator, current) => {
-            for (const beam of current.beam ?? []) {
-              const level = Number(beam.$?.number) - 1;
-              match(beam._)
-                .with(P.union("begin", "backward hook", "forward hook"), () =>
-                  accumulator.push({
-                    level,
-                    chordIds: [current.id],
-                    staveId: stave.id,
-                    barId: stave.barId,
-                    trackId: stave.trackId,
-                  }),
-                )
-                .with(P.union("continue", "end"), () =>
-                  accumulator
-                    .findLast((beam) => beam.level === level)
-                    ?.chordIds.push(current.id),
-                )
-                .with(undefined, () => {
-                  throw new Error("wip");
-                })
-                .exhaustive();
-            }
-            return accumulator;
-          },
-          [] as ConstructorParameters<typeof Sheet.BeamGroup>[0][],
-        ),
-        map((beam) => {
-          const beamGroup = new Sheet.BeamGroup(beam);
-          beamGroup.score = this;
-          return beamGroup;
-        }),
-      ),
-    );
+      yield;
+    }
+    for (const masterbar of this.masterbars) {
+      const seen = new Set<number>();
+      let previousSlot: Slot | undefined;
+      for (const note of this.notes) {
+        if (note.isOverlapped(masterbar) && !seen.has(note.start.value)) {
+          seen.add(note.start.value);
+          const slot = new Sheet.Slot({
+            beat: note.start,
+            previousSlot,
+          }) as Slot;
+          slot.score = this;
+          this.slots.push(slot);
+          previousSlot = slot;
+        }
+        yield;
+      }
+    }
+    const index = yield* LayoutIndex.createSteps(this);
+    for (const stave of this.staves) {
+      const beams: ConstructorParameters<typeof Sheet.BeamGroup>[0][] = [];
+      const chords = yield* sortSteps(
+        index.staveChords.get(stave) ?? [],
+        (a, b) => a.start.value - b.start.value,
+      );
+      for (const current of chords) {
+        for (const beam of current.beam ?? []) {
+          const level = Number(beam.$?.number) - 1;
+          match(beam._)
+            .with(P.union("begin", "backward hook", "forward hook"), () =>
+              beams.push({
+                level,
+                chordIds: [current.id],
+                staveId: stave.id,
+                barId: stave.barId,
+                trackId: stave.trackId,
+              }),
+            )
+            .with(P.union("continue", "end"), () =>
+              beams
+                .findLast((beam) => beam.level === level)
+                ?.chordIds.push(current.id),
+            )
+            .with(undefined, () => {
+              throw new Error("wip");
+            })
+            .exhaustive();
+          yield;
+        }
+        yield;
+      }
+      for (const beam of beams) {
+        const group = new Sheet.BeamGroup(beam);
+        group.score = this;
+        this.beamGroups.push(group);
+        yield;
+      }
+      yield;
+    }
+    yield* index.populateBeamsSteps();
+    this.layoutIndex = index;
   }
   export() {
     return {
@@ -176,20 +195,27 @@ export class Score<
     };
   }
   static import(data: ReturnType<Score["export"]>) {
-    return new Score({
-      ...data,
-      ...super.import(data),
-      notes: data.notes.map(Sheet.Note.import),
-      tracks: data.tracks.map(Sheet.Track.import),
-      timesignatures: data.timesignatures.map(Sheet.Timesignature.import),
-      keysignatures: data.keysignatures.map(Sheet.Keysignature.import),
-      bars: data.bars.map(Sheet.Bar.import),
-      staves: data.staves.map(Sheet.Stave.import),
-      masterbars: data.masterbars.map(Sheet.Masterbar.import),
-      chords: data.chords.map(Sheet.Chord.import),
+    return drainSteps(Score.importSteps(data));
+  }
+  static *importSteps(data: ReturnType<Score["export"]>) {
+    const parts = yield* importScorePartsSteps(data, {
+      note: Sheet.Note.import,
+      track: Sheet.Track.import,
+      stave: Sheet.Stave.import,
+      bar: Sheet.Bar.import,
+      masterbar: Sheet.Masterbar.import,
+      chord: Sheet.Chord.import,
+      timesignature: Sheet.Timesignature.import,
+      keysignature: Sheet.Keysignature.import,
+      tempo: Core.Tempo.import,
     });
+    const score = new Score({ ...data, ...parts }, true);
+    yield* score.initializeSteps();
+    return score;
   }
   getNotesByChordId(chordId: number) {
+    if (this.layoutIndex)
+      return this.layoutIndex.notesByChordId.get(chordId)! as Note[];
     if (isNullish(this.notesByChordId)) {
       this.notesByChordId = new Map();
       for (const note of this.notes)

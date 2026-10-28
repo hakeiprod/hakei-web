@@ -1,3 +1,5 @@
+import { drainSteps, type RenderSteps } from "./render-steps";
+import { LayoutPass } from "./layout-pass";
 import { LayoutType, Score } from "./";
 import { Row } from "./row";
 import type { PageLayout } from "./page";
@@ -15,6 +17,24 @@ type Debug =
     };
 
 export class Controller {
+  protected preparedLayout: { pass: LayoutPass; signature: string } | null =
+    null;
+  protected layoutSignature() {
+    return JSON.stringify({
+      ...this.options,
+      layoutWidth: this.layoutWidth,
+      pageLayout: this.pageLayout,
+    });
+  }
+  protected consumePreparedLayout() {
+    const prepared = this.preparedLayout;
+    this.preparedLayout = null;
+    return (
+      prepared?.pass === this.score.layoutPass &&
+      prepared?.signature === this.layoutSignature()
+    );
+  }
+
   onChangeScale?: (scale: typeof this.options.scale) => void;
   onChangeLayoutType?: (scale: typeof this.options.layoutType) => void;
   onChangeDebug?: (debug: typeof this.options.debug) => void;
@@ -34,11 +54,34 @@ export class Controller {
     },
   ) {}
   mount() {
-    // Engraving subclasses prepare dimensions before calculating the layout.
-    this.prepareNotes();
+    return drainSteps(this.mountSteps());
+  }
+  *mountSteps() {
+    this.score.layoutPass = null;
+    yield* this.prepareNotesSteps();
     this.setRows();
+    yield;
+    yield* this.prepareScoreSteps();
+    yield* this.layoutSteps();
+    if (this.score.layoutPass)
+      this.preparedLayout = {
+        pass: this.score.layoutPass,
+        signature: this.layoutSignature(),
+      };
+  }
+  protected *prepareNotesSteps(): RenderSteps<void> {
+    this.prepareNotes();
+    yield;
+  }
+  protected *prepareScoreSteps(): RenderSteps<void> {
     this.prepareScore();
-    this.layout();
+    yield;
+  }
+  protected *prepareStavesSteps(staves: import("./stave").Stave[]) {
+    for (const stave of staves) {
+      this.prepareStaves([stave]);
+      yield;
+    }
   }
   protected prepareNotes() {}
   protected prepareScore() {}
@@ -75,6 +118,11 @@ export class Controller {
     );
   }
   layout() {
+    return drainSteps(this.layoutSteps());
+  }
+  *layoutSteps() {
+    this.preparedLayout = null;
+    this.score.layoutPass = new LayoutPass();
     for (const slot of this.score.slots) slot.spacing = 0;
     for (const masterbar of this.score.masterbars)
       masterbar.allocatedWidth = undefined;
@@ -83,9 +131,10 @@ export class Controller {
     let width = 0;
     for (const masterbar of this.score.masterbars) {
       masterbar.rowId = row.id;
-      const prepareStaves = () =>
-        this.prepareStaves(masterbar.bars.flatMap((bar) => bar.staves));
-      prepareStaves();
+      this.score.layoutPass.invalidate();
+      yield* this.prepareStavesSteps(
+        masterbar.bars.flatMap((bar) => bar.staves),
+      );
       if (
         this.options.layoutType !== LayoutType.Horizontal &&
         width > 0 &&
@@ -96,13 +145,21 @@ export class Controller {
         this.score.rows.push(row);
         masterbar.rowId = row.id;
         // A new system repeats its clef; include that width when wrapping.
-        prepareStaves();
+        this.score.layoutPass.invalidate();
+        yield* this.prepareStavesSteps(
+          masterbar.bars.flatMap((bar) => bar.staves),
+        );
         width = 0;
       }
       width += masterbar.minWidth;
+      yield;
     }
   }
   space() {
+    return drainSteps(this.spaceSteps());
+  }
+  *spaceSteps() {
+    this.score.layoutPass?.invalidate();
     // Recompute from natural glyph widths so repeated draws do not grow.
     for (const slot of this.score.slots) slot.spacing = 0;
     for (const masterbar of this.score.masterbars)
@@ -119,7 +176,11 @@ export class Controller {
             : remaining / row.masterbars.length;
         masterbar.allocatedWidth = masterbar.minWidth + extra;
         const slots = [...new Set(masterbar.slots)];
-        for (const slot of slots) slot.spacing = extra / slots.length;
+        for (const slot of slots) {
+          slot.spacing = extra / slots.length;
+          yield;
+        }
+        yield;
       }
     }
   }

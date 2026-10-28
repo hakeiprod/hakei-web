@@ -1,0 +1,317 @@
+[
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-1",
+    "frameSequence": 68,
+    "frameSource": 8589934592,
+    "screenshotSha256": "cdf185f2e6f5074079db318f7bb50b0a004d1aeeb71aff4aca0bb90fc37e46cb",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-2",
+    "frameSequence": 83,
+    "frameSource": 8589934592,
+    "screenshotSha256": "9b6b9d0f7cbfce190104342dea34fbb14c8b1ebff9bb119032c2660988c046b6",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-3",
+    "frameSequence": 95,
+    "frameSource": 8589934592,
+    "screenshotSha256": "860f7331b54a4f12b371842120e8cf682aef0bb24cc8531a7c9cb4ece600233b",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-4",
+    "frameSequence": 107,
+    "frameSource": 8589934592,
+    "screenshotSha256": "0d8715909c7deba0169c20725cfe5d06eeb892ee82b0d110ab1d687f2fd06b4b",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-5",
+    "frameSequence": 120,
+    "frameSource": 8589934592,
+    "screenshotSha256": "d3cff9c5162f14a1172a13d2f3fe5da394bdff7137c230ca6eda0251c641f9bc",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-9",
+    "frameSequence": 497,
+    "frameSource": 8589934592,
+    "screenshotSha256": "d889837328246e5a4a99752d8f3416603aeda6b083544dde7aea08f4911ca3ae",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-9",
+    "frameSequence": 498,
+    "frameSource": 8589934592,
+    "screenshotSha256": "5cef39f7aa3e1ee6d04141608cadb4e213225a1497c3165d9fb91f9075b4026f",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-1",
+    "tag": "action-10",
+    "frameSequence": 513,
+    "frameSource": 8589934592,
+    "screenshotSha256": "49602b751775778583e589130087059a4c92bbb05085a26b35350e9d764f4fa6",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-9",
+    "frameSequence": 456,
+    "frameSource": 8589934593,
+    "screenshotSha256": "45884a9a4212a104a7b0b2dc3e0fb3c7b954ac201b2647a6ee99c18600a24cf7",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-9",
+    "frameSequence": 457,
+    "frameSource": 8589934593,
+    "screenshotSha256": "3aa0a85de045fe396e8efaf3f45ece33d84b2847852796cf7d7b3b144005c3f0",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-10",
+    "frameSequence": 472,
+    "frameSource": 8589934593,
+    "screenshotSha256": "c4fa8d02f6dc4a092328b097bf6c3c26202de0d6536cfc6220511b4ec7fbb1c0",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-2",
+    "tag": "action-10",
+    "frameSequence": 473,
+    "frameSource": 8589934593,
+    "screenshotSha256": "9405642527c9daba52c5ff21836764d6064a707d509eb448258c713a522d340e",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-9",
+    "frameSequence": 458,
+    "frameSource": 8589934594,
+    "screenshotSha256": "f0bc1143f90218d04337d6e261f3d11cd5c741855828a43c8c0a0037a1d1746d",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-9",
+    "frameSequence": 459,
+    "frameSource": 8589934594,
+    "screenshotSha256": "d38366385b3a28532f65654843d33f4ce5a65755b18426721f54cbd58682726d",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-3",
+    "tag": "action-10",
+    "frameSequence": 475,
+    "frameSource": 8589934594,
+    "screenshotSha256": "1317f3a61afac525cc68a253ae006a4ea8c61910ec3f3695ef102fb30e19a6a7",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-1",
+    "frameSequence": 55,
+    "frameSource": 8589934595,
+    "screenshotSha256": "e23b0b7eb0ee576607bd446c6c29cc17abe0cc554bd92edd33a01aaef9d0c922",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-2",
+    "frameSequence": 70,
+    "frameSource": 8589934595,
+    "screenshotSha256": "8f0c3cb1dee251c16d9b7e3499abbea94a293bc7246943c198de2d441bf92d6f",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-3",
+    "frameSequence": 85,
+    "frameSource": 8589934595,
+    "screenshotSha256": "77bb3cef8e1d4291da139ad2edc80c8caa4f572dec9a06a55178f5a4033136b1",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-4",
+    "frameSequence": 97,
+    "frameSource": 8589934595,
+    "screenshotSha256": "a8c2409276cd097b775201876b4338fcd5e7d0b8c35788394119d4687e77fb87",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-5",
+    "frameSequence": 109,
+    "frameSource": 8589934595,
+    "screenshotSha256": "0d2a22f53e191f96588aed87a73813dd4fccb0c067b61ce2c36ca314e95393be",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-9",
+    "frameSequence": 464,
+    "frameSource": 8589934595,
+    "screenshotSha256": "4f5d616f43507ee0fb72adf26a46aacd9e39207abd3e932fcdd561386dd6c3fa",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-9",
+    "frameSequence": 465,
+    "frameSource": 8589934595,
+    "screenshotSha256": "e2133501109f66709131d4967fbaa1a9ec88e5d1408689cb8ed6f6a785de5dd4",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-4",
+    "tag": "action-10",
+    "frameSequence": 480,
+    "frameSource": 8589934595,
+    "screenshotSha256": "54023dd47d41b05749866bd6a9b96e983611722f2dd7e100894e8832c4f70386",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-1",
+    "frameSequence": 53,
+    "frameSource": 8589934596,
+    "screenshotSha256": "2fe2e9cc392fcf00c3a6b34f7f76854bdd2b5df5be54ca4297665f19461b6f26",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-2",
+    "frameSequence": 68,
+    "frameSource": 8589934596,
+    "screenshotSha256": "bb22ac0b265d3b0232ea53bea587d930d274ac093a4cfa0160eb7ab9759b4433",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-3",
+    "frameSequence": 81,
+    "frameSource": 8589934596,
+    "screenshotSha256": "0f8e2fb8f0e525483d12b03575b13bfb15712190b542c1973e82c5b42f526937",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-4",
+    "frameSequence": 93,
+    "frameSource": 8589934596,
+    "screenshotSha256": "ff88d63f39dbbd36bf67d15146ad85a07b7da7331bbc18a5942dc70f25e7c9b9",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-5",
+    "frameSequence": 105,
+    "frameSource": 8589934596,
+    "screenshotSha256": "7ca86d96a8aa6d49c1399dbe3fc0c2c530d29b698d7362ec36bddc4561f51b64",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "quarter-Horizontal-1280x900-12-5",
+    "tag": "action-10",
+    "frameSequence": 469,
+    "frameSource": 8589934596,
+    "screenshotSha256": "ddcf51d3b63bd29a047fc6f6a152d45511c6fc49e72746f1ff06fdb1c66050f7",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-1",
+    "tag": "action-7",
+    "frameSequence": 831,
+    "frameSource": 8589934597,
+    "screenshotSha256": "2fd52373ec7ae2d85095d1ebb151e0ae29af7e33846c7d99372a8fe87eb0b64c",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-2",
+    "tag": "action-7",
+    "frameSequence": 826,
+    "frameSource": 8589934598,
+    "screenshotSha256": "6f8334c520cd0f24216c91b104f5e7595258a718691103bd2f70dfeec209fb01",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-3",
+    "tag": "action-7",
+    "frameSequence": 822,
+    "frameSource": 8589934599,
+    "screenshotSha256": "3a1992c601213895eb0f877a51c2bf58737049eadcf9b06e67fdc5af0913a17f",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-4",
+    "tag": "action-7",
+    "frameSequence": 772,
+    "frameSource": 8589934600,
+    "screenshotSha256": "467860f0e4fcd36f3a725cf5b005e4b319f4c74dd94c2694e9d9838e72d4cdec",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-7",
+    "frameSequence": 776,
+    "frameSource": 8589934601,
+    "screenshotSha256": "7c194feef762af3f369d82b1788127bbddcab462c1387d25ad580121e94763b5",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  },
+  {
+    "trial": "original-Horizontal-1280x900-12-5",
+    "tag": "action-7",
+    "frameSequence": 777,
+    "frameSource": 8589934601,
+    "screenshotSha256": "bb1ee604148ba8d1cc3376eb3565149332ed9b64916452bf375cc0c32588fcd5",
+    "matchesExpectedState": false,
+    "reason": "Explicit image review shows prior status/ready score or private pending page, not the new target state."
+  }
+]

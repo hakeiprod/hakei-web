@@ -1,0 +1,10 @@
+{
+  "purpose": "Exact match against private authentication/import secrets, database URLs and browser cookie values; values never written to this report.",
+  "scopes": [
+    "us2-scoped/us2-capabilities-targets",
+    "us2-react-sync-diagnostic"
+  ],
+  "filesAndArchiveMembers": 3756,
+  "matches": [],
+  "pass": true
+}

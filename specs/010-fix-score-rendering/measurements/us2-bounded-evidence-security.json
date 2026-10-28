@@ -1,0 +1,17 @@
+{
+  "purpose": "Exact match against private authentication/import secrets, database URLs and browser cookie values; values never written to this report.",
+  "scopes": [
+    "us2-layer-research",
+    "us2-bounded-diagnostics",
+    "us2-bounded-surface-comparison",
+    "us2-scoped/us2-flat-small",
+    "us2-scoped/us2-flat-vertical",
+    "us2-scoped/us2-bounded-small",
+    "us2-scoped/us2-bounded-vertical",
+    "us2-scoped/us2-jitless-visibility-small",
+    "us2-scoped/us2-jitless-visibility-vertical"
+  ],
+  "filesAndArchiveMembers": 39486,
+  "matches": [],
+  "pass": true
+}

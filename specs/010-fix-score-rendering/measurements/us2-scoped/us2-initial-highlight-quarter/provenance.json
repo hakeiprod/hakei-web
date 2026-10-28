@@ -1,0 +1,8 @@
+{
+  "sourceSnapshot": "../../us2-initial-highlight-source",
+  "scope": "5 trials, quarter H360 scale18; not full acceptance",
+  "status": "failed: correct candidate0 explicitly reviewed for all 5 cold frames; fifth 153.334ms exceeds fixed 112.894ms",
+  "archives": {
+    "traces.tar.xz": "c3072fc25c91531ef5c40fed026b03f7cfb9feb185e2e5a22b532f79858590ce"
+  }
+}

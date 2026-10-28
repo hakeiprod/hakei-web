@@ -1,0 +1,12 @@
+{
+  "independentSVGArtifacts": 96,
+  "interactiveOrFocusableElements": 0,
+  "checkedPatterns": [
+    "a, foreignObject, input, button, select, textarea",
+    "tabindex, focusable=true, contenteditable=true",
+    "onclick, onfocus, onkeydown"
+  ],
+  "inactiveSurface": "clip-path:inset(100%) prevents hit testing; aria-hidden=true excludes accessibility navigation; no inherited inert or pointer-events mutation",
+  "productBrowserValidation": "us2-surface-interaction/results.json",
+  "pass": true
+}

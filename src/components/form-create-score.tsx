@@ -10,7 +10,7 @@ import {
 } from "@/s-core/models/import/quantize-midi";
 import {
   ImportPreview,
-  importPreviewSchema,
+  parseImportPreview,
   type ImportPreviewData,
   type ImportNoteCorrection,
 } from "./import-preview";
@@ -82,7 +82,7 @@ export function FormCreateScore(properties: {
         setMessage(data.error?.message ?? "変換できませんでした。");
         return;
       }
-      setPreview(importPreviewSchema.parse(data));
+      setPreview(parseImportPreview(data));
       setMessage("プレビューと確認事項を確認してください。");
     } catch {
       if (!abort.signal.aborted && mounted.current)
@@ -118,7 +118,7 @@ export function FormCreateScore(properties: {
         setMessage(data.error?.message ?? "修正を検証できませんでした。");
         return;
       }
-      setPreview(importPreviewSchema.parse(data));
+      setPreview(parseImportPreview(data));
       setMessage("修正を再検証しました。確認事項を改めて確認してください。");
     } catch {
       if (!abort.signal.aborted && mounted.current)

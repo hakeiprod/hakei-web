@@ -1,0 +1,28 @@
+{
+  "ownedServers": [
+    {
+      "pidFile": "final-app-server.pid",
+      "ownedProcessGroup": 42215,
+      "terminated": true
+    },
+    {
+      "pidFile": "lifecycle-server.pid",
+      "ownedProcessGroup": 24511,
+      "terminated": true
+    },
+    {
+      "pidFile": "after-server.pid",
+      "ownedProcessGroup": 7972,
+      "terminated": true
+    },
+    {
+      "dedicatedPostgresStopped": true
+    }
+  ],
+  "browserCollectorExited": true,
+  "dedicatedDatabaseStopped": true,
+  "privateTemporaryDirectoryRemoved": true,
+  "sharedUserServersAndDatabaseUntouched": true,
+  "evidence": "final/archives.json",
+  "secretScan": "final/evidence-security.json"
+}

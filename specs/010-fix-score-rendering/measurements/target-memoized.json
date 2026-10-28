@@ -1,0 +1,1119 @@
+{
+  "measuredAt": "2026-10-22T23:03:25.544Z",
+  "sourceRoot": "/tmp/hakei-010-implement/reference",
+  "sourceHashes": {
+    "src/s-core/models/sheet/score.ts": "6ddf4bfa7a6c47053b051de6f0378b9f28a3ca4ae871be8364596e03564a38a0",
+    "src/s-core/models/sheet/controller.ts": "bbb1154f23c48127854cc38acefc819ef9cce6172092e82af9c7b60dd5fd4f8f",
+    "src/s-core/models/engraving/controller.ts": "874528798dd570b6d56897c81013fddb0e3c90a95af76a4a705e10bd7ef4ad1b",
+    "src/s-core/models/engraving/extensions/to-document.ts": "c993404e9d269eae7f88fca3aba4185d99be30589f8cd1177feb2d5ff69798d0",
+    "src/s-core/models/document/extensions/to-svg.ts": "64afe69d5b5a52afb46ffa1cee8b52291c6d87f575c2c1848e996b06ee2a8b1a"
+  },
+  "manifestSha256": "1512c36fdfeddc798c5868be6d151deb17b060559aa38e29866714c113228f74",
+  "fontSha256": "98f0ab7922e9af19acbc0c0fde7ffc4efdcef3798404a16ebf976a03758ed6a5",
+  "environment": {
+    "node": "v22.23.4",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpu": "Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz",
+    "logicalCpus": 20,
+    "memoryBytes": 8271056896
+  },
+  "measurementKind": "offline-reference-excluded-from-performance",
+  "runs": 1,
+  "results": [
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2097.25534,
+          "endedMs": 7381.032524,
+          "ms": 5283.7771840000005
+        },
+        {
+          "name": "mount",
+          "startedMs": 7514.579592,
+          "endedMs": 10475.180816,
+          "ms": 2960.601224
+        },
+        {
+          "name": "document",
+          "startedMs": 10475.274621,
+          "endedMs": 17215.3115,
+          "ms": 6740.036878999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 17329.516428,
+          "endedMs": 19731.558279,
+          "ms": 2402.0418510000018
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64540,
+        "guardedObjects": 209499,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 15118.431876999999,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2097.25534,
+          "endedMs": 7381.032524,
+          "ms": 5283.7771840000005
+        },
+        {
+          "name": "mount",
+          "startedMs": 7514.579592,
+          "endedMs": 10475.180816,
+          "ms": 2960.601224
+        },
+        {
+          "name": "document",
+          "startedMs": 10475.274621,
+          "endedMs": 17215.3115,
+          "ms": 6740.036878999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 17329.516428,
+          "endedMs": 19731.558279,
+          "ms": 2402.0418510000018
+        }
+      ],
+      "documentSha256": "81138ad57f8a556dbea5d3f67b90bd080c22351dc8679a10ff4bcb476a75d571",
+      "svgSha256": "1c711ac58e491adff03669cc0002c056b16746e7978bff4684aa4b1c27c86a75",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2162.789454,
+          "endedMs": 8011.865618,
+          "ms": 5849.076164
+        },
+        {
+          "name": "mount",
+          "startedMs": 8145.297403,
+          "endedMs": 11266.038768,
+          "ms": 3120.7413650000008
+        },
+        {
+          "name": "document",
+          "startedMs": 11266.220977,
+          "endedMs": 17392.32071,
+          "ms": 6126.099732999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 17507.737936,
+          "endedMs": 19585.156201,
+          "ms": 2077.4182650000002
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64540,
+        "guardedObjects": 209499,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 15230.011079000002,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2162.789454,
+          "endedMs": 8011.865618,
+          "ms": 5849.076164
+        },
+        {
+          "name": "mount",
+          "startedMs": 8145.297403,
+          "endedMs": 11266.038768,
+          "ms": 3120.7413650000008
+        },
+        {
+          "name": "document",
+          "startedMs": 11266.220977,
+          "endedMs": 17392.32071,
+          "ms": 6126.099732999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 17507.737936,
+          "endedMs": 19585.156201,
+          "ms": 2077.4182650000002
+        }
+      ],
+      "documentSha256": "81138ad57f8a556dbea5d3f67b90bd080c22351dc8679a10ff4bcb476a75d571",
+      "svgSha256": "f29edc4d785ccb3229610efa5d60947c1610a6041bab15b647eac0e92c4f6df3",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2098.159381,
+          "endedMs": 7155.429294,
+          "ms": 5057.269913
+        },
+        {
+          "name": "mount",
+          "startedMs": 7269.389564,
+          "endedMs": 9517.314169,
+          "ms": 2247.9246049999992
+        },
+        {
+          "name": "document",
+          "startedMs": 9517.399373,
+          "endedMs": 15561.800438,
+          "ms": 6044.401065
+        },
+        {
+          "name": "svg",
+          "startedMs": 15672.712308,
+          "endedMs": 17789.74792,
+          "ms": 2117.0356120000015
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64540,
+        "guardedObjects": 209499,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 13464.011475000001,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2098.159381,
+          "endedMs": 7155.429294,
+          "ms": 5057.269913
+        },
+        {
+          "name": "mount",
+          "startedMs": 7269.389564,
+          "endedMs": 9517.314169,
+          "ms": 2247.9246049999992
+        },
+        {
+          "name": "document",
+          "startedMs": 9517.399373,
+          "endedMs": 15561.800438,
+          "ms": 6044.401065
+        },
+        {
+          "name": "svg",
+          "startedMs": 15672.712308,
+          "endedMs": 17789.74792,
+          "ms": 2117.0356120000015
+        }
+      ],
+      "documentSha256": "81138ad57f8a556dbea5d3f67b90bd080c22351dc8679a10ff4bcb476a75d571",
+      "svgSha256": "1c711ac58e491adff03669cc0002c056b16746e7978bff4684aa4b1c27c86a75",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2209.714444,
+          "endedMs": 7708.245599,
+          "ms": 5498.531155
+        },
+        {
+          "name": "mount",
+          "startedMs": 7828.979861,
+          "endedMs": 10373.983406,
+          "ms": 2545.0035449999996
+        },
+        {
+          "name": "document",
+          "startedMs": 10374.122512,
+          "endedMs": 16610.934097,
+          "ms": 6236.811585000001
+        },
+        {
+          "name": "svg",
+          "startedMs": 16723.581526,
+          "endedMs": 19070.422458,
+          "ms": 2346.840931999999
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64540,
+        "guardedObjects": 209499,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 14401.595771,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2209.714444,
+          "endedMs": 7708.245599,
+          "ms": 5498.531155
+        },
+        {
+          "name": "mount",
+          "startedMs": 7828.979861,
+          "endedMs": 10373.983406,
+          "ms": 2545.0035449999996
+        },
+        {
+          "name": "document",
+          "startedMs": 10374.122512,
+          "endedMs": 16610.934097,
+          "ms": 6236.811585000001
+        },
+        {
+          "name": "svg",
+          "startedMs": 16723.581526,
+          "endedMs": 19070.422458,
+          "ms": 2346.840931999999
+        }
+      ],
+      "documentSha256": "81138ad57f8a556dbea5d3f67b90bd080c22351dc8679a10ff4bcb476a75d571",
+      "svgSha256": "f29edc4d785ccb3229610efa5d60947c1610a6041bab15b647eac0e92c4f6df3",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2192.011447,
+          "endedMs": 7418.52519,
+          "ms": 5226.513743
+        },
+        {
+          "name": "mount",
+          "startedMs": 7534.625925,
+          "endedMs": 10283.34968,
+          "ms": 2748.723754999999
+        },
+        {
+          "name": "document",
+          "startedMs": 10283.482486,
+          "endedMs": 16964.997924,
+          "ms": 6681.5154379999985
+        },
+        {
+          "name": "svg",
+          "startedMs": 17076.016601,
+          "endedMs": 19275.714606,
+          "ms": 2199.698005000002
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64644,
+        "guardedObjects": 210303,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 14773.344793,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2192.011447,
+          "endedMs": 7418.52519,
+          "ms": 5226.513743
+        },
+        {
+          "name": "mount",
+          "startedMs": 7534.625925,
+          "endedMs": 10283.34968,
+          "ms": 2748.723754999999
+        },
+        {
+          "name": "document",
+          "startedMs": 10283.482486,
+          "endedMs": 16964.997924,
+          "ms": 6681.5154379999985
+        },
+        {
+          "name": "svg",
+          "startedMs": 17076.016601,
+          "endedMs": 19275.714606,
+          "ms": 2199.698005000002
+        }
+      ],
+      "documentSha256": "9dab2e0c86434063fa388da14d729efae0b5c88aceb0a34d887a488ab1490d7f",
+      "svgSha256": "774a79629167eec5be740d122f63348e7e53594be7fcba6c3bea6296f2765fb1",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2171.314145,
+          "endedMs": 7623.838876,
+          "ms": 5452.5247309999995
+        },
+        {
+          "name": "mount",
+          "startedMs": 7738.867835,
+          "endedMs": 10509.872825,
+          "ms": 2771.0049900000004
+        },
+        {
+          "name": "document",
+          "startedMs": 10509.961729,
+          "endedMs": 16875.945701,
+          "ms": 6365.983972
+        },
+        {
+          "name": "svg",
+          "startedMs": 16984.845833,
+          "endedMs": 19071.270153,
+          "ms": 2086.424320000002
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64724,
+        "guardedObjects": 210911,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 14705.012573,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2171.314145,
+          "endedMs": 7623.838876,
+          "ms": 5452.5247309999995
+        },
+        {
+          "name": "mount",
+          "startedMs": 7738.867835,
+          "endedMs": 10509.872825,
+          "ms": 2771.0049900000004
+        },
+        {
+          "name": "document",
+          "startedMs": 10509.961729,
+          "endedMs": 16875.945701,
+          "ms": 6365.983972
+        },
+        {
+          "name": "svg",
+          "startedMs": 16984.845833,
+          "endedMs": 19071.270153,
+          "ms": 2086.424320000002
+        }
+      ],
+      "documentSha256": "7df3dfe189e645c59791132ff44ec4dc5399b05638f10576cbe16ff4eeb239ae",
+      "svgSha256": "52bb20fd21cdbd4246ea8fd5ed3a378f752a678d6b97a94265ce5ebb416e3e4b",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2220.244051,
+          "endedMs": 7647.023129,
+          "ms": 5426.779078
+        },
+        {
+          "name": "mount",
+          "startedMs": 7768.029049,
+          "endedMs": 10761.229214,
+          "ms": 2993.200165000001
+        },
+        {
+          "name": "document",
+          "startedMs": 10761.321818,
+          "endedMs": 17497.548804,
+          "ms": 6736.226985999998
+        },
+        {
+          "name": "svg",
+          "startedMs": 17614.972491,
+          "endedMs": 19712.908025,
+          "ms": 2097.935534
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64828,
+        "guardedObjects": 211779,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 15277.705071999999,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2220.244051,
+          "endedMs": 7647.023129,
+          "ms": 5426.779078
+        },
+        {
+          "name": "mount",
+          "startedMs": 7768.029049,
+          "endedMs": 10761.229214,
+          "ms": 2993.200165000001
+        },
+        {
+          "name": "document",
+          "startedMs": 10761.321818,
+          "endedMs": 17497.548804,
+          "ms": 6736.226985999998
+        },
+        {
+          "name": "svg",
+          "startedMs": 17614.972491,
+          "endedMs": 19712.908025,
+          "ms": 2097.935534
+        }
+      ],
+      "documentSha256": "253fb9e65f898a96774f3cd8a2706b760a9b8854e3fe8ca0efb80b25945f7ac9",
+      "svgSha256": "d240c4befaf533086a2cd6c95978ed4aeb48cc11d35e65d2fe9d1ededddf7744",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Vertical",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2124.017363,
+          "endedMs": 7302.744185,
+          "ms": 5178.726822
+        },
+        {
+          "name": "mount",
+          "startedMs": 7422.215248,
+          "endedMs": 10278.55586,
+          "ms": 2856.340612
+        },
+        {
+          "name": "document",
+          "startedMs": 10278.644263,
+          "endedMs": 16866.47914,
+          "ms": 6587.834876999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 16980.321702,
+          "endedMs": 19090.619049,
+          "ms": 2110.2973469999997
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64828,
+        "guardedObjects": 211779,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 14742.803294000001,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2124.017363,
+          "endedMs": 7302.744185,
+          "ms": 5178.726822
+        },
+        {
+          "name": "mount",
+          "startedMs": 7422.215248,
+          "endedMs": 10278.55586,
+          "ms": 2856.340612
+        },
+        {
+          "name": "document",
+          "startedMs": 10278.644263,
+          "endedMs": 16866.47914,
+          "ms": 6587.834876999999
+        },
+        {
+          "name": "svg",
+          "startedMs": 16980.321702,
+          "endedMs": 19090.619049,
+          "ms": 2110.2973469999997
+        }
+      ],
+      "documentSha256": "253fb9e65f898a96774f3cd8a2706b760a9b8854e3fe8ca0efb80b25945f7ac9",
+      "svgSha256": "6429a08f7f19ed074a43f12c18f9b49ca6435ca045bade6c3471570a04451b64",
+      "notes": 5540,
+      "pages": 1
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2114.764757,
+          "endedMs": 7402.407334,
+          "ms": 5287.6425770000005
+        },
+        {
+          "name": "mount",
+          "startedMs": 7517.944891,
+          "endedMs": 10206.799453,
+          "ms": 2688.8545619999995
+        },
+        {
+          "name": "document",
+          "startedMs": 10206.899757,
+          "endedMs": 17852.01298,
+          "ms": 7645.113223
+        },
+        {
+          "name": "svg",
+          "startedMs": 17962.518214,
+          "endedMs": 20227.227184,
+          "ms": 2264.7089699999997
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 63055,
+        "guardedObjects": 210362,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 15737.602339,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2114.764757,
+          "endedMs": 7402.407334,
+          "ms": 5287.6425770000005
+        },
+        {
+          "name": "mount",
+          "startedMs": 7517.944891,
+          "endedMs": 10206.799453,
+          "ms": 2688.8545619999995
+        },
+        {
+          "name": "document",
+          "startedMs": 10206.899757,
+          "endedMs": 17852.01298,
+          "ms": 7645.113223
+        },
+        {
+          "name": "svg",
+          "startedMs": 17962.518214,
+          "endedMs": 20227.227184,
+          "ms": 2264.7089699999997
+        }
+      ],
+      "documentSha256": "3a442656038e711fc440a962e3f4a9c3799ff3b2c6f6e6766a27776c46bf5c5f",
+      "svgSha256": "a37c33c952c406bc47b6078d7ee756b15961a3ac4f50ae11f97a82a2904930b0",
+      "notes": 5540,
+      "pages": 56
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Page",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2377.516775,
+          "endedMs": 7959.423614,
+          "ms": 5581.906839
+        },
+        {
+          "name": "mount",
+          "startedMs": 8074.54316,
+          "endedMs": 11313.501143,
+          "ms": 3238.9579829999993
+        },
+        {
+          "name": "document",
+          "startedMs": 11313.606948,
+          "endedMs": 18926.016749,
+          "ms": 7612.409800999998
+        },
+        {
+          "name": "svg",
+          "startedMs": 19034.123754,
+          "endedMs": 21316.561027,
+          "ms": 2282.4372729999995
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 63149,
+        "guardedObjects": 211081,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 16548.873091,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2377.516775,
+          "endedMs": 7959.423614,
+          "ms": 5581.906839
+        },
+        {
+          "name": "mount",
+          "startedMs": 8074.54316,
+          "endedMs": 11313.501143,
+          "ms": 3238.9579829999993
+        },
+        {
+          "name": "document",
+          "startedMs": 11313.606948,
+          "endedMs": 18926.016749,
+          "ms": 7612.409800999998
+        },
+        {
+          "name": "svg",
+          "startedMs": 19034.123754,
+          "endedMs": 21316.561027,
+          "ms": 2282.4372729999995
+        }
+      ],
+      "documentSha256": "fd37b102d9dd95b45bad59184924313a3a7d9f639d195e8a4ebd5d1931e4a0b4",
+      "svgSha256": "b6ac3434d921d2e7b013faee441daec806a88ae613a1e2e982352f73eae9db25",
+      "notes": 5540,
+      "pages": 103
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2168.938816,
+          "endedMs": 7201.142726,
+          "ms": 5032.20391
+        },
+        {
+          "name": "mount",
+          "startedMs": 7314.010557,
+          "endedMs": 10195.379255,
+          "ms": 2881.368698
+        },
+        {
+          "name": "document",
+          "startedMs": 10195.473259,
+          "endedMs": 16685.800801,
+          "ms": 6490.327542000001
+        },
+        {
+          "name": "svg",
+          "startedMs": 16802.306307,
+          "endedMs": 19207.773827,
+          "ms": 2405.467520000002
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64817,
+        "guardedObjects": 211779,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 14517.267004,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2168.938816,
+          "endedMs": 7201.142726,
+          "ms": 5032.20391
+        },
+        {
+          "name": "mount",
+          "startedMs": 7314.010557,
+          "endedMs": 10195.379255,
+          "ms": 2881.368698
+        },
+        {
+          "name": "document",
+          "startedMs": 10195.473259,
+          "endedMs": 16685.800801,
+          "ms": 6490.327542000001
+        },
+        {
+          "name": "svg",
+          "startedMs": 16802.306307,
+          "endedMs": 19207.773827,
+          "ms": 2405.467520000002
+        }
+      ],
+      "documentSha256": "41fd811b00973cba82985eb2522a2ed34815d87504ed4040587ffc41c34e99dc",
+      "svgSha256": "c761def289c72f5a6a6c9f9b2e07c69f1efb9337f70a406f4698fc0a852ee817",
+      "notes": 5540,
+      "pages": 145
+    },
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Page",
+      "viewport": {
+        "width": 360,
+        "height": 800
+      },
+      "scale": 18,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 2131.238594,
+          "endedMs": 7288.678468,
+          "ms": 5157.439874
+        },
+        {
+          "name": "mount",
+          "startedMs": 7402.682003,
+          "endedMs": 10155.260873,
+          "ms": 2752.5788699999994
+        },
+        {
+          "name": "document",
+          "startedMs": 10155.384577,
+          "endedMs": 16850.752936,
+          "ms": 6695.368359
+        },
+        {
+          "name": "svg",
+          "startedMs": 16968.010883,
+          "endedMs": 19305.308074,
+          "ms": 2337.2971910000015
+        }
+      ],
+      "status": "complete",
+      "referenceVerification": {
+        "verifiedGetters": 64828,
+        "guardedObjects": 211779,
+        "mode": "original-getters-memoized-reference-only"
+      },
+      "inputUnchanged": true,
+      "modelMs": 14719.870357999998,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 2131.238594,
+          "endedMs": 7288.678468,
+          "ms": 5157.439874
+        },
+        {
+          "name": "mount",
+          "startedMs": 7402.682003,
+          "endedMs": 10155.260873,
+          "ms": 2752.5788699999994
+        },
+        {
+          "name": "document",
+          "startedMs": 10155.384577,
+          "endedMs": 16850.752936,
+          "ms": 6695.368359
+        },
+        {
+          "name": "svg",
+          "startedMs": 16968.010883,
+          "endedMs": 19305.308074,
+          "ms": 2337.2971910000015
+        }
+      ],
+      "documentSha256": "418d576df3e216127a4d623fee9b07d220ba0c4b16b75c01088d6dbea788b0d9",
+      "svgSha256": "a5b2d3662ba9ac66e68f3c015275eb9580f5cd026db9bea73c009f354e013adc",
+      "notes": 5540,
+      "pages": 145
+    }
+  ],
+  "summary": [
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 15118.431876999999,
+      "medianMs": 15118.431876999999
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 15230.011079000002,
+      "medianMs": 15230.011079000002
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 13464.011475000001,
+      "medianMs": 13464.011475000001
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14401.595771,
+      "medianMs": 14401.595771
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14773.344793,
+      "medianMs": 14773.344793
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14705.012573,
+      "medianMs": 14705.012573
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 15277.705071999999,
+      "medianMs": 15277.705071999999
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14742.803294000001,
+      "medianMs": 14742.803294000001
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 15737.602339,
+      "medianMs": 15737.602339
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 16548.873091,
+      "medianMs": 16548.873091
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14517.267004,
+      "medianMs": 14517.267004
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 14719.870357999998,
+      "medianMs": 14719.870357999998
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 "use client";
+import { sheetScoreSchema } from "@/s-core/models/import/score-schema";
 import { musicXmlVersions } from "@/s-core/models/import/musicxml-support";
 import { CardBody, Card, Input, Button, Checkbox } from "@heroui/react";
 
@@ -20,6 +21,23 @@ export const importPreviewSchema = z.object({
   changedNoteCount: z.int().nonnegative().optional(),
 });
 export type ImportPreviewData = z.infer<typeof importPreviewSchema>;
+const completePreviewSchema = importPreviewSchema.extend({
+  candidate: sheetScoreSchema,
+});
+/** A complete Sheet cannot satisfy the required partial-format discriminator. */
+export function parseImportPreview(input: unknown): ImportPreviewData {
+  if (input && typeof input === "object" && "candidate" in input) {
+    const candidate = input.candidate;
+    if (
+      candidate &&
+      typeof candidate === "object" &&
+      !("format" in candidate && candidate.format === "converted-partial-v1")
+    )
+      return completePreviewSchema.parse(input);
+  }
+  return importPreviewSchema.parse(input);
+}
+
 export type ImportNoteCorrection = {
   kind: "NOTE";
   index: number;

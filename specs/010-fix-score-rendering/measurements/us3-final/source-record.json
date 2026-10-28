@@ -1,0 +1,17 @@
+{
+  "purpose": "T031 actual Header/ShowScore with private adapter gates and independent probe feedback; Audio.Track uses the current product fix. Candidate bodies and credentials excluded.",
+  "files": {
+    "src/app/dev/render-lifecycle/page.tsx": "dc55c3dd009221902f54c03e3453edca2f51915836a99fd978d62bda3fcf437b",
+    "src/s-core/models/browser/render-score.ts": "5f83cba96930512c793482749a4ecaf818ab9f8e16d7631d005be5df48d91fe9",
+    "src/s-core/models/audio/track.ts": "d8305b31c1cfda78aff8ce5636df6792308775381c2a26c920c8507ba67f7e62"
+  },
+  "candidateSha256": {
+    "quarter": "75878a3af2eac4d164e34ef58461cc8a09196d174f7fd71e3a9db3bf8d180ea0",
+    "original": "b56f4c668faf19f586bef4c2c3bff6f25baa398bb1f59cdd36ebbfa8a21b2476"
+  },
+  "productAudioTrackMatches": true,
+  "measurementOnlyPaths": [
+    "src/app/dev/render-lifecycle/page.tsx",
+    "src/s-core/models/browser/render-score.ts"
+  ]
+}

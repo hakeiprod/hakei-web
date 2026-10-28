@@ -3,13 +3,14 @@ import type { ConversionIssue } from "../../import/contracts";
 export function capabilities(
   input: unknown,
   issues: readonly ConversionIssue[] = [],
+  validationOptions?: { jitless?: boolean },
 ) {
   // Slots and rows are derived layout state; validate the musical snapshot.
   const candidate =
     input && typeof input === "object" && !("format" in input)
       ? { ...input, slots: [], rows: [] }
       : input;
-  const parsed = importCandidateSchema.safeParse(candidate);
+  const parsed = importCandidateSchema.safeParse(candidate, validationOptions);
   const data = parsed.success ? parsed.data : undefined;
   const staves = data && !("format" in data) ? data.staves : [];
   const reasons: { code: string; message: string; track?: number }[] = [];

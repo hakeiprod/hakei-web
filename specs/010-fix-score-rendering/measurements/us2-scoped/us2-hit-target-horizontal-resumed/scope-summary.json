@@ -1,0 +1,49 @@
+{
+  "scope": "us2-hit-target-horizontal-resumed",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 10,
+  "reviewedImages": 80,
+  "summary": {
+    "trials": 10,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 10,
+      "maxMs": 5678.517999999924,
+      "medianMs": 2987.3499999999767
+    },
+    "redraws": {
+      "count": 20,
+      "maxMs": 3673.506000000052,
+      "medianMs": 2572.0439999999944
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 50,
+      "maxMs": 82.64699999988079,
+      "medianMs": 43.58400000014808
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12-0",
+      "maxMs": 5678.517999999924,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18-0",
+      "maxMs": 3015.8209999999963,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "svgRestored": 10,
+  "budgetsUnchanged": true
+}

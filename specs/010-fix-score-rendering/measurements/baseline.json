@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-22",
+  "environment": {
+    "node": "22.23.4",
+    "os": "Linux x86_64",
+    "cpu": "Intel Core i9-10900K 3.70GHz",
+    "logicalCpus": 20,
+    "memoryBytes": 8271056896,
+    "cgroupCpuQuota": "max",
+    "cgroupMemoryLimit": "max"
+  },
+  "conditions": {
+    "mode": "single sequential fresh Node process per sample",
+    "layout": "Horizontal",
+    "scale": 12,
+    "viewportWidth": 1280,
+    "viewportHeight": 900,
+    "debug": false,
+    "advanced": true,
+    "perStageCutoffMs": 15000,
+    "instrumented": true,
+    "excluded": "conversion/import/construction; browser DOM and paint; other layouts"
+  },
+  "target": {
+    "file": "naitoobunaitsu-bitomario.mxl",
+    "sha256": "1d15dcf279b2de186682740fbdfb501eb5e2e80f5977993cde04f1027b9f36fe",
+    "notes": 5540,
+    "chords": 5346,
+    "masterbars": 145,
+    "samples": [
+      {
+        "prepareNotesMs": 1563.23888,
+        "setRowsMs": 0.167309,
+        "prepareScoreMs": 1475.170884,
+        "layoutMs": 15001.481517,
+        "layoutStatus": "cutoff",
+        "masterbarMinWidthCalls": 52,
+        "slotChordsCalls": 6650
+      },
+      {
+        "prepareNotesMs": 1535.840866,
+        "setRowsMs": 0.17151,
+        "prepareScoreMs": 1494.97857,
+        "layoutMs": 15000.357696,
+        "layoutStatus": "cutoff",
+        "masterbarMinWidthCalls": 50,
+        "slotChordsCalls": 6473
+      },
+      {
+        "prepareNotesMs": 1504.725616,
+        "setRowsMs": 0.18621,
+        "prepareScoreMs": 1500.520776,
+        "layoutMs": 15001.051397,
+        "layoutStatus": "cutoff",
+        "masterbarMinWidthCalls": 54,
+        "slotChordsCalls": 6823
+      }
+    ]
+  },
+  "small": {
+    "file": "quarter_middle_c.mxl",
+    "notes": 2,
+    "chords": 2,
+    "masterbars": 1,
+    "samples": [
+      {
+        "prepareNotesMs": 2.392962,
+        "setRowsMs": 0.059604,
+        "prepareScoreMs": 1.303389,
+        "layoutMs": 1.408495,
+        "toDocumentMs": 4.753022
+      },
+      {
+        "prepareNotesMs": 2.306034,
+        "setRowsMs": 0.057403,
+        "prepareScoreMs": 1.221671,
+        "layoutMs": 1.380381,
+        "toDocumentMs": 5.421115
+      },
+      {
+        "prepareNotesMs": 2.455443,
+        "setRowsMs": 0.060803,
+        "prepareScoreMs": 1.291476,
+        "layoutMs": 1.55439,
+        "toDocumentMs": 5.446817
+      }
+    ]
+  },
+  "notes": [
+    "cutoff is a lower bound, not a completion measurement",
+    "getter wrappers add overhead; repeat uninstrumented in implementation",
+    "browser baseline is the separate 007 evidence; no new browser measurement claimed"
+  ],
+  "sourceSha256": {
+    "src/components/score-viewer.tsx": "90a1489761fe7c130354dcf8918935baa5ca76c14dfae8e46a16fd23e92d9fff",
+    "src/components/show-score.tsx": "c929c680eec7077adc1a3c0c2bab52cf48f9ab8ab92eecf3b10971873e58e65e",
+    "src/s-core/models/sheet/score.ts": "6ddf4bfa7a6c47053b051de6f0378b9f28a3ca4ae871be8364596e03564a38a0",
+    "src/s-core/models/sheet/controller.ts": "bbb1154f23c48127854cc38acefc819ef9cce6172092e82af9c7b60dd5fd4f8f",
+    "src/s-core/models/sheet/slot.ts": "222255f7772658bfd4eb050a384db395e2760df52363b8c98fa6a19aa4da864d",
+    "src/s-core/models/engraving/controller.ts": "874528798dd570b6d56897c81013fddb0e3c90a95af76a4a705e10bd7ef4ad1b",
+    "src/s-core/models/engraving/extensions/to-document.ts": "c993404e9d269eae7f88fca3aba4185d99be30589f8cd1177feb2d5ff69798d0",
+    "src/s-core/models/document/extensions/to-svg.ts": "64afe69d5b5a52afb46ffa1cee8b52291c6d87f575c2c1848e996b06ee2a8b1a"
+  }
+}

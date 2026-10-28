@@ -9,14 +9,20 @@ export class BeamGroup {
   trackId;
   score!: Sheet.Score;
   get firstChord() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.chordById.get(first(this.chordIds)!)!;
     return this.score.chords.find(
       (chord) => chord.id === first(this.chordIds),
     )!;
   }
   get lastChord() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.chordById.get(last(this.chordIds)!)!;
     return this.score.chords.find((chord) => chord.id === last(this.chordIds))!;
   }
   get stave() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.beamStave.get(this)!;
     return this.score.staves.find(
       (stave) =>
         stave.id === this.staveId &&

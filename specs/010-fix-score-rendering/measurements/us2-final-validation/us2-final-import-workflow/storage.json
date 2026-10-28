@@ -1,0 +1,28 @@
+{
+  "status": "complete",
+  "scoreId": 29,
+  "repositoryId": "cmvqgaxm20000lyz1b4k379ao",
+  "revision": 1,
+  "comparisons": {
+    "candidate": true,
+    "metadata": true,
+    "issues": true,
+    "validation": true
+  },
+  "notes": 5540,
+  "independentMusicalSha256": "e7a094b9a0f50e280e02c18ed67ffd64d8472e642564f015c77b00ecb7875cfc",
+  "warnings": 312,
+  "acknowledgements": 312,
+  "canPractice": true,
+  "canGame": true,
+  "database": {
+    "dataHash": "8c5d90ec13cb5f5d23b63c1fbc68b4d62d6dd8b74941946baeba9228f23526c6",
+    "issues": 312,
+    "formatVersion": "3.1"
+  },
+  "git": {
+    "commitOid": "0a8f34db6c69f4011382f532da9f147aea60895e",
+    "path": "scores/29/score.json",
+    "readScoreVerifiedDatabaseHash": true
+  }
+}

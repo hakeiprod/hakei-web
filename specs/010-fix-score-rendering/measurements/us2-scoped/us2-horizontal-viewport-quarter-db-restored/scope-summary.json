@@ -1,0 +1,43 @@
+{
+  "scope": "us2-horizontal-viewport-quarter-db-restored",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 5,
+  "reviewedImages": 5,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 118.43100000172853,
+      "medianMs": 95.32299999892712
+    },
+    "redraws": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 118.43100000172853,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": false
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}
