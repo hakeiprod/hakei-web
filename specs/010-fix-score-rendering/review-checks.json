@@ -27,5 +27,11 @@
   "rawEvidencePublication": "Local only; see evidence.md",
   "separateWorkExcluded": [
     "docs/smufl-audit.md"
-  ]
+  ],
+  "gitBinaryPreservation": {
+    "initialMismatches": 54,
+    "fixedBy": "Explicit binary attributes and re-add of original working tree bytes. No reference regeneration.",
+    "binaryFilesVerifiedInIndex": 385,
+    "allBytesMatch": true
+  }
 }

@@ -5,3 +5,9 @@
 *.woff binary
 *.woff2 binary
 *.sf2 binary
+
+# Preserve immutable compressed references and binary fixtures byte-for-byte.
+*.gz binary
+*.mxl binary
+*.png binary
+*.jpg binary
