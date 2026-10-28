@@ -1,0 +1,43 @@
+{
+  "scope": "us2-inert-baseline",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 5,
+  "reviewedImages": 5,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 5,
+    "cold": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "redraws": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 5,
+      "maxMs": 298.05399999953806,
+      "medianMs": 272.1229999996722
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

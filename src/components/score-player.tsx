@@ -49,12 +49,16 @@ const machine = createMachine({
     },
   },
 });
+export type PlaybackState = "idle" | "playing" | "paused" | "stopped";
+
 export function ScorePlayer({
   score,
   controller,
+  onStateChange,
 }: {
   score: Audio.Score;
   controller: BrowserAudio.Controller;
+  onStateChange?: (state: PlaybackState) => void;
   onStop?: () => void;
   onPause?: () => void;
 }) {
@@ -68,6 +72,9 @@ export function ScorePlayer({
       },
     }),
   );
+  useEffect(() => {
+    onStateChange?.(state.value as PlaybackState);
+  }, [state.value, onStateChange]);
   const [isMute, setIsMute] = useState(controller.isMute);
   const [masterVolume, setMasterVolume] = useAtom(masterVolumeAtom);
   function handleChange(value: SliderValue) {
@@ -99,6 +106,7 @@ export function ScorePlayer({
   }, [controller, setMasterVolume]);
   return (
     <Navbar
+      isBlurred={false}
       height="auto"
       classNames={{ wrapper: "h-auto min-w-0 flex-wrap gap-3 px-0 py-3" }}
     >

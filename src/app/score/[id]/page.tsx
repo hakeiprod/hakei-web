@@ -57,13 +57,16 @@ export default async function Score(properties: PageProps<"/score/[id]">) {
         <Card
           aria-label="変換の確認事項"
           as="section"
-          className="min-w-0 overflow-visible border border-divider bg-content1"
+          className="min-w-0 overflow-visible border border-divider bg-content1 [contain-intrinsic-block-size:auto_160px] [content-visibility:auto]"
         >
           <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
             {score.artifacts?.issues
               .filter((issue) => issue.status === "UNRESOLVED")
               .map((issue) => (
-                <p key={issue.id}>
+                <p
+                  key={issue.id}
+                  className="[contain-intrinsic-block-size:auto_1lh] [content-visibility:auto]"
+                >
                   {issue.severity === "BLOCKING"
                     ? "演奏に使えない箇所"
                     : "確認事項"}
@@ -107,7 +110,7 @@ export default async function Score(properties: PageProps<"/score/[id]">) {
       )}
       <Card
         as="section"
-        className="min-w-0 overflow-visible border border-divider bg-content1"
+        className="min-w-0 overflow-visible border border-divider bg-content1 [contain-intrinsic-block-size:auto_160px] [content-visibility:auto]"
       >
         <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
           <h2 className="text-xl font-semibold">履歴</h2>
@@ -127,7 +130,7 @@ export default async function Score(properties: PageProps<"/score/[id]">) {
       </Card>
       <Card
         as="section"
-        className="min-w-0 overflow-visible border border-divider bg-content1"
+        className="min-w-0 overflow-visible border border-divider bg-content1 [contain-intrinsic-block-size:auto_160px] [content-visibility:auto]"
       >
         <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
           <h2 className="text-xl font-semibold">編集案</h2>

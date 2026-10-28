@@ -13,6 +13,9 @@ export default defineConfig({
     },
   },
   test: {
+    // Full-score Document/SVG regressions need a bounded memory footprint.
+    // Keep the normal test command consistent with the validated serial run.
+    maxWorkers: 1,
     environment: "jsdom",
     exclude: ["node_modules/**", "src/server/**/*.integration.test.ts"],
     setupFiles: "./vitest.setup.ts",

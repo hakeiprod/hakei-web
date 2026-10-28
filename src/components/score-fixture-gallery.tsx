@@ -15,16 +15,26 @@ import { debugAtom } from "@/store/debug";
 import * as Core from "@/s-core/models/core";
 import "@/s-core/models/core/extensions/to-sheet";
 import { LayoutType, type Score } from "@/s-core/models/sheet";
-import * as Engraving from "@/s-core/models/engraving";
+import {
+  createSourceSnapshot,
+  renderScore,
+  type RenderedScore,
+} from "@/s-core/models/browser/render-score";
+import { yieldToTask } from "@/s-core/models/browser/render-scheduler";
+import { createScoreSurface } from "@/s-core/models/browser/score-surface";
 import "@/s-core/models/document/extensions/to-svg";
 import localFont from "next/font/local";
 import { useAtom } from "jotai";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 const bravura = localFont({
   src: [{ path: "../s-core/const/bravura/Bravura.woff" }],
 });
 const fixtureScale = 12;
+const unsubscribeHydration = () => {};
+const subscribeHydration = () => unsubscribeHydration;
+const clientHydration = () => true;
+const serverHydration = () => false;
 
 export type Fixture = {
   name: string;
@@ -46,15 +56,22 @@ type RenderState =
 
 export function ScoreFixtureGallery({ fixtures }: { fixtures: Fixture[] }) {
   const [debug, setDebug] = useAtom(debugAtom);
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    clientHydration,
+    serverHydration,
+  );
+  // Match the server default until hydration commits the stored preference.
+  const controlDebug = hydrated ? debug : true;
   return (
     <>
       <Button
         type="button"
-        aria-pressed={debug}
+        aria-pressed={controlDebug}
         onClick={() => setDebug((value) => !value)}
         className="mb-4 rounded border px-3 py-2"
       >
-        debug: {debug ? "ON" : "OFF"}
+        debug: {controlDebug ? "ON" : "OFF"}
       </Button>
       <div className="grid grid-cols-1 gap-4 2xl:grid-cols-2">
         {fixtures.map((fixture) => (
@@ -62,6 +79,7 @@ export function ScoreFixtureGallery({ fixtures }: { fixtures: Fixture[] }) {
             key={fixture.name}
             fixture={fixture}
             debug={debug}
+            hydrated={hydrated}
           />
         ))}
       </div>
@@ -72,9 +90,11 @@ export function ScoreFixtureGallery({ fixtures }: { fixtures: Fixture[] }) {
 function ScoreFixtureCard({
   fixture,
   debug,
+  hydrated,
 }: {
   fixture: Fixture;
   debug: boolean;
+  hydrated: boolean;
 }) {
   const container = useRef<HTMLDivElement>(null);
   const [renderState, setRenderState] = useState<RenderState>({
@@ -82,75 +102,94 @@ function ScoreFixtureCard({
   });
 
   useEffect(() => {
-    const containerElement = container.current;
-    let controller: Engraving.Controller | undefined;
-    try {
-      if ("error" in fixture) throw new Error(fixture.error);
-      if ("rejected" in fixture || "partial" in fixture) return;
-      const data =
-        "sheet" in fixture
-          ? fixture.sheet
-          : Core.Score.create(
-              fixture.data as unknown as Parameters<
-                typeof Core.Score.create
-              >[0],
-            )
-              .toSheet()
-              .export();
-      const score = Engraving.Score.import(data);
-      controller = new Engraving.Controller(score, {
-        scale: fixture.definition?.layout?.scale ?? fixtureScale,
-        layoutType:
-          LayoutType[fixture.definition?.layout?.type ?? "Horizontal"],
-        viewportWidth: fixture.definition?.layout?.viewportWidth,
-        viewportHeight: fixture.definition?.layout?.viewportHeight,
-        pageLayout: fixture.definition?.layout?.pageLayout,
-        debug,
-        advanced: true,
-      });
-      controller.mount();
-      const document = controller.toDocument();
-      const pages = document.pages.map((_, pageIndex) =>
-        document.toSVG({
-          scale: fixture.definition?.layout?.scale ?? fixtureScale,
-          fontFamily: bravura.style.fontFamily,
-          paddingBottom: 100,
-          ...(pageIndex === 0 ? {} : { pageIndex }),
-        }),
-      );
-      if (pages.some((svg) => !svg))
-        throw new Error("Renderer returned no SVG");
-      containerElement?.replaceChildren(...pages);
-      let verifiedResults: Result[] = [];
-      if (fixture.definition) {
-        const records = documentRecords(document);
-        const svg = svgRecords(pages);
-        verifiedResults = fixture.definition.assertions
-          .filter((a) => ["document", "svg"].includes(a.stage))
-          .map((a) =>
-            evaluateAssertion(
-              fixture.definition!.id,
-              a,
-              a.stage === "svg" ? svg : records,
-            ),
-          );
-      }
-      // Report the outcome of synchronizing the external SVG renderer with the DOM.
-
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setRenderState({ status: "ready", results: verifiedResults });
-    } catch (error) {
-      setRenderState({
-        status: "error",
-        message: error instanceof Error ? error.message : String(error),
-      });
-    }
-
-    return () => {
-      controller?.unmount();
-      containerElement?.replaceChildren();
+    if (!hydrated) return;
+    const placeholder = container.current;
+    const abort = new AbortController();
+    let rendered: RenderedScore | undefined;
+    let surface: ReturnType<typeof createScoreSurface> | undefined;
+    const release = () => {
+      surface?.retire();
+      rendered?.dispose({ removeDOM: false });
     };
-  }, [fixture, debug]);
+    const run = async () => {
+      setRenderState({ status: "loading" });
+      try {
+        if ("error" in fixture) throw new Error(fixture.error);
+        if ("rejected" in fixture || "partial" in fixture) return;
+        await yieldToTask(abort.signal);
+        const data =
+          "sheet" in fixture
+            ? fixture.sheet
+            : Core.Score.create(
+                fixture.data as unknown as Parameters<
+                  typeof Core.Score.create
+                >[0],
+              )
+                .toSheet()
+                .export();
+        const snapshot = await createSourceSnapshot(data, abort.signal);
+        if (!placeholder || abort.signal.aborted) return;
+        surface = createScoreSurface(placeholder);
+        surface.element.className = `${bravura.className} min-h-28 overflow-x-auto p-4`;
+        surface.element.dataset.fixture = fixture.name;
+        surface.sync();
+        rendered = await renderScore(
+          snapshot,
+          {
+            scale: fixture.definition?.layout?.scale ?? fixtureScale,
+            layoutType:
+              LayoutType[fixture.definition?.layout?.type ?? "Horizontal"],
+            viewportWidth: fixture.definition?.layout?.viewportWidth,
+            viewportHeight: fixture.definition?.layout?.viewportHeight,
+            pageLayout: fixture.definition?.layout?.pageLayout,
+            debug,
+            advanced: true,
+            fontFamily: bravura.style.fontFamily,
+            svgPaddingBottom: 100,
+          },
+          { signal: abort.signal },
+        );
+        if (abort.signal.aborted) {
+          release();
+          return;
+        }
+        let verifiedResults: Result[] = [];
+        if (fixture.definition) {
+          const records = documentRecords(rendered.drawing);
+          const svg = svgRecords(rendered.pages);
+          verifiedResults = fixture.definition.assertions
+            .filter((a) => ["document", "svg"].includes(a.stage))
+            .map((a) =>
+              evaluateAssertion(
+                fixture.definition!.id,
+                a,
+                a.stage === "svg" ? svg : records,
+              ),
+            );
+        }
+        if (abort.signal.aborted) {
+          release();
+          return;
+        }
+        surface.element.replaceChildren(...rendered.pages);
+        surface.element.dataset.renderState = "ready";
+        surface.sync();
+        setRenderState({ status: "ready", results: verifiedResults });
+      } catch (error) {
+        release();
+        if (!abort.signal.aborted)
+          setRenderState({
+            status: "error",
+            message: error instanceof Error ? error.message : String(error),
+          });
+      }
+    };
+    run();
+    return () => {
+      abort.abort();
+      release();
+    };
+  }, [fixture, debug, hydrated]);
 
   const definition = fixture.definition;
   const liveResults =
@@ -241,10 +280,7 @@ function ScoreFixtureCard({
           {renderState.message}
         </pre>
       ) : (
-        <div
-          ref={container}
-          className={`${bravura.className} min-h-28 overflow-x-auto p-4`}
-        />
+        <div ref={container} className="w-full min-h-28" />
       )}
     </article>
   );

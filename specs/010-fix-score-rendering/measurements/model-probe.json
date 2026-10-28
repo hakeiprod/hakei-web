@@ -1,0 +1,117 @@
+{
+  "measuredAt": "2026-10-23T05:11:31.063Z",
+  "sourceRoot": "/workspaces/hakei-web",
+  "sourceHashes": {
+    "src/s-core/models/sheet/score.ts": "b3195c6671cf4487238ec5b43d12411eb70e7ac64f316ff788b5e13d5ba033c7",
+    "src/s-core/models/sheet/controller.ts": "2c2b6406e17d9260e60db7aa8551f645b48f2db83450719a4e4c07b96f25ebf1",
+    "src/s-core/models/engraving/controller.ts": "f6dd11d865343ede554b4629bad21547405874bef4383ea897116cd169f0b047",
+    "src/s-core/models/engraving/extensions/to-document.ts": "d2846077d4d55e9f97888e75d5c25a59cfe345574aef768c70330c19ad5a70d3",
+    "src/s-core/models/document/extensions/to-svg.ts": "a6e1117bb44d4dc03b1578855ed55cb241c8e05656113ac3461c4fd8abce1c06"
+  },
+  "manifestSha256": "1512c36fdfeddc798c5868be6d151deb17b060559aa38e29866714c113228f74",
+  "fontSha256": "98f0ab7922e9af19acbc0c0fde7ffc4efdcef3798404a16ebf976a03758ed6a5",
+  "environment": {
+    "node": "v22.23.4",
+    "platform": "linux",
+    "architecture": "x64",
+    "cpu": "Intel(R) Core(TM) i9-10900K CPU @ 3.70GHz",
+    "logicalCpus": 20,
+    "memoryBytes": 8271056896
+  },
+  "measurementKind": "model-cold",
+  "runs": 1,
+  "results": [
+    {
+      "fixture": "naitoobunaitsu-bitomario",
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12,
+      "run": 1,
+      "completedStages": [
+        {
+          "name": "import",
+          "startedMs": 3675.660514,
+          "endedMs": 4394.171072,
+          "ms": 718.510558
+        },
+        {
+          "name": "mount",
+          "startedMs": 4394.623203,
+          "endedMs": 5221.307308,
+          "ms": 826.6841050000003
+        },
+        {
+          "name": "document",
+          "startedMs": 5221.48792,
+          "endedMs": 6163.88059,
+          "ms": 942.3926700000002
+        },
+        {
+          "name": "svg",
+          "startedMs": 6323.459074,
+          "endedMs": 10617.536975,
+          "ms": 4294.077901000001
+        }
+      ],
+      "status": "complete",
+      "modelMs": 2488.481894,
+      "stages": [
+        {
+          "name": "import",
+          "startedMs": 3675.660514,
+          "endedMs": 4394.171072,
+          "ms": 718.510558
+        },
+        {
+          "name": "mount",
+          "startedMs": 4394.623203,
+          "endedMs": 5221.307308,
+          "ms": 826.6841050000003
+        },
+        {
+          "name": "document",
+          "startedMs": 5221.48792,
+          "endedMs": 6163.88059,
+          "ms": 942.3926700000002
+        },
+        {
+          "name": "svg",
+          "startedMs": 6323.459074,
+          "endedMs": 10617.536975,
+          "ms": 4294.077901000001
+        }
+      ],
+      "documentSha256": "81138ad57f8a556dbea5d3f67b90bd080c22351dc8679a10ff4bcb476a75d571",
+      "svgSha256": "1c711ac58e491adff03669cc0002c056b16746e7978bff4684aa4b1c27c86a75",
+      "notes": 5540,
+      "chords": 5346,
+      "masterbars": 145,
+      "slots": 1497,
+      "staves": 580,
+      "tracks": 2,
+      "pages": 1
+    }
+  ],
+  "summary": [
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 1,
+      "complete": 1,
+      "cutoffs": 0,
+      "failures": 0,
+      "maxMs": 2488.481894,
+      "medianMs": 2488.481894
+    }
+  ]
+}

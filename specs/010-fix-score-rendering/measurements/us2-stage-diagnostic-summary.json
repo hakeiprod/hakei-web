@@ -1,0 +1,517 @@
+{
+  "diagnosticOnly": true,
+  "sourceSnapshot": "us2-stage-diagnostic-source",
+  "collected": "us2-scoped/us2-stage-diagnostic-quarter",
+  "trials": 5,
+  "stages": {
+    "diagnosticOnly": true,
+    "elapsedExcludingYieldIsNotCPUTime": true,
+    "rows": [
+      {
+        "run": 1,
+        "candidateColdMs": 98.45499999821186,
+        "svgBoundMs": 81.34899999946356,
+        "stages": [
+          {
+            "stage": "stage:build",
+            "startMs": 39.00799999758601,
+            "elapsedMs": 2.650000002235174,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 2.650000002235174
+          },
+          {
+            "stage": "stage:layout",
+            "startMs": 41.657999999821186,
+            "elapsedMs": 29.386999998241663,
+            "yieldWaitMs": 21.780000001192093,
+            "elapsedExcludingYieldMs": 7.60699999704957
+          },
+          {
+            "stage": "stage:document",
+            "startMs": 71.04499999806285,
+            "elapsedMs": 4.074999999254942,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 4.074999999254942
+          },
+          {
+            "stage": "stage:svg",
+            "startMs": 75.11999999731779,
+            "elapsedMs": 1.263000000268221,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 1.263000000268221
+          },
+          {
+            "stage": "stage:highlights",
+            "startMs": 76.38299999758601,
+            "elapsedMs": 0.3450000025331974,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 0.3450000025331974
+          }
+        ],
+        "marks": [
+          {
+            "name": "snapshot-begin",
+            "ms": 0.5959999971091747
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 7.684000000357628
+          },
+          {
+            "name": "viewport-begin",
+            "ms": 28.95999999716878
+          },
+          {
+            "name": "viewport-end",
+            "ms": 38.35999999940395
+          },
+          {
+            "name": "render-begin",
+            "ms": 38.725999999791384
+          },
+          {
+            "name": "stage:build",
+            "ms": 39.00799999758601
+          },
+          {
+            "name": "stage:layout",
+            "ms": 41.657999999821186
+          },
+          {
+            "name": "yield-begin",
+            "ms": 47.452999997884035
+          },
+          {
+            "name": "yield-end",
+            "ms": 69.23299999907613
+          },
+          {
+            "name": "stage:document",
+            "ms": 71.04499999806285
+          },
+          {
+            "name": "stage:svg",
+            "ms": 75.11999999731779
+          },
+          {
+            "name": "stage:highlights",
+            "ms": 76.38299999758601
+          },
+          {
+            "name": "render-end",
+            "ms": 76.72800000011921
+          }
+        ],
+        "yieldWaitTotalMs": 21.780000001192093
+      },
+      {
+        "run": 2,
+        "candidateColdMs": 105.99900000169873,
+        "svgBoundMs": 85.15700000151992,
+        "stages": [
+          {
+            "stage": "stage:build",
+            "startMs": 46.159000001847744,
+            "elapsedMs": 3.0669999979436398,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 3.0669999979436398
+          },
+          {
+            "stage": "stage:layout",
+            "startMs": 49.225999999791384,
+            "elapsedMs": 25.606000002473593,
+            "yieldWaitMs": 18.98200000077486,
+            "elapsedExcludingYieldMs": 6.624000001698732
+          },
+          {
+            "stage": "stage:document",
+            "startMs": 74.83200000226498,
+            "elapsedMs": 3.9929999969899654,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 3.9929999969899654
+          },
+          {
+            "stage": "stage:svg",
+            "startMs": 78.82499999925494,
+            "elapsedMs": 1.2440000027418137,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 1.2440000027418137
+          },
+          {
+            "stage": "stage:highlights",
+            "startMs": 80.06900000199676,
+            "elapsedMs": 0.35099999979138374,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 0.35099999979138374
+          }
+        ],
+        "marks": [
+          {
+            "name": "snapshot-begin",
+            "ms": 0.630000002682209
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 6.054999999701977
+          },
+          {
+            "name": "snapshot-begin",
+            "ms": 29.050000000745058
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 29.543000001460314
+          },
+          {
+            "name": "viewport-begin",
+            "ms": 37.03700000047684
+          },
+          {
+            "name": "viewport-end",
+            "ms": 45.440000001341105
+          },
+          {
+            "name": "render-begin",
+            "ms": 45.74500000104308
+          },
+          {
+            "name": "stage:build",
+            "ms": 46.159000001847744
+          },
+          {
+            "name": "stage:layout",
+            "ms": 49.225999999791384
+          },
+          {
+            "name": "yield-begin",
+            "ms": 54.25400000065565
+          },
+          {
+            "name": "yield-end",
+            "ms": 73.23600000143051
+          },
+          {
+            "name": "stage:document",
+            "ms": 74.83200000226498
+          },
+          {
+            "name": "stage:svg",
+            "ms": 78.82499999925494
+          },
+          {
+            "name": "stage:highlights",
+            "ms": 80.06900000199676
+          },
+          {
+            "name": "render-end",
+            "ms": 80.42000000178814
+          }
+        ],
+        "yieldWaitTotalMs": 18.98200000077486
+      },
+      {
+        "run": 3,
+        "candidateColdMs": 105.68599999696016,
+        "svgBoundMs": 90.51399999856949,
+        "stages": [
+          {
+            "stage": "stage:build",
+            "startMs": 47.992999996989965,
+            "elapsedMs": 2.7780000008642673,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 2.7780000008642673
+          },
+          {
+            "stage": "stage:layout",
+            "startMs": 50.77099999785423,
+            "elapsedMs": 26.62099999934435,
+            "yieldWaitMs": 20.672000002115965,
+            "elapsedExcludingYieldMs": 5.948999997228384
+          },
+          {
+            "stage": "stage:document",
+            "startMs": 77.39199999719858,
+            "elapsedMs": 4.2360000014305115,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 4.2360000014305115
+          },
+          {
+            "stage": "stage:svg",
+            "startMs": 81.6279999986291,
+            "elapsedMs": 1.7399999983608723,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 1.7399999983608723
+          },
+          {
+            "stage": "stage:highlights",
+            "startMs": 83.36799999698997,
+            "elapsedMs": 0.4560000002384186,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 0.4560000002384186
+          }
+        ],
+        "marks": [
+          {
+            "name": "snapshot-begin",
+            "ms": 0.6179999969899654
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 5.480000000447035
+          },
+          {
+            "name": "snapshot-begin",
+            "ms": 28.774000000208616
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 29.296999998390675
+          },
+          {
+            "name": "viewport-begin",
+            "ms": 38.64399999752641
+          },
+          {
+            "name": "viewport-end",
+            "ms": 47.35399999842048
+          },
+          {
+            "name": "render-begin",
+            "ms": 47.66899999976158
+          },
+          {
+            "name": "stage:build",
+            "ms": 47.992999996989965
+          },
+          {
+            "name": "stage:layout",
+            "ms": 50.77099999785423
+          },
+          {
+            "name": "yield-begin",
+            "ms": 56.53899999707937
+          },
+          {
+            "name": "yield-end",
+            "ms": 77.21099999919534
+          },
+          {
+            "name": "stage:document",
+            "ms": 77.39199999719858
+          },
+          {
+            "name": "stage:svg",
+            "ms": 81.6279999986291
+          },
+          {
+            "name": "stage:highlights",
+            "ms": 83.36799999698997
+          },
+          {
+            "name": "render-end",
+            "ms": 83.82399999722838
+          }
+        ],
+        "yieldWaitTotalMs": 20.672000002115965
+      },
+      {
+        "run": 4,
+        "candidateColdMs": 92.84800000116229,
+        "svgBoundMs": 76.33399999886751,
+        "stages": [
+          {
+            "stage": "stage:build",
+            "startMs": 35.76700000092387,
+            "elapsedMs": 2.8570000007748604,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 2.8570000007748604
+          },
+          {
+            "stage": "stage:layout",
+            "startMs": 38.62400000169873,
+            "elapsedMs": 26.913999997079372,
+            "yieldWaitMs": 20.689999997615814,
+            "elapsedExcludingYieldMs": 6.223999999463558
+          },
+          {
+            "stage": "stage:document",
+            "startMs": 65.5379999987781,
+            "elapsedMs": 4.871000003069639,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 4.871000003069639
+          },
+          {
+            "stage": "stage:svg",
+            "startMs": 70.40900000184774,
+            "elapsedMs": 1.278999999165535,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 1.278999999165535
+          },
+          {
+            "stage": "stage:highlights",
+            "startMs": 71.68800000101328,
+            "elapsedMs": 0.369999997317791,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 0.369999997317791
+          }
+        ],
+        "marks": [
+          {
+            "name": "snapshot-begin",
+            "ms": 0.7069999985396862
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 5.8440000005066395
+          },
+          {
+            "name": "viewport-begin",
+            "ms": 26.951999999582767
+          },
+          {
+            "name": "viewport-end",
+            "ms": 35.1820000000298
+          },
+          {
+            "name": "render-begin",
+            "ms": 35.49599999934435
+          },
+          {
+            "name": "stage:build",
+            "ms": 35.76700000092387
+          },
+          {
+            "name": "stage:layout",
+            "ms": 38.62400000169873
+          },
+          {
+            "name": "yield-begin",
+            "ms": 44.54500000178814
+          },
+          {
+            "name": "yield-end",
+            "ms": 65.23499999940395
+          },
+          {
+            "name": "stage:document",
+            "ms": 65.5379999987781
+          },
+          {
+            "name": "stage:svg",
+            "ms": 70.40900000184774
+          },
+          {
+            "name": "stage:highlights",
+            "ms": 71.68800000101328
+          },
+          {
+            "name": "render-end",
+            "ms": 72.05799999833107
+          }
+        ],
+        "yieldWaitTotalMs": 20.689999997615814
+      },
+      {
+        "run": 5,
+        "candidateColdMs": 91.63700000196695,
+        "svgBoundMs": 75.78200000151992,
+        "stages": [
+          {
+            "stage": "stage:build",
+            "startMs": 36.66499999910593,
+            "elapsedMs": 2.7719999998807907,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 2.7719999998807907
+          },
+          {
+            "stage": "stage:layout",
+            "startMs": 39.43699999898672,
+            "elapsedMs": 24.55300000309944,
+            "yieldWaitMs": 18.653999999165535,
+            "elapsedExcludingYieldMs": 5.8990000039339066
+          },
+          {
+            "stage": "stage:document",
+            "startMs": 63.99000000208616,
+            "elapsedMs": 5.0150000005960464,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 5.0150000005960464
+          },
+          {
+            "stage": "stage:svg",
+            "startMs": 69.00500000268221,
+            "elapsedMs": 1.5589999966323376,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 1.5589999966323376
+          },
+          {
+            "stage": "stage:highlights",
+            "startMs": 70.56399999931455,
+            "elapsedMs": 0.3530000001192093,
+            "yieldWaitMs": 0,
+            "elapsedExcludingYieldMs": 0.3530000001192093
+          }
+        ],
+        "marks": [
+          {
+            "name": "snapshot-begin",
+            "ms": 0.56700000166893
+          },
+          {
+            "name": "snapshot-end",
+            "ms": 5.339000001549721
+          },
+          {
+            "name": "viewport-begin",
+            "ms": 27.635999999940395
+          },
+          {
+            "name": "viewport-end",
+            "ms": 36.078000001609325
+          },
+          {
+            "name": "render-begin",
+            "ms": 36.38800000026822
+          },
+          {
+            "name": "stage:build",
+            "ms": 36.66499999910593
+          },
+          {
+            "name": "stage:layout",
+            "ms": 39.43699999898672
+          },
+          {
+            "name": "yield-begin",
+            "ms": 45.185000002384186
+          },
+          {
+            "name": "yield-end",
+            "ms": 63.83900000154972
+          },
+          {
+            "name": "stage:document",
+            "ms": 63.99000000208616
+          },
+          {
+            "name": "stage:svg",
+            "ms": 69.00500000268221
+          },
+          {
+            "name": "stage:highlights",
+            "ms": 70.56399999931455
+          },
+          {
+            "name": "render-end",
+            "ms": 70.91699999943376
+          }
+        ],
+        "yieldWaitTotalMs": 18.653999999165535
+      }
+    ]
+  },
+  "observation": "Layout wall24.553-29.387ms includes18.654-21.780ms of yielded waiting. Build2.650-3.067ms; layout excluding wait5.899-7.607ms; document3.993-5.015ms; SVG1.244-1.740ms; highlights0.345-0.456ms. Excluding wait is elapsed, not CPU measurement.",
+  "change": "Only wholly size-bounded snapshots request fresh user-blocking tasks; real8ms yield budget and abort cleanup remain. Unbounded and unknown oversized metadata remain background. No musical/schema/render changes.",
+  "regression": "Bounded policy test failed before change; 91 related tests, typecheck/lint pass after change",
+  "formalMeasurement": "Pending canonical marks-only production build; no extra diagnostic marks at acceptance"
+}

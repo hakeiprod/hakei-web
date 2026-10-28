@@ -1,0 +1,110 @@
+{
+  "status": "incomplete-missing-presentation-feedback",
+  "reviewedImages": 473,
+  "requiredImages": 480,
+  "passingTrials": 53,
+  "totalTrials": 60,
+  "summary": {
+    "trials": 60,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 60,
+      "maxMs": 137.36399999260902,
+      "medianMs": 95.1794999986887
+    },
+    "redraws": {
+      "count": 120,
+      "maxMs": 152.27599999308586,
+      "medianMs": 31.40149998664856
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 293,
+      "maxMs": 89.8910000026226,
+      "medianMs": 22.22400000691414
+    }
+  },
+  "coldNonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-12-0",
+      "maxMs": 109.60600000619888,
+      "frozenThresholdMs": 238.87560001015663,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-18-0",
+      "maxMs": 95.35100001096725,
+      "frozenThresholdMs": 149.47200000286102,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12-0",
+      "maxMs": 91.17500001192093,
+      "frozenThresholdMs": 132.92880000472067,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 89.58300000429153,
+      "frozenThresholdMs": 112.89399999380112,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-12-0",
+      "maxMs": 117.0160000026226,
+      "frozenThresholdMs": 174.11999999284743,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-18-0",
+      "maxMs": 123.3250000178814,
+      "frozenThresholdMs": 150.47160000801085,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-12-0",
+      "maxMs": 96.18099999427795,
+      "frozenThresholdMs": 117.8369999974966,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-18-0",
+      "maxMs": 104.29800000786781,
+      "frozenThresholdMs": 113.66499999165535,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-12-0",
+      "maxMs": 137.36399999260902,
+      "frozenThresholdMs": 145.04039999842644,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-18-0",
+      "maxMs": 122.27200001478195,
+      "frozenThresholdMs": 146.36160001158714,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-12-0",
+      "maxMs": 102.47600001096725,
+      "frozenThresholdMs": 135.22200000286102,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-18-0",
+      "maxMs": 107.46099999547005,
+      "frozenThresholdMs": 129.88919999599457,
+      "pass": true
+    }
+  ],
+  "allColdNonWorsening": true,
+  "roundtripSVGRestored": 60,
+  "acceptancePass": false
+}

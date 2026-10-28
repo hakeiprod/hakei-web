@@ -1,0 +1,19 @@
+{
+  "purpose": "measurement only; same mark in before/after private app copy",
+  "file": "src/components/show-score.tsx",
+  "originalSha256": "c929c680eec7077adc1a3c0c2bab52cf48f9ab8ab92eecf3b10971873e58e65e",
+  "instrumentedSha256": "5608a5b59f920ff84824c89f3860e25f1ec7ba7c985a63aa78af8f4062deeafa",
+  "change": "mark rendering:candidate-available at ShowScore entry in browser; no drawing arithmetic changed",
+  "benchmarkOnlyBuildConfiguration": {
+    "typescript.ignoreBuildErrors": true,
+    "reason": "pre-existing resource/[id] params type error in frozen source; product validation remains required",
+    "configSha256": "be82dfd84b88c25db09a6d2ec94e59a0f8bb4d0efba596e04c35323db3c7a4aa",
+    "runtimeDrawingChanges": false
+  },
+  "previewBoundary": {
+    "file": "src/components/form-create-score.tsx",
+    "placement": "after response JSON, before client validation and setPreview",
+    "originalSha256": "0218a7f306976e1cb07f4adfbe431451779d393e36bdd13db2a7f9cefd9e08d3",
+    "instrumentedSha256": "94429fe4d4e68a15c12c91ea484954639f7900002d20f8996fcc425ee790b21b"
+  }
+}

@@ -26,6 +26,8 @@ test.each([1, 3, 5])(
     // Exercise the clef independently of pitched or unpitched note rendering.
     score.notes = [];
     score.chords = [];
+    // Explicit mutations require rebuilding the private relation index.
+    score.rebuildLayoutIndex();
     score.tracks[0].staffDetails = { "staff-lines": [{ _: lines }] };
     for (const stave of score.staves)
       stave.clefs = [{ sign: [{ _: "percussion" }] }];

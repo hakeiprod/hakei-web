@@ -8,6 +8,7 @@ import { useState, type KeyboardEvent as ReactKeyboardEvent } from "react";
 import { match, P } from "ts-pattern";
 
 export function InputSearch() {
+  const [portal, setPortal] = useState<HTMLDivElement | null>(null);
   const [resources, setResources] = useState<
     Awaited<ReturnType<typeof findResources>>
   >([]);
@@ -29,33 +30,37 @@ export function InputSearch() {
   }
 
   return (
-    <Autocomplete
-      id=""
-      aria-label="Search"
-      radius="full"
-      isClearable
-      selectorButtonProps={{ "aria-label": "検索候補を開く" }}
-      clearButtonProps={{ "aria-label": "検索入力を消去" }}
-      placeholder="Search..."
-      defaultItems={resources}
-      startContent={<Search />}
-      inputValue={value}
-      onInputChange={handleInputChange}
-      onKeyDown={handleOnKeyDown}
-    >
-      {(item) => (
-        <AutocompleteItem
-          key={item.id}
-          textValue={item.name}
-          startContent={match(item as unknown)
-            .with({ album: P.nonNullable }, () => <Disc />)
-            .with({ music: P.nonNullable }, () => <Music />)
-            .with({ artist: P.nonNullable }, () => <User />)
-            .otherwise(() => null)}
-        >
-          {item.name}
-        </AutocompleteItem>
-      )}
-    </Autocomplete>
+    <div ref={setPortal} className="contents">
+      <Autocomplete
+        disableAnimation
+        popoverProps={{ portalContainer: portal ?? undefined }}
+        id=""
+        aria-label="Search"
+        radius="full"
+        isClearable
+        selectorButtonProps={{ "aria-label": "検索候補を開く" }}
+        clearButtonProps={{ "aria-label": "検索入力を消去" }}
+        placeholder="Search..."
+        defaultItems={resources}
+        startContent={<Search />}
+        inputValue={value}
+        onInputChange={handleInputChange}
+        onKeyDown={handleOnKeyDown}
+      >
+        {(item) => (
+          <AutocompleteItem
+            key={item.id}
+            textValue={item.name}
+            startContent={match(item as unknown)
+              .with({ album: P.nonNullable }, () => <Disc />)
+              .with({ music: P.nonNullable }, () => <Music />)
+              .with({ artist: P.nonNullable }, () => <User />)
+              .otherwise(() => null)}
+          >
+            {item.name}
+          </AutocompleteItem>
+        )}
+      </Autocomplete>
+    </div>
   );
 }

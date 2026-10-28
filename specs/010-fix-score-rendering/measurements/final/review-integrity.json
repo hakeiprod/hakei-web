@@ -1,0 +1,19 @@
+{
+  "complete": true,
+  "reviewedScenes": 3890,
+  "existingExplicitReviewsReusedByExactImageAndMatchingTarget": 3120,
+  "newScenes": 770,
+  "newFirstImageGroups": 166,
+  "firstContactSheetsViewed": 11,
+  "secondContactSheetsViewed": 4,
+  "thirdContactSheetsViewed": 1,
+  "candidateExpectedPairDetailSheetsViewed": 9,
+  "nativeSizeFocusCorrections": "Contained in final-browser.tar.xz/final-browser/native-size-review-corrections.json",
+  "focusTargetAndAnchorMismatchesInReusedReviews": 0,
+  "focusTargetAndAnchorMismatchesInFirstManualGroups": 0,
+  "allCurrentFrameImageAndTraceHashesAndPresentationIdsVerifiedByReviewer": true,
+  "allFixedBudgetsAndNonWorseningPass": true,
+  "intermediateLists": "remaining-reviews.json and first/second-candidate decisions inside archive are historical review stages. Final reviews.json/reviewed.json and native-size corrections supersede them. No outstanding image reviews remain.",
+  "collectorIntegrity": "final-browser.tar.xz/final-browser/collector-integrity.json",
+  "allTrialsKept": true
+}

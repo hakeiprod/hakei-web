@@ -1,0 +1,38 @@
+{
+  "plannedTrials": 480,
+  "collectedTrials": 22,
+  "remainingTrialsNotRun": 458,
+  "explicitReviewedImages": 1,
+  "otherImagesUnreviewed": true,
+  "collectionFailures": 0,
+  "cutoffs": 0,
+  "scopeTimingPass": false,
+  "fullFeatureAcceptance": false,
+  "budgetsUnchanged": true,
+  "stop": "Owned collector PID8227 received SIGINT after detecting an input candidate over the fixed100ms budget. No product server/database was stopped.",
+  "failure": {
+    "fixture": "naitoobunaitsu-bitomario",
+    "layout": "Horizontal",
+    "viewport": {
+      "width": 360,
+      "height": 800
+    },
+    "scale": 18,
+    "run": 3,
+    "action": "leave to home",
+    "reviewedMs": 100.5840000002645,
+    "fixedThresholdMs": 100,
+    "firstCorrectCandidate": 0
+  },
+  "trace": {
+    "inputDelayMs": 18.100000000093132,
+    "stateCommittedRelativeToInputMs": 82.76200000010431,
+    "layerizeStartRelativeToInputMs": 23.543,
+    "layerizeMs": 26.28,
+    "reactFunctionCallStartRelativeToInputMs": 58.033,
+    "reactFunctionCallMs": 24.495,
+    "observation": "Layerization of the old page occurs before destination commit; no single application function or causal fix is established yet."
+  },
+  "separateCompletedScope": "../us2-sections-tab18/scope-summary.json: requested TAB cold-budget failure is fixed in five reviewed trials; do not conflate with this leave-response failure.",
+  "nextAction": "Profile original Horizontal/360x800/scale18 leave; inspect route-pending lifetime of old SVG. Test a reversible suspend/restore strategy, not irreversible disposal before navigation succeeds. Add regression for failed/cancelled navigation restoring the old score; validate native leave5 then all96, retaining drawing/100ms/frozen cold limits and separate barline change."
+}

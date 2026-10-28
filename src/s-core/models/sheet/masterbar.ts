@@ -1,3 +1,4 @@
+import { measure } from "./layout-pass";
 import { firstBy, identity, map, pipe, prop } from "remeda";
 import * as Sheet from ".";
 import { Barline } from "../../const/musicxml/4.0/musicxml";
@@ -10,9 +11,11 @@ export class Masterbar extends Core.Event {
   barline;
   score!: Sheet.Score;
   get x(): number {
-    return (
-      this.row.masterbars[this.row.masterbars.indexOf(this) - 1]?.right ?? 0
-    );
+    return measure(this.score.layoutPass, this, "sheet/masterbar.ts:x", () => {
+      return (
+        this.row.masterbars[this.row.masterbars.indexOf(this) - 1]?.right ?? 0
+      );
+    });
   }
   get y(): number {
     return this.row.y;
@@ -28,17 +31,35 @@ export class Masterbar extends Core.Event {
     );
   }
   get minWidth() {
-    return (
-      pipe(this.bars, map(prop("minWidth")), firstBy([identity(), "desc"])) ?? 0
+    return measure(
+      this.score.layoutPass,
+      this,
+      "sheet/masterbar.ts:minWidth",
+      () => {
+        return (
+          pipe(
+            this.bars,
+            map(prop("minWidth")),
+            firstBy([identity(), "desc"]),
+          ) ?? 0
+        );
+      },
     );
   }
   get height() {
-    return (
-      this.bars.reduce(
-        (accumulator, current) => accumulator + current.height,
-        0,
-      ) +
-      (this.bars.length - 1) * 13
+    return measure(
+      this.score.layoutPass,
+      this,
+      "sheet/masterbar.ts:height",
+      () => {
+        return (
+          this.bars.reduce(
+            (accumulator, current) => accumulator + current.height,
+            0,
+          ) +
+          (this.bars.length - 1) * 13
+        );
+      },
     );
   }
   get isRowFirst() {
@@ -57,15 +78,23 @@ export class Masterbar extends Core.Event {
     return this.score.rows.find((row) => row.id === this.rowId)!;
   }
   get slots() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.masterbarSlots.get(this) ?? [])];
     return this.score.slots.filter((slot) => this.isOverlapped(slot));
   }
   get bars() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.masterbarBars.get(this) ?? [])];
     return this.score.bars.filter((bar) => bar.id === this.id);
   }
   get notes() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.masterbarNotes.get(this) ?? [])];
     return this.score.notes.filter((note) => note.isOverlapped(this));
   }
   get chords() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.masterbarChords.get(this) ?? [])];
     return this.score.chords.filter((chord) => chord.isOverlapped(this));
   }
   get events() {

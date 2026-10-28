@@ -1,0 +1,25 @@
+{
+  "changedComparedToFull96MeasuredSource": [
+    "src/components/score-fixture-gallery.tsx",
+    "src/components/score-fixture-gallery.test.tsx"
+  ],
+  "allOtherMeasuredSourceExact": true,
+  "musicalModelsSVGGenerationViewerSchedulerBarlineExact": true,
+  "changedSourceSha256": {
+    "src/components/score-fixture-gallery.tsx": "3834a086f9ead3f26ea58ec76a549eb74b77ad0c4a13387bdbe61b64f6dffb43",
+    "src/components/score-fixture-gallery.test.tsx": "982c17ae15bfbd7b09b2d1ae4a90deb1fb57334e0894e0026d4634784d733f5e"
+  },
+  "galleryRuntimeSourceMatchesCurrent": true,
+  "galleryImporters": [
+    "src/app/dev/load-score-fixtures.ts",
+    "src/app/dev/notation/fixtures/page.test.tsx",
+    "src/app/dev/notation/fixtures/page.tsx",
+    "src/app/dev/mxl/fixtures/page.tsx",
+    "src/app/dev/core/fixtures/page.tsx",
+    "src/components/score-fixture-gallery.test.tsx",
+    "src/components/score-viewer.test.tsx"
+  ],
+  "priorTimingRetainedReason": "Change only affects development gallery hydration and its tests; model/SVG/Viewer/scheduler sources are byte identical. Existing 96-condition browser480 and model480 proofs remain attached to their frozen measured sources, not relabelled as fresh runs. Production Viewer functional debug6 cases tested against that unchanged production build.",
+  "priorBrowser": "../us2-scoped/us2-native-scale-full-browser/scope-summary.json",
+  "priorModelAndReference": "../us2-final-validation/us2-final-current-model/comparison.json"
+}

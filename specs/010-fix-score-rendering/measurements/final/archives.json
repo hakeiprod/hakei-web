@@ -1,0 +1,14 @@
+{
+  "final-model.tar.xz": {
+    "sha256": "b2731ed9a6a5612c1a322ac762fa1366b831648a2acc5a1de2c189b4f88400c4",
+    "bytes": 7726744
+  },
+  "final-browser.tar.xz": {
+    "sha256": "d0fc343ec1a4b40638b857fb1af123f37199de9f762053886e0809fbc9ce287d",
+    "bytes": 271617688
+  },
+  "runtime-source.tar.xz": {
+    "sha256": "7d4d9ad515af74d666e2cbf8f1156a1656cdbc4fb6f34cab29994d772b8e0f87",
+    "bytes": 8204876
+  }
+}

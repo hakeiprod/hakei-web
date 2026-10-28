@@ -1,0 +1,10 @@
+{
+  "scopes": [
+    "us2-layout-start-source",
+    "us2-scoped/us2-layout-start-quarter"
+  ],
+  "filesAndArchiveMembers": 6576,
+  "matches": [],
+  "pass": true,
+  "purpose": "Exact private secrets/database URL/cookies scan; values excluded"
+}

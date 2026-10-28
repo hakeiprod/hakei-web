@@ -19,7 +19,7 @@ export default function ScoreEdit(properties: {
   return (
     <Card
       as="section"
-      className="min-w-0 overflow-visible border border-divider bg-content1"
+      className="min-w-0 overflow-visible border border-divider bg-content1 [contain-intrinsic-block-size:auto_160px] [content-visibility:auto]"
     >
       <CardBody className="min-w-0 space-y-4 p-4 sm:p-6">
         {properties.canEdit && (

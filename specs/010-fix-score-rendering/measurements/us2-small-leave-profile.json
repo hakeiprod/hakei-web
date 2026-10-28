@@ -1,0 +1,208 @@
+{
+  "purpose": "Separate observed event work from image-backed presentation. Do not replace earlier failures with unpictured presentations or claim a deterministic GPU cause.",
+  "rows": [
+    {
+      "cohort": "us2-layout-start-quarter",
+      "run": 1,
+      "leaveMs": 43.87899999693036,
+      "inputDelayMs": 15.099999997764826,
+      "stateCommittedAfterInputMs": 36.00999999791384,
+      "verifiedPresentationAfterCommitMs": 7.868999999016523,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.535
+    },
+    {
+      "cohort": "us2-layout-start-quarter",
+      "run": 2,
+      "leaveMs": 115.82800000160933,
+      "inputDelayMs": 20,
+      "stateCommittedAfterInputMs": 52.333000004291534,
+      "verifiedPresentationAfterCommitMs": 63.49499999731779,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 2.037
+    },
+    {
+      "cohort": "us2-layout-start-quarter",
+      "run": 3,
+      "leaveMs": 100.37099999934435,
+      "inputDelayMs": 16,
+      "stateCommittedAfterInputMs": 44.93400000035763,
+      "verifiedPresentationAfterCommitMs": 55.43699999898672,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.977
+    },
+    {
+      "cohort": "us2-layout-start-quarter",
+      "run": 4,
+      "leaveMs": 47.4320000000298,
+      "inputDelayMs": 14.5,
+      "stateCommittedAfterInputMs": 39.899000000208616,
+      "verifiedPresentationAfterCommitMs": 7.532999999821186,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.558
+    },
+    {
+      "cohort": "us2-layout-start-quarter",
+      "run": 5,
+      "leaveMs": 81.78900000452995,
+      "inputDelayMs": 12.600000001490116,
+      "stateCommittedAfterInputMs": 31.76800000295043,
+      "verifiedPresentationAfterCommitMs": 50.02100000157952,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.513
+    },
+    {
+      "cohort": "us2-small-leave-before",
+      "run": 1,
+      "leaveMs": 46.95199999958277,
+      "inputDelayMs": 15,
+      "stateCommittedAfterInputMs": 37.37799999862909,
+      "verifiedPresentationAfterCommitMs": 9.574000000953674,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.925
+    },
+    {
+      "cohort": "us2-small-leave-before",
+      "run": 2,
+      "leaveMs": 38.18799999728799,
+      "inputDelayMs": 12.299999997019768,
+      "stateCommittedAfterInputMs": 30.721999999135733,
+      "verifiedPresentationAfterCommitMs": 7.465999998152256,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.624
+    },
+    {
+      "cohort": "us2-small-leave-before",
+      "run": 3,
+      "leaveMs": 40.64599999785423,
+      "inputDelayMs": 13.800000000745058,
+      "stateCommittedAfterInputMs": 33.05499999970198,
+      "verifiedPresentationAfterCommitMs": 7.590999998152256,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.423
+    },
+    {
+      "cohort": "us2-small-leave-before",
+      "run": 4,
+      "leaveMs": 82.25699999928474,
+      "inputDelayMs": 12.599999997764826,
+      "stateCommittedAfterInputMs": 30.54499999806285,
+      "verifiedPresentationAfterCommitMs": 51.712000001221895,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.67
+    },
+    {
+      "cohort": "us2-small-leave-before",
+      "run": 5,
+      "leaveMs": 40.96499999985099,
+      "inputDelayMs": 13.100000001490116,
+      "stateCommittedAfterInputMs": 33.217000000178814,
+      "verifiedPresentationAfterCommitMs": 7.7479999996721745,
+      "pixiPointerUpCalls": 1,
+      "pixiPointerUpMs": 1.511
+    },
+    {
+      "cohort": "us2-small-leave-lazy-keyboard",
+      "run": 1,
+      "leaveMs": 36.859000004827976,
+      "inputDelayMs": 10.200000002980232,
+      "stateCommittedAfterInputMs": 30.453000001609325,
+      "verifiedPresentationAfterCommitMs": 6.406000003218651,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-lazy-keyboard",
+      "run": 2,
+      "leaveMs": 37.251999996602535,
+      "inputDelayMs": 11.699999999254942,
+      "stateCommittedAfterInputMs": 30.439999997615814,
+      "verifiedPresentationAfterCommitMs": 6.811999998986721,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-lazy-keyboard",
+      "run": 3,
+      "leaveMs": 81.73999999836087,
+      "inputDelayMs": 10.599999997764826,
+      "stateCommittedAfterInputMs": 28.502000000327826,
+      "verifiedPresentationAfterCommitMs": 53.23799999803305,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-lazy-keyboard",
+      "run": 4,
+      "leaveMs": 82.53999999910593,
+      "inputDelayMs": 10.799999997019768,
+      "stateCommittedAfterInputMs": 28.172999996691942,
+      "verifiedPresentationAfterCommitMs": 54.36700000241399,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-lazy-keyboard",
+      "run": 5,
+      "leaveMs": 37.31600000336766,
+      "inputDelayMs": 10.5,
+      "stateCommittedAfterInputMs": 28.468000002205372,
+      "verifiedPresentationAfterCommitMs": 8.84800000116229,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-hydration-quarter",
+      "run": 1,
+      "leaveMs": 41.89300000295043,
+      "inputDelayMs": 11.300000000745058,
+      "stateCommittedAfterInputMs": 33.20700000226498,
+      "verifiedPresentationAfterCommitMs": 8.686000000685453,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-hydration-quarter",
+      "run": 2,
+      "leaveMs": 82.29499999806285,
+      "inputDelayMs": 12,
+      "stateCommittedAfterInputMs": 30.309999998658895,
+      "verifiedPresentationAfterCommitMs": 51.98499999940395,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-hydration-quarter",
+      "run": 3,
+      "leaveMs": 82.24200000241399,
+      "inputDelayMs": 11,
+      "stateCommittedAfterInputMs": 28.854000002145767,
+      "verifiedPresentationAfterCommitMs": 53.38800000026822,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-hydration-quarter",
+      "run": 4,
+      "leaveMs": 82.28299999982119,
+      "inputDelayMs": 10.5,
+      "stateCommittedAfterInputMs": 28.337000001221895,
+      "verifiedPresentationAfterCommitMs": 53.94599999859929,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    },
+    {
+      "cohort": "us2-small-leave-hydration-quarter",
+      "run": 5,
+      "leaveMs": 83.23699999973178,
+      "inputDelayMs": 11,
+      "stateCommittedAfterInputMs": 29.436000000685453,
+      "verifiedPresentationAfterCommitMs": 53.800999999046326,
+      "pixiPointerUpCalls": 0,
+      "pixiPointerUpMs": 0
+    }
+  ],
+  "currentLeavePass5": true,
+  "collectorClockAndEndpointsUnchanged": true,
+  "causalLimit": "Before repetition already passed5; later5 also pass but intermittent115.828ms root cause is not proven eliminated. Unnecessary offscreen renderer/global Pixi pointer activity is removed deterministically."
+}

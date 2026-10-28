@@ -1,0 +1,9 @@
+{
+  "scope": [
+    "us2-unreviewed",
+    "us2-scoped/us2-target-audio-paint"
+  ],
+  "filesAndArchiveMembers": 35069,
+  "privateCredentialMatches": 0,
+  "method": "Compare exact private runtime authentication secrets, DB connection values and browser cookie values; values never included in report."
+}

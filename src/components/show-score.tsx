@@ -11,31 +11,171 @@ import {
 } from "@heroui/react";
 import { capabilities } from "@/s-core/models/sheet/notation/capabilities";
 import { partialScoreSchema } from "@/s-core/models/import/contracts";
-import { sheetScoreSchema } from "@/s-core/models/import/score-schema";
+import {
+  createSourceSnapshot,
+  tryCreateSmallSourceSnapshot,
+  type SourceSnapshot,
+} from "@/s-core/models/browser/render-score";
+import {
+  yieldToTask,
+  yieldToPaint,
+  drainCooperatively,
+} from "@/s-core/models/browser/render-scheduler";
 import * as Audio from "@/s-core/models/audio";
 import { NoteHighlighter } from "@/s-core/models/audio_sheet/note-highlighter";
 import * as BrowserAudio from "@/s-core/models/browser/audio";
 import { Keyboard } from "@/s-core/models/browser/keyboard";
 import Soundfont2 from "@/s-core/models/files/soundfont2";
-import * as Sheet from "@/s-core/models/sheet";
 import "@/s-core/models/sheet/extensions/to-audio";
 import * as Engraving from "@/s-core/models/engraving";
 import { masterVolumeAtom } from "@/store/master-volume";
 import { getDefaultStore } from "jotai";
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+  useRef,
+  memo,
+  useCallback,
+} from "react";
 import { ScoreMixier } from "./score-mixier";
-import { ScorePlayer } from "./score-player";
+import { ScorePlayer, type PlaybackState } from "./score-player";
 import { ScoreViewer } from "./score-viewer";
 import { VirtualKeyboard } from "./virtual-keyboard";
 export function ShowScore(properties: {
   score: {
     data: unknown;
+    id?: number | string;
+    revisionId?: string;
     revisionNumber?: number;
   };
   canPlay?: boolean;
 }) {
-  const partial = partialScoreSchema.safeParse(properties.score.data);
-  if (partial.success)
+  const inputIdentity =
+    properties.score.id !== undefined &&
+    (properties.score.revisionId !== undefined ||
+      properties.score.revisionNumber !== undefined)
+      ? JSON.stringify([
+          properties.score.id,
+          properties.score.revisionId ?? properties.score.revisionNumber,
+        ])
+      : properties.score.data;
+  const generation = useRef(0);
+  const [display, setDisplay] = useState<
+    | ({
+        input: unknown;
+        revision: number | undefined;
+        generation: number;
+      } & (
+        | { kind: "partial"; data: ReturnType<typeof partialScoreSchema.parse> }
+        | {
+            kind: "ready";
+            source: SourceSnapshot;
+            capability: ReturnType<typeof capabilities>;
+          }
+        | { kind: "error" }
+      ))
+    | undefined
+  >(() => {
+    const input = inputIdentity,
+      revision = properties.score.revisionNumber;
+    try {
+      const data = properties.score.data;
+      if (
+        data &&
+        typeof data === "object" &&
+        Object.getOwnPropertyDescriptor(data, "format")?.value ===
+          "converted-partial-v1"
+      )
+        return;
+      const source = tryCreateSmallSourceSnapshot(data);
+      if (!source) return;
+      return {
+        kind: "ready",
+        source,
+        // Keep this bounded initial render free of schema code generation too.
+        capability: capabilities(source.data, [], { jitless: true }),
+        input,
+        revision,
+        generation: 0,
+      };
+    } catch {
+      return { kind: "error", input, revision, generation: 0 };
+    }
+  });
+  useLayoutEffect(() => {
+    if (
+      display?.generation === 0 &&
+      display.input === inputIdentity &&
+      display.revision === properties.score.revisionNumber
+    )
+      return;
+    const abort = new AbortController(),
+      own = ++generation.current,
+      input = inputIdentity,
+      revision = properties.score.revisionNumber;
+    const run = async () => {
+      try {
+        let completeInput = properties.score.data;
+        if (
+          completeInput &&
+          typeof completeInput === "object" &&
+          "format" in completeInput &&
+          completeInput.format === "converted-partial-v1"
+        ) {
+          const captured = structuredClone(completeInput);
+          await yieldToTask(abort.signal);
+          const partial = partialScoreSchema.safeParse(captured);
+          if (partial.success) {
+            if (!abort.signal.aborted)
+              setDisplay({
+                kind: "partial",
+                data: partial.data,
+                input,
+                revision,
+                generation: own,
+              });
+            return;
+          }
+          completeInput = captured;
+        }
+        // The snapshot captures complete input before its first suspension.
+        // Cloning here as well doubles allocations during reload validation.
+        const source = await createSourceSnapshot(completeInput, abort.signal);
+        if (!abort.signal.aborted)
+          setDisplay({
+            kind: "ready",
+            source,
+            capability: capabilities(source.data),
+            input,
+            revision,
+            generation: own,
+          });
+      } catch {
+        if (!abort.signal.aborted)
+          setDisplay({ kind: "error", input, revision, generation: own });
+      }
+    };
+    run();
+    return () => abort.abort();
+    // Persisted id/revision identifies immutable Git data, even if RSC recreates JSON.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inputIdentity, properties.score.revisionNumber]);
+  if (
+    !display ||
+    display.input !== inputIdentity ||
+    display.revision !== properties.score.revisionNumber
+  )
+    return (
+      <>
+        <p>版 {properties.score.revisionNumber ?? 1}</p>
+        <ValidatedScore key={(display?.generation ?? 0) + 1} canPlay={false} />
+      </>
+    );
+  if (display.kind === "error")
+    return <p role="alert">楽譜のデータを表示できません。修正が必要です。</p>;
+  if (display.kind === "partial")
     return (
       <Card
         as="section"
@@ -64,7 +204,7 @@ export function ShowScore(properties: {
                 <TableColumn>長さ（拍）</TableColumn>
               </TableHeader>
               <TableBody>
-                {partial.data.notes.slice(0, 50).map((note) => (
+                {display.data.notes.slice(0, 50).map((note) => (
                   <TableRow key={`${note.trackId}:${note.id}`}>
                     <TableCell>{note.trackId + 1}</TableCell>
                     <TableCell>
@@ -80,38 +220,70 @@ export function ShowScore(properties: {
         </CardBody>
       </Card>
     );
-  const parsed = sheetScoreSchema.safeParse(properties.score.data);
-  if (!parsed.success)
-    return <p role="alert">楽譜のデータを表示できません。修正が必要です。</p>;
-  if (parsed.data.notes.length === 0)
+  if (display.source.data.notes.length === 0)
     return <p>この楽譜には音符がありません。</p>;
   return (
     <>
       <p>版 {properties.score.revisionNumber ?? 1}</p>
-      {capabilities(parsed.data).reasons.map((r) => (
+      {display.capability.reasons.map((r) => (
         <p key={r.code} role="status">
           {r.message}
         </p>
       ))}
       <ValidatedScore
-        data={parsed.data}
-        canPlay={
-          (properties.canPlay ?? true) && capabilities(parsed.data).canPlayback
-        }
+        key={display.generation}
+        source={display.source}
+        canPlay={(properties.canPlay ?? true) && display.capability.canPlayback}
       />
     </>
   );
 }
-function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
+const ValidatedScore = memo(function ValidatedScore(properties: {
+  source?: SourceSnapshot;
+  canPlay: boolean;
+}) {
   const [soundfont2, setSoundfont2] = useState<Soundfont2>();
-  const scoreData = properties.data as unknown as ReturnType<
-    Sheet.Score["export"]
-  >;
-  const audio = useMemo(
-    () =>
-      properties.canPlay ? Sheet.Score.import(scoreData).toAudio() : undefined,
-    [scoreData, properties.canPlay],
+  const [smufl, setSmufl] = useState<Engraving.Score>();
+  const [renderReady, setRenderReady] = useState(false);
+  const [audio, setAudio] = useState<Audio.Score>();
+  const [playbackState, setPlaybackState] = useState<PlaybackState>("idle");
+  const hasPublished = useRef(false);
+  const prepareInitialScore = useCallback(
+    function* (score: Engraving.Score) {
+      if (
+        !hasPublished.current &&
+        properties.canPlay &&
+        typeof AudioContext !== "undefined"
+      )
+        yield* NoteHighlighter.initialSteps(score);
+    },
+    [properties.canPlay],
   );
+  const publishScore = useCallback((score: Engraving.Score) => {
+    hasPublished.current = true;
+    setSmufl(score);
+  }, []);
+  useEffect(() => {
+    if (!properties.canPlay || !smufl || audio) return;
+    const abort = new AbortController();
+    const prepare = async () => {
+      try {
+        await yieldToPaint(abort.signal);
+        // A frame callback's promise continuation still runs before that frame
+        // is submitted. Start secondary audio work in a fresh background task.
+        await yieldToTask(abort.signal, undefined, "background");
+        const next = await drainCooperatively(smufl.toAudioSteps(), {
+          signal: abort.signal,
+          priority: "background",
+        });
+        if (!abort.signal.aborted) setAudio(next);
+      } catch (error) {
+        if (!abort.signal.aborted) console.error(error);
+      }
+    };
+    prepare();
+    return () => abort.abort();
+  }, [smufl, audio, properties.canPlay]);
   const keyboard = useMemo(
     () =>
       properties.canPlay && audio && audio.notes.length > 0 && audio.keyRange
@@ -119,7 +291,6 @@ function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
         : undefined,
     [audio, properties.canPlay],
   );
-  const smufl = useMemo(() => Engraving.Score.import(scoreData), [scoreData]);
   const [controller, setController] = useState<BrowserAudio.Controller>();
   useEffect(() => {
     if (
@@ -142,29 +313,46 @@ function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
     return () => next.unmount();
   }, [audio, soundfont2, properties.canPlay]);
   useEffect(() => {
-    if (!controller) return;
+    if (!controller || !smufl || !renderReady) return;
     const highlighter = new NoteHighlighter(smufl, controller);
-    highlighter.highlight();
-    return () => highlighter.stop();
-  }, [controller, smufl]);
+    highlighter.highlight(playbackState === "playing");
+    // The same-source SVG remains visible while its replacement is prepared.
+    // Stop animation without invalidating the retained drawing's paint.
+    return () => highlighter.stop({ preserveClasses: true });
+  }, [controller, smufl, renderReady, playbackState]);
   useEffect(() => {
-    if (!properties.canPlay) return;
+    if (!properties.canPlay || !renderReady || soundfont2) return;
     const abort = new AbortController();
     fetch("/A320U.sf2", { signal: abort.signal })
       .then((response) => response.arrayBuffer())
-      .then((buffer) => {
+      .then(async (buffer) => {
+        await yieldToPaint(abort.signal);
         if (!abort.signal.aborted) setSoundfont2(Soundfont2.create(buffer));
       })
       .catch((error: unknown) => {
         if (!abort.signal.aborted) console.error(error);
       });
     return () => abort.abort();
-  }, [properties.canPlay]);
+  }, [properties.canPlay, renderReady, soundfont2]);
   return (
     <>
-      <ScoreViewer score={smufl} />
+      <ScoreViewer
+        source={properties.source}
+        onReady={publishScore}
+        onStatusChange={setRenderReady}
+        prepareInitialScore={prepareInitialScore}
+      />
       {properties.canPlay && audio && controller && (
-        <ScorePlayer score={audio} controller={controller} />
+        <div
+          inert={!renderReady}
+          style={{ visibility: renderReady ? "visible" : "hidden" }}
+        >
+          <ScorePlayer
+            score={audio}
+            controller={controller}
+            onStateChange={setPlaybackState}
+          />
+        </div>
       )}
       {properties.canPlay &&
         audio &&
@@ -173,4 +361,4 @@ function ValidatedScore(properties: { data: unknown; canPlay: boolean }) {
       {keyboard && <VirtualKeyboard keyboard={keyboard} />}
     </>
   );
-}
+});

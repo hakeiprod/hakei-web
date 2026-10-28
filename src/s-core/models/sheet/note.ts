@@ -39,9 +39,13 @@ export class Note extends Core.Note {
     throw new Error("Note width requires an engraving model.");
   }
   get track() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.noteTrack.get(this)!;
     return this.score.tracks.find((track) => track.id === this.trackId)!;
   }
   get stave() {
+    if (this.score.layoutIndex)
+      return this.score.layoutIndex.noteStave.get(this)!;
     return (
       this.score.staves.find(
         (stave) =>

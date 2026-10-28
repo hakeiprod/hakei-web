@@ -1,0 +1,55 @@
+{
+  "scope": "us2-jitless-final-browser",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 12,
+  "reviewedImages": 24,
+  "summary": {
+    "trials": 12,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 12,
+    "cold": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "redraws": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 24,
+      "maxMs": 115.0160000026226,
+      "medianMs": 79.0329999960959
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "svgRestored": 12,
+  "budgetsUnchanged": true
+}

@@ -23,6 +23,8 @@ test.each([4, 6])("fits the TAB clef inside a %s-string staff", (lines) => {
   );
   score.notes = [];
   score.chords = [];
+  // Explicit mutations require rebuilding the private relation index.
+  score.rebuildLayoutIndex();
   score.tracks[0].staffDetails = { "staff-lines": [{ _: lines }] };
   for (const stave of score.staves) stave.clefs = [{ sign: [{ _: "TAB" }] }];
   const controller = new Engraving.Controller(score, {

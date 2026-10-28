@@ -1,3 +1,4 @@
+import { measure } from "./layout-pass";
 import { firstBy, prop } from "remeda";
 import type * as Sheet from ".";
 import * as Core from "../core";
@@ -9,19 +10,30 @@ export class Slot extends Core.Event {
   previousSlot;
   score!: Sheet.Score;
   get chords() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.slotChords.get(this) ?? [])];
     return this.score.chords.filter((chords) => chords.start.equal(this.beat));
   }
   get width() {
     return this.minWidth + this.spacing;
   }
   get minWidth() {
-    return firstBy(this.chords, [prop("width"), "desc"])?.width ?? 0;
+    return measure(
+      this.score.layoutPass,
+      this,
+      "sheet/slot.ts:minWidth",
+      () => {
+        return firstBy(this.chords, [prop("width"), "desc"])?.width ?? 0;
+      },
+    );
   }
   get height() {
     return 4;
   }
   get x(): number {
-    return (this.previousSlot?.x ?? 0) + (this.previousSlot?.width ?? 0);
+    return measure(this.score.layoutPass, this, "sheet/slot.ts:x", () => {
+      return (this.previousSlot?.x ?? 0) + (this.previousSlot?.width ?? 0);
+    });
   }
   constructor({ beat, previousSlot }: { beat: Beat; previousSlot?: Slot }) {
     super({ start: beat, end: beat });

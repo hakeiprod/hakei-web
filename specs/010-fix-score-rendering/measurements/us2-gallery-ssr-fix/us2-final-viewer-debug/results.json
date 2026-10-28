@@ -1,0 +1,72 @@
+{
+  "results": [
+    {
+      "fixture": "original",
+      "layout": "横スクロール",
+      "pass": true,
+      "sourceIds": 5540,
+      "sourceIdsSha256": "977d5a12638e0fc6fdb457916d56173d7647976dc3c06292af90ac6be26fc7c2",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "8cb9e14a834e417def15a7dd6d6698833ab0cf7781b53481d98685707c399993",
+      "debugBoundsOn": 11479,
+      "errors": []
+    },
+    {
+      "fixture": "original",
+      "layout": "縦スクロール",
+      "pass": true,
+      "sourceIds": 5540,
+      "sourceIdsSha256": "977d5a12638e0fc6fdb457916d56173d7647976dc3c06292af90ac6be26fc7c2",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "df64e3724126b8a43d6a6d31f46d464d48b5da75751450065fe468ea6d90bed1",
+      "debugBoundsOn": 11479,
+      "errors": []
+    },
+    {
+      "fixture": "original",
+      "layout": "ページ",
+      "pass": true,
+      "sourceIds": 72,
+      "sourceIdsSha256": "e897b678d419233ee5a946994f233c2097080bf0c72ba26bcc83e5abb4b10a2f",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "4616483d45ecda63e66bb09f0c62d715c6d77a1a5da775f31bf050daabd345d8",
+      "debugBoundsOn": 175,
+      "errors": []
+    },
+    {
+      "fixture": "quarter",
+      "layout": "横スクロール",
+      "pass": true,
+      "sourceIds": 2,
+      "sourceIdsSha256": "c30db52192c6c3e0c4b9ebd0a50f1d96c5850f7010b6a9ad6d0990dee174ed8c",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "e3eca2d0a973aba86e3491c785ede6184877750255a74b310c948c3c8052f4bb",
+      "debugBoundsOn": 5,
+      "errors": []
+    },
+    {
+      "fixture": "quarter",
+      "layout": "縦スクロール",
+      "pass": true,
+      "sourceIds": 2,
+      "sourceIdsSha256": "c30db52192c6c3e0c4b9ebd0a50f1d96c5850f7010b6a9ad6d0990dee174ed8c",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "e3eca2d0a973aba86e3491c785ede6184877750255a74b310c948c3c8052f4bb",
+      "debugBoundsOn": 5,
+      "errors": []
+    },
+    {
+      "fixture": "quarter",
+      "layout": "ページ",
+      "pass": true,
+      "sourceIds": 2,
+      "sourceIdsSha256": "c30db52192c6c3e0c4b9ebd0a50f1d96c5850f7010b6a9ad6d0990dee174ed8c",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "82ad522713b3ed99dbeeb09f94e1a8b24a0be8d76360e09dfed4d407ba9a9ff8",
+      "debugBoundsOn": 5,
+      "errors": []
+    }
+  ],
+  "pass": true,
+  "purpose": "Actual production Viewer debug ON/OFF and source IDs, separate from timing acceptance"
+}

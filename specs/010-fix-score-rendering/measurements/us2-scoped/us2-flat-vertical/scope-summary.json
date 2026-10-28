@@ -1,0 +1,43 @@
+{
+  "scope": "us2-flat-vertical",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 5,
+  "reviewedImages": 40,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 3876.9490000009537,
+      "medianMs": 3800.1980000026524
+    },
+    "redraws": {
+      "count": 10,
+      "maxMs": 4300.203999999911,
+      "medianMs": 4168.830999998376
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 25,
+      "maxMs": 93.59200000017881,
+      "medianMs": 51.5080000013113
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-12-0",
+      "maxMs": 3876.9490000009537,
+      "fixedThresholdMs": null,
+      "pass": true
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

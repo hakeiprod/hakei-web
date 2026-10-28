@@ -1,0 +1,1644 @@
+{
+  "purpose": "Five fresh model processes per fixed condition; exact hashes against established independent Document/SVG references.",
+  "trials": 480,
+  "expectedTrials": 480,
+  "conditions": [
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1946.8283799999995,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 2057.8303009999995,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1990.2608349999996,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1808.7783290000002,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1834.1377479999996,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1942.8108770000003,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1895.0242110000004,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1848.2888309999998,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1889.0795650000005,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1914.350926,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1927.996412,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "naitoobunaitsu-bitomario",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 1972.8047720000004,
+      "fixedThresholdMs": null,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.741440000000011,
+      "fixedThresholdMs": 34.74347999999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.488037000000077,
+      "fixedThresholdMs": 33.61046499999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.87206900000001,
+      "fixedThresholdMs": 33.03204100000005,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.40019600000005,
+      "fixedThresholdMs": 33.47031199999992,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.644907999999987,
+      "fixedThresholdMs": 33.455528999999956,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.453955999999835,
+      "fixedThresholdMs": 33.6840390000001,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.716032999999925,
+      "fixedThresholdMs": 33.175632000000064,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.0874409999999,
+      "fixedThresholdMs": 33.71165499999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.669619000000012,
+      "fixedThresholdMs": 32.49367700000005,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.698020000000042,
+      "fixedThresholdMs": 33.005611000000044,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.660425000000032,
+      "fixedThresholdMs": 32.32646299999999,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "quarter_middle_c",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.571114999999963,
+      "fixedThresholdMs": 33.28656699999999,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 21.01299999999992,
+      "fixedThresholdMs": 73.52087700000004,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.87531100000001,
+      "fixedThresholdMs": 74.89004499999987,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 18.78205600000001,
+      "fixedThresholdMs": 73.2967339999999,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.37876899999992,
+      "fixedThresholdMs": 70.444705,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 18.64742799999999,
+      "fixedThresholdMs": 71.01066500000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.122875000000022,
+      "fixedThresholdMs": 73.60245000000009,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.666587000000163,
+      "fixedThresholdMs": 72.23227799999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.138356999999814,
+      "fixedThresholdMs": 71.63926900000001,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 20.30679800000007,
+      "fixedThresholdMs": 47.18291599999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.27514999999994,
+      "fixedThresholdMs": 47.615058999999974,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.11183700000015,
+      "fixedThresholdMs": 50.45259599999997,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "triple_grand_staff",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.49105600000007,
+      "fixedThresholdMs": 76.88285399999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.992727000000059,
+      "fixedThresholdMs": 34.84457499999996,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.042796999999837,
+      "fixedThresholdMs": 37.10931800000003,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 18.37877299999991,
+      "fixedThresholdMs": 35.041372000000024,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.33276499999988,
+      "fixedThresholdMs": 34.24652500000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 19.69713899999988,
+      "fixedThresholdMs": 33.734500000000025,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.624379999999974,
+      "fixedThresholdMs": 34.58333600000003,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.506474000000026,
+      "fixedThresholdMs": 34.61043700000005,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.34596499999998,
+      "fixedThresholdMs": 34.421925999999985,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.167402999999922,
+      "fixedThresholdMs": 35.01063499999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.990448000000015,
+      "fixedThresholdMs": 36.303363999999874,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 18.16305699999998,
+      "fixedThresholdMs": 38.00672300000019,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "cross-bar",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.472631999999976,
+      "fixedThresholdMs": 35.24398199999996,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.04645400000004,
+      "fixedThresholdMs": 32.530249000000026,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.44657600000005,
+      "fixedThresholdMs": 31.767753999999968,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.772879999999986,
+      "fixedThresholdMs": 33.09153900000001,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.512827000000016,
+      "fixedThresholdMs": 32.59651699999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.12875299999996,
+      "fixedThresholdMs": 32.41110600000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.109353000000056,
+      "fixedThresholdMs": 34.21050800000012,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.548216000000139,
+      "fixedThresholdMs": 31.979681000000028,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.93591699999979,
+      "fixedThresholdMs": 33.84288700000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.679807999999866,
+      "fixedThresholdMs": 32.03666799999996,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.449305000000095,
+      "fixedThresholdMs": 36.47858599999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.498760999999831,
+      "fixedThresholdMs": 35.06751499999996,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-strings",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.644316000000117,
+      "fixedThresholdMs": 31.686732000000006,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.760555000000068,
+      "fixedThresholdMs": 30.68999299999996,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.985566999999946,
+      "fixedThresholdMs": 31.43263300000001,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.27793100000008,
+      "fixedThresholdMs": 31.50213999999994,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.56115900000009,
+      "fixedThresholdMs": 33.13801999999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.85207000000014,
+      "fixedThresholdMs": 30.856809,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 13.672113999999965,
+      "fixedThresholdMs": 31.17892800000004,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.345342000000073,
+      "fixedThresholdMs": 32.647411000000034,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.925173000000086,
+      "fixedThresholdMs": 31.16361100000006,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 14.127240000000029,
+      "fixedThresholdMs": 30.924198000000047,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.236450999999988,
+      "fixedThresholdMs": 30.665272999999956,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.33484199999998,
+      "fixedThresholdMs": 30.688173000000006,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "snare",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 12.651857999999947,
+      "fixedThresholdMs": 30.799413999999956,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.963490999999976,
+      "fixedThresholdMs": 33.80479200000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.764826000000085,
+      "fixedThresholdMs": 35.925613,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.847577999999885,
+      "fixedThresholdMs": 34.45308,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.614753999999948,
+      "fixedThresholdMs": 36.03706599999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.3588400000001,
+      "fixedThresholdMs": 33.94386199999997,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.664393000000018,
+      "fixedThresholdMs": 33.81256500000006,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.622952999999825,
+      "fixedThresholdMs": 34.17508799999996,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.977629000000206,
+      "fixedThresholdMs": 34.05128100000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.914478000000145,
+      "fixedThresholdMs": 33.75286100000005,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.221848000000136,
+      "fixedThresholdMs": 38.01999799999999,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.230212000000165,
+      "fixedThresholdMs": 33.76186300000006,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "simultaneous-conflict",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.684704999999894,
+      "fixedThresholdMs": 34.50430800000004,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.886412999999948,
+      "fixedThresholdMs": 35.90068499999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.466091000000006,
+      "fixedThresholdMs": 33.161833,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.444889999999987,
+      "fixedThresholdMs": 33.85466799999995,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Horizontal",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.011664999999994,
+      "fixedThresholdMs": 34.942928999999936,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.86135800000011,
+      "fixedThresholdMs": 44.89558699999998,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.290027999999893,
+      "fixedThresholdMs": 34.54421000000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.468024999999898,
+      "fixedThresholdMs": 34.55177800000001,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Vertical",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.445306999999957,
+      "fixedThresholdMs": 34.77509000000009,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.330393999999842,
+      "fixedThresholdMs": 33.47742000000005,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 1280,
+          "height": 900
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 15.359592999999904,
+      "fixedThresholdMs": 33.586952999999994,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        12
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 16.523370999999997,
+      "fixedThresholdMs": 32.92281300000002,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    },
+    {
+      "condition": [
+        "beam-primary",
+        "Page",
+        {
+          "width": 360,
+          "height": 800
+        },
+        18
+      ],
+      "trials": 5,
+      "complete": 5,
+      "maxMs": 17.702933999999914,
+      "fixedThresholdMs": 34.46789799999999,
+      "absolutePass": true,
+      "nonWorseningPass": true
+    }
+  ],
+  "mismatches": [],
+  "allDocumentSVGMatch": true,
+  "modelTimingPass": true,
+  "referenceManifestSha256": "9762cdf570d2eacabb086ad30a11862fc197f1693b26964d0e221a6056133c80",
+  "performanceGoalsUnchanged": true
+}

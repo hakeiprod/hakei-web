@@ -1,18 +1,16 @@
 // @vitest-environment node
-import { readFile, readdir } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { Importer } from "../../../browser/importer";
 import { Score } from "../../../sheet";
+import manifest from "../../../../fixtures/import/musicxml-compatibility.json";
 
 const directory = "src/s-core/fixtures/files/musicxml";
-const entries = await readdir(directory);
-// Menuett has explicit repeat blockers; its preview/save contract is tested in import/menuett.test.ts.
-const fixtures = entries
-  .filter(
-    (name) =>
-      name.endsWith(".mxl") && name !== "Menuett_in_G-Dur_BWV_Anh._114.mxl",
-  )
-  .toSorted();
+// Independent real-file regressions are registered in the manifest and run in their dedicated suites.
+// Menuett has repeat blockers; its preview/save contract is tested in import/menuett.test.ts.
+const fixtures = manifest.legacy
+  .map(({ file }) => file)
+  .filter((name) => name !== "Menuett_in_G-Dur_BWV_Anh._114.mxl");
 
 beforeEach(() => vi.spyOn(console, "log").mockImplementation(() => {}));
 afterEach(() => vi.restoreAllMocks());

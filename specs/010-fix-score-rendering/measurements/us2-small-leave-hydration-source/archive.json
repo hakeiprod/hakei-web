@@ -1,0 +1,12 @@
+{
+  "sha256": "0e3edaa1fab9be0e205821b0e5eb9d1d23616e5f44cb8f22954bf1a93f9256a6",
+  "scope": "Renderer visibility gating and first client-commit drawing with stored options; SSR controls preserved; no env/storage files",
+  "changedSourceComparedToLayoutStart": [
+    "src/components/score-viewer.tsx",
+    "src/components/virtual-keyboard.tsx",
+    "src/components/score-viewer.test.tsx",
+    "src/components/virtual-keyboard.test.tsx"
+  ],
+  "modelsAndSeparateBarlineUnchanged": true,
+  "collectorUnchanged": true
+}

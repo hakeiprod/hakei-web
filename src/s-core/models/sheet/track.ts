@@ -1,3 +1,4 @@
+import { measure } from "./layout-pass";
 import { firstBy, prop } from "remeda";
 import * as Sheet from ".";
 import { StaffDetails } from "../../const/musicxml/4.0/musicxml";
@@ -10,10 +11,17 @@ export class Track extends Core.Track {
     return super.notes as Sheet.Note[];
   }
   get bars() {
+    if (this.score.layoutIndex)
+      return [...(this.score.layoutIndex.trackBars.get(this) ?? [])];
     return this.score.bars.filter((bar) => bar.trackId === this.id);
   }
   get height() {
-    return firstBy(this.bars, [prop("height"), "desc"])!.height;
+    return measure(
+      this.score.layoutPass,
+      this,
+      "track-height",
+      () => firstBy(this.bars, [prop("height"), "desc"])!.height,
+    );
   }
   get y(): number {
     return this.prev ? this.prev.y + this.prev.height + 6.5 : 0;

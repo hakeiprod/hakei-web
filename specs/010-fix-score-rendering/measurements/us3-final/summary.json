@@ -1,0 +1,31 @@
+{
+  "status": "T031-complete",
+  "trials": 10,
+  "runsPerFixture": 5,
+  "reviewedActions": 110,
+  "earlierFramesRejected": 35,
+  "candidateFramesExplicitlyReviewed": 145,
+  "fixedInputBudgetMs": 100,
+  "maxResponseMs": 93.43599998950958,
+  "medianResponseMs": 43.46899999678135,
+  "unmeasurableInputs": 0,
+  "functionalPass": true,
+  "staleSuccessFailureCases": 20,
+  "nativeScoreResizeObserverLeaks": 0,
+  "pageErrors": 0,
+  "unexpectedWrites": 0,
+  "coldMeasured": false,
+  "reviewerScope": "Ordinary frame reviewer validates selected Screenshot/Presentation IDs and clock offsets. Its generic cold-unmeasurable=10 is expected: this suite measures lifecycle input responses, not cold drawing. All 110 input clocks and frames are measurable.",
+  "resourceProof": "Native Score ResizeObserver=0 and stale result disposal; actual adapter binding/glyph callback, RAF, audio controller and keyboard cleanup additionally covered by unit regressions. Physical audio output/MIDI not verified.",
+  "byFixture": {
+    "quarter": {
+      "maxMs": 81.4759999960661,
+      "medianMs": 39.77099999785423
+    },
+    "original": {
+      "maxMs": 93.43599998950958,
+      "medianMs": 46.71500000357628
+    }
+  },
+  "sourceNotes": "Private Header/ShowScore and adapter control boundary; actual AudioContext/soundfont/keyboard preparation enabled. Driver feedback no longer causes unrelated parent/Header rerenders. New getter preserves original schema and exported music; no weakening of fixed goal."
+}

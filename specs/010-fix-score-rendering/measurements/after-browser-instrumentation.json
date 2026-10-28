@@ -1,0 +1,32 @@
+{
+  "purpose": "measurement-only; unchanged candidate mark placement from before series",
+  "capturedAt": "2026-10-27T03:54:46.685647+00:00",
+  "files": [
+    {
+      "path": "src/components/show-score.tsx",
+      "originalSha256": "e56e67156129d0e8e3d87265af05e0223edae43a3a0a229391b8d6e857f5eab7",
+      "instrumentedSha256": "d9093f11d68d7ee458de73795b75a7afb816419565ed2085d3f1778d66d8d7d7"
+    },
+    {
+      "path": "src/components/form-create-score.tsx",
+      "originalSha256": "03599d91244acc448229414df94ffaadf646cc96d5cf54d6ed4cb80be6c26ecc",
+      "instrumentedSha256": "fc8cb42b9a8210e7e48178f35e291bb40aab8eda01bc37e39bc4a86d663ea335"
+    },
+    {
+      "path": "src/s-core/models/browser/render-score.ts",
+      "originalSha256": "621475541d7e274521f8a1a08b20af8669bd9abb013245970e6d3ab1d354c63a",
+      "instrumentedSha256": "7d718857444f38324a79f4109c60f4cd47dd846fdcdfe48f2a037f323645aa60"
+    },
+    {
+      "path": "src/s-core/models/browser/validate-sheet-score.ts",
+      "originalSha256": "343df57bd0402292e428657d133996e925b9ad5ab3fffc09f851014f24094168",
+      "instrumentedSha256": "7116d4a2a12e91f015d63b1f9242a7ba4108bd2bf86e3c974163d0aff4a05786"
+    }
+  ],
+  "benchmarkOnlyBuildConfiguration": {
+    "typescript.ignoreBuildErrors": true,
+    "reason": "same pre-existing resource/[id] params build gate separation as before; product validation remains required",
+    "configSha256": "be82dfd84b88c25db09a6d2ec94e59a0f8bb4d0efba596e04c35323db3c7a4aa",
+    "bundler": "webpack, same as before-series private build"
+  }
+}

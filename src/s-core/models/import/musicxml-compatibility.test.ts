@@ -5,36 +5,46 @@ import { parseStringPromise, processors } from "xml2js";
 import MusicXML from "../files/musicxml";
 import { extractMxl } from "./mxl";
 import { convertScore } from "./convert";
+import manifest from "../../fixtures/import/musicxml-compatibility.json";
 const directory = "src/s-core/fixtures/files/musicxml/";
 const entries = await readdir(directory);
-const files = entries.filter((n) => n.endsWith(".mxl")).toSorted();
-it.each(files)("keeps legacy note semantics in %s", async (file) => {
-  const bytes = await readFile(directory + file);
-  const xml = await extractMxl(bytes);
-  const parsed = await parseStringPromise(new TextDecoder().decode(xml), {
-    explicitArray: true,
-    explicitCharkey: true,
-    explicitChildren: true,
-    preserveChildrenOrder: true,
-    valueProcessors: [processors.parseNumbers],
-    attrValueProcessors: [processors.parseNumbers],
-  });
-  const legacy = new MusicXML(parsed).toSheet().export();
-  const result = await convertScore({
-    bytes,
-    sourceName: file,
-    options: { mode: "PRESERVE" },
-  });
-  const notes = result.candidate.notes.map((n) => [
-    n.pitch,
-    "start" in n ? n.start : n.onset,
-    n.duration,
-    n.rest,
-  ]);
-  expect(notes).toEqual(
-    legacy.notes.map((n) => [n.pitch, n.start, n.duration, n.rest]),
+it("accounts for every MXL with an explicit legacy or independent regression", () => {
+  const registered = [...manifest.legacy, ...manifest.independent].map(
+    (entry) => entry.file,
   );
-  expect(result.metadata.formatVersion).toBe(
-    file === "Menuett_in_G-Dur_BWV_Anh._114.mxl" ? "3.0" : "4.0",
+  expect(new Set(registered).size).toBe(registered.length);
+  expect(registered.toSorted()).toEqual(
+    entries.filter((name) => name.endsWith(".mxl")).toSorted(),
   );
 });
+it.each(manifest.legacy)(
+  "keeps legacy note semantics in $file",
+  async ({ file, version }) => {
+    const bytes = await readFile(directory + file);
+    const xml = await extractMxl(bytes);
+    const parsed = await parseStringPromise(new TextDecoder().decode(xml), {
+      explicitArray: true,
+      explicitCharkey: true,
+      explicitChildren: true,
+      preserveChildrenOrder: true,
+      valueProcessors: [processors.parseNumbers],
+      attrValueProcessors: [processors.parseNumbers],
+    });
+    const legacy = new MusicXML(parsed).toSheet().export();
+    const result = await convertScore({
+      bytes,
+      sourceName: file,
+      options: { mode: "PRESERVE" },
+    });
+    const notes = result.candidate.notes.map((n) => [
+      n.pitch,
+      "start" in n ? n.start : n.onset,
+      n.duration,
+      n.rest,
+    ]);
+    expect(notes).toEqual(
+      legacy.notes.map((n) => [n.pitch, n.start, n.duration, n.rest]),
+    );
+    expect(result.metadata.formatVersion).toBe(version);
+  },
+);

@@ -1,0 +1,43 @@
+{
+  "scope": "us2-small-leave-before",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 5,
+  "reviewedImages": 40,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 110.3450000025332,
+      "medianMs": 91.66200000047684
+    },
+    "redraws": {
+      "count": 10,
+      "maxMs": 40.640999998897314,
+      "medianMs": 25.75649999640882
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 25,
+      "maxMs": 82.25699999928474,
+      "medianMs": 18.40599999949336
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 110.3450000025332,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": true
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

@@ -1,7 +1,14 @@
 import * as Engraving from "./";
 import * as Sheet from "../sheet";
 import type { Document } from "../document";
-import { toDocument, type ToDocumentOptions } from "./extensions/to-document";
+import { Tempo } from "../core/tempo";
+import { importScorePartsSteps } from "../sheet/import-score-parts";
+import { drainSteps } from "../sheet/render-steps";
+import {
+  toDocument,
+  toDocumentSteps,
+  type ToDocumentOptions,
+} from "./extensions/to-document";
 
 export class Score<
   Note extends Engraving.Note = Engraving.Note,
@@ -30,18 +37,27 @@ export class Score<
     return toDocument(this, options);
   }
 
+  *toDocumentSteps(options?: ToDocumentOptions) {
+    return yield* toDocumentSteps(this, options);
+  }
+
   static import(data: ReturnType<Score["export"]>) {
-    return new Score({
-      ...data,
-      ...super.import(data),
-      notes: data.notes.map(Engraving.Note.import),
-      tracks: data.tracks.map(Engraving.Track.import),
-      timesignatures: data.timesignatures.map(Engraving.Timesignature.import),
-      keysignatures: data.keysignatures.map(Engraving.Keysignature.import),
-      bars: data.bars.map(Engraving.Bar.import),
-      staves: data.staves.map(Engraving.Stave.import),
-      masterbars: data.masterbars.map(Engraving.Masterbar.import),
-      chords: data.chords.map(Engraving.Chord.import),
+    return drainSteps(Score.importSteps(data));
+  }
+  static *importSteps(data: ReturnType<Score["export"]>) {
+    const parts = yield* importScorePartsSteps(data, {
+      note: Engraving.Note.import,
+      track: Engraving.Track.import,
+      stave: Engraving.Stave.import,
+      bar: Engraving.Bar.import,
+      masterbar: Engraving.Masterbar.import,
+      chord: Engraving.Chord.import,
+      timesignature: Engraving.Timesignature.import,
+      keysignature: Engraving.Keysignature.import,
+      tempo: Tempo.import,
     });
+    const score = new Score({ ...data, ...parts }, true);
+    yield* score.initializeSteps();
+    return score;
   }
 }

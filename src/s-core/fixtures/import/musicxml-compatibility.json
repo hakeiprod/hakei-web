@@ -1,0 +1,79 @@
+{
+  "legacy": [
+    {
+      "file": "8th_middle_c.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "Menuett_in_G-Dur_BWV_Anh._114.mxl",
+      "version": "3.0"
+    },
+    {
+      "file": "beat_4.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "beat_8th.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "bpm_120.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "c_major_chord.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "c_major_scale_up.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "double_treble_track.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "f_clef.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "g_clef.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "piano_track.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "quarter_middle_c.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "tab.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "test.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "timesignature_4_4_to_3_4.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "triple_grand_staff.mxl",
+      "version": "4.0"
+    },
+    {
+      "file": "triple_treble_track.mxl",
+      "version": "4.0"
+    }
+  ],
+  "independent": [
+    {
+      "file": "naitoobunaitsu-bitomario.mxl",
+      "version": "3.1",
+      "test": "src/s-core/models/import/naitoobunaitsu.test.ts"
+    }
+  ]
+}

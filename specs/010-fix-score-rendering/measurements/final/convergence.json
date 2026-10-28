@@ -1,0 +1,29 @@
+{
+  "status": "converged",
+  "checked": {
+    "functionalRequirements": 11,
+    "successCriteria": 6,
+    "acceptanceScenarios": 9,
+    "planDecisions": 8,
+    "constitutionPrinciples": 7,
+    "tasks": 36
+  },
+  "findings": [],
+  "priorFinding": {
+    "id": "F1",
+    "severity": "LOW",
+    "gapType": "partial",
+    "source": "T031 / FR-010",
+    "task": "T036",
+    "resolution": "Existing T031 evidence aggregated at the specified us3-results.json;10 trials/110 measurable inputs and archive hash/references validated. No new measurement."
+  },
+  "finalConvergeChangedTasks": false,
+  "taskSha256": "10ed66148a8d98aa1404462c9c164e58754f4220576e1e61f518d05a1b38fd16",
+  "beforeAfterImplementHooks": "No extensions.yml",
+  "beforeAfterConvergeHooks": "No extensions.yml",
+  "nextAction": "Review implementation diff, validation.md and final-results.json. No further implementation pass required for this feature scope.",
+  "limits": [
+    "Physical audio/MIDI unverified.",
+    "Old quarter-sheet/Core padded-rest tempo boundary remains separately unresolved; official target MXLs unaffected."
+  ]
+}

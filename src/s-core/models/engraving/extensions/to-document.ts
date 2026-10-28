@@ -1,6 +1,11 @@
+import {
+  drainSteps,
+  mapSteps,
+  type RenderSteps,
+} from "../../sheet/render-steps";
 import { staffY } from "../notation/staff-geometry";
 import { staffSegments } from "../notation/tablature";
-import { attachTies } from "../notation/ties";
+import { attachTiesSteps } from "../notation/ties";
 import { barlineEndInset, chordStem, type StemGeometry } from "../geometry";
 import type { LayoutGlyph } from "../layout/glyph";
 import BravuraMetadata from "../../../const/bravura/bravura_metadata.json";
@@ -123,11 +128,12 @@ function debugBounds(
   });
 }
 
-function staveStems(stave: Engraving.Stave) {
+function* staveStems(stave: Engraving.Stave) {
   const stems = new Map<number, StemGeometry>();
   for (const chord of stave.chords as Engraving.Chord[]) {
     const stem = chordStem(chord);
     if (stem) stems.set(chord.id, stem);
+    yield;
   }
   // Use the primary beam's slope for every stem in its group, including inner chords.
   for (const beam of stave.beamGroups.filter((beam) => beam.level === 0)) {
@@ -139,6 +145,7 @@ function staveStems(stave: Engraving.Stave) {
     const y1 = first.end.y;
     const y2 = last.end.y;
     for (const id of beam.chordIds) {
+      yield;
       const stem = stems.get(id);
       const chord = stave.chords.find((chord) => chord.id === id);
       if (!stem || !chord) continue;
@@ -149,7 +156,7 @@ function staveStems(stave: Engraving.Stave) {
   return stems;
 }
 
-function chordToDocument(
+function* chordToDocument(
   chord: Engraving.Chord,
   source: Drawing.Source,
   debug: boolean,
@@ -171,6 +178,7 @@ function chordToDocument(
       ),
     );
   for (const note of chord.notes) {
+    yield;
     const noteSource = { ...source, noteId: note.id };
     const glyphs: Drawing.Element[] = [
       ...note.accidentalGlyphs.map((glyph) =>
@@ -235,9 +243,13 @@ function chordToDocument(
   children.push(
     group(
       "dots",
-      chord.notes.map((note) =>
-        ligatureToDocument(note.dotLigature, { ...source, noteId: note.id }),
-      ),
+      yield* mapSteps(chord.notes, function* (note) {
+        yield;
+        return ligatureToDocument(note.dotLigature, {
+          ...source,
+          noteId: note.id,
+        });
+      }),
       source,
     ),
     group(
@@ -294,16 +306,18 @@ function barlinesToDocument(
   return group("barlines", lines, source);
 }
 
-function beamsToDocument(
+function* beamsToDocument(
   stave: Engraving.Stave,
   source: Drawing.Source,
   stems: Map<number, StemGeometry>,
 ) {
   const spacing = engraving.beamThickness + engraving.beamSpacing;
-  return stave.beamGroups.flatMap((beam) => {
+  const elements: Drawing.Element[] = [];
+  for (const beam of stave.beamGroups) {
+    yield;
     const first = stems.get(beam.firstChord.id);
     const last = stems.get(beam.lastChord.id);
-    if (!first || !last) return [];
+    if (!first || !last) continue;
     const offset = (first.direction === "up" ? 1 : -1) * beam.level * spacing;
     const start = {
       x: stave.headerWidth + beam.firstChord.slot.x + first.end.x,
@@ -338,16 +352,17 @@ function beamsToDocument(
       end.x += length;
       end.y += length * slope;
     }
-    return [
+    elements.push(
       new Drawing.Line(start, end, engraving.beamThickness, {
         role: "beam",
         source,
       }),
-    ];
-  });
+    );
+  }
+  return elements;
 }
 
-function slotToDocument(
+function* slotToDocument(
   slot: Engraving.Slot,
   stave: Engraving.Stave,
   source: Drawing.Source,
@@ -364,28 +379,27 @@ function slotToDocument(
         slot.export(),
       ),
     );
-  children.push(
-    ...slot
-      .getTrackStaveChords(stave.trackId, stave.id)
-      .map((chord) =>
-        chordToDocument(
-          chord,
-          { ...source, chordId: chord.id },
-          debug,
-          stems.get(chord.id),
-        ),
+  for (const chord of slot.getTrackStaveChords(stave.trackId, stave.id)) {
+    children.push(
+      yield* chordToDocument(
+        chord,
+        { ...source, chordId: chord.id },
+        debug,
+        stems.get(chord.id),
       ),
-  );
+    );
+    yield;
+  }
   return group("slot", children, source, { x: slot.x, y: 0 });
 }
 
-function staveToDocument(
+function* staveToDocument(
   stave: Engraving.Stave,
   masterbar: Engraving.Masterbar,
   source: Drawing.Source,
   debug: boolean,
 ) {
-  const stems = staveStems(stave);
+  const stems = yield* staveStems(stave);
   const word = group(
     "word",
     stave.word.glyphOrLigatureLists
@@ -410,17 +424,19 @@ function staveToDocument(
   });
   const slots = group(
     "slots",
-    uniqueSlots.map((slot) =>
-      slotToDocument(slot, stave, source, debug, stems),
-    ),
+    yield* mapSteps(uniqueSlots, function* (slot) {
+      return yield* slotToDocument(slot, stave, source, debug, stems);
+    }),
     source,
     { x: stave.headerWidth, y: 0 },
   );
-  const staff = Array.from({ length: stave.height + 1 }, (_, y) => {
+  const staff: Drawing.Element[] = [];
+  for (const y of Array.from({ length: stave.height + 1 }, (_, y) => y)) {
     const gaps: [number, number][] = [];
     for (const slot of uniqueSlots)
       for (const chord of slot.getTrackStaveChords(stave.trackId, stave.id))
-        for (const note of chord.notes)
+        for (const note of chord.notes) {
+          yield;
           if (note.fretRun && note.tablature?.string === y + 1) {
             const x =
               stave.headerWidth +
@@ -430,25 +446,29 @@ function staveToDocument(
               note.glyph.spaceLeft;
             gaps.push([x - 0.15, x + note.fretRun.width + 0.15]);
           }
-    return staffSegments(masterbar.width, gaps).map(
-      ([a, b]) =>
-        new Drawing.Line(
-          { x: a, y },
-          { x: b, y },
-          engraving.staffLineThickness,
-          { role: "staff-line", source },
-        ),
+        }
+    staff.push(
+      ...staffSegments(masterbar.width, gaps).map(
+        ([a, b]) =>
+          new Drawing.Line(
+            { x: a, y },
+            { x: b, y },
+            engraving.staffLineThickness,
+            { role: "staff-line", source },
+          ),
+      ),
     );
-  }).flat();
+    yield;
+  }
   return group(
     "stave",
-    [word, slots, ...staff, ...beamsToDocument(stave, source, stems)],
+    [word, slots, ...staff, ...(yield* beamsToDocument(stave, source, stems))],
     source,
     { x: 0, y: stave.y },
   );
 }
 
-function masterbarToDocument(
+function* masterbarToDocument(
   masterbar: Engraving.Masterbar,
   row: Engraving.Row,
   score: Engraving.Score,
@@ -467,46 +487,46 @@ function masterbarToDocument(
     );
   for (const track of score.tracks) {
     const trackSource = { ...source, trackId: track.id };
-    const bars = track
-      .getMasterbarBars(masterbar.id)
-      .map((bar) =>
-        group(
-          "bar",
-          [
-            barlinesToDocument(bar, masterbar, trackSource),
-            ...bar.staves.map((stave) =>
-              staveToDocument(
-                stave,
-                masterbar,
-                { ...trackSource, staveId: stave.id },
-                debug,
-              ),
-            ),
-          ],
-          trackSource,
-        ),
-      );
+    const bars: Drawing.Element[] = [];
+    for (const bar of track.getMasterbarBars(masterbar.id)) {
+      const children: Drawing.Element[] = [
+        barlinesToDocument(bar, masterbar, trackSource),
+      ];
+      for (const stave of bar.staves) {
+        children.push(
+          yield* staveToDocument(
+            stave,
+            masterbar,
+            { ...trackSource, staveId: stave.id },
+            debug,
+          ),
+        );
+        yield;
+      }
+      bars.push(group("bar", children, trackSource));
+      yield;
+    }
     children.push(group("track", bars, trackSource, { x: 0, y: track.y }));
   }
   return group("masterbar", children, source, { x: masterbar.x, y: 0 });
 }
 
-function rowToDocument(
+function* rowToDocument(
   row: Engraving.Row,
   score: Engraving.Score,
   debug: boolean,
 ) {
   return group(
     "row",
-    row.masterbars.map((masterbar) =>
-      masterbarToDocument(masterbar, row, score, debug),
-    ),
+    yield* mapSteps(row.masterbars, function* (masterbar) {
+      return yield* masterbarToDocument(masterbar, row, score, debug);
+    }),
     { rowId: row.id },
     { x: 0, y: row.y },
   );
 }
 
-function paginateRows(
+function* paginateRows(
   rows: Drawing.Group[],
   systems: readonly Sheet.Row[],
   { width, height, margin }: PageLayout,
@@ -538,6 +558,7 @@ function paginateRows(
     pageWidth = Math.max(pageWidth, system.width + margin * 2);
     pageHeight = Math.max(pageHeight, y + system.height + margin);
     y += system.height + rowSpacing;
+    yield;
   }
   if (elements.length > 0 || pages.length === 0) finishPage();
   return pages;
@@ -548,6 +569,13 @@ export function toDocument(
   score: Engraving.Score,
   options: ToDocumentOptions = {},
 ) {
+  return drainSteps(toDocumentSteps(score, options));
+}
+
+export function* toDocumentSteps(
+  score: Engraving.Score,
+  options: ToDocumentOptions = {},
+): RenderSteps<Drawing.Document> {
   if (score.tracks.length === 0 && score.notes.length === 0)
     return new Drawing.Document([
       new Drawing.Page(
@@ -569,13 +597,13 @@ export function toDocument(
     row.notationTop = 0;
     row.notationBottom = 0;
   }
-  const rows = attachTies(
-    score,
-    score.rows.map((row) => rowToDocument(row, score, options.debug ?? false)),
-  );
+  const detachedRows = yield* mapSteps(score.rows, function* (row) {
+    return yield* rowToDocument(row, score, options.debug ?? false);
+  });
+  const rows = yield* attachTiesSteps(score, detachedRows);
   if (options.pageLayout)
     return new Drawing.Document(
-      paginateRows(rows, score.rows, options.pageLayout),
+      yield* paginateRows(rows, score.rows, options.pageLayout),
     );
   return new Drawing.Document([
     new Drawing.Page(score.width, score.height, rows),

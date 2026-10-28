@@ -525,3 +525,75 @@ it(
     }),
   20_000,
 );
+
+it(
+  "preserves the actual naitoobunaitsu 3.1 preview through worker, signature, DB and Git readback",
+  async () =>
+    withCollaboration(async (fixture) => {
+      const { runImportWorker } = await import("./import-worker");
+      const { readScore } = await import("./score-reader");
+      const name = "naitoobunaitsu-bitomario.mxl";
+      const result = await runImportWorker({
+        bytes: await readFile(`src/s-core/fixtures/files/musicxml/${name}`),
+        sourceName: name,
+        options: { mode: "PRESERVE" },
+      });
+      expect(result.metadata.formatVersion).toBe("3.1");
+      expect(result.candidate.notes).toHaveLength(5540);
+      expect(result.validation).toMatchObject({
+        canPractice: true,
+        canGame: true,
+      });
+      const input = {
+        candidate: result.candidate,
+        issues: result.issues,
+        metadata: result.metadata,
+        repositoryId: fixture.repositoryId,
+        previewToken: signPreview(fixture.ownerId, result, secret),
+        acknowledgedIssueIds: result.issues
+          .filter(
+            (issue) =>
+              issue.severity !== "INFO" && issue.status === "UNRESOLVED",
+          )
+          .map((issue) => issue.id),
+        key: "import-naitoobunaitsu",
+      };
+      const saved = (await saveImport(
+        fixture.database,
+        fixture.git,
+        fixture.ownerId,
+        input,
+        secret,
+      )) as { scoreId: number; revisionId: string; commitOid: string };
+      const dto = await readScore(
+        fixture.database,
+        fixture.git,
+        saved.scoreId,
+        fixture.ownerId,
+      );
+      expect(dto.data).toEqual(result.candidate);
+      expect(dto.artifacts?.metadata).toEqual(result.metadata);
+      expect(dto.artifacts?.issues).toEqual(result.issues);
+      expect(dto.artifacts?.validation).toEqual(result.validation);
+      expect(
+        await fixture.database.importMetadata.findUnique({
+          where: { revisionId: saved.revisionId },
+        }),
+      ).toMatchObject({ formatVersion: "3.1", sourceName: name });
+      expect(
+        await fixture.database.conversionIssue.count({
+          where: { revisionId: saved.revisionId },
+        }),
+      ).toBe(312);
+      expect(
+        await saveImport(
+          fixture.database,
+          fixture.git,
+          fixture.ownerId,
+          input,
+          secret,
+        ),
+      ).toEqual(saved);
+    }),
+  30_000,
+);

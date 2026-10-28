@@ -1,0 +1,54 @@
+{
+  "status": "full-96-condition-browser-pass-T025-other-validation-pending",
+  "conditions": 96,
+  "runsPerCondition": 5,
+  "trials": 480,
+  "explicitlyReviewedScenes": 3890,
+  "explicitlyReviewedPageCounters": 50,
+  "source": "../../us2-native-scale-source",
+  "rootMatchesMeasuredSource": true,
+  "collectorUnchanged": true,
+  "phase": "after",
+  "validationPass": true,
+  "scopeTimingPass": true,
+  "fullBrowserPass": true,
+  "fullUS2Pass": null,
+  "summary": {
+    "trials": 480,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 480,
+      "maxMs": 3529.127999998629,
+      "medianMs": 73.6684999987483
+    },
+    "redraws": {
+      "count": 960,
+      "maxMs": 3568.997999995947,
+      "medianMs": 31.59800000488758
+    },
+    "pageNavigation": {
+      "count": 50,
+      "maxMs": 53.01699999719858,
+      "medianMs": 21.34349999949336
+    },
+    "inputs": {
+      "count": 2450,
+      "maxMs": 88.44500000029802,
+      "medianMs": 21.600999999791384
+    }
+  },
+  "nonWorsening": {
+    "finiteConditionsPassed": 84,
+    "finiteConditionsFailed": 0,
+    "allCutoffOriginalBaselineConditions": 12,
+    "allAbsoluteBudgetsPassed": true
+  },
+  "svgRestored": 480,
+  "budgetsUnchanged": true,
+  "problemQuarterHorizontal360Scale18ColdMaxMs": 67.46800000220537,
+  "problemQuarterFixedColdThresholdMs": 112.89399999380112,
+  "reviewMethod": "Each of 96 condition sheets compares all five runs against each run own reference. All 3890 selected screenshots explicitly visually checked; all 50 page counter crops additionally checked. Crop-error and blue-ring detection are advisory only, never acceptance. Selection independent of budgets. Earlier unclear/mismatched candidates not used as success; selected later matching pictures are conservative upper bounds if earliest match not established. Raw images, frame identity/SHA, clocks, source and trace retained.",
+  "next": "Independent old-algorithm full Document/SVG comparison with only separately authorized barline overlay, gallery/debug/import-save-reopen workflow. Keep T025 unchecked until remaining checks pass."
+}

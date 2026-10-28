@@ -1,6 +1,10 @@
 import { prisma } from "@/prisma";
 
-export default async function Reosurce({ params }: { params: { id: string } }) {
+export default async function Reosurce({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = await params;
   const resource = await prisma.resource.findUnique({
     where: { id: Number(id) },

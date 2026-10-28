@@ -1,0 +1,12 @@
+{
+  "purpose": "Exact match against private authentication/import secrets, database URLs and browser cookie values; values never written to this report.",
+  "scopes": [
+    "us2-scoped/us2-navigation-original",
+    "us2-scoped/us2-navigation-priority-original",
+    "us2-navigation-cancel",
+    "us2-navigation-priority-cancel"
+  ],
+  "filesAndArchiveMembers": 6984,
+  "matches": [],
+  "pass": true
+}

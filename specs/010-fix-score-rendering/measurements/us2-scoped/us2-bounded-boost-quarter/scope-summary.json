@@ -1,0 +1,43 @@
+{
+  "scope": "us2-bounded-boost-quarter",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 5,
+  "reviewedImages": 40,
+  "summary": {
+    "trials": 5,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 5,
+      "maxMs": 105.36600000038743,
+      "medianMs": 103.12999999895692
+    },
+    "redraws": {
+      "count": 10,
+      "maxMs": 28.250999998301268,
+      "medianMs": 25.597499998286366
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 25,
+      "maxMs": 40.909000001847744,
+      "medianMs": 19.859000001102686
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 105.36600000038743,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": true
+    }
+  ],
+  "svgRestored": 5,
+  "budgetsUnchanged": true
+}

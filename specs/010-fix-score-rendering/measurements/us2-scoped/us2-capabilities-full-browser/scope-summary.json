@@ -1,0 +1,445 @@
+{
+  "scope": "us2-capabilities-full-browser",
+  "fullUS2Pass": null,
+  "scopeTimingPass": false,
+  "trials": 336,
+  "reviewedImages": 1,
+  "summary": {
+    "trials": 336,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 335,
+    "cold": {
+      "count": 1,
+      "maxMs": 127.02500000037253,
+      "medianMs": 127.02500000037253
+    },
+    "redraws": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "naitoobunaitsu-bitomario-Page-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": null,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 238.87560001015663,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 149.47200000286102,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 132.92880000472067,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 174.11999999284743,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 150.47160000801085,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 117.8369999974966,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 113.66499999165535,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 145.04039999842644,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 146.36160001158714,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 135.22200000286102,
+      "pass": false
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 129.88919999599457,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 185.2776000022888,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 164.1527999997139,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 152.08320000171662,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 154.59599999785422,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 186.91919998526572,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 166.96439999341965,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 155.57999998927116,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 182.36760000586509,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Page-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 150.9360000014305,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Page-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 152.70839999914168,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Page-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 130.38119999170303,
+      "pass": false
+    },
+    {
+      "condition": "triple_grand_staff-Page-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 160.6092000067234,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 149.2332000017166,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 145.98839998841285,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 130.31639998555184,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 138.82439998984336,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 143.6664000034332,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 151.15800000429152,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 129.9767999947071,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 132.62879998683928,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Page-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 152.88960000872612,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Page-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 151.8611999988556,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Page-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 129.92639999985695,
+      "pass": false
+    },
+    {
+      "condition": "cross-bar-Page-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 132.09839998483656,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 151.68479999899864,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 167.25599999427794,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 139.10400000214577,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 128.57880000472068,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 145.97519999742508,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 139.6547999918461,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 139.79039999842644,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 123.28199999928474,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Page-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 142.27080000042915,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Page-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 150.0767999947071,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 124.14479999542236,
+      "pass": false
+    },
+    {
+      "condition": "simultaneous-strings-Page-360x800-18-0",
+      "maxMs": 127.02500000037253,
+      "fixedThresholdMs": 125.77080000042915,
+      "pass": false
+    },
+    {
+      "condition": "snare-Horizontal-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 118.78100000321865,
+      "pass": false
+    },
+    {
+      "condition": "snare-Horizontal-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 122.94120000600815,
+      "pass": false
+    },
+    {
+      "condition": "snare-Horizontal-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 106.69200000166893,
+      "pass": false
+    },
+    {
+      "condition": "snare-Horizontal-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 114.73000000417233,
+      "pass": false
+    },
+    {
+      "condition": "snare-Vertical-1280x900-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 144.7332000017166,
+      "pass": false
+    },
+    {
+      "condition": "snare-Vertical-1280x900-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 132.63479999899863,
+      "pass": false
+    },
+    {
+      "condition": "snare-Vertical-360x800-12-0",
+      "maxMs": null,
+      "fixedThresholdMs": 108.75200000405312,
+      "pass": false
+    },
+    {
+      "condition": "snare-Vertical-360x800-18-0",
+      "maxMs": null,
+      "fixedThresholdMs": 114.49000000953674,
+      "pass": false
+    }
+  ],
+  "svgRestored": 336,
+  "budgetsUnchanged": true
+}

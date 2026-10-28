@@ -1,0 +1,10 @@
+{
+  "purpose": "Exact match against private authentication/import secrets, database URLs and browser cookie values; values never written to this report.",
+  "scopes": [
+    "us2-scoped/us2-hit-target-final-browser",
+    "us2-hit-target-final-surface-comparison"
+  ],
+  "filesAndArchiveMembers": 27775,
+  "matches": [],
+  "pass": true
+}

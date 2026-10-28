@@ -1,0 +1,11 @@
+{
+  "sha256": "c8db547a1fe568681b4dbf19c72453fc884e4d4fbbeb152430799ed7c77c644c",
+  "scope": "Native numeric scale input with HeroUI styling; viewport-independent horizontal startup; no env/storage files or extra diagnostic marks",
+  "changedSourceComparedToSmallLeaveHydration": [
+    "src/components/score-viewer.tsx",
+    "src/components/score-viewer.test.tsx",
+    "src/components/score-viewer-controls.test.tsx"
+  ],
+  "allModelsSVGGenerationSeparateBarlineUnchanged": true,
+  "collectorAndCanonicalMarksUnchanged": true
+}

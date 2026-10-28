@@ -1,0 +1,31 @@
+{
+  "status": "pass",
+  "unit": {
+    "command": "npm test -- --run",
+    "configuredMaxWorkers": 1,
+    "files": 132,
+    "testsPassed": 1143,
+    "durationSeconds": 351.12
+  },
+  "typescript": {
+    "command": "npx tsc --noEmit",
+    "pass": true
+  },
+  "lint": {
+    "scope": "src/s-core/models src/components scripts score/[id] resource/[id] vitest.config.mts",
+    "pass": true
+  },
+  "productMatchesFinalPerformanceSource": true,
+  "measuredSourceFilesChecked": 361,
+  "normalBuildAndDedicatedIntegration": "Existing successful evidence in measurements/us3-final/t032-summary.json, same product source; not rerun for test-worker/publication-only changes.",
+  "initialParallelRun": {
+    "filesFailed": 3,
+    "testsFailed": 6,
+    "cause": "Unbounded workers caused DOM wait/test timeouts; original expectations and timeouts retained."
+  },
+  "remainingProductFindings": 0,
+  "rawEvidencePublication": "Local only; see evidence.md",
+  "separateWorkExcluded": [
+    "docs/smufl-audit.md"
+  ]
+}

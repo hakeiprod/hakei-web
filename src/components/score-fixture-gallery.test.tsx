@@ -1,4 +1,9 @@
-import { cleanup, render } from "@testing-library/react";
+import { act, cleanup, render, waitFor } from "@testing-library/react";
+import { createStore, Provider } from "jotai";
+import { hydrateRoot, type Root } from "react-dom/client";
+import { renderToString } from "react-dom/server";
+import { debugAtom } from "@/store/debug";
+import * as BrowserRender from "@/s-core/models/browser/render-score";
 import { afterEach, expect, test, vi } from "vitest";
 import { ScoreFixtureGallery } from "./score-fixture-gallery";
 import * as Core from "@/s-core/models/core";
@@ -39,7 +44,7 @@ const definition = fixtureSchema.parse({
   ],
   visualChecklist: [{ id: "visual-head", expected: "Black head is visible" }],
 });
-test("shows expectations but does not turn successful SVG generation into a visual pass", () => {
+test("shows expectations but does not turn successful SVG generation into a visual pass", async () => {
   const { getByText, container } = render(
     <ScoreFixtureGallery
       fixtures={[
@@ -51,7 +56,7 @@ test("shows expectations but does not turn successful SVG generation into a visu
       ]}
     />,
   );
-  expect(getByText("Rendered")).toBeDefined();
+  await waitFor(() => expect(getByText("Rendered")).toBeDefined());
   expect(getByText("One black head")).toBeDefined();
   expect(getByText("検証: pending")).toBeDefined();
   expect(container.textContent).toContain("head-doc: 1 · pass");
@@ -90,7 +95,7 @@ test("shows expected rejection without trying to render and exposes corrupt repo
   expect(getByText("Corrupt report")).toBeDefined();
   expect(getByText("検証: error")).toBeDefined();
 });
-test("renders every page of fixed page-layout fixtures", () => {
+test("renders every page of fixed page-layout fixtures", async () => {
   const sheet = Core.Score.create({
     tracks: [
       {
@@ -112,10 +117,62 @@ test("renders every page of fixed page-layout fixtures", () => {
       pageLayout: { width: 12, height: 12, margin: 1 },
     },
   };
-  const { container } = render(
+  render(
     <ScoreFixtureGallery
       fixtures={[{ name: "pages", definition: page, sheet }]}
     />,
   );
-  expect(container.querySelectorAll("svg").length).toBeGreaterThan(1);
+  await waitFor(() =>
+    expect(
+      document.querySelectorAll("[data-fixture=pages] svg").length,
+    ).toBeGreaterThan(1),
+  );
 });
+
+
+test.each([false, true])(
+  "hydrates stored debug=%s without mismatch or drawing the SSR default first",
+  async (storedDebug) => {
+    const draw = vi.spyOn(BrowserRender, "renderScore").mockImplementation(
+      () => new Promise(() => {}),
+    );
+    const fixtures = [{
+      name: "hydration",
+      data: { tracks: [{ notes: [{ pitch: 60, start: 0, duration: 1 }] }] },
+    }];
+    const serverStore = createStore();
+    serverStore.set(debugAtom, true);
+    const clientStore = createStore();
+    clientStore.set(debugAtom, storedDebug);
+    const host = document.createElement("div");
+    document.body.append(host);
+    host.innerHTML = renderToString(
+      <Provider store={serverStore}>
+        <ScoreFixtureGallery fixtures={fixtures} />
+      </Provider>,
+    );
+    expect(host.querySelector("button")?.getAttribute("aria-pressed")).toBe("true");
+    expect(draw).not.toHaveBeenCalled();
+    const recoverable: unknown[] = [];
+    let root: Root | undefined;
+    try {
+      await act(async () => {
+        root = hydrateRoot(host,
+          <Provider store={clientStore}>
+            <ScoreFixtureGallery fixtures={fixtures} />
+          </Provider>,
+          { onRecoverableError: (error) => recoverable.push(error) },
+        );
+      });
+      await waitFor(() => expect(draw).toHaveBeenCalledOnce());
+      expect(recoverable).toEqual([]);
+      expect(draw.mock.calls[0][1].debug).toBe(storedDebug);
+      expect(host.querySelector("button")?.getAttribute("aria-pressed"))
+        .toBe(String(storedDebug));
+    } finally {
+      await act(async () => root?.unmount());
+      host.remove();
+      draw.mockRestore();
+    }
+  },
+);

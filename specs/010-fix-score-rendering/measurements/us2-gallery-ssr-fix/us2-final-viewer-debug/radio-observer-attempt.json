@@ -1,0 +1,17 @@
+{
+  "results": [
+    {
+      "fixture": "original",
+      "layout": "横スクロール",
+      "pass": true,
+      "sourceIds": 5540,
+      "sourceIdsSha256": "977d5a12638e0fc6fdb457916d56173d7647976dc3c06292af90ac6be26fc7c2",
+      "svgOffRoundtripEqual": true,
+      "svgOffSha256": "8cb9e14a834e417def15a7dd6d6698833ab0cf7781b53481d98685707c399993",
+      "debugBoundsOn": 11479,
+      "errors": []
+    }
+  ],
+  "pass": true,
+  "purpose": "Actual production Viewer debug ON/OFF and source IDs, separate from timing acceptance"
+}

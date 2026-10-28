@@ -1,3 +1,4 @@
+import { drainSteps, sortSteps } from "../render-steps";
 import type { VisualTie } from "./schema";
 export interface TieNote {
   id: number | string;
@@ -27,6 +28,9 @@ export interface TieProblem {
 export const tieIdentity = (note: Pick<TieNote, "trackId" | "id">) =>
   `${note.trackId}:${note.id}`;
 export function resolveTies(notes: readonly TieNote[]) {
+  return drainSteps(resolveTiesSteps(notes));
+}
+export function* resolveTiesSteps(notes: readonly TieNote[]) {
   const pending = new Map<
     string,
     { note: TieNote; tie: VisualTie; origin: TieRelation["origin"] }[]
@@ -38,9 +42,11 @@ export function resolveTies(notes: readonly TieNote[]) {
     message: string,
     code: TieProblem["code"] = "DISPLAY_TIE_UNRESOLVED",
   ) => problems.push({ note, code, message });
-  for (const note of notes.toSorted(
+  for (const note of yield* sortSteps(
+    notes,
     (a, b) => a.start - b.start || String(a.id).localeCompare(String(b.id)),
   )) {
+    yield;
     if (note.rest || (note.pitch === null && !note.tablature)) continue;
     const explicit = note.visualTies !== undefined;
     const ties: readonly VisualTie[] =

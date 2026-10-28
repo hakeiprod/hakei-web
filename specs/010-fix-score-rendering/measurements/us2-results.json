@@ -1,0 +1,345 @@
+{
+  "status": "US2-complete-US3-pending",
+  "performancePass": true,
+  "budgetsUnchanged": true,
+  "modelBudgetMs": 6500,
+  "browserColdBudgetMs": 12500,
+  "redrawBudgetMs": 6500,
+  "inputBudgetMs": 100,
+  "pageBudgetMs": 100,
+  "pilot": {
+    "fixture": "naitoobunaitsu-bitomario",
+    "runsPerCondition": 1,
+    "conditions": 12,
+    "explicitFrameReviews": 80,
+    "summary": {
+      "trials": 12,
+      "cutoffs": 0,
+      "failures": 0,
+      "unmeasurable": 0,
+      "cold": {
+        "count": 12,
+        "maxMs": 3884.219999998808,
+        "medianMs": 3642.7685000002384
+      },
+      "redraws": {
+        "count": 24,
+        "maxMs": 4666.416999965906,
+        "medianMs": 3819.454499989748
+      },
+      "pageNavigation": {
+        "count": 8,
+        "maxMs": 45.16499999165535,
+        "medianMs": 30.952999994158745
+      },
+      "inputs": {
+        "count": 44,
+        "maxMs": 80.682000041008,
+        "medianMs": 32.74050000309944
+      }
+    },
+    "allTrialTimingPass": true,
+    "conditionReturnSVGExact": true,
+    "artifacts": "us2-attempts/us2-original-diagnostic-v8"
+  },
+  "remaining": [
+    "all 96 conditions cold5/roundtrip5",
+    "frozen T005 non-worsening",
+    "gallery including original",
+    "debug separate regression",
+    "full current surface geometry/visual evidence"
+  ],
+  "note": "Pilot acceptance is scoped; not T025 or feature completion.",
+  "unsuccessfulSmallFixtureAttempt": {
+    "artifacts": "us2-attempts/us2-quarter-attempt-v8",
+    "trials": 60,
+    "lowerBoundNonWorseningFailures": 7,
+    "accepted": false
+  },
+  "remainingWork": [
+    "Profile quarter H360 scale18 run1 cold116.784ms via private renderScore.onStage; SVG bound101.592ms and Tab focus overlap",
+    "Fix confirmed cold bottleneck; verify quarter5/all40 images, original5/all40 and native cancellation keeping current leave fix",
+    "All96 x5 small fixtures first on frozen source and explicit images",
+    "Old independent Document/SVG reference with only separate barline overlay; gallery/debug/workflow and later tasks"
+  ],
+  "retainedUnsuccessfulAttempts": [
+    "us2-attempts/us2-quarter-attempt-v8",
+    "us2-attempts/us2-quarter-attempt-v9",
+    "us2-attempts/us2-quarter-attempt-v10",
+    "us2-attempts/us2-quarter-attempt-v11",
+    "us2-attempts/us2-quarter-attempt-v12",
+    "us2-attempts/quarter-initial-capture-missing-tail"
+  ],
+  "latestScopedAttempt": {
+    "summary": "us2-native-scale-summary.json",
+    "small": "us2-scoped/us2-native-scale-quarter/scope-summary.json",
+    "original": "us2-scoped/us2-native-scale-original/scope-summary.json",
+    "scopeTimingPass": true,
+    "smallLeavePass": true,
+    "smallColdPass": true,
+    "originalScopePass": true,
+    "fullUS2Pass": null
+  },
+  "completedBrowserScopes": [
+    {
+      "fixture": "quarter_middle_c",
+      "path": "us2-scoped/us2-formal-quarter-tail/scope-summary.json",
+      "trials": 60,
+      "reviewedImages": 480,
+      "scopeTimingPass": true,
+      "fullUS2Pass": null
+    }
+  ],
+  "unreviewedFullBrowserCollection": {
+    "inventory": "us2-unreviewed/inventory.json",
+    "totalTrialsIncludingQuarter": 480,
+    "errors": 0,
+    "missingEvidence": 0,
+    "svgRestored": 480,
+    "performancePass": null,
+    "confirmedColdFailure": {
+      "fixture": "beam-primary",
+      "layout": "Horizontal",
+      "viewport": "360x800",
+      "scale": 12,
+      "run": 5,
+      "ms": 125.9210000000894,
+      "fixedThresholdMs": 123.45839999914169,
+      "evidence": "us2-unreviewed/us2-formal-beam-primary-tail/cold-reviewed.json"
+    }
+  },
+  "latestAudioSchedulingDiagnostic": {
+    "path": "us2-scoped/us2-target-audio-paint/scope-summary.json",
+    "trials": 10,
+    "reviewedImages": 80,
+    "fullUS2Pass": null
+  },
+  "latestSourceAcceptance": {
+    "path": "us2-gallery-ssr-fix/summary.json",
+    "scope": "Gallery SSR fixed and native MXL/notation debug roundtrips passed; production Viewer debug6 cases passed; prior full96 browser/model/exact reference/workflow evidence retained by byte-exact source scope proof.",
+    "fullUS2Pass": true
+  },
+  "latestConfirmedFailure": {
+    "path": "us2-scoped/us2-small-leave-hydration-quarter/confirmed-failure.json",
+    "kind": "cold non-worsening",
+    "condition": "quarter_middle_c-Horizontal-360x800-18",
+    "run": 1,
+    "correctPresentationMs": 116.78400000184774,
+    "fixedThresholdMs": 112.89399999380112,
+    "sourceSnapshot": "us2-small-leave-hydration-source",
+    "historicalSource": true,
+    "currentSourceRecheck": "us2-native-scale-summary.json"
+  },
+  "currentCandidate": {
+    "changes": [
+      "bounded small-only opacity compositing",
+      "full-schema jitless validation for bounded inputs only",
+      "content-visibility hidden only after surface retirement",
+      "one transparent HTML native-scroll hit target for large graphics; SVG unchanged",
+      "content-visibility auto on each saved-score warning paragraph; warning contents retained",
+      "Defer offscreen saved-score warning/history/proposal/edit sections with content-visibility:auto and intrinsic block fallback; all content and musical/SVG sources unchanged.",
+      "Use actual Header Next Link pending leases to suspend the owned score surface reversibly; restore on settled navigation if the Viewer remains, defer restore until unmount cleanup, retain scroll only for unchanged drawing.",
+      "Use fresh scheduler.postTask background continuations when available so boosted rendering continuations do not starve ordinary UI updates; preserve abort and legacy fallbacks.",
+      "Skip viewport DOM read and startup task wait for viewport-independent horizontal rendering; measure actual surface on commit. Vertical/Page keep actual viewport and initial postcommit yield.",
+      "Use HeroUI styled native numeric Input, min1 step any, existing finite-positive validation retained."
+    ],
+    "performancePass": null,
+    "verification": "Current source full96 browser conditions x5 passed with3890 explicit scene reviews,50 page counter reviews,480 SVG roundtrip matches. Prior87 related tests/types/lint passed; no product source changed in this collection turn. Other T025 checks pending.",
+    "priorBoundedScopeFailures": [
+      "us2-scoped/us2-bounded-small/scope-summary.json",
+      "us2-scoped/us2-bounded-vertical/scope-summary.json"
+    ],
+    "priorBoundedSurfaceComparison": "us2-bounded-surface-comparison/results.json",
+    "priorBoundedViewportVisualReviews": "us2-bounded-surface-comparison/visual-review.json",
+    "completeFeatureAcceptance": false,
+    "scopedResults": [
+      "us2-scoped/us2-jitless-visibility-small/scope-summary.json",
+      "us2-scoped/us2-jitless-visibility-vertical/scope-summary.json"
+    ],
+    "fullModel": {
+      "results": "us2-model-final/results.json",
+      "comparison": "us2-model-final/comparison.json",
+      "trials": 480,
+      "conditions": 96,
+      "documentSVGMatch": true,
+      "modelTimingPass": true
+    },
+    "stoppedFullBrowserAttempt": {
+      "path": "us2-scoped/us2-jitless-final-browser/reviewed.json",
+      "trials": 12,
+      "reviewedImages": 24,
+      "coldKeyboardMs": 115.0160000026226,
+      "leaveMs": 104.29900000244379,
+      "accepted": false
+    },
+    "latestHorizontalScope": {
+      "path": "us2-scoped/us2-hit-target-horizontal-resumed/scope-summary.json",
+      "trials": 10,
+      "reviewedImages": 80,
+      "scopeTimingPass": true,
+      "coldKeyboardMaxMs": 82.236,
+      "leaveMaxMs": 82.647,
+      "allInputMaxMs": 82.647,
+      "svgRestored": 10
+    },
+    "finalSurfaceComparison": {
+      "results": "us2-hit-target-final-surface-comparison/results.json",
+      "visualReview": "us2-hit-target-final-surface-comparison/visual-review.json",
+      "conditions": 96,
+      "sourceAndGeometryMatch": true,
+      "explicitViewportPairs": 96,
+      "exactRasterMatches": 19,
+      "exactDrawingMatches": 36
+    },
+    "latestIncompleteFullBrowserAttempt": {
+      "path": "us2-scoped/us2-hit-target-final-browser/confirmed-failures.json",
+      "trials": 323,
+      "plannedTrials": 480,
+      "explicitReviewedImages": 3,
+      "confirmedFailureCount": 3,
+      "fullUS2Pass": false
+    },
+    "capabilityValidationFix": {
+      "change": "Bounded initial ShowScore capability validation uses the unchanged import candidate schema with per-call jitless:true. Default capability callers unchanged.",
+      "artifacts": "us2-scoped/us2-capabilities-targets/scope-summary.json",
+      "diagnostic": "us2-react-sync-diagnostic/notes.json",
+      "tests": {
+        "relevantPassed": 19,
+        "typescript": "pass",
+        "eslint": "pass",
+        "redBeforeFix": true
+      },
+      "trials": 10,
+      "explicitReviewedImages": 80,
+      "scopeTimingPass": true,
+      "coldMaxMs": 85.90300000086427,
+      "inputMaxMs": 82.87600000016391,
+      "redrawMaxMs": 27.070000000298023,
+      "SVGExactAgainstSameGeometryControl": true,
+      "SVGExactAgainstPriorFrozenSource": false,
+      "preExistingGeometryDifference": "source-differences.json and preservation.json retain changed final barline gap, not modified by this fix",
+      "original230msCallbackRootCauseFullyProven": false,
+      "fullUS2Pass": null,
+      "preExistingGeometryChangeUserConfirmed": "Separate work; preserve. Same-geometry control verifies this fix has no SVG change. Previous fixed baseline remains unchanged."
+    },
+    "latestFullBrowserAttempt": {
+      "path": "us2-scoped/us2-sections-full-browser/confirmed-failure.json",
+      "plannedTrials": 480,
+      "trials": 22,
+      "confirmedFailures": 1,
+      "reviewedImages": 1,
+      "latestAttemptTimingPass": false,
+      "fullUS2Pass": false
+    },
+    "sectionLayoutFix": {
+      "artifacts": "us2-scoped/us2-sections-tab18/scope-summary.json",
+      "preservation": "us2-scoped/us2-sections-tab18/preservation.json",
+      "functional": "us2-section-visibility/results.json",
+      "diagnostic": "us2-section-layout-diagnostic/notes.json",
+      "security": "us2-section-evidence-security.json",
+      "trials": 5,
+      "explicitReviewedImages": 40,
+      "scopeTimingPass": true,
+      "coldMaxMs": 89.76300000026822,
+      "fixedColdThresholdMs": 125.77080000042915,
+      "redrawMaxMs": 27.57700000004843,
+      "inputMaxMs": 97.61599999992177,
+      "allSVGAndGeometryExact": true,
+      "allMusicModelSourcesUnchanged": true,
+      "fullUS2Pass": null
+    },
+    "navigationFix": {
+      "artifacts": "us2-scoped/us2-navigation-priority-original/scope-summary.json",
+      "latencyReport": "us2-scoped/us2-navigation-priority-original/latency-report.json",
+      "preservation": "us2-scoped/us2-navigation-priority-original/preservation.json",
+      "nativeCancellation": "us2-navigation-priority-cancel/results.json",
+      "beforePriorityFailedAttempt": "us2-scoped/us2-navigation-original/notes.json",
+      "testsPassed": 64,
+      "testsFiles": 8,
+      "typescript": "pass",
+      "eslint": "pass",
+      "trials": 5,
+      "explicitReviewedImages": 40,
+      "scopeTimingPass": true,
+      "leaveMaxMs": 72.77500000037253,
+      "inputMaxMs": 73.9890000000596,
+      "coldMaxMs": 4664.824000000022,
+      "redrawMaxMs": 4170.960000000894,
+      "allSVGAndGeometryExact": true,
+      "sameSVGOnNativeCancellation": true,
+      "scrollLeftRestored": 640,
+      "hardNetworkFailureTested": false,
+      "fullT025Pass": null
+    },
+    "boundedContinuationFix": {
+      "status": "limited scopes and native cancellation passed; full 96 pending",
+      "testsPassed": 91,
+      "typecheck": true,
+      "lint": true,
+      "changes": [
+        "bounded snapshots use scheduler.yield; large work remains fresh background tasks",
+        "initial time-zero note highlight prepared before first publication",
+        "soundfont fetch gated on ready; decode after paint"
+      ],
+      "budgetsUnchanged": true,
+      "scopedResults": [
+        "us2-scoped/us2-bounded-boost-quarter/scope-summary.json",
+        "us2-scoped/us2-bounded-boost-original/scope-summary.json"
+      ],
+      "cancellation": "us2-bounded-boost-cancel/results.json",
+      "sourceSnapshot": "us2-bounded-boost-source"
+    },
+    "audioBackgroundFix": {
+      "status": "implemented; tests/type/lint pass, browser cold still fails",
+      "purpose": "Move post-RAF audio preparation out of rendering frame into fresh background task",
+      "budgetsUnchanged": true
+    },
+    "layoutStartFix": {
+      "status": "tests/type/lint/private build passed; cold five passed, leave two failed",
+      "purpose": "Start cooperative rendering before unrelated passive work, preserving 8ms yields",
+      "next": "quarter5/all images, original5/cancel, reordered full96",
+      "sourceSnapshot": "us2-layout-start-source",
+      "relatedTestsPassed": 73
+    },
+    "smallLeaveFix": {
+      "summary": "us2-small-leave-summary.json",
+      "sourceSnapshot": "us2-small-leave-hydration-source",
+      "relatedTestsPassed": 94,
+      "typecheck": true,
+      "lint": true,
+      "status": "limited leave and original/cancellation passed; quarter cold failed"
+    }
+  },
+  "latestFullBrowserAttempt": {
+    "path": "us2-scoped/us2-bounded-boost-full-browser",
+    "status": "stopped-failed",
+    "trials": 97,
+    "plannedTrials": 480,
+    "confirmedFailure": "confirmed-failure.json",
+    "sourceSnapshot": "us2-bounded-boost-source",
+    "otherColdFramesUnreviewed": 96
+  },
+  "latestFullBrowserAcceptance": {
+    "path": "us2-scoped/us2-native-scale-full-browser/scope-summary.json",
+    "fullBrowserPass": true,
+    "conditions": 96,
+    "trials": 480,
+    "explicitlyReviewedScenes": 3890,
+    "fullUS2Pass": null
+  },
+  "latestRemainingValidation": {
+    "path": "us2-final-validation/summary.json",
+    "modelTimingPass": true,
+    "independentDocumentSVGExact": true,
+    "importWorkflowPass": true,
+    "galleryHydrationPass": false,
+    "T025Complete": false
+  },
+  "performancePassScope": "Prior full96 browser and model each480 trials; unchanged timing-source proof in us2-gallery-ssr-fix/source-proof.json. No performance budgets changed.",
+  "fullUS2Pass": true,
+  "T025Complete": true,
+  "latestGallerySSRValidation": {
+    "path": "us2-gallery-ssr-fix/summary.json",
+    "pass": true
+  }
+}

@@ -1,3 +1,5 @@
+import { drainSteps, sortSteps } from "../sheet/render-steps";
+import { measure } from "../sheet/layout-pass";
 import { firstBy, flat, map, pipe, prop } from "remeda";
 import * as Engraving from "./";
 import * as Sheet from "../sheet";
@@ -6,7 +8,14 @@ export class Chord extends Sheet.Chord {
   noteheadsLigature = new Engraving.Ligature();
   legerlinesLigature = new Engraving.Ligature();
   override get width() {
-    return this.word.width;
+    return measure(
+      this.score.layoutPass,
+      this,
+      "engraving/chord.ts:width",
+      () => {
+        return this.word.width;
+      },
+    );
   }
   get noteheadOffset() {
     return this.notes.reduce(
@@ -60,14 +69,25 @@ export class Chord extends Sheet.Chord {
     return firstBy(this.notes, [prop("glyph", "left"), "desc"])!.glyph.left;
   }
   draw() {
+    return drainSteps(this.drawSteps());
+  }
+  *drawSteps() {
     this.word = new Engraving.Word();
     this.noteheadsLigature = new Engraving.Ligature();
     this.legerlinesLigature = new Engraving.Ligature();
-    this.noteheadsLigature.append(this.notes.map(prop("glyph")));
+    const noteheads = [];
+    for (const note of this.notes) {
+      noteheads.push(note.glyph);
+      yield;
+    }
+    this.noteheadsLigature.append(noteheads);
     // Give accidentals their own columns, including parentheses. This conservatively
     // separates adjacent chord symbols rather than placing them on top of each other.
-    for (const note of this.notes.toSorted((a, b) => a.line - b.line))
-      for (const glyph of note.accidentalGlyphs) this.word.append([glyph]);
+    for (const note of yield* sortSteps(this.notes, (a, b) => a.line - b.line))
+      for (const glyph of note.accidentalGlyphs) {
+        this.word.append([glyph]);
+        yield;
+      }
     this.word.append(
       [this.noteheadsLigature],
       this.notes.map(prop("dotLigature")),
@@ -87,8 +107,9 @@ export class Chord extends Sheet.Chord {
     // on that same horizontal origin so their center sits under the notehead.
     for (const glyph of this.legerlinesLigature.glyphLists.flat()) {
       glyph.x = this.glyphAdvanceWidth;
+      yield;
     }
     // Local glyph positions are needed when measuring ink before row layout.
-    this.word.order();
+    yield* this.word.orderSteps();
   }
 }

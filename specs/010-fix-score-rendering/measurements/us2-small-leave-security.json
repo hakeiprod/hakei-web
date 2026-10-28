@@ -1,0 +1,16 @@
+{
+  "scopes": [
+    "us2-small-leave-source",
+    "us2-small-leave-hydration-source",
+    "us2-small-leave-keyboard-preservation",
+    "us2-small-leave-cancel",
+    "us2-scoped/us2-small-leave-before",
+    "us2-scoped/us2-small-leave-lazy-keyboard",
+    "us2-scoped/us2-small-leave-hydration-quarter",
+    "us2-scoped/us2-small-leave-hydration-original"
+  ],
+  "filesAndArchiveMembers": 20092,
+  "matches": [],
+  "pass": true,
+  "purpose": "Exact private secrets/database URL/cookies scan; values excluded"
+}

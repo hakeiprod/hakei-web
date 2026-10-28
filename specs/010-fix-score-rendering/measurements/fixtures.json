@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "runs": 5,
+  "cutoffMs": 30000,
+  "offlineCutoffMs": 1800000,
+  "fixtures": [
+    {
+      "id": "naitoobunaitsu-bitomario",
+      "path": "src/s-core/fixtures/files/musicxml/naitoobunaitsu-bitomario.mxl",
+      "sha256": "1d15dcf279b2de186682740fbdfb501eb5e2e80f5977993cde04f1027b9f36fe"
+    },
+    {
+      "id": "quarter_middle_c",
+      "path": "src/s-core/fixtures/files/musicxml/quarter_middle_c.mxl",
+      "sha256": "bbf817cd1ef0be965b4039c72f0214c6f7caec1cf617375f670824b822888a9d"
+    },
+    {
+      "id": "triple_grand_staff",
+      "path": "src/s-core/fixtures/files/musicxml/triple_grand_staff.mxl",
+      "sha256": "8ade6624178a7526cb893a9ec82c5bbe5fb33025fcf1dc762c1c59195da7b54d"
+    },
+    {
+      "id": "cross-bar",
+      "path": "src/s-core/fixtures/notation/ties/cross-bar.musicxml",
+      "sha256": "3ff5383a376781c60997405eff6efd3a11dd3770fb896d05a890ec871c2a7b6a"
+    },
+    {
+      "id": "simultaneous-strings",
+      "path": "src/s-core/fixtures/tab-drum/tab/simultaneous-strings.musicxml",
+      "sha256": "e2bd2e827b1054a90b976b2e2c088b32e9862f0804383c6d7a4e34957320fbec"
+    },
+    {
+      "id": "snare",
+      "path": "src/s-core/fixtures/tab-drum/drums/snare.musicxml",
+      "sha256": "560719017b4c53d3016fc24e395ec564ad002ce35f9835e13be43ebb897fc54d"
+    },
+    {
+      "id": "simultaneous-conflict",
+      "path": "src/s-core/fixtures/notation/accidentals/simultaneous-conflict.musicxml",
+      "sha256": "e15ba8e9b00fb299d8d3af19cf58a279140369abf955bfd9ebdda68a953a40fa"
+    },
+    {
+      "id": "beam-primary",
+      "path": "src/s-core/fixtures/notation/basic/beam-primary.musicxml",
+      "sha256": "fd440b324a87a6295185a69c03298fd76600956100f0dd76767a0707e1bf4cec"
+    }
+  ],
+  "layouts": [
+    "Horizontal",
+    "Vertical",
+    "Page"
+  ],
+  "viewports": [
+    {
+      "width": 1280,
+      "height": 900
+    },
+    {
+      "width": 360,
+      "height": 800
+    }
+  ],
+  "scales": [
+    12,
+    18
+  ],
+  "advanced": true,
+  "debug": false,
+  "fontSha256": "98f0ab7922e9af19acbc0c0fde7ffc4efdcef3798404a16ebf976a03758ed6a5",
+  "provenance": "specs/007-musicxml-version-compat/fixture-provenance.md#naitoobunaitsu-bitomario（利用者提供の実ファイル）",
+  "independentMeaning": {
+    "test": "src/s-core/models/import/naitoobunaitsu.test.ts",
+    "notes": 5540,
+    "sha256": "e7a094b9a0f50e280e02c18ed67ffd64d8472e642564f015c77b00ecb7875cfc"
+  },
+  "separateRegressionConditions": [
+    {
+      "debug": true,
+      "advanced": true,
+      "layout": "Horizontal",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "scale": 12
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+
+> hakei@0.1.0 test
+> vitest --run
+
+The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths resolution natively via the resolve.tsconfigPaths option. You can remove the plugin and set resolve.tsconfigPaths: true in your Vite config instead.
+
+ RUN  v4.1.11 /workspaces/hakei-web
+
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+Not implemented: HTMLCanvasElement's getContext() method: without installing the canvas npm package
+
+ Test Files  132 passed (132)
+      Tests  1143 passed (1143)
+   Start at  01:46:31
+   Duration  351.12s (transform 7.77s, setup 18.39s, import 29.67s, tests 246.70s, environment 40.83s)
+

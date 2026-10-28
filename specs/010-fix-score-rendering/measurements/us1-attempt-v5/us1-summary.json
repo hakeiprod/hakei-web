@@ -1,0 +1,84 @@
+{
+  "status": "failed-performance-budget",
+  "performancePass": false,
+  "task": "T018",
+  "budgetsUnchanged": true,
+  "model": {
+    "path": "us1-attempt-v3/model.json",
+    "equivalence": "us1-attempt-v3/model-equivalence.json",
+    "trialsMs": [
+      1755.8618880000004,
+      1842.839891,
+      1718.88218,
+      1818.2155199999997,
+      1879.883213
+    ],
+    "maxMs": 1879.883213,
+    "medianMs": 1818.2155199999997,
+    "budgetMs": 6500,
+    "allPass": true
+  },
+  "browser": {
+    "path": "us1-attempt-v5/reviewed.json",
+    "sourceManifest": "us1-attempt-v5/source-manifest.json",
+    "instrumentation": "us1-attempt-v5/instrumentation.json",
+    "cold": {
+      "count": 5,
+      "maxMs": 3628.025999993086,
+      "medianMs": 3169.82800000906
+    },
+    "coldBudgetMs": 12500,
+    "coldAllPass": true,
+    "operations": {
+      "during-render-key": {
+        "trialsMs": [
+          59.84400001168251,
+          60.733000010252,
+          49.159000009298325,
+          63.756999999284744,
+          53.69699999690056
+        ],
+        "maxMs": 63.756999999284744,
+        "medianMs": 59.84400001168251,
+        "budgetMs": 100,
+        "allPass": true
+      },
+      "text-input": {
+        "trialsMs": [
+          57.23600000143051,
+          52.02599999308586,
+          83.125,
+          64.71200001239777,
+          66.53199997544289
+        ],
+        "maxMs": 83.125,
+        "medianMs": 64.71200001239777,
+        "budgetMs": 100,
+        "allPass": true
+      },
+      "leave": {
+        "trialsMs": [
+          141.95399996638298,
+          139.99399998784065,
+          129.233000010252,
+          126.34099999070168,
+          129.89800000190735
+        ],
+        "maxMs": 141.95399996638298,
+        "medianMs": 129.89800000190735,
+        "budgetMs": 100,
+        "allPass": false
+      }
+    },
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "reviewedFrames": 20
+  },
+  "outstanding": [
+    "leave <=100ms in every trial",
+    "reload five trials",
+    "remaining US2/US3/full regression and full-condition performance"
+  ],
+  "earlierAttempt": "us1-attempt-v3/reviewed.json"
+}

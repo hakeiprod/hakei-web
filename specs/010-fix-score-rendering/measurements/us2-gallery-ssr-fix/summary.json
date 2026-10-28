@@ -1,0 +1,29 @@
+{
+  "status": "T025-complete",
+  "dateJST": "2026-10-28",
+  "gallerySSRFixed": true,
+  "storedDebugFalseTrueHydrationTests": true,
+  "noSSRDefaultRenderBeforeCommittedPreference": true,
+  "relatedTestsPassed": 42,
+  "typecheck": true,
+  "eslint": true,
+  "nativeGallery": {
+    "mxlCards": 18,
+    "notationCards": 188,
+    "hydrationErrors": 0,
+    "offOnOffExact": true,
+    "originalSourceIdsEachState": 5540,
+    "fontStatus": "loaded; Bravura"
+  },
+  "viewerDebugCases": 6,
+  "viewerDebugPass": true,
+  "screenshotsExplicitlyReviewed": 10,
+  "previousFull96BrowserAndModelPassRetainedBySourceProof": true,
+  "independentDocumentSVGExact": true,
+  "originalImportWarningsSaveReloadStorageSemanticsPass": true,
+  "fullUS2Pass": true,
+  "T025Complete": true,
+  "featureComplete": false,
+  "budgetsUnchanged": true,
+  "next": "T026: audit existing adapter cancellation tests, fill stage abort/exception/retry/late A success-failure after B coverage; verify unpublished Score/DOM/subscriptions released. Then T027 onward."
+}

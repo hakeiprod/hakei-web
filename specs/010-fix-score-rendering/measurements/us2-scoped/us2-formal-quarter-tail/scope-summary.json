@@ -1,0 +1,109 @@
+{
+  "scope": "us2-formal-quarter-tail",
+  "fullUS2Pass": null,
+  "scopeTimingPass": true,
+  "trials": 60,
+  "reviewedImages": 480,
+  "summary": {
+    "trials": 60,
+    "cutoffs": 0,
+    "failures": 0,
+    "unmeasurable": 0,
+    "cold": {
+      "count": 60,
+      "maxMs": 123.1359999999404,
+      "medianMs": 98.91799999959767
+    },
+    "redraws": {
+      "count": 120,
+      "maxMs": 152.7609999999404,
+      "medianMs": 32.25250000040978
+    },
+    "pageNavigation": {
+      "count": 0,
+      "maxMs": null,
+      "medianMs": null
+    },
+    "inputs": {
+      "count": 300,
+      "maxMs": 88.74900000169873,
+      "medianMs": 23.123999999836087
+    }
+  },
+  "nonWorsening": [
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-12-0",
+      "maxMs": 112.30499999970198,
+      "fixedThresholdMs": 238.87560001015663,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-1280x900-18-0",
+      "maxMs": 107.26400000043213,
+      "fixedThresholdMs": 149.47200000286102,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-12-0",
+      "maxMs": 99.38700000010431,
+      "fixedThresholdMs": 132.92880000472067,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Horizontal-360x800-18-0",
+      "maxMs": 104.95299999974668,
+      "fixedThresholdMs": 112.89399999380112,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-12-0",
+      "maxMs": 119.7989999987185,
+      "fixedThresholdMs": 174.11999999284743,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-1280x900-18-0",
+      "maxMs": 106.0949999988079,
+      "fixedThresholdMs": 150.47160000801085,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-12-0",
+      "maxMs": 103.33900000154972,
+      "fixedThresholdMs": 117.8369999974966,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Vertical-360x800-18-0",
+      "maxMs": 95.9320000000298,
+      "fixedThresholdMs": 113.66499999165535,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-12-0",
+      "maxMs": 123.1359999999404,
+      "fixedThresholdMs": 145.04039999842644,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-1280x900-18-0",
+      "maxMs": 115.01200000010431,
+      "fixedThresholdMs": 146.36160001158714,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-12-0",
+      "maxMs": 113.69600000046194,
+      "fixedThresholdMs": 135.22200000286102,
+      "pass": true
+    },
+    {
+      "condition": "quarter_middle_c-Page-360x800-18-0",
+      "maxMs": 100.61999999918044,
+      "fixedThresholdMs": 129.88919999599457,
+      "pass": true
+    }
+  ],
+  "svgRestored": 60,
+  "budgetsUnchanged": true
+}

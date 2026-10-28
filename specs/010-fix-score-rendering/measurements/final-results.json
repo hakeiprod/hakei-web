@@ -1,0 +1,70 @@
+{
+  "status": "T033-complete",
+  "completedAt": "2026-10-27T22:40:20.221649+00:00",
+  "model": {
+    "conditions": 96,
+    "trials": 480,
+    "maxMs": 1557.1511400000004,
+    "medianMs": 13.270505000000014,
+    "results": "final/model-results.json",
+    "comparison": "final/model-comparison.json",
+    "timingPass": true,
+    "hashMismatches": 0,
+    "expandedArtifactByteComparisons": 192,
+    "independentOldAlgorithmWithSeparateBarline": true
+  },
+  "browser": {
+    "results": "final/browser-results.json",
+    "reviews": "final/browser-reviews.json",
+    "conditions": 96,
+    "trials": 480,
+    "validationPass": true,
+    "summary": {
+      "trials": 480,
+      "cutoffs": 0,
+      "failures": 0,
+      "unmeasurable": 0,
+      "cold": {
+        "count": 480,
+        "maxMs": 2936.753999993205,
+        "medianMs": 69.26199999451637
+      },
+      "redraws": {
+        "count": 960,
+        "maxMs": 3078.1689999997616,
+        "medianMs": 29.530500002205372
+      },
+      "pageNavigation": {
+        "count": 50,
+        "maxMs": 30.366999998688698,
+        "medianMs": 20.029499985277653
+      },
+      "inputs": {
+        "count": 2450,
+        "maxMs": 94.59399999678135,
+        "medianMs": 21.128500007092953
+      }
+    },
+    "reviewedScenes": 3890,
+    "svgRoundtripMatches": 480,
+    "finiteNonWorseningConditionsPassed": 84,
+    "allCutoffOriginalBaselineConditions": 12
+  },
+  "budgetsUnchanged": true,
+  "newSourceSeries": true,
+  "sourceManifest": "final/final-source-manifest.json",
+  "instrumentation": "final/final-browser-instrumentation.json",
+  "archiveIndex": "final/archives.json",
+  "checks": "us3-final/t032-summary.json",
+  "lifecycle": "us3-final/summary.json",
+  "physicalAudioMIDI": "unverified",
+  "legacyTempoPaddedRestBoundary": "Unresolved separate old quarter-sheet/Core-input boundary; official two target MXLs have zero uncovered tempo notes/rests.",
+  "featureCompletion": {
+    "tasksComplete": 36,
+    "requirementsMapping": "../validation.md",
+    "us3": "us3-results.json",
+    "convergence": "final/convergence.json",
+    "cleanup": "final/cleanup.json",
+    "next": "Review implementation diff and evidence; no further implement pass required."
+  }
+}

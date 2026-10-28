@@ -1,6 +1,12 @@
+import {
+  drainSteps,
+  mapSteps,
+  sortSteps,
+  type RenderSteps,
+} from "../../sheet/render-steps";
 import * as Drawing from "../../document";
 import type { Score } from "../score";
-import { resolveTies } from "../../sheet/notation/ties";
+import { resolveTiesSteps } from "../../sheet/notation/ties";
 interface Anchor {
   row: number;
   x: number;
@@ -23,10 +29,18 @@ function addCurve(
 }
 /** Add ties after horizontal layout, then reserve vertical room before pagination. */
 export function attachTies(score: Score, rows: Drawing.Group[]) {
+  return drainSteps(attachTiesSteps(score, rows));
+}
+export function* attachTiesSteps(score: Score, rows: Drawing.Group[]) {
   const anchors = new Map<string, Anchor>();
   for (const [index, row] of rows.entries()) {
-    const visit = (elements: readonly Drawing.Element[], x = 0, y = 0) => {
+    const visit = function* (
+      elements: readonly Drawing.Element[],
+      x = 0,
+      y = 0,
+    ): RenderSteps<void> {
       for (const element of elements) {
+        yield;
         if (
           element.anchorRole === "note-anchor" &&
           element.anchorBounds &&
@@ -42,23 +56,25 @@ export function attachTies(score: Score, rows: Drawing.Group[]) {
           });
         }
         if (element instanceof Drawing.Group)
-          visit(
+          yield* visit(
             element.children,
             x + element.position.x,
             y + element.position.y,
           );
       }
     };
-    visit(row.children);
+    yield* visit(row.children);
   }
   const sourceNotes = new Map(
     score.notes.map((note) => [`${note.trackId}:${note.id}`, note]),
   );
   const chordRanks = new Map<string, number>();
   for (const chord of score.chords) {
-    const notes = chord.notes
-      .filter((note) => !note.rest)
-      .toSorted((a, b) => a.line - b.line);
+    yield;
+    const notes = yield* sortSteps(
+      chord.notes.filter((note) => !note.rest),
+      (a, b) => a.line - b.line,
+    );
     for (const [rank, note] of notes.entries())
       chordRanks.set(`${note.trackId}:${note.id}`, rank);
   }
@@ -67,10 +83,14 @@ export function attachTies(score: Score, rows: Drawing.Group[]) {
   );
   const ink = rows.map(() => ({ top: 0, bottom: 0 }));
   for (const [index, row] of rows.entries()) {
-    const visit = (elements: readonly Drawing.Element[], y = 0) => {
+    const visit = function* (
+      elements: readonly Drawing.Element[],
+      y = 0,
+    ): RenderSteps<void> {
       for (const element of elements) {
+        yield;
         if (element instanceof Drawing.Group)
-          visit(element.children, y + element.position.y);
+          yield* visit(element.children, y + element.position.y);
         else if (
           element instanceof Drawing.Glyph &&
           (element.role === "tab-digit" ||
@@ -93,11 +113,16 @@ export function attachTies(score: Score, rows: Drawing.Group[]) {
         }
       }
     };
-    visit(row.children);
+    yield* visit(row.children);
   }
   const curves = rows.map(() => [] as Drawing.Curve[]);
-  const notes = score.notes.map((note) => note.export());
-  for (const relation of resolveTies(notes).relations) {
+  const notes = yield* mapSteps(score.notes, function* (note) {
+    yield;
+    return note.export();
+  });
+  const resolved = yield* resolveTiesSteps(notes);
+  for (const relation of resolved.relations) {
+    yield;
     const startNote = relation.startNote,
       endNote = relation.endNote;
     const a = anchors.get(`${startNote.trackId}:${startNote.id}`),
@@ -149,7 +174,8 @@ export function attachTies(score: Score, rows: Drawing.Group[]) {
       );
     }
   }
-  return rows.map((row, index) => {
+  return yield* mapSteps(rows, function* (row, index) {
+    yield;
     const system = score.rows[index];
     const musicalHeight = system.height;
     const top = Math.max(

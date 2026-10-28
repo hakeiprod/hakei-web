@@ -1,9 +1,10 @@
+import { drainSteps, mapSteps, sortSteps } from "../render-steps";
 import {
   accidentalAlter,
   type ExplicitAccidental,
   type NotatedPitch,
 } from "./schema";
-import { resolveTies, tieIdentity, type TieNote } from "./ties";
+import { resolveTiesSteps, tieIdentity, type TieNote } from "./ties";
 export interface AccidentalNote extends TieNote {
   notatedPitch?: NotatedPitch;
   explicitAccidental?: ExplicitAccidental;
@@ -25,27 +26,37 @@ export function resolveAccidentals(
   bars: readonly { id: number; start: number; end: number }[],
   keys: readonly { start: number; accidental: number }[],
 ) {
+  return drainSteps(resolveAccidentalsSteps(notes, bars, keys));
+}
+export function* resolveAccidentalsSteps(
+  notes: readonly AccidentalNote[],
+  bars: readonly { id: number; start: number; end: number }[],
+  keys: readonly { start: number; accidental: number }[],
+) {
   const result = new Map<string, AccidentalDecision>();
   const state = new Map<string, number | null>();
+  const tieNotes = yield* mapSteps(notes, function* (note) {
+    yield;
+    return { ...note, visualTies: undefined };
+  });
+  const ties = yield* resolveTiesSteps(tieNotes);
   const continuations = new Set(
-    resolveTies(
-      notes.map((n) => ({ ...n, visualTies: undefined })),
-    ).relations.map((r) => tieIdentity(r.endNote)),
+    ties.relations.map((relation) => tieIdentity(relation.endNote)),
   );
-  const ordered = notes
-    .filter((n) => !n.rest && n.notatedPitch)
-    .toSorted(
-      (a, b) =>
-        a.start - b.start ||
-        a.trackId - b.trackId ||
-        String(a.id).localeCompare(String(b.id)),
-    );
+  const ordered = yield* sortSteps(
+    notes.filter((n) => !n.rest && n.notatedPitch),
+    (a, b) =>
+      a.start - b.start ||
+      a.trackId - b.trackId ||
+      String(a.id).localeCompare(String(b.id)),
+  );
   const sortedKeys = keys.toSorted((a, b) => a.start - b.start);
   const sortedBars = bars.toSorted((a, b) => a.start - b.start);
   let keyIndex = 0,
     barIndex = 0;
   let index = 0;
   while (index < ordered.length) {
+    yield;
     const start = ordered[index].start;
     const batch: AccidentalNote[] = [];
     while (
@@ -67,6 +78,7 @@ export function resolveAccidentals(
     const bar = sortedBars[barIndex];
     const groups = new Map<string, AccidentalNote[]>();
     for (const note of batch) {
+      yield;
       const pitch = note.notatedPitch!;
       const key = `${note.trackId}:${note.staveId ?? 0}:${bar?.id ?? 0}:${keySignature.start}:${pitch.step}:${pitch.octave}`;
       const group = groups.get(key) ?? [];
@@ -93,6 +105,7 @@ export function resolveAccidentals(
       const conflict =
         new Set(group.map((n) => n.notatedPitch!.alter)).size > 1;
       for (const note of group) {
+        yield;
         const spelling = note.notatedPitch!;
         const explicit = note.explicitAccidental;
         const kind =
